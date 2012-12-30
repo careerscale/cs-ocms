@@ -1,0 +1,58 @@
+#summary One-sentence summary of this page.
+#labels Phase-Implementation
+
+= Introduction =
+
+This page is primarily to setup the developer environment in his/her computer.
+
+
+= Pre-requisites =
+
+
+ ## JDK 7  http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html
+## Eclipse juno
+http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/junosr1
+## SVN plugin installed  http://subclipse.tigris.org/update_1.8.x
+## Maven plugin to eclipse installed
+http://q4e.googlecode.com/svn/trunk/updatesite-iam/
+
+
+= Getting the code =
+
+  * SVN URL for the code base https://cs-ocms.googlecode.com/svn/trunk/ocms
+Then check out this code and configure the project in eclipse. Try building it.
+
+Initially it will take lot of time to build as it would be downloading
+lot of  jars from internet. it might even fail after downloading some
+files, please try few more times.
+
+= Building and running the code =
+
+right click on the pom.xml and maven -> install to build.
+
+
+how do we run this project?
+
+right click on pom.xml
+
+"Run as" -> Run configurations -> then enter
+
+clean install tomcat7:run  in the maven goal input field.
+
+It would take some time and then  console will show you it has started
+tomcat (if successful), if not you need to resolve any issues.
+
+We will do this in a online session in gotomeeting on 1st Evening if
+that is ok for all of you. if someone is going to miss, well, that is
+ok, we will publish this on youtube and can be accessed later.
+
+= Useful reading =
+
+Maven: http://www.sonatype.com/books/mvnref-book/reference/
+SVN : http://svnbook.red-bean.com/
+Also,
+1. spring framework,
+2. spring MVC
+3. Hibernate
+4. MySQL database and queries.
+
