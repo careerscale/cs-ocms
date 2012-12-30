@@ -35,6 +35,8 @@ public class PersistenceConfig implements TransactionManagementConfigurer {
 	@Value("${hibernate.hbm2ddl.import_files}")
 	private String hbm2ddlInitialImport;
 
+	@Value("${hibernate.show_sql}")
+	private String showSQL;
 	
 	@Bean
 	public DataSource configureDataSource() {
@@ -55,8 +57,9 @@ public class PersistenceConfig implements TransactionManagementConfigurer {
 		
 		Properties jpaProperties = new Properties();
 		jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
-		jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, hbm2ddlAuto);
+		jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, hbm2ddlAuto);		
 		jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_IMPORT_FILES, hbm2ddlInitialImport);
+		jpaProperties.put(org.hibernate.cfg.Environment.SHOW_SQL,showSQL);
 		entityManagerFactoryBean.setJpaProperties(jpaProperties);
 		
 		return entityManagerFactoryBean;
