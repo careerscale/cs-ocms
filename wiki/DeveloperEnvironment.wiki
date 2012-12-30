@@ -46,10 +46,9 @@ ok, we will publish this on youtube and can be accessed later.
 
 = Useful reading =
 
-Maven: http://www.sonatype.com/books/mvnref-book/reference/
-SVN : http://svnbook.red-bean.com/
-Also,
-1. spring framework,
-2. spring MVC
-3. Hibernate
-4. MySQL database and queries.
+ # Maven: http://www.sonatype.com/books/mvnref-book/reference/
+ # SVN : http://svnbook.red-bean.com  and also
+ # spring framework,
+ # spring MVC
+ # Hibernate
+ # MySQL database and queries.
