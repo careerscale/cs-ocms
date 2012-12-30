@@ -32,6 +32,10 @@ public class PersistenceConfig implements TransactionManagementConfigurer {
 	@Value("${hibernate.hbm2ddl.auto}")
 	private String hbm2ddlAuto;
 
+	@Value("${hibernate.hbm2ddl.import_files}")
+	private String hbm2ddlInitialImport;
+
+	
 	@Bean
 	public DataSource configureDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -46,12 +50,13 @@ public class PersistenceConfig implements TransactionManagementConfigurer {
 	public LocalContainerEntityManagerFactoryBean configureEntityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(configureDataSource());
-		entityManagerFactoryBean.setPackagesToScan("in.careerscale.apps.ocms.user");
+		entityManagerFactoryBean.setPackagesToScan("in.careerscale.apps.ocms.model");
 		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		
 		Properties jpaProperties = new Properties();
 		jpaProperties.put(org.hibernate.cfg.Environment.DIALECT, dialect);
 		jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, hbm2ddlAuto);
+		jpaProperties.put(org.hibernate.cfg.Environment.HBM2DDL_IMPORT_FILES, hbm2ddlInitialImport);
 		entityManagerFactoryBean.setJpaProperties(jpaProperties);
 		
 		return entityManagerFactoryBean;

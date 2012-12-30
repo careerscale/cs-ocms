@@ -1,5 +1,7 @@
 package in.careerscale.apps.ocms.user;
 
+import in.careerscale.apps.ocms.model.User;
+
 import javax.persistence.*;
 
 import org.springframework.stereotype.Repository;
