@@ -10,6 +10,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
+import in.careerscale.apps.ocms.model.*;
+import in.careerscale.apps.ocms.model.User;
+
 @Service("userService")
 public class UserService implements UserDetailsService {
 	

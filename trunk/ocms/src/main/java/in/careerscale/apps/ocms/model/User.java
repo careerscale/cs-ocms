@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.user;
+package in.careerscale.apps.ocms.model;
 
 import javax.persistence.*;
 
