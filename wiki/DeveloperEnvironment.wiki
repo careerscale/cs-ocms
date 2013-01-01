@@ -13,6 +13,7 @@ This page is primarily to setup the developer environment in his/her computer.
  ## Eclipse juno http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/junosr1
  ## SVN plugin installed  http://subclipse.tigris.org/update_1.8.x
  ## Maven plugin to eclipse installed http://q4e.googlecode.com/svn/trunk/updatesite-iam/
+## [http://www.mysql.com/downloads/installer/ MySQL database and work bench(single installer) ]
 
 
 = Getting the code =
