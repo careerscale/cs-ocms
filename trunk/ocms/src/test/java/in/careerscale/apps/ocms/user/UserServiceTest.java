@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
+import in.careerscale.apps.ocms.model.User;
+
 import java.util.Collection;
 
 import org.junit.Rule;
