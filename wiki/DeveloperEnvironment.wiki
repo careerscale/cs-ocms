@@ -52,3 +52,4 @@ ok, we will publish this on youtube and can be accessed later.
  # spring MVC
  # Hibernate
  # MySQL database and queries.
+http://dev.mysql.com/doc/refman/5.0/en//resetting-permissions.html
