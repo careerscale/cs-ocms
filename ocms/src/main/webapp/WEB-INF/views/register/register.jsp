@@ -94,7 +94,7 @@
 						<p></p>
 						<br clear="all" />
 						<div>
-							<form id="signUpForm" type="actionForm" action="register"
+							<form id="signUpForm" type="actionForm" commandName="user" action="register"
 								method="post">
 
 
@@ -109,8 +109,9 @@
 								<table cellpadding="0" cellspacing="0" border="0">
 									<tr>
 										<td class="label"><label for="emailId">Email Id:</label></td>
-										<td class="field"><input id="emailId" class="required email"
-											maxlength="40" name="emailId" size="20" type="text" value="user@careerscale.in"
+										<td class="field"><input id="emailId"
+											class="required email" maxlength="40" name="emailId"
+											size="20" type="text" value="user@careerscale.in"
 											tabindex="1" value="" /></td>
 									</tr>
 									<tr>
@@ -152,23 +153,23 @@
 										<td class="label"><label for="dateOfBirth">Birth
 												Date:</label></td>
 										<td class="field"><input maxlength="40"
-											class="required date" name="dateOfBirth" size="20" type="text"
-											tabindex="6"   value="01/01/1980" /></td>
+											class="required date" name="dateOfBirth" size="20"
+											type="text" tabindex="6" value="01/01/1980" /></td>
 									</tr>
 
 									<tr>
 										<td></td>
 										<td>
-											<div class="buttonSubmit"> class="formButton123"
-												<span></span> <input  type="submit"
-													value="Next" style="width: 140px" tabindex="7" />
+											<div class="buttonSubmit">
+												<span></span> <input class="formButton" type="submit"
+													value="Next" style="width: 140px" tabindex="14" />
 											</div>
 
 										</td>
+
 									</tr>
 								</table>
-								<br />
-								<br />
+								<br /> <br />
 							</form>
 							<br clear="all" />
 
