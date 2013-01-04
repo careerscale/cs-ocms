@@ -2,6 +2,7 @@ package in.careerscale.apps.ocms.web;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,15 +19,18 @@ public class RegistrationController {
 	private String firstName;
 	private String lastName;
 	private Date dateOfBirth;
-	
+
+	@RequestMapping(params="emailId")
 	public String getEmailId() {
 		return emailId;
 	}
 
+	
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-
+	
+	@RequestMapping(params="password")
 	public String getPassword() {
 		return password;
 	}
@@ -61,6 +65,7 @@ public class RegistrationController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String index(Model model) {
+		System.out.println("into the get method call");
 		return "register/register";
 	}
 	
