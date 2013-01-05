@@ -1,21 +1,28 @@
-<%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
+	<!-- start header container -->
+		<div id="header-background">
+			<div class="nav-global-container">
+				<div class="login">
+					<a href="#"><span></span>Login</a>
+				</div>
+				<div class="logo">
+					<a href="#"><img src="resources/images/logo_careerscale.gif"
+						width="168" height="73" alt="CareerScale" /></a>
 
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+				</div>
 
-<c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<c:set var="datePattern"><fmt:message key="date.format"/></c:set>
-<p>== Header ==</p>
-
-
-<%
-
-/**<%@ taglib uri="http://www.springframework.org/tags/commons-validator" prefix="v" 
-*/  
-
-%>
+				<div class="nav-global">
+					<ul>
+						<li><a href="#" class="nav-g01"><span></span>Home</a></li>
+						<li><a href="#" class="nav-g02"><span></span>Cases</a></li>
+						<li><a href="#" class="nav-g04"><span></span>Support</a></li>
+						<li><a href="#" class="nav-g05"><span></span>About OCMS</a></li>
+						<li><a href="#" class="nav-g06"><span></span>Tell a
+								Friend</a></li>
+					</ul>
+				</div>
+				OCMS - Online Case Management System, The application connnecting
+				the DOTS in the society!
+			</div>
+		</div>
+		<!-- end header container -->
+		<div class="line-grey-tier"></div>
