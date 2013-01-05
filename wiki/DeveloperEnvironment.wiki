@@ -55,3 +55,7 @@ ok, we will publish this on youtube and can be accessed later.
  # Hibernate
  # MySQL database and queries.
 http://dev.mysql.com/doc/refman/5.0/en//resetting-permissions.html
+
+= Good to have plugins =
+# http://www.eclemma.org/installation.html
+# http://findbugs.sourceforge.net/manual/eclipse.html
