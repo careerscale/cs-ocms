@@ -3,8 +3,7 @@ package in.careerscale.apps.ocms.web.registration.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class User implements Serializable {
 	private String emailId;
@@ -78,7 +77,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this).
-			       append("id", id).
+			      // append("id", id).
 			       append("firstName", firstName).
 			       append("lastName", lastName).
 			       append("dateOfBirth", dateOfBirth).
