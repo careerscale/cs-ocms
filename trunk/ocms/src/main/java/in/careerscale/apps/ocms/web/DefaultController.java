@@ -8,4 +8,11 @@ public class DefaultController {
 
 	@RequestMapping("/default/**/*")
 	public void defaultRequest() {}
+	
+	@RequestMapping("/login")
+	public String login() {
+		
+		return "default/login";
+		
+	}
 }

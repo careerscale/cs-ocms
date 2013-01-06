@@ -52,7 +52,7 @@ public class PersistenceConfig implements TransactionManagementConfigurer {
 	public LocalContainerEntityManagerFactoryBean configureEntityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setDataSource(configureDataSource());
-		entityManagerFactoryBean.setPackagesToScan("in.careerscale.apps.ocms.model");
+		entityManagerFactoryBean.setPackagesToScan("in.careerscale.apps.ocms.dao.model");
 		entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		
 		Properties jpaProperties = new Properties();

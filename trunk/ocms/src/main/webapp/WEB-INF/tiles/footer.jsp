@@ -1,7 +1,7 @@
 	<div id="footer-container" align="center">
 			<div class="footer">
 				<ul>
-					<li><a href="/ocms">Home</a></li>
+					<li><a href="/">Home</a></li>
 					<li class="line-off"><a href="http://www.careerscale.in">Powered by CareerScale</a></li>
 				</ul>
 			</div>

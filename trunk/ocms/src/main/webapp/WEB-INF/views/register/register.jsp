@@ -27,6 +27,17 @@
 				<br clear="all" />
 				<div>
 
+					<div id="error">
+						<spring:hasBindErrors name="user">
+							<font color="red"> <c:forEach items="${errors.allErrors}"
+									var="error">
+									<spring:message code="${error.code}"
+										text="${error.defaultMessage}" />
+									<br />
+								</c:forEach>
+							</font>
+						</spring:hasBindErrors>
+					</div>
 					<form:form commandName="user" method="post" action="register"
 						id="signUpForm" modelAttribute="user">
 						<!-- <form id="signUpForm" type="actionForm" commandName="user" action="register"
@@ -80,7 +91,8 @@
 								<td class="label"><label for="dateOfBirth">Birth
 										Date:</label></td>
 								<td class="field"><form:input path="dateOfBirth"
-										type="text" class="required date" tabindex="6" maxlength="15" value="01/01/1980" />
+										type="text" class="required date" tabindex="6" maxlength="15"
+										value="01/01/1980" />
 							</tr>
 
 							<tr>

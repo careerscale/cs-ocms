@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+@SuppressWarnings("serial")
 public class User implements Serializable {
 	private String emailId;
 	private String password;
@@ -12,7 +13,34 @@ public class User implements Serializable {
 	private String lastName;
 	private Date dateOfBirth;
 	
+	/*
+	 * Default constructor. We need this as spring mvc initializes this form bean with default constructor.
+	 *
+	 */
+	public User(){
+		
+	}
 	
+	public String getUserName(){
+		return emailId;
+	}
+	
+	
+	public String getUsername() {
+		return emailId;
+	}
+
+	public void setUsername(String username) {
+		this.emailId = username;
+	}
+
+	public User(String emailId, String firstName, String lastName, Date dateOfBirth){
+		this.emailId =emailId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		
+	}
 	
 	public String getEmailId() {
 		return emailId;
