@@ -1,5 +1,9 @@
 package in.careerscale.apps.ocms.web.registration;
 
+import java.beans.PropertyEditor;
+import java.util.List;
+import java.util.Map;
+
 import in.careerscale.apps.ocms.web.registration.model.User;
 import in.careerscale.apps.ocms.service.UserService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
@@ -7,6 +11,7 @@ import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 
@@ -17,6 +22,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,7 +57,7 @@ public class RegistrationController implements Validator {
         try{
 		userService.registerUser(bean);
         }catch(ApplicationException ae){
-			errors.addError(new ObjectError("userNameError", "User Name is already in use, please choose another one ::" + ae.getCause().getMessage()));
+        	errors.addError(new ObjectError("userNameError", "User Name is already in use, please choose another one ::" + ae.getCause().getMessage()));
 			return "register/register";
 		}
 		return "register/registered"; // we need to return next page.
