@@ -903,6 +903,7 @@ table.grid td {
 
 div.buttonSubmit {
 	position: relative;
+	z-index:100;
 }
 
 div.buttonSubmit input,div.buttonSubmit span {

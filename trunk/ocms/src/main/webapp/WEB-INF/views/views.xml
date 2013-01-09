@@ -9,9 +9,7 @@
 	<definition name="*" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp"></put-attribute>
 	</definition>
-	
-	
-		<definition name="login" extends="default">
+	<!-- <definition name="login" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/default/login.jsp"></put-attribute>
 	</definition>
 
@@ -20,7 +18,7 @@
 	</definition>
 	<definition name="registered" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp"></put-attribute>
-	</definition>
+	</definition> -->
 
 
 
