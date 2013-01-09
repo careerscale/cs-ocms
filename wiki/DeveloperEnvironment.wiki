@@ -63,3 +63,6 @@ http://dev.mysql.com/doc/refman/5.0/en//resetting-permissions.html
 = Project related videos =
 http://www.youtube.com/playlist?list=PLUt5z7bPvuPL6yi0rYnVVZmB71-AFIr8x
 
+Java trainings http://www.youtube.com/playlist?list=PLF118AF9DB836E150&feature=view_all
+
+
