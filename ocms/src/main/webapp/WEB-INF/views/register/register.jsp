@@ -10,6 +10,40 @@
   <link rel="stylesheet" type="text/css" media="all" href="ie6.css" />
 <![endif]-->
 <!-- start page container 2 div-->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#dateOfBirth").datepicker({
+			showOn : "button",
+			buttonImage : "resources/images/ico_calendar.gif",
+			buttonImageOnly : true,
+			appendText : ' DD/MM/YYYY ',
+			buttonText : 'Date selector 1',
+			align : "middle",
+			changeMonth : true,
+			changeYear : true,
+			defaultDate : null,
+			showOn : 'both',
+			alt : 'Date Selector 1',
+			cursor : 'pointer',
+			dateFormat : 'dd/mm/yy',
+			beforeShow : function(input, inst) {
+				$('ui-widget-header').css({
+					"color" : 'red',
+					"width" : "100%"
+				});
+				$('#ui-datepicker-div').css({					
+					"z-index" : "1"						
+				});
+
+			}
+
+		});
+
+	});
+</script>
+
+
 <div id="page-container" class="resize">
 	<div id="page-content-inner" class="resize">
 
