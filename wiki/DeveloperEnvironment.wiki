@@ -1,5 +1,5 @@
-#summary One-sentence summary of this page.
 #labels Phase-Implementation
+# Summary OCMS development setup
 
 = Introduction =
 
@@ -65,4 +65,4 @@ http://www.youtube.com/playlist?list=PLUt5z7bPvuPL6yi0rYnVVZmB71-AFIr8x
 
 Java trainings http://www.youtube.com/playlist?list=PLF118AF9DB836E150&feature=view_all
 
-
+= http://www.thegeekstuff.com/2009/07/change-reset-mysql-root-password-on-unix-linux
