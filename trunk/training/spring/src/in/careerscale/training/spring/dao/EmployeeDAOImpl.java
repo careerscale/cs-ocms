@@ -12,8 +12,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		this.connectionManager = connectionManager;
 	}
 
-
-
 	public void register(Employee employee) {
 		Connection con =connectionManager.getConnection();
 		
