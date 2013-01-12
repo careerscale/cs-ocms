@@ -3,7 +3,6 @@ package in.careerscale.training;
 
 import in.careerscale.training.spring.dao.model.Employee;
 import in.careerscale.training.spring.manager.EmployeeManager;
-import in.careerscale.training.spring.manager.EmployeeManagerImpl;
 
 public class Application {
 
@@ -14,7 +13,9 @@ public class Application {
 		
 		Employee employee = new Employee();
 		EmployeeManager manager = CareerScaleFactory.getEmployeeManager();
+		
 		manager.register(employee);
+		
 		
 		
 		

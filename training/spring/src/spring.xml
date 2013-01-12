@@ -5,16 +5,29 @@
 
 	<bean id="connectionManager"
 		class="in.careerscale.training.spring.dao.JDBCConnectionManagerImpl">
-
+		<constructor-arg>
+			<value>Dummy JDBC connection string</value>
+		</constructor-arg>
+	
 	</bean>
+
 
 	<bean id="employeeDao" class="in.careerscale.training.spring.dao.EmployeeDAOImpl">
 		<property name="connectionManager" ref="connectionManager" />
+		<!--Spring will create employeeDao object from the class given and will 
+			call setConnectionManager on employeeDao object to set the connectionManager 
+			object -->
 	</bean>
+<!-- 	<bean id="dao" class="in.careerscale.training.spring.dao.EmployeeDAOImpl">
+		<property name="connectionManager" ref="connectionManager" />
+		Spring will create employeeDao object from the class given and will 
+			call setConnectionManager on employeeDao object to set the connectionManager 
+			object
+	</bean> -->
 
 	<bean id="employeeManager"
-		class="in.careerscale.training.spring.manager.EmployeeManagerImpl">
-		<property name="dao" ref="employeeDao" />
+		class="in.careerscale.training.spring.manager.EmployeeManagerImpl"  >
+		 <property name="dao" ref="employeeDao" />  
 	</bean>
 
 

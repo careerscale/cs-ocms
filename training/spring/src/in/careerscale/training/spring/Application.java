@@ -15,12 +15,6 @@ public class Application {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		/*
-		 * ApplicationContext context = new ClassPathXmlApplicationContext(
-		 * "spring.xml");
-		 */
-
 		BeanFactory factory = new XmlBeanFactory(new ClassPathResource(
 				"spring.xml"));
 		EmployeeManager manager = (EmployeeManager) factory
@@ -28,6 +22,15 @@ public class Application {
 		Employee employee = new Employee();
 		manager.register(employee);
 
+		//Either beanFactory or application context can be used.
+		//ApplicationContext is bean factory + additional facilities.
+		System.out.println("\n\nFrom ApplicationContext approach ");
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"spring.xml");
+		EmployeeManager manager1 = (EmployeeManager) context.getBean("employeeManager");
+		manager1.register(new Employee());
+
+		
 	}
 
 }
