@@ -2,6 +2,20 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<bean id="test" class="in.careerscale.training.spring.Test">
+
+	<bean id="connectionManager"
+		class="in.careerscale.training.spring.dao.JDBCConnectionManagerImpl">
+
 	</bean>
+
+	<bean id="employeeDao" class="in.careerscale.training.spring.dao.EmployeeDAOImpl">
+		<property name="connectionManager" ref="connectionManager" />
+	</bean>
+
+	<bean id="employeeManager"
+		class="in.careerscale.training.spring.manager.EmployeeManagerImpl">
+		<property name="dao" ref="employeeDao" />
+	</bean>
+
+
 </beans>
