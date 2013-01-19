@@ -1,28 +1,18 @@
 package in.careerscale.apps.ocms.web.registration;
 
-import java.beans.PropertyEditor;
-import java.util.List;
-import java.util.Map;
-
-import in.careerscale.apps.ocms.web.registration.model.User;
 import in.careerscale.apps.ocms.service.UserService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.web.registration.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -39,6 +29,14 @@ public class RegistrationController implements Validator {
 	@Autowired
 	private DaoAuthenticationProvider authenticationProvider;
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(HttpServletRequest request,
+			HttpServletResponse response) {
+		System.out.println("into the login");
+
+		return "register/login";
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String index(@ModelAttribute(value = "user") User bean,
 			BindingResult errors, HttpServletRequest request,
