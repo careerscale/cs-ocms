@@ -34,7 +34,7 @@ img {
 #letterbox {
 	margin: 10px auto;
 	width: 883px;
-	background-color: #364158;
+	background-color: white;
 	border: 8px solid #D4D4D4;
 	padding: 1px 1px 10px 1px;
 }
@@ -130,7 +130,7 @@ div.login a span {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	padding: 5px 0px 5px 0px;;
+	padding: 5px 0px 5px 0px;
 }
 
 div.login a:hover span {
@@ -909,6 +909,7 @@ div.buttonSubmit {
 div.buttonSubmit input,div.buttonSubmit span {
 	height: 36px;
 	position: relative;
+	
 	background-image: url(images/button-submit.gif);
 	background-repeat: no-repeat;
 	background-position: right 0px;
@@ -920,6 +921,26 @@ div.buttonSubmit input,div.buttonSubmit span {
 	border: 0px;
 	cursor: pointer;
 	z-index: 5;
+}
+div.buttonSubmit1 {
+	position: relative;
+	z-index:1;
+}
+
+div.buttonSubmit1 input,div.buttonSubmit1 span {
+	height: 36px;
+	position: relative;
+	background-image: url(images/button-submit.gif);
+	background-repeat: no-repeat;
+	background-position: right 0px;
+	float: left;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 0px 20px 2px 15px;
+	margin: 2px -150px 25px 88px;
+	border: 0px;
+	cursor: pointer;
+	z-index: 2;
 }
 
 div.buttonSubmit input {
@@ -1025,12 +1046,15 @@ div.left-nav-callout a {
 
 form table td {
 	padding: 5px;
+	
 }
 
-form table input {
+form table input{
+	
 	width: 200px;
 	padding: 3px;
 	margin: 0px;
+	
 }
 
 textarea {
@@ -1038,7 +1062,7 @@ textarea {
 }
 
 td.label {
-	width: 150px;
+	width: 80px;
 }
 
 tr.required td.label {
@@ -1177,4 +1201,15 @@ div.footerAddress {
 	color: #666666;
 	font-size: 11px;
 	display: none;
+}
+div.login1{
+	background-color:lightblue;
+	
+	margin-left:8px;
+	margin-right:8px;
+}
+.registerlink{
+	padding-left:140px;
+	font-weight:bold;
+	font-size:18px;
 }
