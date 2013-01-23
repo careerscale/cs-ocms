@@ -20,8 +20,8 @@
 								Friend</a></li>
 					</ul>
 				</div>
-				OCMS - Online Case Management System, The application connnecting
-				the DOTS in the society!
+				<strong>OCMS - Online Case Management System, The application connnecting
+				the DOTS in the society!</strong>
 			</div>
 		</div>
 		<!-- end header container -->
