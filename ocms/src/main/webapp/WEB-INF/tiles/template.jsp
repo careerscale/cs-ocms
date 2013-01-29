@@ -31,16 +31,34 @@
 <script src="resources/scripts/jquery/jquery.maskedinput.js"></script>
 <script src="resources/scripts/application/register.js"></script>
 
-<link rel="stylesheet" media="screen" href="resources/css/stylesheet.css" />
+<!-- 
 
+/* iPhone, etc portrait ---- */
+@media only screen and (min-width: 320px)
+
+/* iPhone, etc landscape ---- */
+@media only screen and (min-width: 480px)
+
+
+/* iPad, tablets etc portrait ---- */
+@media only screen and (min-width: 768px)
+
+/* Laptops, Desktops, etc ---- */
+@media only screen and (min-width: 1024px)
+
+
+ -->
+
+<link rel="stylesheet" media="screen" href="resources/css/stylesheet.css" />
+<link rel="stylesheet" media="only screen and (min-width: 768px)" href="resources/css/medium/stylesheet.css" />
+<link rel="stylesheet" media="only screen and (min-width: 320px)" href="resources/css/small/stylesheet.css" />
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="datePattern">
 	<fmt:message key="date.format" />
 </c:set>
 
-<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
-	type="text/css" />
-	<link rel="stylesheet" type="text/css" href="/resources/css/redmond/jquery-ui-1.8.16.custom.css" />
+<link href="<c:url value="/resources/css/stylesheet.css"/>" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/resources/css/redmond/jquery-ui-1.8.16.custom.css" />
 	
 	
 </head>
