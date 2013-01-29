@@ -14,3 +14,8 @@ Here are some of the useful readings
   * http://www.1stwebdesigner.com/css/responsive-website-tutorial/
   * http://davidwalsh.name/responsive-css
   * http://www.lynda.com/CSS-tutorials/Creating-Responsive-Web-Design/110716-2.html
+  * http://www.hongkiat.com/blog/responsive-web-tutorials/
+  * http://jquerymobile.com/
+  * http://css.dzone.com/articles/using-csshtml-make-responsive
+
+ * http://www.planetgeek.ch/category/book/
