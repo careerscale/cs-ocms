@@ -10,8 +10,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pl" xml:lang="pl">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="title" content="Register @OCMS | CareerScale " />
@@ -24,20 +24,14 @@
 
 <link rel="shortcut icon" href="/favicon.ico" />
 
-<script src="resources/scripts/jquery/jquery-1.8.3.min.js"
-	type="text/javascript"></script>
-<script src="resources/scripts/jquery/jquery.validate.min.js"
-	type="text/javascript"></script>
-<script src="resources/scripts/jquery/jquery-ui-1.8.17.custom.min.js"
-	type="text/javascript"></script>
+<script src="resources/scripts/jquery/jquery-1.8.3.min.js"></script>
+<script src="resources/scripts/jquery/jquery.validate.min.js"></script>
+<script src="resources/scripts/jquery/jquery-ui-1.8.17.custom.min.js"></script>
 
-<script type="text/javascript"
-	src="resources/scripts/jquery/jquery.maskedinput.js"></script>
-<script type="text/javascript"
-	src="resources/scripts/application/register.js"></script>
+<script src="resources/scripts/jquery/jquery.maskedinput.js"></script>
+<script src="resources/scripts/application/register.js"></script>
 
-<link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/stylesheet.css" />
+<link rel="stylesheet" media="screen" href="resources/css/stylesheet.css" />
 
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="datePattern">
