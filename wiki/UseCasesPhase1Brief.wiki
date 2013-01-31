@@ -1,5 +1,5 @@
 #labels Phase-Requirements
-#Contains use cases for phase 1 at brief.
+Contains use cases for phase 1 at brief.
 
 = Introduction =
 This document is work in progress. Expect lot of edits in this page.
@@ -15,6 +15,21 @@ Education/Medical/orphan/old age home/Livelyhood etc
 Sub types examples:
 Education ->Primary,Secondary, +2, Medical,Engineering, PG etc
 Medical -> Heart/Kindey/Cancer etc.
+
+== Case Status Type ==
+possible values are
+ # Registered
+ # Verification
+ # Verified 
+ # Authorized 
+ # In Progress 
+ # Financial closure 
+ # Bills\Receipts Uploaded 
+ # Reviewed 
+ # Closed
+ # Rejected
+ # Cancelled
+
 
 == Help Type ==
 help Type/ and sub types are possible.
@@ -34,7 +49,7 @@ This list and other master data values to be configurable from administrative pa
 
 == RBAC (Role Based Access Control )  configuration ==
 
-== Case Status Type ==
+
 
 == Application wide Configuration ==
 
