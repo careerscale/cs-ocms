@@ -73,7 +73,7 @@ public class UserService implements UserDetailsService {
 			placeHolderValues.put(EmailTemplates.password, user.getPassword());
 			String emailText = EmailTemplates.getEmailMessage(
 					Template.Registration, placeHolderValues);
-			emailService.sendEmail(emailText, user.getEmailId());
+			emailService.sendMailWithSSL("Registration",emailText, user.getEmailId());
 			}catch(Exception mailFailure){
 				mailFailure.printStackTrace();
 				//TODO this is just stupid to print stacktrace. log it buddy.
