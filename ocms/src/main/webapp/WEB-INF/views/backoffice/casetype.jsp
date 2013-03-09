@@ -1,14 +1,77 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
-<h1><s:message code="view.index.title" /></h1>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<h1>
+	<s:message code="view.backoffice.casetype.title" />
+</h1>
 
 <div id="page-container" class="resize">
 
 	<div id="page-content-inner" class="resize">
-<p>
-	Click <a href='<s:url value="user"></s:url>'>here</a> to navigate to the restricted area. Username: <strong>user</strong>, password: <strong>demo</strong>.
-	Click <a href='<s:url value="default/index"></s:url>'>here</a> to navigate to default area
-</p>
+		<br clear="all" />
+		<div>
 
-</div>
+			<div id="error">
+				<spring:hasBindErrors name="user">
+					<font color="red"> <c:forEach items="${errors.allErrors}"
+							var="error">
+							<spring:message code="${error.code}"
+								text="${error.defaultMessage}" />
+							<br />
+						</c:forEach>
+					</font>
+				</spring:hasBindErrors>
+			</div>
+			<form:form commandName="caseType" method="post"
+				action="/backoffice/casetype" id="backofficeForm"
+				modelAttribute="caseType">
+
+				<div class="error" style="display: none;">
+					<img src="resources/images/warning.gif" alt="Warning!" width="24"
+						height="24" style="float: left; margin: -5px 10px 0px 0px;" /> <span></span>.<br
+						clear="all" />
+				</div>
+
+
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td class="label"><label for="name">Case Type Name:</label></td>
+						<td class="field"><form:input path="name" type="text"
+								class="required" value="" tabindex="1" /></td>
+					</tr>
+					<tr>
+						<td class="label"><label for="description">Description:</label></td>
+
+						<td class="field"><form:input path="description"
+								type="textarea" class="required" value="" tabindex="2"
+								maxlength="40" /></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td>
+							<div class="buttonSubmit">
+								<span></span> <input class="formButton" type="submit"
+									value="Signup" style="width: 140px" tabindex="14" />
+							</div>
+
+						</td>
+
+					</tr>
+				</table>
+				<br />
+				<br />
+			</form:form>
+			<!-- </form> -->
+			<br clear="all" />
+
+
+		</div>
+
+
+
+		</p>
+
+	</div>
 </div>

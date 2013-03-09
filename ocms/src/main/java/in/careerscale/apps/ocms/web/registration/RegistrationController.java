@@ -35,6 +35,12 @@ public class RegistrationController implements Validator {
 	@Autowired
 	private DaoAuthenticationProvider authenticationProvider;
 
+	/** 
+	 * not in use for now. Old way of formatting date from input to java bean.
+	 * but didn't find the solution yet.
+	 * 
+	 * @param binder
+	 */
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
