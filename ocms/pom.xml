@@ -263,6 +263,7 @@
 				<version>2.0</version>
 				<configuration>
 					<path>/</path>
+					<port>9090</port>
 				</configuration>
 			</plugin>
 			<plugin>

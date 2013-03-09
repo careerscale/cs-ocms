@@ -2,8 +2,14 @@ package in.careerscale.apps.ocms.web.registration.model;
 
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 @SuppressWarnings("serial")
 public class User implements Serializable {
@@ -95,7 +101,7 @@ public class User implements Serializable {
 	}
 
 
-
+	@DateTimeFormat(iso=ISO.DATE) 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
@@ -112,5 +118,16 @@ public class User implements Serializable {
 			       append("emailId", emailId).
 			       toString();
 	}
+	
+	
+	 @InitBinder
+	   public void initBinder(WebDataBinder binder) {
+	         binder.initDirectFieldAccess();
+	         /* register appropriate date editor */
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	        dateFormat.setLenient(false);
+	        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	    }
+	
 
 }
