@@ -17,7 +17,7 @@
 			showOn : "button",
 			buttonImage : "resources/images/ico_calendar.gif",
 			buttonImageOnly : true,
-			appendText : ' DD/MM/YYYY ',
+			appendText : ' yyyy-mm-dd ',
 			buttonText : 'Date selector 1',
 			align : "middle",
 			changeMonth : true,
@@ -26,7 +26,7 @@
 			showOn : 'both',
 			alt : 'Date Selector 1',
 			cursor : 'pointer',
-			dateFormat : 'dd/mm/yy',
+			dateFormat : 'yy-mm-dd',
 			beforeShow : function(input, inst) {
 				$('ui-widget-header').css({
 					"color" : 'red',
@@ -126,7 +126,7 @@
 										Date:</label></td>
 								<td class="field"><form:input path="dateOfBirth"
 										type="text" class="required date" tabindex="6" maxlength="15"
-										value="01/01/1980" />
+										value="1980-01-01" />
 							</tr>
 
 							<tr>

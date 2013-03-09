@@ -69,7 +69,7 @@ public class UserService implements UserDetailsService {
 			// Resolve variables
 			Map<String, String> placeHolderValues = new HashMap<String, String>();
 			placeHolderValues.put(EmailTemplates.firstName, user.getFirstName());
-			placeHolderValues.put(EmailTemplates.userName, user.getLastName());
+			placeHolderValues.put(EmailTemplates.userName, user.getEmailId());
 			placeHolderValues.put(EmailTemplates.password, user.getPassword());
 			String emailText = EmailTemplates.getEmailMessage(
 					Template.Registration, placeHolderValues);
