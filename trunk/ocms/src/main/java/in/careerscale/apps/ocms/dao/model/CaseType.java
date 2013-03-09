@@ -51,6 +51,11 @@ public class CaseType implements java.io.Serializable {
 		this.caseMasters = caseMasters;
 	}
 
+	public CaseType(String name, String description) {
+		this.name= name;
+		this.description= description;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
