@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Jun 6, 2011 8:21:35 AM by Hibernate Tools 3.4.0.Beta1
+// Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -35,15 +35,16 @@ public class LoginMaster implements java.io.Serializable {
 	private String firstName;
 	private String lastName;
 	private Date dateOfBirth;
-	private Set<Organization> organizations = new HashSet<Organization>(
-			0);
+	private Set<Organization> organizations = new HashSet<Organization>(0);
 	private Set<UserProfile> userProfiles = new HashSet<UserProfile>(0);
+	private Set<CaseActivity> caseActivities = new HashSet<CaseActivity>(0);
 	private Set<CaseMaster> caseMastersForCreatedBy = new HashSet<CaseMaster>(0);
-	
+	private Set<CaseArtifact> caseArtifacts = new HashSet<CaseArtifact>(0);
+	private Set<CaseType> caseTypes = new HashSet<CaseType>(0);
 	private Set<CaseMaster> caseMastersForUpdatedBy = new HashSet<CaseMaster>(0);
 	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
-	private Set<HelpCategory> helpCategories = new HashSet<HelpCategory>(0);
-	private Set<CaseType> caseTypes = new HashSet<CaseType>(0);
+	private Set<HelpCategoryType> helpCategoryTypes = new HashSet<HelpCategoryType>(
+			0);
 	private Set<CaseUser> caseUsers = new HashSet<CaseUser>(0);
 
 	public LoginMaster() {
@@ -65,16 +66,15 @@ public class LoginMaster implements java.io.Serializable {
 		this.lastName = lastName;
 		this.dateOfBirth=dateOfBirth;
 	}
-
+	
 	
 	public LoginMaster(String emailId, String password, String firstName,
-			String lastName, Date dateOfBirth,
-			Set<Organization> organizations,
-			Set<UserProfile> userProfiles,
+			String lastName, Date dateOfBirth, Set<Organization> organizations,
+			Set<UserProfile> userProfiles, Set<CaseActivity> caseActivities,
 			Set<CaseMaster> caseMastersForCreatedBy,
-			Set<CaseType> caseTypes,
+			Set<CaseArtifact> caseArtifacts, Set<CaseType> caseTypes,
 			Set<CaseMaster> caseMastersForUpdatedBy, Set<UserRole> userRoles,
-			Set<HelpCategory> helpCategories, Set<CaseUser> caseUsers) {
+			Set<HelpCategoryType> helpCategoryTypes, Set<CaseUser> caseUsers) {
 		this.emailId = emailId;
 		this.password = password;
 		this.firstName = firstName;
@@ -82,11 +82,13 @@ public class LoginMaster implements java.io.Serializable {
 		this.dateOfBirth = dateOfBirth;
 		this.organizations = organizations;
 		this.userProfiles = userProfiles;
+		this.caseActivities = caseActivities;
 		this.caseMastersForCreatedBy = caseMastersForCreatedBy;
+		this.caseArtifacts = caseArtifacts;
 		this.caseTypes = caseTypes;
 		this.caseMastersForUpdatedBy = caseMastersForUpdatedBy;
 		this.userRoles = userRoles;
-		this.helpCategories = helpCategories;
+		this.helpCategoryTypes = helpCategoryTypes;
 		this.caseUsers = caseUsers;
 	}
 
@@ -138,7 +140,7 @@ public class LoginMaster implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_of_birth", length = 19)
+	@Column(name = "date_of_birth", length = 0)
 	public Date getDateOfBirth() {
 		return this.dateOfBirth;
 	}
@@ -157,7 +159,7 @@ public class LoginMaster implements java.io.Serializable {
 		this.organizations = organizations;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "loginMaster")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMaster")
 	public Set<UserProfile> getUserProfiles() {
 		return this.userProfiles;
 	}
@@ -166,7 +168,16 @@ public class LoginMaster implements java.io.Serializable {
 		this.userProfiles = userProfiles;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMaster")
+	public Set<CaseActivity> getCaseActivities() {
+		return this.caseActivities;
+	}
+
+	public void setCaseActivities(Set<CaseActivity> caseActivities) {
+		this.caseActivities = caseActivities;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMasterByCreatedBy")
 	public Set<CaseMaster> getCaseMastersForCreatedBy() {
 		return this.caseMastersForCreatedBy;
 	}
@@ -176,7 +187,16 @@ public class LoginMaster implements java.io.Serializable {
 		this.caseMastersForCreatedBy = caseMastersForCreatedBy;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMaster")
+	public Set<CaseArtifact> getCaseArtifacts() {
+		return this.caseArtifacts;
+	}
+
+	public void setCaseArtifacts(Set<CaseArtifact> caseArtifacts) {
+		this.caseArtifacts = caseArtifacts;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "case_type_user", catalog = "ocms", joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "case_type_id", nullable = false, updatable = false) })
 	public Set<CaseType> getCaseTypes() {
 		return this.caseTypes;
@@ -186,7 +206,7 @@ public class LoginMaster implements java.io.Serializable {
 		this.caseTypes = caseTypes;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "updatedBy")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMasterByUpdatedBy")
 	public Set<CaseMaster> getCaseMastersForUpdatedBy() {
 		return this.caseMastersForUpdatedBy;
 	}
@@ -205,14 +225,14 @@ public class LoginMaster implements java.io.Serializable {
 		this.userRoles = userRoles;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "help_category_user", catalog = "ocms", joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "help_category_id", nullable = false, updatable = false) })
-	public Set<HelpCategory> getHelpCategories() {
-		return this.helpCategories;
+	public Set<HelpCategoryType> getHelpCategoryTypes() {
+		return this.helpCategoryTypes;
 	}
 
-	public void setHelpCategories(Set<HelpCategory> helpCategories) {
-		this.helpCategories = helpCategories;
+	public void setHelpCategoryTypes(Set<HelpCategoryType> helpCategoryTypes) {
+		this.helpCategoryTypes = helpCategoryTypes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMaster")

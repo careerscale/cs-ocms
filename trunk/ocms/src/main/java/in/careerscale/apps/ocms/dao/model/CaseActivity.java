@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Jun 6, 2011 8:21:35 AM by Hibernate Tools 3.4.0.Beta1
+// Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -23,20 +23,20 @@ import javax.persistence.TemporalType;
 public class CaseActivity implements java.io.Serializable {
 
 	private Integer id;
+	private LoginMaster loginMaster;
 	private CaseMaster caseMaster;
 	private String action;
-	private LoginMaster actionBy;
 	private Date actionDate;
 	private String description;
 
 	public CaseActivity() {
 	}
 
-	public CaseActivity(CaseMaster caseMaster, String action, LoginMaster actionBy,
-			Date actionDate, String description) {
+	public CaseActivity(LoginMaster loginMaster, CaseMaster caseMaster,
+			String action, Date actionDate, String description) {
+		this.loginMaster = loginMaster;
 		this.caseMaster = caseMaster;
 		this.action = action;
-		this.actionBy = actionBy;
 		this.actionDate = actionDate;
 		this.description = description;
 	}
@@ -50,6 +50,16 @@ public class CaseActivity implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "action_by", nullable = false)
+	public LoginMaster getLoginMaster() {
+		return this.loginMaster;
+	}
+
+	public void setLoginMaster(LoginMaster loginMaster) {
+		this.loginMaster = loginMaster;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -71,19 +81,8 @@ public class CaseActivity implements java.io.Serializable {
 		this.action = action;
 	}
 
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "action_by", nullable = false)	
-	public LoginMaster getActionBy() {
-		return this.actionBy;
-	}
-
-	public void setActionBy(LoginMaster actionBy) {
-		this.actionBy = actionBy;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "action_date", nullable = false, length = 19)
+	@Column(name = "action_date", nullable = false, length = 0)
 	public Date getActionDate() {
 		return this.actionDate;
 	}

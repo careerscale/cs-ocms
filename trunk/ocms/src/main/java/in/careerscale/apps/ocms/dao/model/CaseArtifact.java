@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Jun 6, 2011 8:21:35 AM by Hibernate Tools 3.4.0.Beta1
+// Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +20,7 @@ import javax.persistence.Table;
 public class CaseArtifact implements java.io.Serializable {
 
 	private Integer id;
+	private LoginMaster loginMaster;
 	private CaseMaster caseMaster;
 	private String artifactType;
 	private byte[] artifact;
@@ -34,6 +35,14 @@ public class CaseArtifact implements java.io.Serializable {
 		this.artifact = artifact;
 	}
 
+	public CaseArtifact(LoginMaster loginMaster, CaseMaster caseMaster,
+			String artifactType, byte[] artifact) {
+		this.loginMaster = loginMaster;
+		this.caseMaster = caseMaster;
+		this.artifactType = artifactType;
+		this.artifact = artifact;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
@@ -43,6 +52,16 @@ public class CaseArtifact implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "added_by")
+	public LoginMaster getLoginMaster() {
+		return this.loginMaster;
+	}
+
+	public void setLoginMaster(LoginMaster loginMaster) {
+		this.loginMaster = loginMaster;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
