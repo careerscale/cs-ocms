@@ -26,8 +26,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "user", method = RequestMethod.GET)
-	
+	@RequestMapping(value = "user", method = RequestMethod.GET)	
 	public String index(UserDetails userDetails, Model model) {
 		LOG.info(userDetails.toString());
 		return "user/index";

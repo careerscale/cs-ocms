@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Jun 6, 2011 8:21:35 AM by Hibernate Tools 3.4.0.Beta1
+// Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -27,16 +27,16 @@ public class UserProfile implements java.io.Serializable {
 	private String otherEmailId;
 	private String bloodGroup;
 	private Date anniversary;
-	private Boolean monthlyUpdates;
-	private Boolean specialUpdates;
-	private Boolean regularUpdates;
+	private boolean monthlyUpdates;
+	private boolean specialUpdates;
+	private boolean regularUpdates;
 
 	public UserProfile() {
 	}
 
 	public UserProfile(LoginMaster loginMaster, String otherEmailId,
-			String bloodGroup, Date anniversary, Boolean monthlyUpdates,
-			Boolean specialUpdates,Boolean regularUpdates) {
+			String bloodGroup, Date anniversary, boolean monthlyUpdates,
+			boolean specialUpdates, boolean regularUpdates) {
 		this.loginMaster = loginMaster;
 		this.otherEmailId = otherEmailId;
 		this.bloodGroup = bloodGroup;
@@ -86,7 +86,7 @@ public class UserProfile implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "anniversary", nullable = false, length = 19)
+	@Column(name = "anniversary", nullable = false, length = 0)
 	public Date getAnniversary() {
 		return this.anniversary;
 	}
@@ -96,32 +96,30 @@ public class UserProfile implements java.io.Serializable {
 	}
 
 	@Column(name = "monthly_updates", nullable = false)
-	public Boolean getMonthlyUpdates() {
+	public boolean isMonthlyUpdates() {
 		return this.monthlyUpdates;
 	}
 
-	public void setMonthlyUpdates(Boolean monthlyUpdates) {
+	public void setMonthlyUpdates(boolean monthlyUpdates) {
 		this.monthlyUpdates = monthlyUpdates;
 	}
 
 	@Column(name = "special_updates", nullable = false)
-	public Boolean getSpecialUpdates() {
+	public boolean isSpecialUpdates() {
 		return this.specialUpdates;
 	}
 
-	public void setSpecialUpdates(Boolean specialUpdates) {
+	public void setSpecialUpdates(boolean specialUpdates) {
 		this.specialUpdates = specialUpdates;
 	}
 
 	@Column(name = "regular_updates", nullable = false)
-	public Boolean getRegularUpdates() {
-		return regularUpdates;
+	public boolean isRegularUpdates() {
+		return this.regularUpdates;
 	}
 
-	public void setRegularUpdates(Boolean regularUpdates) {
+	public void setRegularUpdates(boolean regularUpdates) {
 		this.regularUpdates = regularUpdates;
 	}
-	
-	
 
 }

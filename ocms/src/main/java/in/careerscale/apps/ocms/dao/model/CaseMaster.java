@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Jun 6, 2011 8:21:35 AM by Hibernate Tools 3.4.0.Beta1
+// Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,9 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,12 +26,11 @@ import javax.persistence.TemporalType;
 public class CaseMaster implements java.io.Serializable {
 
 	private Integer id;
-	private LoginMaster createdBy;
-	@Enumerated(EnumType.ORDINAL)
-	private CaseStatus caseStatus;
-	private LoginMaster updatedBy;
-	private CaseSubType caseSubType;
-	private HelpCategory helpCategory;
+	private LoginMaster loginMasterByCreatedBy;
+	private CaseStatusMaster caseStatusMaster;
+	private LoginMaster loginMasterByUpdatedBy;
+	private HelpCategoryType helpCategoryType;
+	private CaseType caseType;
 	private Date createdOn;
 	private Date updatedOn;
 	private String personName;
@@ -52,16 +48,16 @@ public class CaseMaster implements java.io.Serializable {
 	}
 
 	public CaseMaster(LoginMaster loginMasterByCreatedBy,
-			CaseStatus caseStatus,
-			LoginMaster loginMasterByUpdatedBy, CaseSubType caseSubType,
-			HelpCategory helpCategory, Date createdOn, Date updatedOn,
-			String personName, String caseDescription, String contactNumber1,
-			String source) {
-		this.createdBy = loginMasterByCreatedBy;
-		this.caseStatus = caseStatus;
-		this.updatedBy = loginMasterByUpdatedBy;
-		this.caseSubType = caseSubType;
-		this.helpCategory = helpCategory;
+			CaseStatusMaster caseStatusMaster,
+			LoginMaster loginMasterByUpdatedBy,
+			HelpCategoryType helpCategoryType, CaseType caseType,
+			Date createdOn, Date updatedOn, String personName,
+			String caseDescription, String contactNumber1, String source) {
+		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.caseStatusMaster = caseStatusMaster;
+		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.helpCategoryType = helpCategoryType;
+		this.caseType = caseType;
 		this.createdOn = createdOn;
 		this.updatedOn = updatedOn;
 		this.personName = personName;
@@ -71,19 +67,20 @@ public class CaseMaster implements java.io.Serializable {
 	}
 
 	public CaseMaster(LoginMaster loginMasterByCreatedBy,
-			CaseStatus caseStatus,
-			LoginMaster loginMasterByUpdatedBy, CaseSubType caseSubType,
-			HelpCategory helpCategory, Date createdOn, Date updatedOn,
-			String personName, Date dateOfBirth, String caseDescription,
-			String contactNumber1, String contactNumber2, String source,
+			CaseStatusMaster caseStatusMaster,
+			LoginMaster loginMasterByUpdatedBy,
+			HelpCategoryType helpCategoryType, CaseType caseType,
+			Date createdOn, Date updatedOn, String personName,
+			Date dateOfBirth, String caseDescription, String contactNumber1,
+			String contactNumber2, String source,
 			Set<CaseArtifact> caseArtifacts,
 			Set<FundManagement> fundManagements,
 			Set<CaseActivity> caseActivities, Set<CaseUser> caseUsers) {
-		this.createdBy = loginMasterByCreatedBy;
-		this.caseStatus = caseStatus;
-		this.updatedBy = loginMasterByUpdatedBy;
-		this.caseSubType = caseSubType;
-		this.helpCategory = helpCategory;
+		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.caseStatusMaster = caseStatusMaster;
+		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.helpCategoryType = helpCategoryType;
+		this.caseType = caseType;
 		this.createdOn = createdOn;
 		this.updatedOn = updatedOn;
 		this.personName = personName;
@@ -111,55 +108,56 @@ public class CaseMaster implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "created_by", nullable = false)
-	public LoginMaster getCreatedBy() {
-		return this.createdBy;
+	public LoginMaster getLoginMasterByCreatedBy() {
+		return this.loginMasterByCreatedBy;
 	}
 
-	public void setCreatedBy(LoginMaster createdBy) {
-		this.createdBy = createdBy;
+	public void setLoginMasterByCreatedBy(LoginMaster loginMasterByCreatedBy) {
+		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
 	}
 
-	@Column(name = "case_status_id", nullable = false)
-	public CaseStatus getCaseStatus() {
-		return this.caseStatus;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "case_status_id", nullable = false)
+	public CaseStatusMaster getCaseStatusMaster() {
+		return this.caseStatusMaster;
 	}
 
-	public void setCaseStatus(CaseStatus caseStatus) {
-		this.caseStatus = caseStatus;
+	public void setCaseStatusMaster(CaseStatusMaster caseStatusMaster) {
+		this.caseStatusMaster = caseStatusMaster;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "updated_by", nullable = false)
-	public LoginMaster getUpdatedBy() {
-		return this.updatedBy;
+	public LoginMaster getLoginMasterByUpdatedBy() {
+		return this.loginMasterByUpdatedBy;
 	}
 
-	public void setUpdatedBy(LoginMaster updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "case_sub_type_id", nullable = false)
-	public CaseSubType getCaseSubType() {
-		return this.caseSubType;
-	}
-
-	public void setCaseSubType(CaseSubType caseSubType) {
-		this.caseSubType = caseSubType;
+	public void setLoginMasterByUpdatedBy(LoginMaster loginMasterByUpdatedBy) {
+		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "help_category_id", nullable = false)
-	public HelpCategory getHelpCategory() {
-		return this.helpCategory;
+	public HelpCategoryType getHelpCategoryType() {
+		return this.helpCategoryType;
 	}
 
-	public void setHelpCategory(HelpCategory helpCategory) {
-		this.helpCategory = helpCategory;
+	public void setHelpCategoryType(HelpCategoryType helpCategoryType) {
+		this.helpCategoryType = helpCategoryType;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "case_type_id", nullable = false)
+	public CaseType getCaseType() {
+		return this.caseType;
+	}
+
+	public void setCaseType(CaseType caseType) {
+		this.caseType = caseType;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "created_on", nullable = false, length = 19)
+	@Column(name = "created_on", nullable = false, length = 0)
 	public Date getCreatedOn() {
 		return this.createdOn;
 	}
@@ -169,7 +167,7 @@ public class CaseMaster implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "updated_on", nullable = false, length = 19)
+	@Column(name = "updated_on", nullable = false, length = 0)
 	public Date getUpdatedOn() {
 		return this.updatedOn;
 	}
@@ -188,7 +186,7 @@ public class CaseMaster implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "date_of_birth", length = 19)
+	@Column(name = "date_of_birth", length = 0)
 	public Date getDateOfBirth() {
 		return this.dateOfBirth;
 	}
