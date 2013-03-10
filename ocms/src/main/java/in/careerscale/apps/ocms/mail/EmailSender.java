@@ -34,6 +34,7 @@ public class EmailSender {
 	private static final String username = "webdemo2012@gmail.com";
 	private static final String password = "webdemo2012@123";
 	private static final String from = "webdemo2012@gmail.com";
+	//TODO update with OCMS/CAREERSCALE email id.
 
 	/**
 	 * Send mail with TLS enabled mode
