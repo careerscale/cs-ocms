@@ -8,7 +8,7 @@
 <p>
 	
 	<ul>
-	<li><a href="backoffice/casetype">Case Type</a> </li>
+	<li><a href="backoffice/casetype"><s:message code="view.backoffice.casetype.casetype.label" /></a> </li>
 	<li><a href="backoffice/helptype">Help Category Type</a> </li>
 	<li><a href="backoffice/casestatus">Case Status Master</a> </li>
 	</ul>

@@ -5,7 +5,6 @@ package in.careerscale.apps.ocms.dao;
 
 
 import in.careerscale.apps.ocms.dao.model.CaseType;
-import in.careerscale.apps.ocms.dao.model.LoginMaster;
 
 
 import javax.persistence.*;
@@ -21,10 +20,17 @@ public class BackOfficeRepository {
 	private EntityManager entityManager;
 	
 	
+	public CaseType getCaseType(Integer id){
+		return entityManager.find(CaseType.class, id);
+	}
+	
 
 	public void save(CaseType caseType) {
 		entityManager.persist(caseType);
+		
 	}
+	
+	
 
 	
 }

@@ -1,13 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <h1>
-	<s:message code="view.backoffice.casetype.title" />
+	<spring:message code="view.backoffice.casetype.title" />
 </h1>
 
 <div id="page-container" class="resize">
-
 	<div id="page-content-inner" class="resize">
 		<br clear="all" />
 		<div>
@@ -25,7 +23,7 @@
 			</div>
 			<form:form commandName="caseType" method="post"
 				action="/backoffice/casetype" id="backofficeForm"
-				modelAttribute="caseType">
+				modelAttribute="botype">
 
 				<div class="error" style="display: none;">
 					<img src="resources/images/warning.gif" alt="Warning!" width="24"
@@ -53,7 +51,7 @@
 						<td>
 							<div class="buttonSubmit">
 								<span></span> <input class="formButton" type="submit"
-									value="Signup" style="width: 140px" tabindex="14" />
+									value="Add Case Type" style="width: 140px" tabindex="3" />
 							</div>
 
 						</td>
