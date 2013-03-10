@@ -108,6 +108,7 @@ img {
 	text-align: center;
 }
 
+
 .login a,.login a span {
 	display: block;
 	height: 18px;
@@ -152,17 +153,24 @@ div.login a:hover span {
 	width: 645px;
 	margin: 40px 0px 0px 40px;
 	background-color: transparent;
+	display:block;
 }
 
 .nav-global ul {
-	margin: 0px;
-	padding: 0px;
+	
+	margin-top:-43px;
+	margin-left:1px;
+	padding: 5px;
 	list-style: none;
+	
 }
 
 .nav-global li {
 	float: left;
+	margin-right:2px;
+	padding:2px;
 	white-space: nowrap;
+	
 }
 
 div.nav-global li a,div.nav-global li a span {
@@ -1063,6 +1071,8 @@ textarea {
 
 td.label {
 	width: 80px;
+	
+	
 }
 
 tr.required td.label {
@@ -1206,6 +1216,10 @@ div.login1{
 	background-color:lightblue;
 	
 	margin-left:8px;
+	margin-right:8px;
+}
+table.login2{
+	margin-left:-460px;
 	margin-right:8px;
 }
 .registerlink{
