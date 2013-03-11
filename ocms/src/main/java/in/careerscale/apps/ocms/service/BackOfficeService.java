@@ -5,6 +5,7 @@ import javax.persistence.PersistenceException;
 import in.careerscale.apps.ocms.dao.BackOfficeRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.backoffice.model.BOBean;
@@ -31,5 +32,16 @@ public class BackOfficeService {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
+	
+	 public void addHelpCategoryType(BOBean helpCategoryType) throws ApplicationException {
+
+	        try {
+	            backofficeRepository.save(new HelpCategoryType(helpCategoryType.getName(), helpCategoryType.getDescription()));
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+	    }
+
+
 
 }

@@ -5,6 +5,7 @@ package in.careerscale.apps.ocms.dao;
 
 
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 
 
 import javax.persistence.*;
@@ -30,6 +31,14 @@ public class BackOfficeRepository {
 		
 	}
 	
+	 public HelpCategoryType getHelpCategoryType(Integer id){
+	        return entityManager.find(HelpCategoryType.class, id);
+	        
+	    }
+	     public void save(HelpCategoryType helpCategoryType){
+	         entityManager.persist(helpCategoryType);
+	     }
+	    
 	
 
 	

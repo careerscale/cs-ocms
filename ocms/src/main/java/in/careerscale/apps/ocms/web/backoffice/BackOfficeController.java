@@ -48,7 +48,7 @@ public class BackOfficeController {
 	}
 	
 	@RequestMapping(value = "/backoffice/casetype", method = RequestMethod.POST)
-	public String register(@ModelAttribute(value = "botype")  BOBean bean,
+	public String addCaseType(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
@@ -66,5 +66,33 @@ public class BackOfficeController {
         return "backoffice/success"; // we need to return next page.
 	}
 	
+	@RequestMapping(value = "/backoffice/helptype", method = RequestMethod.GET)
+    public String HelpTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+        System.out.println("into the get method call");
+
+        return "backoffice/helptype";
+    }
+    
+    @RequestMapping(value = "/backoffice/helptype", method = RequestMethod.POST)
+    public String addHelpCategoryType(@ModelAttribute(value = "botype") BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+
+        //TODO Validations on server side
+        
+        try{
+            backOfficeService.addHelpCategoryType(bean);
+            
+        }catch(ApplicationException ae){
+               
+            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
+            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+            return "backoffice/help_category_type";
+        }
+        return "backoffice/success"; // we need to return next page.
+    }
+    
 	
 }
