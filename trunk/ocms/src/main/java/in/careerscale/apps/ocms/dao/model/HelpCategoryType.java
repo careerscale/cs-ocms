@@ -53,6 +53,11 @@ public class HelpCategoryType implements java.io.Serializable {
 		this.helpCategoryTypes = helpCategoryTypes;
 	}
 
+	public HelpCategoryType(String name, String description) {
+		this.categoryName = name;
+		this.description=description;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)

@@ -11,7 +11,7 @@
 		<div>
 
 			<div id="error">
-				<spring:hasBindErrors name="user">
+				<spring:hasBindErrors name="botype">
 					<font color="red"> <c:forEach items="${errors.allErrors}"
 							var="error">
 							<spring:message code="${error.code}"
