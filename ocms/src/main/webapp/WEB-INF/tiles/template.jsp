@@ -24,12 +24,12 @@
 
 <link rel="shortcut icon" href="/favicon.ico" />
 
-<script src="resources/scripts/jquery/jquery-1.8.3.min.js"></script>
-<script src="resources/scripts/jquery/jquery.validate.min.js"></script>
-<script src="resources/scripts/jquery/jquery-ui-1.8.17.custom.min.js"></script>
+<script src="/resources/scripts/jquery/jquery-1.8.3.min.js"></script>
+<script src="/resources/scripts/jquery/jquery.validate.min.js"></script>
+<script src="/resources/scripts/jquery/jquery-ui-1.8.17.custom.min.js"></script>
 
-<script src="resources/scripts/jquery/jquery.maskedinput.js"></script>
-<script src="resources/scripts/application/register.js"></script>
+<script src="/resources/scripts/jquery/jquery.maskedinput.js"></script>
+<script src="/resources/scripts/application/register.js"></script>
 
 <!-- 
 
@@ -49,9 +49,9 @@
 
  -->
 
-<link rel="stylesheet" media="screen" href="resources/css/stylesheet.css" />
-<link rel="stylesheet" media="only screen and (min-width: 768px)" href="resources/css/medium/stylesheet.css" />
-<link rel="stylesheet" media="only screen and (min-width: 320px)" href="resources/css/small/stylesheet.css" />
+<link rel="stylesheet" media="screen" href="/resources/css/stylesheet.css" />
+<link rel="stylesheet" media="only screen and (min-width: 768px)" href="/resources/css/medium/stylesheet.css" />
+<link rel="stylesheet" media="only screen and (min-width: 320px)" href="/resources/css/small/stylesheet.css" />
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="datePattern">
 	<fmt:message key="date.format" />

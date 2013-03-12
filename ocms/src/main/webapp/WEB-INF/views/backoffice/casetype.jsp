@@ -5,6 +5,24 @@
 	<spring:message code="view.backoffice.casetype.title" />
 </h1>
 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		//bind the output of ajax call to drop down or so...
+		$('#myButton').click(function(){
+			
+			  $.get("/master/casesubtype",function(data,status){
+				    $.each(data, function(key, val) {
+					    alert('key and values are ' + key + '  ' +val);						
+						});
+				  });
+			});
+
+
+	});
+</script>
+
 <div id="page-container" class="resize">
 	<div id="page-content-inner" class="resize">
 		<br clear="all" />
@@ -22,7 +40,7 @@
 				</spring:hasBindErrors>
 			</div>
 			<form:form commandName="caseType" method="post"
-				action="/backoffice/casetype" id="backofficeForm"
+				action="/backoffice/casetype" id="signUpForm"
 				modelAttribute="botype">
 
 				<div class="error" style="display: none;">
@@ -47,7 +65,7 @@
 					</tr>
 
 					<tr>
-						<td></td>
+						<td><input type="button" id='myButton' value="Ajax call" /></td>
 						<td>
 							<div class="buttonSubmit">
 								<span></span> <input class="formButton" type="submit"
@@ -57,15 +75,30 @@
 						</td>
 
 					</tr>
+					
+							<tr>
+						<td></td>
+						<td>
+						
+
+						</td>
+
+					</tr>
+					
+					
 				</table>
 				<br />
 				<br />
 			</form:form>
+			
+			
 			<!-- </form> -->
 			<br clear="all" />
 
-
+	
 		</div>
+
+
 
 
 
