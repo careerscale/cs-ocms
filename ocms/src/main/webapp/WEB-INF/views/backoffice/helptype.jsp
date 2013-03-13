@@ -21,7 +21,7 @@
                     </font>
                 </spring:hasBindErrors>
             </div>
-            <form:form commandName="HelpCategoryType" method="post"
+            <form:form method="post"
                 action="/backoffice/helptype" id="backofficeForm"
                 modelAttribute="botype">
 

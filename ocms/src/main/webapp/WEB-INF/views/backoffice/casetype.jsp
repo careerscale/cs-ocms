@@ -39,7 +39,7 @@
 					</font>
 				</spring:hasBindErrors>
 			</div>
-			<form:form commandName="caseType" method="post"
+			<form:form method="post"
 				action="/backoffice/casetype" id="signUpForm"
 				modelAttribute="botype">
 

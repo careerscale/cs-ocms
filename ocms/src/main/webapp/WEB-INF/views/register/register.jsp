@@ -72,7 +72,7 @@
 							</font>
 						</spring:hasBindErrors>
 					</div>
-					<form:form commandName="user" method="post" action="register"
+					<form:form method="post" action="register"
 						id="signUpForm" modelAttribute="user">
 						<!-- <form id="signUpForm" type="actionForm" commandName="user" action="register"
 								method="post">

@@ -76,7 +76,7 @@ public class RegistrationController implements Validator {
         }catch(ApplicationException ae){
        		
         	//ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
-        	errors.addError(new ObjectError("userNameError", "Email is already in use, please choose another one ::" ));
+        	errors.addError(new ObjectError("view.user.registration.error", "Email is already in use, please choose another one ::" ));
 			return "register/register";
 		}
 		return "register/registered"; // we need to return next page.
