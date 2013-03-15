@@ -1,28 +1,53 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<h1>
+	<spring:message code="view.backoffice.casetype.title" />
+</h1>
 
 
-var params = {}, queryString = location.hash.substring(1),
-    regex = /([^&=]+)=([^&]*)/g, m;
-while (m = regex.exec(queryString)) {
-  params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-}
+<script type="text/javascript">
 
-// And send the token over to the server
-var req = new XMLHttpRequest();
-// consider using POST so query isn't logged
-req.open('GET', 'https://' + window.location.host + '/catchtoken?' + queryString, true);
+$(document).ready(function() {
+	var data = <%=request.getAttribute("oAuthResponse1")%>;
 
-req.onreadystatechange = function (e) {
-  if (req.readyState == 4) {
-     if(req.status == 200){
-       window.location = params['state']
-   }
-  else if(req.status == 400) {
-        alert('There was an error processing the token.')
-    }
-    else {
-      alert('something else other than 200 was returned')
-    }
-  }
-};
-req.send(null);
+$.each(data, function(key, val) {
+    alert('key and values are ' + key + '  ' +val);      
+ });
+ });
 
+ </script>
+
+
+<div id="page-container" class="resize">
+	<div id="page-content-inner" class="resize">
+		<br clear="all" />
+		<div>
+
+			<form:form method="post"
+				action="/backoffice/casetype" id="signUpForm">
+
+				
+
+				<table cellpadding="0" cellspacing="0" border="0">
+									
+				</table>
+				<br />
+				<br />
+			</form:form>
+			
+			
+			<!-- </form> -->
+			<br clear="all" />
+
+	
+		</div>
+
+
+
+
+
+		</p>
+
+	</div>
+</div>

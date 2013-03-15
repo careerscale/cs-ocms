@@ -16,11 +16,20 @@ public class OAuthServiceProvider {
 
 	public OAuthService getService() {
 		System.out.println(config);
-		return new ServiceBuilder().provider(config.getApiClass())
-							.apiKey(config.getApiKey())
-						    .apiSecret(config.getApiSecret())
-						    .callback(config.getCallback())
-						    .build();
+		if(config.getScope()==null)
+			return new ServiceBuilder().provider(config.getApiClass())
+								.apiKey(config.getApiKey())
+							    .apiSecret(config.getApiSecret())
+							    .callback(config.getCallback())
+							    .build();
+			else{
+				return new ServiceBuilder().provider(config.getApiClass())
+						.apiKey(config.getApiKey())
+					    .apiSecret(config.getApiSecret())
+					      .scope(config.getScope())
+					    .callback(config.getCallback())
+					    .build();
+			}
 	}
 	
 }
