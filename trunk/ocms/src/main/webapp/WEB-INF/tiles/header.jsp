@@ -7,13 +7,11 @@
 		<div class="login">
 			<a href="#"><span></span> 
 			<sec:authorize
-					ifAnyGranted="ROLE_ANONYMOUS">
-					<a href="login" />Login</a>
+					ifAnyGranted="ROLE_ANONYMOUS"> 	<a href="login">Login</a>
 			
 			</sec:authorize>
 			<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
-				Hello <sec:authentication property="principal.username" /> 
-				<a href="logout" />Logout</a>
+				Hello <sec:authentication property="principal.username" /> <a href="logout" >Logout</a>				
 			</sec:authorize>
 			
 			</a>
@@ -26,16 +24,14 @@
 
 		<div class="nav-global">
 			<ul>
-				<li><a href="#" class="nav-g01"><span></span>Home</a></li>
-				<li><a href="#" class="nav-g02"><span></span>Cases</a></li>
-				<li><a href="#" class="nav-g04"><span></span>Support</a></li>
-				<li><a href="#" class="nav-g05"><span></span>About OCMS</a></li>
-				<li><a href="#" class="nav-g06"><span></span>Tell a Friend</a></li>
-				<li><a href="backoffice" class="nav-g06"><span></span>Back Office</a></li>
+				<li><a href="/" class="nav-g01"><span></span>Home</a></li>
+				<li><a href="/cases" class="nav-g02"><span></span>Cases</a></li>
+				<li><a href="/support" class="nav-g04"><span></span>Support</a></li>
+				<li><a href="/about" class="nav-g05"><span></span>About OCMS</a></li>				
+				<li><a href="/backoffice" class="nav-g06"><span></span>Back Office</a></li>
 			</ul>
 		</div>
-		<strong>OCMS - Online Case Management System, The application
-			connnecting the DOTS in the society!</strong>
+		<strong>OCMS - Online Case Management System, Connecting the DOTS in the society!</strong>
 	</div>
 </div>
 <!-- end header container -->

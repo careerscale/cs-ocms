@@ -32,8 +32,8 @@
 					"color" : 'red',
 					"width" : "100%"
 				});
-				$('#ui-datepicker-div').css({					
-					"z-index" : "2"						
+				$('#ui-datepicker-div').css({
+					"z-index" : "2"
 				});
 
 			}
@@ -43,6 +43,17 @@
 	});
 </script>
 
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.get("/master/casetypes", function(data, status) {
+			$.each(data, function(key, val) {
+				alert('key and values are ' + key + '  ' + val);
+			});
+		});
+
+	});
+</script>
 
 <div id="page-container" class="resize">
 	<div id="page-content-inner" class="resize">
@@ -72,8 +83,8 @@
 							</font>
 						</spring:hasBindErrors>
 					</div>
-					<form:form method="post" action="register"
-						id="signUpForm" modelAttribute="user">
+					<form:form method="post" action="register" id="signUpForm"
+						modelAttribute="user">
 						<!-- <form id="signUpForm" type="actionForm" commandName="user" action="register"
 								method="post">
  -->
