@@ -8,12 +8,12 @@ http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.1.xsd
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
-http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/util">
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 
 
 
-<util:properties id="applicationConfig" location="classpath:application.properties"/>
+<util:properties id="applicationConfig" location="classpath:/application.properties"/>
 	<context:property-placeholder properties-ref="applicationConfig"/>
 
 	<security:http auto-config="true" disable-url-rewriting="true"
@@ -48,10 +48,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.
 			user-service-ref="userService" />
 	</security:authentication-manager>
 
-
-
 	<!-- oauth -->
-	<bean id="linkedInServiceConfig" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig">
+	<!-- bean id="linkedInServiceConfig" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig">
 		<constructor-arg value="${app.config.oauth.linkedin.apikey}" />
 		<constructor-arg value="${app.config.oauth.linkedin.apisecret}"/>
 		<constructor-arg value="${app.config.oauth.linkedin.callback}"/>
@@ -82,6 +80,33 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.
 	
 	<bean id="twitterServiceProvider" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider">
 		<constructor-arg name="config" ref="twitterServiceConfig" />
+	</bean-->
+	
+	<!-- bean id="gmailServiceConfig" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig">
+		<constructor-arg value="${app.config.oauth.gmail.apikey}" />
+		<constructor-arg value="${app.config.oauth.gmail.apisecret}"/>
+		<constructor-arg value="${app.config.oauth.gmail.callback}"/>
+		<constructor-arg value="org.scribe.builder.api.GoogleApi"/>
+		<constructor-arg value="https://www.googleapis.com/auth/userinfo.profile" />
+	</bean>
+	
+	<bean id="gmailServiceProvider" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider">
+		<constructor-arg name="config" ref="gmailServiceConfig" />
+		
+	</bean-->
+	
+	
+	<bean id="gmailServiceConfig" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig">
+		<constructor-arg value="179271485873.apps.googleusercontent.com" />
+		<constructor-arg value="ghGOdAEKfCWlz_ClgbYLTLEp"/>
+		<constructor-arg value="http://localhost:9090/google-callback"/>
+		<constructor-arg value="org.scribe.builder.api.GoogleApi"/>
+		<constructor-arg value="https://www.googleapis.com/auth/userinfo.profile" />
+	</bean>
+	
+	<bean id="gmailServiceProvider" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider">
+		<constructor-arg name="config" ref="gmailServiceConfig" />
+		
 	</bean>
 	
 	<!-- end of oauth -->
