@@ -48,7 +48,7 @@
 	$(document).ready(function() {
 		$.get("/master/casetypes", function(data, status) {
 			$.each(data, function(key, val) {
-				alert('key and values are ' + key + '  ' + val);
+				//alert('key and values are ' + key + '  ' + val);
 			});
 		});
 
