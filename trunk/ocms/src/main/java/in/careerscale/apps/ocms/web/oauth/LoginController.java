@@ -9,7 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 	
-	@RequestMapping(value={"/", "/signin", "/login"}, method = RequestMethod.GET)
+	//@RequestMapping(value={"/", "/signin", "/login"}, method = RequestMethod.GET)
+	@RequestMapping(value={"/signin"}, method = RequestMethod.GET)
 	public ModelAndView welcome() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("loginPage");

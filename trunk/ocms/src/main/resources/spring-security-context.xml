@@ -10,7 +10,8 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
 
-<!--  Dont try to place place holder configurers in xml. If you are addding a new file, add it to RootConfig.java -->
+	<!-- Dont try to place place holder configurers in xml. If you are addding 
+		a new file, add it to RootConfig.java -->
 
 	<!-- <util:properties id="applicationConfig" location="classpath:application.properties"/> 
 		<context:property-placeholder properties-ref="applicationConfig"/> -->
@@ -38,6 +39,29 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/j_spring_security_check"
 			access="permitAll" />
+
+
+
+		<!-- <Open ID integration URLS need to be skipped as well -->
+
+		<security:intercept-url pattern="/google-callback"
+			access="permitAll" />
+		<security:intercept-url pattern="/login-google"
+			access="permitAll" />
+		<security:intercept-url pattern="/login-facebook"
+			access="permitAll" />
+		<security:intercept-url pattern="/facebook-callback"
+			access="permitAll" />
+		<security:intercept-url pattern="/login-linkedin"
+			access="permitAll" />
+		<security:intercept-url pattern="/linkedin-callback"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/login-twitter"
+			access="permitAll" />
+		<security:intercept-url pattern="/twitter-callback"
+			access="permitAll" />
+
 
 
 
@@ -109,14 +133,6 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<constructor-arg name="config" ref="gmailServiceConfig" />
 
 	</bean>
-
-	<!-- <bean id="gmailServiceConfig" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig"> 
-		<constructor-arg value="179271485873.apps.googleusercontent.com" /> <constructor-arg 
-		value="ghGOdAEKfCWlz_ClgbYLTLEp"/> <constructor-arg value="http://localhost:9090/google-callback"/> 
-		<constructor-arg value="org.scribe.builder.api.GoogleApi"/> <constructor-arg 
-		value="https://www.googleapis.com/auth/userinfo.profile"/> </bean> <bean 
-		id="gmailServiceProvider" class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider"> 
-		<constructor-arg name="config" ref="gmailServiceConfig" /> </bean> -->
 
 	<!-- end of oauth -->
 
