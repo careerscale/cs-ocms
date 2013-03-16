@@ -19,6 +19,7 @@ public class User implements Serializable {
 	private String lastName;
 	private Date dateOfBirth;
 	
+	
 	/*
 	 * Default constructor. We need this as spring mvc initializes this form bean with default constructor.
 	 *
