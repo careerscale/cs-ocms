@@ -37,7 +37,9 @@ public class MasterDataRepository {
 	
 	@SuppressWarnings("unchecked")
 	public List<CaseType> getCaseTypes() {
-		Query query =entityManager.createQuery("SELECT c FROM Country AS c WHERE c.caseType is NULL");
+		Query query =entityManager.createQuery("SELECT c FROM CaseType c"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
+
+	
 }

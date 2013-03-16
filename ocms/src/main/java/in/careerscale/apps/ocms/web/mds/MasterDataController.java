@@ -3,9 +3,12 @@ package in.careerscale.apps.ocms.web.mds;
 
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.service.model.MasterType;
 import in.careerscale.apps.ocms.web.backoffice.model.BOBean;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +43,10 @@ public class MasterDataController {
 	}
 	
 	@RequestMapping(value = "/master/casetypes", method = RequestMethod.GET)	
-	public @ResponseBody Map<Integer, String> getCaseTypes(HttpServletRequest request,
+	public @ResponseBody List<MasterType> getCaseTypes(HttpServletRequest request,
 			HttpServletResponse response) {
 		System.out.println("into the getCasetypes");
-		Map<Integer, String> caseTypes = new HashMap<Integer, String>();
+		List<MasterType> caseTypes = new ArrayList<MasterType>();
 		
 	
 		  try{
