@@ -37,10 +37,15 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			access="permitAll" />
 		<security:intercept-url pattern="/**"
 			access="isAuthenticated()" />
+		
+		<!-- This is an example of role enablement, when needed
+		<security:intercept-url pattern="/**" access=" hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->	
+	
+	
 		<security:intercept-url pattern="/j_spring_security_check"
 			access="permitAll" />
 
-
+			
 
 		<!-- <Open ID integration URLS need to be skipped as well -->
 
