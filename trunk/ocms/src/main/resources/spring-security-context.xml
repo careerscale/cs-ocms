@@ -98,6 +98,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<constructor-arg value="${app.config.oauth.facebook.apisecret}" />
 		<constructor-arg value="${app.config.oauth.facebook.callback}" />
 		<constructor-arg value="org.scribe.builder.api.FacebookApi" />
+		<constructor-arg value="read_friendlists" />
 	</bean>
 
 	<bean id="facebookServiceProvider"
