@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
+// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
 import java.util.Set;
@@ -51,11 +51,6 @@ public class HelpCategoryType implements java.io.Serializable {
 		this.caseMasters = caseMasters;
 		this.loginMasters = loginMasters;
 		this.helpCategoryTypes = helpCategoryTypes;
-	}
-
-	public HelpCategoryType(String name, String description) {
-		this.categoryName = name;
-		this.description=description;
 	}
 
 	@Id

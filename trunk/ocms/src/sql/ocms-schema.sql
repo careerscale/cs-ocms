@@ -14,10 +14,11 @@ DROP TABLE IF EXISTS `login_master` ;
 CREATE  TABLE IF NOT EXISTS `login_master` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `email_id` VARCHAR(100) NOT NULL ,
-  `password` VARCHAR(80) NOT NULL ,
+  `password` VARCHAR(80) NULL ,
   `first_name` VARCHAR(75) NOT NULL ,
   `last_name` VARCHAR(75) NOT NULL ,
   `date_of_birth` DATETIME NULL ,
+  `login_type` INT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `email_id_UNIQUE` (`email_id` ASC) )
 ENGINE = InnoDB;
@@ -316,7 +317,7 @@ DROP TABLE IF EXISTS `org_type` ;
 CREATE  TABLE IF NOT EXISTS `org_type` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NOT NULL ,
-  `description` VARCHAR(255) NOT NULL ,
+  `description` VARCHAR(255) NULL ,
   `parent_id` INT NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
@@ -396,7 +397,7 @@ DROP TABLE IF EXISTS `module_master` ;
 CREATE  TABLE IF NOT EXISTS `module_master` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(100) NOT NULL ,
-  `description` VARCHAR(255) NOT NULL ,
+  `description` VARCHAR(255) NULL ,
   PRIMARY KEY (`id`) ,
   UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
 ENGINE = InnoDB;
@@ -468,6 +469,48 @@ CREATE  TABLE IF NOT EXISTS `email_template` (
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `social_network`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `social_network` ;
+
+CREATE  TABLE IF NOT EXISTS `social_network` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NULL ,
+  `description` VARCHAR(250) NULL ,
+  `api_key` VARCHAR(45) NULL ,
+  `api_secret` VARCHAR(45) NULL ,
+  `callback_url` VARCHAR(100) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_network`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_network` ;
+
+CREATE  TABLE IF NOT EXISTS `user_network` (
+  `user_id` INT NOT NULL ,
+  `network_id` INT NOT NULL ,
+  `user_network_id` VARCHAR(100) NOT NULL ,
+  `last_access_date` DATE NULL ,
+  PRIMARY KEY (`user_network_id`) ,
+  INDEX `user_network_user_id_idx` (`user_id` ASC) ,
+  INDEX `user_network_social_id_idx` (`network_id` ASC) ,
+  CONSTRAINT `user_network_user_id`
+    FOREIGN KEY (`user_id` )
+    REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `user_network_social_id`
+    FOREIGN KEY (`network_id` )
+    REFERENCES `social_network` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 USE `ocms` ;
 
 
@@ -480,8 +523,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`) VALUES (1, 'harinath@tmad.org', '5a105e8b9d40e1329780d62ea2265d8a', 'Harinath', 'Mallepally', '1979-06-06');
-INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`) VALUES (2, 'hari@harinath.in', '5a105e8b9d40e1329780d62ea2265d8a', 'Harinath', '', '1979-06-01');
+INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (1, 'harinath@tmad.org', '5a105e8b9d40e1329780d62ea2265d8a', 'Harinath', 'Mallepally', '1979-06-06', NULL);
+INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (2, 'hari@harinath.in', '5a105e8b9d40e1329780d62ea2265d8a', 'Harinath', '', '1979-06-01', NULL);
 
 COMMIT;
 
@@ -551,11 +594,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (1, 'NGO', 'Charity organization', NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (2, 'State Government', 'State Government', NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (3, 'Union/Central Government', 'Central Government', NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (4, 'Private Limited/Corporate', 'Company', NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (5, 'International Charity', 'Internal organzation', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (1, 'NGO', NULL, NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (2, 'State Government', NULL, NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (3, 'Union/Central Government', NULL, NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (4, 'Private Limited/Corporate', NULL, NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (5, 'International Charity', NULL, NULL);
 
 COMMIT;
 
@@ -576,11 +619,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (1, 'Case Registration', 'Registration of case');
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (2, 'User Registration', 'Registration of user');
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (3, 'Administration', 'Administration/Back office');
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (4, 'Case Life Cycle', 'Case life cycle activitiies like adding artifacts etc');
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (5, 'Case Administration', 'Update case state etc');
+INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (1, 'Case Registration', NULL);
+INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (2, 'User Registration', NULL);
+INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (3, 'Administration', NULL);
+INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (4, 'Case Life Cycle', NULL);
 
 COMMIT;
 

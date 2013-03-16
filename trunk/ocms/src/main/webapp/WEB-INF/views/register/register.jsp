@@ -139,7 +139,17 @@
 										type="text" class="required date" tabindex="6" maxlength="15"
 										value="1980-01-01" />
 							</tr>
-
+							
+							
+							<tr>
+								<td class="label"><label for="caseType">Case Type </label></td>
+								<td class="field">
+								 	 <form:select path="caseType" multiple="true">
+                				    	<form:options items="${caseTypes}"  itemValue="id" itemLabel="name" />
+                					</form:select>
+            					</td>
+							</tr>
+							
 							<tr>
 								<td></td>
 								<td>
