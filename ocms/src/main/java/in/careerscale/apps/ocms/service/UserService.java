@@ -4,7 +4,10 @@ import in.careerscale.apps.ocms.dao.UserRepository;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.PersistenceException;
@@ -24,6 +27,7 @@ import in.careerscale.apps.ocms.mail.EmailTemplates;
 import in.careerscale.apps.ocms.mail.Template;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.registration.model.User;
+import in.careerscale.apps.ocms.dao.model.UserRole;
 
 @Service("userService")
 public class UserService implements UserDetailsService {
@@ -47,15 +51,19 @@ public class UserService implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("user not found");
 		}
-		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER"); // fix
-																				// this
-																				// with
 																				// proper
 																				// rle
-		return new org.springframework.security.core.userdetails.User(
-				user.getEmailId(), user.getPassword(),
-				Collections.singleton(authority));
-	}
+		Iterator<UserRole> it = user.getUserRoles().iterator();
+		UserRole userRole = null;
+		Set<GrantedAuthority> roleSet = new HashSet<GrantedAuthority>();
+		while (it.hasNext())
+		{
+			userRole = it.next();
+			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.getRoleMaster().getRoleName());
+			roleSet.add(grantedAuthority);
+		}
+
+		return new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), roleSet);	}
 
 	public void registerUser(User user) throws ApplicationException {
 		// for bravity no validations done at service layer, we need to handle

@@ -159,7 +159,7 @@ public class LoginMaster implements java.io.Serializable {
 		this.organizations = organizations;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMaster")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "loginMaster")
 	public Set<UserProfile> getUserProfiles() {
 		return this.userProfiles;
 	}
@@ -196,7 +196,7 @@ public class LoginMaster implements java.io.Serializable {
 		this.caseArtifacts = caseArtifacts;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "case_type_user", catalog = "ocms", joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "case_type_id", nullable = false, updatable = false) })
 	public Set<CaseType> getCaseTypes() {
 		return this.caseTypes;
@@ -216,7 +216,7 @@ public class LoginMaster implements java.io.Serializable {
 		this.caseMastersForUpdatedBy = caseMastersForUpdatedBy;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMaster")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "loginMaster")
 	public Set<UserRole> getUserRoles() {
 		return this.userRoles;
 	}
@@ -225,7 +225,7 @@ public class LoginMaster implements java.io.Serializable {
 		this.userRoles = userRoles;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "help_category_user", catalog = "ocms", joinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "help_category_id", nullable = false, updatable = false) })
 	public Set<HelpCategoryType> getHelpCategoryTypes() {
 		return this.helpCategoryTypes;
