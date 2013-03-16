@@ -7,47 +7,41 @@
 
 
 <script type="text/javascript">
+	$(document).ready(
+			function() {
+				var data =<%=request.getAttribute("oAuthResponse1")%>;
 
-$(document).ready(function() {
-	var data = <%=request.getAttribute("oAuthResponse1")%>;
+				$("#div-oauth-response-table").text("<table>");
 
-$.each(data, function(key, val) {
-    alert('key and values are ' + key + '  ' +val);      
- });
- });
+				$.each(data, function(key, val) {
+					alert('key and values are ' + key + '  ' + val);
+					$("#div-oauth-response-table")
+							.append(
+									"<tr><td>" + key + "</td><td>" + val
+											+ "</td></tr>");
+				});
 
- </script>
+				$("#div-oauth-response-table").append("</table>");
+
+			});
+</script>
 
 
 <div id="page-container" class="resize">
 	<div id="page-content-inner" class="resize">
 		<br clear="all" />
-		<div>
+		<div id='div-oauth-response-table'></div>
+		<!-- </form> -->
+		<br clear="all" />
 
-			<form:form method="post"
-				action="/backoffice/casetype" id="signUpForm">
-
-				
-
-				<table cellpadding="0" cellspacing="0" border="0">
-									
-				</table>
-				<br />
-				<br />
-			</form:form>
-			
-			
-			<!-- </form> -->
-			<br clear="all" />
-
-	
-		</div>
-
-
-
-
-
-		</p>
 
 	</div>
+
+
+
+
+
+	</p>
+
+</div>
 </div>
