@@ -1,9 +1,16 @@
 package in.careerscale.apps.ocms.web.registration.model;
 
 
+
+
+import in.careerscale.apps.ocms.service.model.MasterType;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +25,13 @@ public class User implements Serializable {
 	private String firstName;
 	private String lastName;
 	private Date dateOfBirth;
+	
+	//to list the case types of the user's interests
+	private List<Integer> caseTypes;
+	private List<Integer> helpTypes;
+	
+	private List<MasterType> caseMasterTypes;
+	private List<MasterType> helpMasterTypes;
 	
 	
 	/*
@@ -107,7 +121,42 @@ public class User implements Serializable {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	
+	
 
+
+	public List<Integer> getCaseTypes() {
+		return caseTypes;
+	}
+
+	public void setCaseTypes(List<Integer> caseTypes) {
+		this.caseTypes = caseTypes;
+	}
+
+	public List<Integer> getHelpTypes() {
+		return helpTypes;
+	}
+
+	public void setHelpTypes(List<Integer> helpTypes) {
+		this.helpTypes = helpTypes;
+	}
+
+	
+	public List<MasterType> getCaseMasterTypes() {
+		return caseMasterTypes;
+	}
+
+	public void setCaseMasterTypes(List<MasterType> caseMasterTypes) {
+		this.caseMasterTypes = caseMasterTypes;
+	}
+
+	public List<MasterType> getHelpMasterTypes() {
+		return helpMasterTypes;
+	}
+
+	public void setHelpMasterTypes(List<MasterType> helpMasterTypes) {
+		this.helpMasterTypes = helpMasterTypes;
+	}
 
 	@Override
 	public String toString() {

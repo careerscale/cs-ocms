@@ -4,6 +4,9 @@ package in.careerscale.apps.ocms.dao;
 
 
 
+import java.util.List;
+
+import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 
 
@@ -38,6 +41,20 @@ public class UserRepository {
 	}
 	public void registerUser(LoginMaster user){
 		entityManager.persist(user);
+		
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<CaseType>  getCaseTypes(List<Integer> caseTypes) {
+	
+		Query query =entityManager.createQuery("SELECT c FROM CaseType c where c.id IN (:id)"); // AS c WHERE c.caseType is NULL
+		query.setParameter("id", caseTypes);
+		return query.getResultList();
+	}
+
+	public void update(LoginMaster dbUser) {
+		entityManager.merge(dbUser);
 		
 	}
 

@@ -1,5 +1,6 @@
 package in.careerscale.apps.ocms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.service.model.MasterType;
 import in.careerscale.apps.ocms.web.backoffice.model.BOBean;
 
 import javax.persistence.PersistenceException;
@@ -45,13 +47,14 @@ public class MasterDataService {
 	    }
 	 
 	 
-	 public Map<Integer, String> getCaseTypes() throws ApplicationException{
-		 Map<Integer, String> caseTypes = new HashMap<Integer, String>();		
+	 public List<MasterType> getCaseTypes() throws ApplicationException{
+			
+		 List<MasterType> caseTypes = new ArrayList<MasterType>();
 		   try {
 			   List<CaseType> casetypesList =repository.getCaseTypes();
 			   
 			   for (CaseType caseType : casetypesList) {
-				   caseTypes.put(caseType.getId(), caseType.getName());
+				   caseTypes.add(new MasterType(caseType.getId(), caseType.getName()));
 				
 			}
 	        } catch (PersistenceException pe) {

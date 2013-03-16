@@ -142,10 +142,10 @@
 							
 							
 							<tr>
-								<td class="label"><label for="caseType">Case Type </label></td>
+								<td class="label"><label for="caseTypes">Case Type </label></td>
 								<td class="field">
-								 	 <form:select path="caseType" multiple="true">
-                				    	<form:options items="${caseTypes}"  itemValue="id" itemLabel="name" />
+								 	 <form:select path="caseTypes" multiple="true">
+                				    	<form:options items="${user.caseMasterTypes}"  itemValue="id" itemLabel="name" />
                 					</form:select>
             					</td>
 							</tr>

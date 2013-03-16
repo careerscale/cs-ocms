@@ -3,6 +3,7 @@ package in.careerscale.apps.ocms.web.registration;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.UserService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.registration.model.User;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @Secured("ROLE_ANONYMOUS")
@@ -34,6 +36,9 @@ public class RegistrationController implements Validator {
 
 	@Autowired
 	private DaoAuthenticationProvider authenticationProvider;
+	
+	@Autowired
+	private MasterDataService masterDataService;
 
 	/** 
 	 * not in use for now. Old way of formatting date from input to java bean.
@@ -60,7 +65,13 @@ public class RegistrationController implements Validator {
 	public String index(@ModelAttribute(value = "user") User bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("into the get method call");
+		
+		try {
+			bean.setCaseMasterTypes(masterDataService.getCaseTypes());
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return "register/register";
 	}
@@ -77,6 +88,7 @@ public class RegistrationController implements Validator {
        		
         	//ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
         	errors.addError(new ObjectError("view.user.registration.error", "Email is already in use, please choose another one" ));
+        	bean.setCaseMasterTypes(masterDataService.getCaseTypes());
 			return "register/register";
 		}
 		return "register/registered"; // we need to return next page.

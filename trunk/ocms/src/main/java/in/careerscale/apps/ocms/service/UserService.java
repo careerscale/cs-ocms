@@ -1,10 +1,12 @@
 package in.careerscale.apps.ocms.service;
 
+import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +23,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import org.springframework.stereotype.Service;
 
+import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.mail.EmailTemplates;
@@ -37,6 +40,10 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private EmailSender emailService;
+	
+	
+	@Autowired
+	private MasterDataRepository masterDataRepository;
 
 	@PostConstruct
 	protected void initialize() {
@@ -44,6 +51,7 @@ public class UserService implements UserDetailsService {
 		// userRepository.save(new User("admin", "admin", "ROLE_ADMIN"));
 	}
 
+	
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
@@ -63,16 +71,27 @@ public class UserService implements UserDetailsService {
 			roleSet.add(grantedAuthority);
 		}
 
-		return new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), roleSet);	}
+		return new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), roleSet);
+		
+	}
+
 
 	public void registerUser(User user) throws ApplicationException {
 		// for bravity no validations done at service layer, we need to handle
 		// and also introduce valid exception handling to manage error
 		// situations
 		try {
-			userRepository.registerUser(new LoginMaster(user.getEmailId(), user
+			LoginMaster dbUser =new LoginMaster(user.getEmailId(), user
 					.getPassword(), user.getFirstName(), user.getLastName(),
-					user.getDateOfBirth()));
+					user.getDateOfBirth());
+			userRepository.registerUser(dbUser);
+		
+			
+			List<CaseType> userCaseTypes =userRepository.getCaseTypes(user.getCaseTypes());
+			
+			dbUser.setCaseTypes(new HashSet<CaseType>(userCaseTypes));
+			
+			userRepository.update(dbUser);
 			try{
 			// Resolve variables
 			Map<String, String> placeHolderValues = new HashMap<String, String>();
