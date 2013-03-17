@@ -54,7 +54,8 @@ public class MasterDataService {
 			   List<CaseType> casetypesList =repository.getCaseTypes();
 			   
 			   for (CaseType caseType : casetypesList) {
-				   caseTypes.add(new MasterType(caseType.getId(), caseType.getName()));
+				   String caseTypeName = caseType.getCaseType()!=null?caseType.getCaseType().getName() + " - " + caseType.getName() : caseType.getName();
+				   caseTypes.add(new MasterType(caseType.getId(), caseTypeName));
 				
 			}
 	        } catch (PersistenceException pe) {
@@ -63,6 +64,25 @@ public class MasterDataService {
 		   
 		   return caseTypes;
 	 }
+
+	public List<MasterType> getHelpTypes() throws ApplicationException {
+		 List<MasterType> helpTypes = new ArrayList<MasterType>();
+		   try {
+			   List<HelpCategoryType> helpTypesList =repository.getHelpTypes();
+			   
+			   for (HelpCategoryType helpType : helpTypesList) {
+				   String helpTypeName = helpType.getHelpCategoryType()!=null?helpType.getHelpCategoryType().getCategoryName() + " - " + helpType.getCategoryName() : helpType.getCategoryName();
+					 
+				   helpTypes.add(new MasterType(helpType.getId(), helpTypeName));
+				
+			}
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+		   
+		   return helpTypes;
+		
+	}
 
 
 

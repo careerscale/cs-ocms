@@ -66,7 +66,7 @@
 
 				<div class="action-container" style="display: none;"></div>
 
-
+                
 				<h1>Signup form</h1>
 				<p></p>
 				<br clear="all" />
@@ -142,10 +142,19 @@
 							
 							
 							<tr>
-								<td class="label"><label for="caseTypes">Case Type </label></td>
+								<td class="label"><label for="caseTypes" title='Please select all type of cases that you want to informed about'>Case Types </label></td>
 								<td class="field">
 								 	 <form:select path="caseTypes" multiple="true">
                 				    	<form:options items="${user.caseMasterTypes}"  itemValue="id" itemLabel="name" />
+                					</form:select>
+            					</td>
+							</tr>
+							
+								<tr>
+								<td class="label"><label for="helpTypes" title='Please select how many ways you want to help others'>Help Category Types </label></td>
+								<td class="field">
+								 	 <form:select path="helpTypes" multiple="true">
+                				    	<form:options items="${user.helpMasterTypes}"  itemValue="id" itemLabel="name" />
                 					</form:select>
             					</td>
 							</tr>

@@ -17,12 +17,29 @@
 
 			</tr>
 			<tr>
-				<td><p><div class="buttonSubmit1">
+				<td><div class="buttonSubmit">
 						<input class="formButton" type="submit" value="Signin"
-							style="width: 120px" tabindex="3" /></p>
+							style="width: 120px" tabindex="3" />
 				  </div></td><td><span class="registerlink"><a href="/register"> Register</a></span></td>
 				  
 			</tr>
+		
+			<tr>
+				<td>
+				<a href="/login-facebook">Login with facebook</a>				
+				 </td><td><a href="/login-google">Login with Google</a></td>
+				  
+			</tr>
+			
+			<tr>
+				<td>
+				<a href="/login-twitter">Login with Twitter</a>
+				
+				 </td><td><a href="/login-linkedin">Login with Linkedin</a></td>
+				  
+			</tr>
+			
+			
 
 		</table>
 	</form>

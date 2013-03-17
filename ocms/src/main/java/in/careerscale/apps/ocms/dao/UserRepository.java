@@ -5,8 +5,10 @@ package in.careerscale.apps.ocms.dao;
 
 
 import java.util.List;
+import java.util.Set;
 
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 
 
@@ -44,7 +46,6 @@ public class UserRepository {
 		
 	}
 	
-	
 	@SuppressWarnings("unchecked")
 	public List<CaseType>  getCaseTypes(List<Integer> caseTypes) {
 	
@@ -54,8 +55,18 @@ public class UserRepository {
 	}
 
 	public void update(LoginMaster dbUser) {
-		entityManager.merge(dbUser);
 		
+		entityManager.merge(dbUser);
+		entityManager.flush();
+		
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<HelpCategoryType> gethelpTypes(List<Integer> helpTypes) {
+		Query query =entityManager.createQuery("SELECT h FROM HelpCategoryType h where h.id IN (:id)"); 
+		query.setParameter("id", helpTypes);
+		return query.getResultList();
 	}
 
 	
