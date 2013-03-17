@@ -35,8 +35,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			access="permitAll" />
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
-		<security:intercept-url pattern="/**"
-			access="isAuthenticated()" />
+
 		
 		<!-- This is an example of role enablement, when needed
 		<security:intercept-url pattern="/**" access=" hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->	
@@ -72,7 +71,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
 		<security:form-login login-page="/login"
 			login-processing-url="/j_spring_security_check" default-target-url="/user"
-			always-use-default-target="true" />
+			always-use-default-target="false"  />
+			
+				<security:intercept-url pattern="/**"
+			access="isAuthenticated()" />
 
 	</security:http>
 

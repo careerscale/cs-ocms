@@ -4,6 +4,7 @@ package in.careerscale.apps.ocms.web.registration.model;
 
 
 import in.careerscale.apps.ocms.service.model.MasterType;
+import in.careerscale.apps.ocms.service.model.SocialNetwork;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -32,6 +33,10 @@ public class User implements Serializable {
 	
 	private List<MasterType> caseMasterTypes;
 	private List<MasterType> helpMasterTypes;
+	
+	private SocialNetwork network;
+	
+	private String socialNetworkId;
 	
 	
 	/*
@@ -156,6 +161,24 @@ public class User implements Serializable {
 
 	public void setHelpMasterTypes(List<MasterType> helpMasterTypes) {
 		this.helpMasterTypes = helpMasterTypes;
+	}
+	
+	
+
+	public SocialNetwork getNetwork() {
+		return network;
+	}
+
+	public void setNetwork(SocialNetwork network) {
+		this.network = network;
+	}
+
+	public String getSocialNetworkId() {
+		return socialNetworkId;
+	}
+
+	public void setSocialNetworkId(String socialNetworkId) {
+		this.socialNetworkId = socialNetworkId;
 	}
 
 	@Override

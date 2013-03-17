@@ -2,6 +2,9 @@ package in.careerscale.apps.ocms.web.oauth;
 
 
 import static org.springframework.web.context.request.RequestAttributes.SCOPE_SESSION;
+
+import javax.servlet.http.HttpServletRequest;
+
 import in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider;
 
 import org.scribe.model.OAuthRequest;
@@ -36,19 +39,19 @@ public class FacebookController {
 		
 		// getting request and access token from session
 		Token accessToken = (Token) request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
-		if(accessToken == null) {
+		//if(accessToken == null) {
 			// generate new request token
 			OAuthService service = facebookServiceProvider.getService();
 			request.setAttribute(ATTR_OAUTH_REQUEST_TOKEN, EMPTY_TOKEN, SCOPE_SESSION);
 			
 			// redirect to facebook auth page
 			return "redirect:" + service.getAuthorizationUrl(EMPTY_TOKEN);
-		}
-		return "welcomePage";
+		//}
+		//return "welcomePage";
 	}
 	
 	@RequestMapping(value={"/facebook-callback"}, method = RequestMethod.GET)
-	public String callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request) {
+	public String callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request,HttpServletRequest req) {
 		
 		// getting request token
 		OAuthService service = facebookServiceProvider.getService();
@@ -68,7 +71,7 @@ public class FacebookController {
 		System.out.println(oauthResponse.getBody());
 
 		request.setAttribute("oAuthResponse", oauthResponse.getBody(), 0);
-		//req.setAttribute("oAuthResponse1", oauthResponse.getBody());
+		req.setAttribute("oAuthResponse1", oauthResponse.getBody());
 
 		return "oauth/oauthprofile";
 

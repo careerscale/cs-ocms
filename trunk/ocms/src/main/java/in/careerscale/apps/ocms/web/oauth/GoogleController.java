@@ -38,7 +38,7 @@ public class GoogleController {
 		// getting request and access token from session
 		Token requestToken = (Token) request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
 		Token accessToken = (Token) request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
-		if(requestToken == null || accessToken == null) {
+		//if(requestToken == null || accessToken == null) {
 			// generate new request token
 			OAuthService service = gmailServiceProvider.getService();
 			requestToken = service.getRequestToken();
@@ -49,8 +49,8 @@ public class GoogleController {
 			
 			// redirect to gmail auth page
 			return "redirect:" + service.getAuthorizationUrl(requestToken);
-		}
-		return "welcomePage";
+		//}
+		//return "welcomePage";
 	}
 	
 	@RequestMapping(value={"/google-callback"}, method = RequestMethod.GET)

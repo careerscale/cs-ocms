@@ -1,6 +1,8 @@
 package in.careerscale.apps.ocms.web.oauth;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider;
 
 import org.scribe.model.*;
@@ -29,7 +31,7 @@ public class TwitterController {
 		// getting request and access token from session
 		Token requestToken = (Token) request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
 		Token accessToken = (Token) request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
-		if(requestToken == null || accessToken == null) {
+		//if(requestToken == null || accessToken == null) {
 			// generate new request token
 			OAuthService service = twitterServiceProvider.getService();
 			requestToken = service.getRequestToken();
@@ -37,13 +39,13 @@ public class TwitterController {
 			
 			// redirect to twitter auth page
 			return "redirect:" + service.getAuthorizationUrl(requestToken);
-		}
-		return "welcomePage";
+		//}
+		//return "home/index";
 	}
 	
 	@RequestMapping(value={"/twitter-callback"}, method = RequestMethod.GET)
-	public ModelAndView callback(@RequestParam(value="oauth_token", required=false) String oauthToken,
-			@RequestParam(value="oauth_verifier", required=false) String oauthVerifier, WebRequest request) {
+	public String callback(@RequestParam(value="oauth_token", required=false) String oauthToken,
+			@RequestParam(value="oauth_verifier", required=false) String oauthVerifier, WebRequest request,HttpServletRequest req) {
 		
 		// getting request token
 		OAuthService service = twitterServiceProvider.getService();
@@ -62,7 +64,8 @@ public class TwitterController {
 		Response oauthResponse = oauthRequest.send();
 		System.out.println(oauthResponse.getBody());
 
-		ModelAndView mav = new ModelAndView("redirect:loginPage");
-		return mav;
+		req.setAttribute("oAuthResponse1", oauthResponse.getBody());
+
+		return "oauth/oauthprofile";
 	}
 }
