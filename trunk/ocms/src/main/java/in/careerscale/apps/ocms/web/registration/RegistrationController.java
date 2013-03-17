@@ -65,15 +65,8 @@ public class RegistrationController implements Validator {
 	public String index(@ModelAttribute(value = "user") User bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		
-		try {
-			bean.setCaseMasterTypes(masterDataService.getCaseTypes());
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return "register/register";
+			setMasterData(bean);
+			return "register/register";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -88,10 +81,21 @@ public class RegistrationController implements Validator {
        		
         	//ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
         	errors.addError(new ObjectError("view.user.registration.error", "Email is already in use, please choose another one" ));
-        	bean.setCaseMasterTypes(masterDataService.getCaseTypes());
+        	setMasterData(bean);
 			return "register/register";
 		}
 		return "register/registered"; // we need to return next page.
+	}
+	
+	
+	private void setMasterData(User bean){
+		try {
+			bean.setCaseMasterTypes(masterDataService.getCaseTypes());
+			bean.setHelpMasterTypes(masterDataService.getHelpTypes());
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

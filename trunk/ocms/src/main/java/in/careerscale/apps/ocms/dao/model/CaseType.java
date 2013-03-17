@@ -67,7 +67,7 @@ public class CaseType implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "parent_type_id")
 	public CaseType getCaseType() {
 		return this.caseType;

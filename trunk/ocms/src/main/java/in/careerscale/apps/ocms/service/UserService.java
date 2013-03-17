@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.mail.EmailTemplates;
@@ -40,8 +41,7 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private EmailSender emailService;
-	
-	
+
 	@Autowired
 	private MasterDataRepository masterDataRepository;
 
@@ -51,7 +51,6 @@ public class UserService implements UserDetailsService {
 		// userRepository.save(new User("admin", "admin", "ROLE_ADMIN"));
 	}
 
-	
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
@@ -59,51 +58,60 @@ public class UserService implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException("user not found");
 		}
-																				// proper
-																				// rle
+		// proper
+		// rle
 		Iterator<UserRole> it = user.getUserRoles().iterator();
 		UserRole userRole = null;
 		Set<GrantedAuthority> roleSet = new HashSet<GrantedAuthority>();
-		while (it.hasNext())
-		{
+		while (it.hasNext()) {
 			userRole = it.next();
-			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.getRoleMaster().getRoleName());
+			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(
+					userRole.getRoleMaster().getRoleName());
 			roleSet.add(grantedAuthority);
 		}
 
-		return new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), roleSet);
-		
-	}
+		return new org.springframework.security.core.userdetails.User(
+				user.getEmailId(), user.getPassword(), roleSet);
 
+	}
 
 	public void registerUser(User user) throws ApplicationException {
 		// for bravity no validations done at service layer, we need to handle
 		// and also introduce valid exception handling to manage error
 		// situations
 		try {
-			LoginMaster dbUser =new LoginMaster(user.getEmailId(), user
-					.getPassword(), user.getFirstName(), user.getLastName(),
-					user.getDateOfBirth());
+			LoginMaster dbUser = new LoginMaster(user.getEmailId(),
+					user.getPassword(), user.getFirstName(),
+					user.getLastName(), user.getDateOfBirth());
+
 			userRepository.registerUser(dbUser);
-		
-			
-			List<CaseType> userCaseTypes =userRepository.getCaseTypes(user.getCaseTypes());
-			
+			List<CaseType> userCaseTypes = userRepository.getCaseTypes(user
+					.getCaseTypes());
+
 			dbUser.setCaseTypes(new HashSet<CaseType>(userCaseTypes));
 			
+			
+			List<HelpCategoryType> userHelpTypes = userRepository.gethelpTypes(user
+					.getHelpTypes());
+
+			dbUser.setHelpCategoryTypes(new HashSet<HelpCategoryType>(userHelpTypes));
 			userRepository.update(dbUser);
-			try{
-			// Resolve variables
-			Map<String, String> placeHolderValues = new HashMap<String, String>();
-			placeHolderValues.put(EmailTemplates.firstName, user.getFirstName());
-			placeHolderValues.put(EmailTemplates.userName, user.getEmailId());
-			placeHolderValues.put(EmailTemplates.password, user.getPassword());
-			String emailText = EmailTemplates.getEmailMessage(
-					Template.Registration, placeHolderValues);
-			emailService.sendMailWithSSL("Registration",emailText, user.getEmailId());
-			}catch(Exception mailFailure){
+			try {
+				// Resolve variables
+				Map<String, String> placeHolderValues = new HashMap<String, String>();
+				placeHolderValues.put(EmailTemplates.firstName,
+						user.getFirstName());
+				placeHolderValues.put(EmailTemplates.userName,
+						user.getEmailId());
+				placeHolderValues.put(EmailTemplates.password,
+						user.getPassword());
+				String emailText = EmailTemplates.getEmailMessage(
+						Template.Registration, placeHolderValues);
+				emailService.sendMailWithSSL("Registration", emailText,
+						user.getEmailId());
+			} catch (Exception mailFailure) {
 				mailFailure.printStackTrace();
-				//TODO this is just stupid to print stacktrace. log it buddy.
+				// TODO this is just stupid to print stacktrace. log it buddy.
 			}
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
