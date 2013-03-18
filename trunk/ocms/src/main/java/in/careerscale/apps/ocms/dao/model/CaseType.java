@@ -51,6 +51,12 @@ public class CaseType implements java.io.Serializable {
 		this.caseMasters = caseMasters;
 	}
 
+	public CaseType(Integer id, String name, String description) {
+		this.id = id;
+		this.name= name;
+		this.description= description;
+	}
+	
 	public CaseType(String name, String description) {
 		this.name= name;
 		this.description= description;
