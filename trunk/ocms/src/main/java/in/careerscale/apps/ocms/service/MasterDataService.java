@@ -47,15 +47,13 @@ public class MasterDataService {
 	    }
 	 
 	 
-	 public List<MasterType> getCaseTypes() throws ApplicationException{
-			
-		 List<MasterType> caseTypes = new ArrayList<MasterType>();
+	 public Map<Integer, String> getCaseTypes() throws ApplicationException{
+		 Map<Integer, String> caseTypes = new HashMap<Integer, String>();		
 		   try {
 			   List<CaseType> casetypesList =repository.getCaseTypes();
 			   
 			   for (CaseType caseType : casetypesList) {
-				   String caseTypeName = caseType.getCaseType()!=null?caseType.getCaseType().getName() + " - " + caseType.getName() : caseType.getName();
-				   caseTypes.add(new MasterType(caseType.getId(), caseTypeName));
+				   caseTypes.put(caseType.getId(), caseType.getName());
 				
 			}
 	        } catch (PersistenceException pe) {
@@ -65,25 +63,55 @@ public class MasterDataService {
 		   return caseTypes;
 	 }
 
-	public List<MasterType> getHelpTypes() throws ApplicationException {
-		 List<MasterType> helpTypes = new ArrayList<MasterType>();
-		   try {
-			   List<HelpCategoryType> helpTypesList =repository.getHelpTypes();
-			   
-			   for (HelpCategoryType helpType : helpTypesList) {
-				   String helpTypeName = helpType.getHelpCategoryType()!=null?helpType.getHelpCategoryType().getCategoryName() + " - " + helpType.getCategoryName() : helpType.getCategoryName();
-					 
-				   helpTypes.add(new MasterType(helpType.getId(), helpTypeName));
-				
-			}
+
+	 public List<CaseType> getCaseTypesList() throws ApplicationException{
+		 List<CaseType> casetypesList  = null;  
+		 try {
+			   casetypesList =repository.getCaseTypes();
+			
 	        } catch (PersistenceException pe) {
 	            throw new ApplicationException(pe.getMessage());
 	        }
 		   
-		   return helpTypes;
+		   return casetypesList ;
+	 }
+
+		public List<MasterType> getHelpTypes() throws ApplicationException {
+			 List<MasterType> helpTypes = new ArrayList<MasterType>();
+			   try {
+				   List<HelpCategoryType> helpTypesList =repository.getHelpTypes();
+				   
+				   for (HelpCategoryType helpType : helpTypesList) {
+					   String helpTypeName = helpType.getHelpCategoryType()!=null?helpType.getHelpCategoryType().getCategoryName() + " - " + helpType.getCategoryName() : helpType.getCategoryName();
+						 
+					   helpTypes.add(new MasterType(helpType.getId(), helpTypeName));
+					
+				}
+		        } catch (PersistenceException pe) {
+		            throw new ApplicationException(pe.getMessage());
+		        }
+			   
+			   return helpTypes;
+			
+		}
 		
-	}
-
-
+		
+		 public List<MasterType> getCaseTypes1() throws ApplicationException{
+				
+			 List<MasterType> caseTypes = new ArrayList<MasterType>();
+			   try {
+				   List<CaseType> casetypesList =repository.getCaseTypes();
+				   
+				   for (CaseType caseType : casetypesList) {
+					   String caseTypeName = caseType.getCaseType()!=null?caseType.getCaseType().getName() + " - " + caseType.getName() : caseType.getName();
+					   caseTypes.add(new MasterType(caseType.getId(), caseTypeName));
+					
+				}
+		        } catch (PersistenceException pe) {
+		            throw new ApplicationException(pe.getMessage());
+		        }
+			   
+			   return caseTypes;
+		 }
 
 }
