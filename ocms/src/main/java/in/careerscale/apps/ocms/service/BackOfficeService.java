@@ -1,6 +1,7 @@
 package in.careerscale.apps.ocms.service;
 
 import javax.persistence.PersistenceException;
+import javax.persistence.criteria.CriteriaBuilder.Case;
 
 import in.careerscale.apps.ocms.dao.BackOfficeRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
@@ -33,6 +34,38 @@ public class BackOfficeService {
 		}
 	}
 	
+	
+	public BOBean updateCaseType(BOBean caseType) throws ApplicationException {
+		BOBean boBean  = null;
+		try {
+			CaseType caseType2 =  backofficeRepository.update(new CaseType(caseType.getId(), caseType.getName(), caseType
+					.getDescription()));
+			boBean = new BOBean();
+			boBean.setId(caseType2.getId());
+			boBean.setName(caseType2.getName());
+			boBean.setDescription(caseType2.getDescription());
+			
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+		return boBean;
+	}
+
+	
+	public void deleteCaseType(BOBean caseType) throws ApplicationException {
+
+		try {
+			backofficeRepository.delete(new CaseType(caseType.getId(), caseType.getName(), caseType
+					.getDescription()));
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	
+	
+	
+
+
 	 public void addHelpCategoryType(BOBean helpCategoryType) throws ApplicationException {
 
 	        try {

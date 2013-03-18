@@ -31,6 +31,14 @@ public class BackOfficeRepository {
 		
 	}
 	
+	public void delete(CaseType caseType) {
+		//String query = "DELETE FROM CASE_TYPE where name = {:name}";
+		//entityManager.createNativeQuery(query).setParameter(1, caseType.getName()).executeUpdate();
+		caseType = entityManager.find(CaseType.class, caseType.getId());
+		entityManager.remove(caseType);
+	}
+	
+	
 	 public HelpCategoryType getHelpCategoryType(Integer id){
 	        return entityManager.find(HelpCategoryType.class, id);
 	        
@@ -38,6 +46,18 @@ public class BackOfficeRepository {
 	     public void save(HelpCategoryType helpCategoryType){
 	         entityManager.persist(helpCategoryType);
 	     }
+
+
+		public CaseType update(CaseType caseType)
+		{
+			CaseType caseType1 = entityManager.find(CaseType.class, caseType.getId());
+			if(caseType.getName()!=null){
+				caseType1.setName(caseType.getName());
+			}else{
+				caseType1.setDescription(caseType.getDescription());
+			}
+			return entityManager.merge(caseType1);
+		}
 	    
 	
 

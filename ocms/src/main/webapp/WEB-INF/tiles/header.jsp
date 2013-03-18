@@ -15,7 +15,7 @@
 				</sec:authorize> </a>
 		</div>
 		<div class="logo">
-			<a href="#"><img src="resources/images/logo_careerscale.gif"
+			<a href="#"><img src="/resources/images/logo_careerscale.gif"
 				width="168" height="73" alt="CareerScale" /></a>
 
 		</div>

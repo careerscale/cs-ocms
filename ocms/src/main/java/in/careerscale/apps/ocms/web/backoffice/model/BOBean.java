@@ -5,6 +5,15 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class BOBean {
 	private String name;
 	private String description;
+	private Integer id;
+	public Integer getId()
+	{
+		return id;
+	}
+	public void setId(Integer id)
+	{
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -25,6 +34,7 @@ public class BOBean {
 			       append("description", description).
 			       toString();
 	}
+	
 		
 
 }
