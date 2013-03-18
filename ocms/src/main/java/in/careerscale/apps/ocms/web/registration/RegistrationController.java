@@ -90,7 +90,7 @@ public class RegistrationController implements Validator {
 	
 	private void setMasterData(User bean){
 		try {
-			bean.setCaseMasterTypes(masterDataService.getCaseTypes());
+			bean.setCaseMasterTypes(masterDataService.getCaseTypes1());
 			bean.setHelpMasterTypes(masterDataService.getHelpTypes());
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
