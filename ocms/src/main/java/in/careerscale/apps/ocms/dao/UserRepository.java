@@ -5,11 +5,12 @@ package in.careerscale.apps.ocms.dao;
 
 
 import java.util.List;
-import java.util.Set;
 
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
+import in.careerscale.apps.ocms.dao.model.SocialNetwork;
+import in.careerscale.apps.ocms.dao.model.UserNetwork;
 
 
 import javax.persistence.*;
@@ -58,8 +59,6 @@ public class UserRepository {
 		
 		entityManager.merge(dbUser);
 		entityManager.flush();
-		
-		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -67,6 +66,16 @@ public class UserRepository {
 		Query query =entityManager.createQuery("SELECT h FROM HelpCategoryType h where h.id IN (:id)"); 
 		query.setParameter("id", helpTypes);
 		return query.getResultList();
+	}
+
+	public SocialNetwork getSocialNetwork(Integer id) {
+		SocialNetwork network =entityManager.find(SocialNetwork.class, id);
+		return network;
+	}
+
+	public void save(UserNetwork userNetwork) {
+		entityManager.persist(userNetwork);
+		entityManager.flush();
 	}
 
 	

@@ -4,6 +4,11 @@ package in.careerscale.apps.ocms.web.oauth;
 import javax.servlet.http.HttpServletRequest;
 
 import in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider;
+import in.careerscale.apps.ocms.service.UserService;
+import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.web.oauth.exception.LinkedInException;
+import in.careerscale.apps.ocms.web.oauth.util.OAUthParser;
+import in.careerscale.apps.ocms.web.registration.model.User;
 
 import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
@@ -25,6 +30,9 @@ public class LinkedInController {
 	@Autowired
 	@Qualifier("linkedInServiceProvider")
 	private OAuthServiceProvider linkedInServiceProvider;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value={"/login-linkedin"}, method = RequestMethod.GET)
 	public String login(WebRequest request) {
@@ -63,10 +71,24 @@ public class LinkedInController {
 		service.signRequest(accessToken, oauthRequest);
 		Response oauthResponse = oauthRequest.send();
 		System.out.println(oauthResponse.getBody());
-
-		ModelAndView mav = new ModelAndView("redirect:loginPage");
-		
+	
 		req.setAttribute("oAuthResponse1", oauthResponse.getBody());
+		
+		User user = null;
+		try {
+			user = OAUthParser.getUserFromLinkedinUserProfile(oauthResponse.getBody());
+		} catch (LinkedInException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		try {
+			//TODO what if user is null?
+			userService.registerUser(user);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "oauth/oauthprofile";
 
 	}

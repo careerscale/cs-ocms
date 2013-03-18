@@ -6,6 +6,10 @@ import static org.springframework.web.context.request.RequestAttributes.SCOPE_SE
 import javax.servlet.http.HttpServletRequest;
 
 import in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider;
+import in.careerscale.apps.ocms.service.UserService;
+import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.web.oauth.util.OAUthParser;
+import in.careerscale.apps.ocms.web.registration.model.User;
 
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
@@ -33,6 +37,9 @@ public class FacebookController {
 	private OAuthServiceProvider facebookServiceProvider;
 	
 	private static final Token EMPTY_TOKEN = null;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value={"/login-facebook"}, method = RequestMethod.GET)
 	public String login(WebRequest request) {
@@ -72,6 +79,15 @@ public class FacebookController {
 
 		request.setAttribute("oAuthResponse", oauthResponse.getBody(), 0);
 		req.setAttribute("oAuthResponse1", oauthResponse.getBody());
+		
+		User user = OAUthParser.getUserFromFacebookUserProfile(oauthResponse.getBody());
+
+		try {
+			userService.registerUser(user);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		return "oauth/oauthprofile";
 

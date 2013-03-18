@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider;
+import in.careerscale.apps.ocms.service.UserService;
+import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.web.oauth.util.OAUthParser;
+import in.careerscale.apps.ocms.web.registration.model.User;
 
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
@@ -31,6 +35,9 @@ public class GoogleController {
 	@Autowired
 	@Qualifier("gmailServiceProvider")
 	private OAuthServiceProvider gmailServiceProvider;
+
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value={"/login-google"}, method = RequestMethod.GET)
 	public String login(WebRequest request) {
@@ -75,9 +82,25 @@ public class GoogleController {
 		Response oauthResponse = oauthRequest.send();
 		System.out.println(oauthResponse.getBody());
 		
+		
+		
 		request.setAttribute("oAuthResponse", oauthResponse.getBody(), 0);
 		req.setAttribute("oAuthResponse1", oauthResponse.getBody());
+		
+		User user =OAUthParser.getUserFromGoogleUserProfile(oauthResponse.getBody());
 
+		//let us get the email id as well
+		oauthRequest = new OAuthRequest(Verb.GET, "https://www.googleapis.com/userinfo/email");
+		service.signRequest(accessToken, oauthRequest); // the access token from step 4
+		oauthResponse = oauthRequest.send();
+		System.out.println(oauthResponse.getBody());		
+		user.setEmailId(oauthResponse.getBody());
+		try {
+			userService.registerUser(user);
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "oauth/oauthprofile";
 	}
 }
