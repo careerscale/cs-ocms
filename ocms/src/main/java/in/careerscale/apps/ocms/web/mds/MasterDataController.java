@@ -95,7 +95,7 @@ public class MasterDataController {
 		
 	}
 	
-	@RequestMapping(value = "/master/casetypes", method = RequestMethod.GET)	
+	@RequestMapping(value = "/master/casetypes2", method = RequestMethod.GET)	
 	public @ResponseBody List<MasterType> getCaseTypes2(HttpServletRequest request,
 			HttpServletResponse response) {
 		System.out.println("into the getCasetypes");
