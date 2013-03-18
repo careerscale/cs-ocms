@@ -4,6 +4,7 @@ package in.careerscale.apps.ocms.web.oauth;
 import javax.servlet.http.HttpServletRequest;
 
 import in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider;
+import in.careerscale.apps.ocms.service.UserService;
 
 import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
@@ -24,6 +25,9 @@ public class TwitterController {
 	@Autowired
 	@Qualifier("twitterServiceProvider")
 	private OAuthServiceProvider twitterServiceProvider;
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value={"/login-twitter"}, method = RequestMethod.GET)
 	public String login(WebRequest request) {
