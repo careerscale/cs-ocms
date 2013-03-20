@@ -84,13 +84,12 @@ public class GoogleController {
 		
 		
 		
-		request.setAttribute("oAuthResponse", oauthResponse.getBody(), 0);
-		req.setAttribute("oAuthResponse1", oauthResponse.getBody());
+//		request.setAttribute("oAuthResponse", oauthResponse.getBody(), 0);
+	//	req.setAttribute("oAuthResponse1", oauthResponse.getBody());
 		
 		User user =OAUthParser.getUserFromGoogleUserProfile(oauthResponse.getBody());
-
 		//let us get the email id as well
-		oauthRequest = new OAuthRequest(Verb.GET, "https://www.googleapis.com/userinfo/email");
+		oauthRequest = new OAuthRequest(Verb.GET, "https://www.googleapis.com/userinfo/email?alt=json");
 		service.signRequest(accessToken, oauthRequest); // the access token from step 4
 		oauthResponse = oauthRequest.send();
 		System.out.println(oauthResponse.getBody());		
