@@ -133,7 +133,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<constructor-arg value="${app.config.oauth.gmail.apisecret}" />
 		<constructor-arg value="${app.config.oauth.gmail.callback}" />
 		<constructor-arg value="org.scribe.builder.api.GoogleApi" />
-		<constructor-arg value="https://www.googleapis.com/auth/userinfo.profile" />
+		<constructor-arg value="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile" />
 	</bean>
 
 	<bean id="gmailServiceProvider"
