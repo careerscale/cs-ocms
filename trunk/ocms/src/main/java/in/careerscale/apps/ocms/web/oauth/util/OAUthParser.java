@@ -1,5 +1,9 @@
 package in.careerscale.apps.ocms.web.oauth.util;
 
+import in.careerscale.apps.ocms.service.model.SocialNetwork;
+import in.careerscale.apps.ocms.web.oauth.exception.LinkedInException;
+import in.careerscale.apps.ocms.web.registration.model.User;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
@@ -15,17 +19,10 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import in.careerscale.apps.ocms.service.model.SocialNetwork;
-import in.careerscale.apps.ocms.web.oauth.exception.LinkedInException;
-import in.careerscale.apps.ocms.web.registration.model.User;
-
-import org.codehaus.jackson.map.util.JSONPObject;
-import org.w3c.dom.Document;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -68,6 +65,7 @@ public class OAUthParser {
 		user.setSocialNetworkId(googleAttributes.get("id"));
 		user.setFirstName(googleAttributes.get("given_name"));
 		user.setLastName(googleAttributes.get("family_name"));
+		user.setEmailId(googleAttributes.get("email"));
 		//TODO  how do we get email id
 		return user;
 	}

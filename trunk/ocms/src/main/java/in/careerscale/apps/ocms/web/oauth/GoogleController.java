@@ -50,7 +50,7 @@ public class GoogleController {
 			OAuthService service = gmailServiceProvider.getService();
 			requestToken = service.getRequestToken();
 			request.setAttribute(ATTR_OAUTH_REQUEST_TOKEN, requestToken, SCOPE_SESSION);
-			request.setAttribute("scope", "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&", SCOPE_SESSION);
+			//request.setAttribute("scope", "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&", SCOPE_SESSION);
 			
 			
 			
@@ -89,11 +89,11 @@ public class GoogleController {
 		
 		User user =OAUthParser.getUserFromGoogleUserProfile(oauthResponse.getBody());
 		//let us get the email id as well
-		oauthRequest = new OAuthRequest(Verb.GET, "https://www.googleapis.com/userinfo/email?alt=json");
-		service.signRequest(accessToken, oauthRequest); // the access token from step 4
-		oauthResponse = oauthRequest.send();
-		System.out.println(oauthResponse.getBody());		
-		user.setEmailId(oauthResponse.getBody());
+		//oauthRequest = new OAuthRequest(Verb.GET, "https://www.googleapis.com/oauth2/v1/email");
+		//service.signRequest(accessToken, oauthRequest); // the access token from step 4
+		//oauthResponse = oauthRequest.send();
+		//System.out.println(oauthResponse.getBody());		
+		//user.setEmailId(oauthResponse.getBody());
 		try {
 			userService.registerUser(user);
 		} catch (ApplicationException e) {
