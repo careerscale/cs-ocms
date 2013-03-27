@@ -97,11 +97,13 @@ public class UserService implements UserDetailsService {
 					userRepository.registerUser(dbUser);
 
 				}
+				//TODO check if the association exists already. if yes, skip, it might be login action from user.
 				in.careerscale.apps.ocms.dao.model.SocialNetwork network = userRepository
 						.getSocialNetwork(user.getNetwork().getId());
 				UserNetwork userNetwork = new UserNetwork(
 						user.getSocialNetworkId(), dbUser, network);
 				userRepository.save(userNetwork);
+				
 
 			} else {
 				// regular form registration, let us go ahead here

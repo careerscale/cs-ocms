@@ -17,6 +17,7 @@
 		<ch.qos.logback-version>1.0.7</ch.qos.logback-version>
 		<org.apache.tiles-version>3.0.1</org.apache.tiles-version>
 		<thymeleaf.version>2.0.5</thymeleaf.version>
+		<org.hibernate.version>4.2.0.Final</org.hibernate.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -107,7 +108,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.1.8.Final</version>
+			<version>${org.hibernate.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>hsqldb</groupId>
@@ -130,7 +131,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>4.3.0.Final</version>
+			<version>${org.hibernate.version}</version>
 		</dependency>
 		<!-- Apache Tiles -->
 		<dependency>
