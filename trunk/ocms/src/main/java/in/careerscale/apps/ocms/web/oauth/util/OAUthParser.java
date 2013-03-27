@@ -51,7 +51,7 @@ public class OAUthParser {
 		user.setNetwork(SocialNetwork.Twitter);
 		user.setSocialNetworkId(xp.evaluate("/user/id/text()", doc));
 		user.setFirstName(xp.evaluate("/user/name/text()", doc));
-		user.setEmailId(xp.evaluate("/user/name/text()", doc));
+		user.setEmailId(xp.evaluate("/user/screen_name/text()", doc));
 		return user;
 	}
 
@@ -66,7 +66,6 @@ public class OAUthParser {
 		user.setFirstName(googleAttributes.get("given_name"));
 		user.setLastName(googleAttributes.get("family_name"));
 		user.setEmailId(googleAttributes.get("email"));
-		//TODO  how do we get email id
 		return user;
 	}
 	
@@ -78,15 +77,15 @@ public class OAUthParser {
 
 		while (entryIterator.hasNext()) {
 			Entry<String, JsonElement> entry = entryIterator.next();
-			attributesMap.put(entry.getKey(), entry.getValue().getAsString());
+			if(entry.getValue().isJsonNull())
+				continue;
+			attributesMap.put(entry.getKey(), entry.getValue().toString());
 
 		}
 		return attributesMap;
 	}
 
 	public static User getUserFromFacebookUserProfile(String userJSONData) {
-		User user = new User();
-
 		// "id":"501130713","name":"Harinath Mallepally","first_name":"Harinath","last_name":"Mallepally","link":"http:\/\/www.facebook.com\/harinath.mallepaly","username":"harinath.mallepaly","hometown":{"id":"115200305158163","name":"Hyderabad,
 		// Andhra
 		// Pradesh"},"location":{"id":"115200305158163","name":"Hyderabad,
@@ -118,19 +117,20 @@ public class OAUthParser {
 		// Padegal"},{"id":"100000016476112","name":"Punitha
 		// Ram"}],"from":{"id":"100000016476112","name":"Punitha
 		// Ram"}}]}],"gender":"male","timezone":5.5,"locale":"en_US","verified":true,"updated_time":"2013-03-15T16:37:28+0000"}
-
+		
+		User user = new User();
 		JsonElement jelement = new JsonParser().parse(userJSONData);
 		JsonObject jobject = jelement.getAsJsonObject();
-		JsonArray jarray = jobject.getAsJsonArray();
+		Set<Entry<String, JsonElement>> entrySet = jobject.entrySet();
 		user.setNetwork(SocialNetwork.Facebook);
-		user.setSocialNetworkId(jarray.get(0).getAsJsonObject().get("id")
-				.toString());
-		user.setFirstName(jarray.get(2).getAsJsonObject().get("last_name")
-				.toString());
-		user.setLastName(jarray.get(3).getAsJsonObject().get("last_name")
-				.toString());
-
+		Map<String, String> facebookAttributes = getAttributesMap(entrySet);
+		user.setSocialNetworkId(facebookAttributes.get("id"));
+		user.setFirstName(facebookAttributes.get("first_name"));
+		user.setLastName(facebookAttributes.get("last_name"));
+		user.setEmailId(facebookAttributes.get("username"));
 		return user;
+	
+		
 	}
 
 	/**
