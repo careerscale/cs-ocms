@@ -71,8 +71,6 @@ public class LinkedInController {
 		service.signRequest(accessToken, oauthRequest);
 		Response oauthResponse = oauthRequest.send();
 		System.out.println(oauthResponse.getBody());
-	
-		req.setAttribute("oAuthResponse1", oauthResponse.getBody());
 		
 		User user = null;
 		try {

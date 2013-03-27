@@ -13,10 +13,10 @@ DROP TABLE IF EXISTS `login_master` ;
 
 CREATE  TABLE IF NOT EXISTS `login_master` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `email_id` VARCHAR(100) NOT NULL ,
+  `email_id` VARCHAR(100) NULL ,
   `password` VARCHAR(80) NULL ,
   `first_name` VARCHAR(75) NOT NULL ,
-  `last_name` VARCHAR(75) NOT NULL ,
+  `last_name` VARCHAR(75) NULL ,
   `date_of_birth` DATETIME NULL ,
   `login_type` INT NULL ,
   PRIMARY KEY (`id`) ,
@@ -482,6 +482,7 @@ CREATE  TABLE IF NOT EXISTS `social_network` (
   `api_key` VARCHAR(45) NULL ,
   `api_secret` VARCHAR(45) NULL ,
   `callback_url` VARCHAR(100) NULL ,
+  `scope` VARCHAR(250) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -631,11 +632,23 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 1, NULL);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 2, NULL);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 3, NULL);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 4, NULL);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (2, 1, NULL);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (2, 2, NULL);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 2, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 3, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 4, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (2, 1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (2, 2, 1);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `social_network`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (1, 'Linkedn', 'Linkedn', 'vpfc1bjfjokm', 'jbN6kSiRSaYp2dDe', 'http://localhost:9090/linkedin-callback', NULL);
+INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (2, 'Facebook', 'Facebook', '547688988597448', '9a07fdf996236b9c4e7a010549d638d3', 'http://careerscale.in:9090/facebook-callback', NULL);
+INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (3, 'Google', 'Google', '179271485873.apps.googleusercontent.com', 'ghGOdAEKfCWlz_ClgbYLTLEp', 'http://localhost:9090/google-callback', 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile');
+INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (4, 'Twitter', 'Twitter', 'FDyGFjNABJKZlPo80TmcA', '0JS0T1PcgFVDQlKhaM6LNwhInzhjmrimgq0k88QgUE', 'http://localhost:9090/twitter-callback', NULL);
 
 COMMIT;

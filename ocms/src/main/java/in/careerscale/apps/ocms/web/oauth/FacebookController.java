@@ -46,15 +46,18 @@ public class FacebookController {
 		
 		// getting request and access token from session
 		Token accessToken = (Token) request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
-		//if(accessToken == null) {
+		if(accessToken == null) {
 			// generate new request token
 			OAuthService service = facebookServiceProvider.getService();
 			request.setAttribute(ATTR_OAUTH_REQUEST_TOKEN, EMPTY_TOKEN, SCOPE_SESSION);
 			
 			// redirect to facebook auth page
 			return "redirect:" + service.getAuthorizationUrl(EMPTY_TOKEN);
-		//}
-		//return "welcomePage";
+		}
+		//TODO
+		//Get user information and update spring security context for the user. 
+		//Since we are trusting thirdparty oauth providers 
+		return "home/index";
 	}
 	
 	@RequestMapping(value={"/facebook-callback"}, method = RequestMethod.GET)
@@ -78,8 +81,7 @@ public class FacebookController {
 		System.out.println(oauthResponse.getBody());
 
 		request.setAttribute("oAuthResponse", oauthResponse.getBody(), 0);
-		req.setAttribute("oAuthResponse1", oauthResponse.getBody());
-		
+			
 		User user = OAUthParser.getUserFromFacebookUserProfile(oauthResponse.getBody());
 
 		try {

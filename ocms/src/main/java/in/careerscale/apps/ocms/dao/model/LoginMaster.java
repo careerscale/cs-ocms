@@ -111,7 +111,7 @@ public static final String FIND_BY_USERNAME = "LoginMaster.findByUsername";
 		this.id = id;
 	}
 
-	@Column(name = "email_id", unique = true, nullable = false, length = 100)
+	@Column(name = "email_id", unique = true, nullable = true, length = 100)
 	public String getEmailId() {
 		return this.emailId;
 	}
@@ -138,7 +138,7 @@ public static final String FIND_BY_USERNAME = "LoginMaster.findByUsername";
 		this.firstName = firstName;
 	}
 
-	@Column(name = "last_name", nullable = false, length = 75)
+	@Column(name = "last_name", nullable = true, length = 75)
 	public String getLastName() {
 		return this.lastName;
 	}
