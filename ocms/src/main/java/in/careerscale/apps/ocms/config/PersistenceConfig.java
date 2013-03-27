@@ -4,6 +4,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,8 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @Configuration
 @EnableTransactionManagement
 public class PersistenceConfig implements TransactionManagementConfigurer {
+	
+	Log log = LogFactory.getLog(PersistenceConfig.class);
 	
 	@Value("${dataSource.driverClassName}")
 	private String driver;
