@@ -15,6 +15,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 public class MasterDataController {
 	
+	Log log = LogFactory.getLog(MasterDataController.class);
+	
 	@Autowired
 	MasterDataService masterDataService;
 	
@@ -38,7 +42,7 @@ public class MasterDataController {
 	
 	public @ResponseBody Map<String, String> getCaseSubTypes(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("into the login");
+		
 		Map<String, String> subTypes = new HashMap<String, String>();
 		subTypes.put("22", "Heart Operation");
 		subTypes.put("23", "Kidney Operation");		
@@ -47,8 +51,8 @@ public class MasterDataController {
 	
 	@RequestMapping(value = "/master/casetypes1", method = RequestMethod.GET)	
 	public @ResponseBody Map<Integer, String> getCaseTypes(HttpServletRequest request,
-			HttpServletResponse response) {
-		System.out.println("into the getCasetypes");
+			HttpServletResponse response) {		
+		log.debug("into the getcasetypes");
 		Map<Integer, String> caseTypes = new HashMap<Integer, String>();
 		
 	
@@ -69,16 +73,14 @@ public class MasterDataController {
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		System.out.println("into the getCasetypes");
+		log.debug("into the getCasetypes");
 		Map<Integer, String> caseTypes = new HashMap<Integer, String>();
 		
 	
 		  try{
 			  caseTypes = masterDataService.getCaseTypes();
-		        }catch(ApplicationException ae){
-		       		//TODO log this exception, I dont want to expect this at any cost, but still remedy should be there.
-		        	ae.printStackTrace();
-		        	//TODO remove printStackTrace once stabilized and log it.
+		        }catch(ApplicationException ae){		       	
+		        	log.error(ae);
 				}
 		  
 		  BOBean boBean = null;
@@ -98,16 +100,14 @@ public class MasterDataController {
 	@RequestMapping(value = "/master/casetypes2", method = RequestMethod.GET)	
 	public @ResponseBody List<MasterType> getCaseTypes2(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("into the getCasetypes");
+		log.debug("into the getCasetypes");
 		List<MasterType> caseTypes = new ArrayList<MasterType>();
 		
 	
 		  try{
 			  caseTypes = masterDataService.getCaseTypes1();
-		        }catch(ApplicationException ae){
-		       		//TODO log this exception, I dont want to expect this at any cost, but still remedy should be there.
-		        	ae.printStackTrace();
-		        	//TODO remove printStackTrace once stabilized and log it.
+		        }catch(ApplicationException ae){		       	
+		        	log.error(ae);
 				}
 		return caseTypes ;
 	}

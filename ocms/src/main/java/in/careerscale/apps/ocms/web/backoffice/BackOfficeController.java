@@ -17,6 +17,8 @@ import in.careerscale.apps.ocms.web.registration.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Secured("ROLE_USER")
 public class BackOfficeController {
 
+	Log log = LogFactory.getLog(BackOfficeController.class);
 	
 	@Autowired
 	private BackOfficeService backOfficeService;
@@ -44,39 +47,25 @@ public class BackOfficeController {
 	public String index(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("into the get method call");
+		log.debug("Within GET method for /backoffice");
 
 		return "backoffice/index";
 	}
 
-	
-
-	/*@RequestMapping(value = "/backoffice/casetype", method = RequestMethod.GET)
-	public String caseTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) {
-		System.out.println("into the get method call");
-
-		
-		return "backoffice/casetype";
-	}
-	*/
 	
 	@RequestMapping(value = "/backoffice/casetype", method = RequestMethod.GET)	
 	public String getCaseTypes1(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		System.out.println("into the getCasetypes");
+		log.debug("Within GET method for /backoffice/casetype");
 		List<CaseType> casetypesList  = null;  
 	
 		  try{
 			  casetypesList = masterDataService.getCaseTypesList();
 		        }catch(ApplicationException ae){
-		       		//TODO log this exception, I dont want to expect this at any cost, but still remedy should be there.
-		        	ae.printStackTrace();
-		        	//TODO remove printStackTrace once stabilized and log it.
-				}
+		        	log.error(ae);
+		        }
 		  
 		  BOBean boBean = null;
 		  Iterator<CaseType> it = casetypesList.iterator();
@@ -98,7 +87,7 @@ public class BackOfficeController {
 	public String caseTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("into the get method call");
+		log.debug("Within GET method for /backoffice/DeleteData");
 
 		
 		return "backoffice/casetype";
@@ -118,7 +107,7 @@ public class BackOfficeController {
        		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
         	
 		}
-       System.out.println("into the get method call" );
+		log.debug("Within GET method for /backoffice/casetypeAdd");
 
 		
 	}
@@ -141,7 +130,7 @@ public class BackOfficeController {
        		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
         	
 		}
-		System.out.println("into the get method call");
+		log.debug("Within GET method for /backoffice/DeleteData");
 
 		
 		//return "backoffice/casetype";
@@ -182,7 +171,7 @@ public class BackOfficeController {
        		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
        		
 		}
-		System.out.println("into the get method call");
+		log.debug("Within GET method for /backoffice/UpdateData");
 		if(boolName){
 			return bean1.getName();
 		}else{
@@ -216,7 +205,7 @@ public class BackOfficeController {
     public String HelpTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
-        System.out.println("into the get method call");
+		log.debug("Within GET method for /backoffice/helptype");
 
         return "backoffice/helptype";
     }

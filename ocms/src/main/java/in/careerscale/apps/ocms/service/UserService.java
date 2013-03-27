@@ -2,42 +2,41 @@ package in.careerscale.apps.ocms.service;
 
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
+import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
+import in.careerscale.apps.ocms.dao.model.LoginMaster;
+import in.careerscale.apps.ocms.dao.model.UserNetwork;
+import in.careerscale.apps.ocms.dao.model.UserRole;
+import in.careerscale.apps.ocms.mail.EmailSender;
+import in.careerscale.apps.ocms.mail.EmailTemplates;
+import in.careerscale.apps.ocms.mail.Template;
+import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.web.registration.model.User;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.PersistenceException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import org.springframework.stereotype.Service;
-
-import in.careerscale.apps.ocms.dao.model.CaseType;
-import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
-import in.careerscale.apps.ocms.dao.model.LoginMaster;
-import in.careerscale.apps.ocms.dao.model.UserNetwork;
-import in.careerscale.apps.ocms.mail.EmailSender;
-import in.careerscale.apps.ocms.mail.EmailTemplates;
-import in.careerscale.apps.ocms.mail.Template;
-import in.careerscale.apps.ocms.service.exception.ApplicationException;
-import in.careerscale.apps.ocms.service.model.SocialNetwork;
-import in.careerscale.apps.ocms.web.registration.model.User;
-import in.careerscale.apps.ocms.dao.model.UserRole;
 
 @Service("userService")
 public class UserService implements UserDetailsService {
 
+	Log log = LogFactory.getLog(UserService.class);
 	@Autowired
 	private UserRepository userRepository;
 
@@ -136,9 +135,7 @@ public class UserService implements UserDetailsService {
 					emailService.sendMailWithSSL("Registration", emailText,
 							user.getEmailId());
 				} catch (Exception mailFailure) {
-					mailFailure.printStackTrace();
-					// TODO this is just stupid to print stacktrace. log it
-					// buddy.
+					log.error("Unable to send mail", mailFailure);
 				}
 
 			}

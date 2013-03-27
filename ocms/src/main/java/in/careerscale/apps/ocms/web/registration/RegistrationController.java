@@ -11,6 +11,8 @@ import in.careerscale.apps.ocms.web.registration.model.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.annotation.Secured;
@@ -31,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Secured("ROLE_ANONYMOUS")
 public class RegistrationController implements Validator {
 
+	Log log = LogFactory.getLog(RegistrationController.class);
 	@Autowired
 	private UserService userService;
 
@@ -56,7 +59,7 @@ public class RegistrationController implements Validator {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("into the login");
+		log.debug("within login GET method call");
 
 		return "register/login";
 	}
@@ -93,8 +96,7 @@ public class RegistrationController implements Validator {
 			bean.setCaseMasterTypes(masterDataService.getCaseTypes1());
 			bean.setHelpMasterTypes(masterDataService.getHelpTypes());
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("error while retrieving master data", e);
 		}
 	}
 

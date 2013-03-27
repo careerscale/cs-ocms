@@ -13,6 +13,8 @@ import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.oauth.util.OAUthParser;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -26,12 +28,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
+
 
 
 @Controller
 public class GoogleController {
 	
+	Log log = LogFactory.getLog(GoogleController.class);
 	@Autowired
 	@Qualifier("gmailServiceProvider")
 	private OAuthServiceProvider gmailServiceProvider;
@@ -45,7 +48,7 @@ public class GoogleController {
 		// getting request and access token from session
 		Token requestToken = (Token) request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
 		Token accessToken = (Token) request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
-		//if(requestToken == null || accessToken == null) {
+		if(requestToken == null || accessToken == null) {
 			// generate new request token
 			OAuthService service = gmailServiceProvider.getService();
 			requestToken = service.getRequestToken();
@@ -56,8 +59,11 @@ public class GoogleController {
 			
 			// redirect to gmail auth page
 			return "redirect:" + service.getAuthorizationUrl(requestToken);
-		//}
-		//return "welcomePage";
+		}
+		//TODO
+		//Get user information and update spring security context for the user. 
+		//Since we are trusting thirdparty oauth providers 
+		return "home/index";
 	}
 	
 	@RequestMapping(value={"/google-callback"}, method = RequestMethod.GET)
@@ -80,25 +86,12 @@ public class GoogleController {
 		OAuthRequest oauthRequest = new OAuthRequest(Verb.GET, "https://www.googleapis.com/oauth2/v1/userinfo");
 		service.signRequest(accessToken, oauthRequest); // the access token from step 4
 		Response oauthResponse = oauthRequest.send();
-		System.out.println(oauthResponse.getBody());
-		
-		
-		
-//		request.setAttribute("oAuthResponse", oauthResponse.getBody(), 0);
-	//	req.setAttribute("oAuthResponse1", oauthResponse.getBody());
-		
+		log.debug(oauthResponse.getBody());
 		User user =OAUthParser.getUserFromGoogleUserProfile(oauthResponse.getBody());
-		//let us get the email id as well
-		//oauthRequest = new OAuthRequest(Verb.GET, "https://www.googleapis.com/oauth2/v1/email");
-		//service.signRequest(accessToken, oauthRequest); // the access token from step 4
-		//oauthResponse = oauthRequest.send();
-		//System.out.println(oauthResponse.getBody());		
-		//user.setEmailId(oauthResponse.getBody());
 		try {
 			userService.registerUser(user);
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error while registering google user", e);
 		}
 		return "oauth/oauthprofile";
 	}
