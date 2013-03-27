@@ -1,8 +1,9 @@
 package in.careerscale.apps.ocms.web.oauth;
 
 
-import javax.servlet.http.HttpServletRequest;
-
+import static in.careerscale.apps.ocms.web.oauth.SessionAttributes.ATTR_OAUTH_ACCESS_TOKEN;
+import static in.careerscale.apps.ocms.web.oauth.SessionAttributes.ATTR_OAUTH_REQUEST_TOKEN;
+import static org.springframework.web.context.request.RequestAttributes.SCOPE_SESSION;
 import in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider;
 import in.careerscale.apps.ocms.service.UserService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
@@ -10,23 +11,29 @@ import in.careerscale.apps.ocms.web.oauth.exception.LinkedInException;
 import in.careerscale.apps.ocms.web.oauth.util.OAUthParser;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
-import org.scribe.model.*;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import static org.springframework.web.context.request.RequestAttributes.*;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
-
-import static in.careerscale.apps.ocms.web.oauth.SessionAttributes.*;
 
 
 @Controller
 public class LinkedInController {
 	
+	Log log = LogFactory.getLog(LinkedInController.class);
 	@Autowired
 	@Qualifier("linkedInServiceProvider")
 	private OAuthServiceProvider linkedInServiceProvider;
@@ -40,7 +47,7 @@ public class LinkedInController {
 		// getting request and access token from session
 		Token requestToken = (Token) request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
 		Token accessToken = (Token) request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
-		//if(requestToken == null || accessToken == null) {
+		if(requestToken == null || accessToken == null) {
 			// generate new request token
 			OAuthService service = linkedInServiceProvider.getService();
 			requestToken = service.getRequestToken();
@@ -48,8 +55,11 @@ public class LinkedInController {
 			
 			// redirect to linkedin auth page
 			return "redirect:" + service.getAuthorizationUrl(requestToken);
-		//}
-		//return "welcomePage";
+		}
+		//TODO
+		//Get user information and update spring security context for the user. 
+		//Since we are trusting thirdparty oauth providers 
+		return "home/index";
 	}
 	
 	@RequestMapping(value={"/linkedin-callback"}, method = RequestMethod.GET)
@@ -70,14 +80,13 @@ public class LinkedInController {
 		OAuthRequest oauthRequest = new OAuthRequest(Verb.GET, "http://api.linkedin.com/v1/people/~:(id,first-name,last-name,industry,headline)");
 		service.signRequest(accessToken, oauthRequest);
 		Response oauthResponse = oauthRequest.send();
-		System.out.println(oauthResponse.getBody());
+		log.debug(oauthResponse.getBody());
 		
 		User user = null;
 		try {
 			user = OAUthParser.getUserFromLinkedinUserProfile(oauthResponse.getBody());
 		} catch (LinkedInException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			log.error("Error while registering linkedin user", e1);
 		}
 
 		try {
@@ -85,7 +94,7 @@ public class LinkedInController {
 			userService.registerUser(user);
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error while saving linked user registration in db", e);
 		}
 		return "oauth/oauthprofile";
 

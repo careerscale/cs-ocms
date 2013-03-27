@@ -1,10 +1,13 @@
 package in.careerscale.apps.ocms.integration.oauth;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.oauth.OAuthService;
 
 public class OAuthServiceProvider {
 	
+	Log log = LogFactory.getLog(OAuthServiceProvider.class);
 	private OAuthServiceConfig config;
 	
 	public OAuthServiceProvider() {
@@ -14,8 +17,8 @@ public class OAuthServiceProvider {
 		this.config = config;
 	}
 
-	public OAuthService getService() {
-		System.out.println(config);
+	public OAuthService getService() {		
+		log.debug(config);
 		if(config.getScope()==null)
 			return new ServiceBuilder().provider(config.getApiClass())
 								.apiKey(config.getApiKey())

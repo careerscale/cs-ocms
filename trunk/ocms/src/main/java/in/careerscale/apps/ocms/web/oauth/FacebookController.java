@@ -1,16 +1,19 @@
 package in.careerscale.apps.ocms.web.oauth;
 
 
+import static in.careerscale.apps.ocms.web.oauth.SessionAttributes.ATTR_OAUTH_ACCESS_TOKEN;
+import static in.careerscale.apps.ocms.web.oauth.SessionAttributes.ATTR_OAUTH_REQUEST_TOKEN;
 import static org.springframework.web.context.request.RequestAttributes.SCOPE_SESSION;
-
-import javax.servlet.http.HttpServletRequest;
-
 import in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider;
 import in.careerscale.apps.ocms.service.UserService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.oauth.util.OAUthParser;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -24,14 +27,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
-
-
-import static in.careerscale.apps.ocms.web.oauth.SessionAttributes.*;
 
 @Controller
 public class FacebookController {
 	
+	Log log = LogFactory.getLog(FacebookController.class);
 	@Autowired
 	@Qualifier("facebookServiceProvider")
 	private OAuthServiceProvider facebookServiceProvider;
@@ -78,17 +78,15 @@ public class FacebookController {
 		OAuthRequest oauthRequest = new OAuthRequest(Verb.GET, "https://graph.facebook.com/me");
 		service.signRequest(accessToken, oauthRequest);
 		Response oauthResponse = oauthRequest.send();
-		System.out.println(oauthResponse.getBody());
-
-		request.setAttribute("oAuthResponse", oauthResponse.getBody(), 0);
+		
+	    log.debug("Facebook response " + oauthResponse.getBody());
 			
 		User user = OAUthParser.getUserFromFacebookUserProfile(oauthResponse.getBody());
 
 		try {
 			userService.registerUser(user);
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error while registering facebook user", e);
 		}
 
 		return "oauth/oauthprofile";
