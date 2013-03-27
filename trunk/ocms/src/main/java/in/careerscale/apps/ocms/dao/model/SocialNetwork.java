@@ -26,6 +26,7 @@ public class SocialNetwork implements java.io.Serializable {
 	private String apiKey;
 	private String apiSecret;
 	private String callbackUrl;
+	private String scope;
 	private Set<UserNetwork> userNetworks = new HashSet<UserNetwork>(0);
 
 	public SocialNetwork() {
@@ -95,6 +96,17 @@ public class SocialNetwork implements java.io.Serializable {
 
 	public void setCallbackUrl(String callbackUrl) {
 		this.callbackUrl = callbackUrl;
+	}
+
+	
+	
+	@Column(name = "scope", length = 250)
+	public String getScope() {
+		return scope;
+	}
+
+	public void setScope(String scope) {
+		this.scope = scope;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "socialNetwork")
