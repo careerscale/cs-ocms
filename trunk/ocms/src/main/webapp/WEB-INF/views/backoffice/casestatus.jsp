@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <h1>
-    <spring:message code="view.backoffice.helptype.title" />
+    <spring:message code="view.backoffice.casestatus.title" />
 </h1>
 
 <div id="page-container" class="resize">
@@ -22,7 +22,7 @@
                 </spring:hasBindErrors>
             </div>
             <form:form method="post"
-                action="/backoffice/helptype" id="backofficeForm"
+                action="/backoffice/casestatus" id="backofficeForm"
                 modelAttribute="botype">
 
                 <div class="error" style="display: none;">
@@ -34,13 +34,13 @@
 
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                        <td class="label"><label for="name">Category Name:</label></td>
-                        <td class="field"><form:input path="name" type="text"
+                        <td class="label"><label for="caseStatusName">Case Status Name:</label></td>
+                        <td class="field"><form:input path="caseStatusName" type="text"
                                 class="required" value="" tabindex="1" /></td>
                     </tr>
                          <tr>
-                        <td class="label"><label for="description">Category Name:</label></td>
-                        <td class="field"><form:input path="description" type="textarea"
+                        <td class="label"><label for="caseStatusDescription"> Case Status Description:</label></td>
+                        <td class="field"><form:input path="caseStatusDescription" type="textarea"
                                 class="required" value="" tabindex="2" /></td>
                     </tr>
                     
@@ -49,7 +49,7 @@
                         <td>
                             <div class="buttonSubmit">
                                 <span></span> <input class="formButton" type="submit"
-                                    value="Add Help Category" style="width: 140px" tabindex="3" />
+                                    value="Add Case Status" style="width: 140px" tabindex="3" />
                             </div>
 
                         </td>

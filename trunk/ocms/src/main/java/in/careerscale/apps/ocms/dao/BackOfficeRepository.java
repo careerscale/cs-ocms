@@ -4,8 +4,10 @@ package in.careerscale.apps.ocms.dao;
 
 
 
+import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
+import in.careerscale.apps.ocms.dao.model.OrgType;
 
 
 import javax.persistence.*;
@@ -60,6 +62,20 @@ public class BackOfficeRepository {
 		}
 	    
 	
-
+		public CaseStatusMaster getCaseStatusMaster(Integer id){
+	        return entityManager.find(CaseStatusMaster.class, id);
+	        
+	    }
+	     public void save(CaseStatusMaster caseStatusMaster){
+	         entityManager.persist(caseStatusMaster);
+	     }
+	     
+	     public OrgType getOrgType(Integer id){
+		        return entityManager.find(OrgType.class, id);
+		        
+		    }
+		     public void save(OrgType orgType){
+		         entityManager.persist(orgType);
+		     }
 	
 }
