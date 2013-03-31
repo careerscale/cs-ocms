@@ -8,7 +8,14 @@ public class BOBean {
 	private Integer id;
 	private String caseStatusName;
 	private String caseStatusDescription;
+	private String roleName;
 	
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 	public String getCaseStatusName() {
 		return caseStatusName;
 	}
@@ -52,6 +59,7 @@ public class BOBean {
 			       append("description", description).
 			       append("caseStatusName",caseStatusName).
 			       append("caseStatusDescription",caseStatusDescription).
+			       append("roleName",roleName).
 			       toString();
 	}
 	

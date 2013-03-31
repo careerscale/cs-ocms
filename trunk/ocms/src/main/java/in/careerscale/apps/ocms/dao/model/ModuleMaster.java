@@ -23,6 +23,8 @@ public class ModuleMaster implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
+	
+
 	private String description;
 	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
 
@@ -31,6 +33,12 @@ public class ModuleMaster implements java.io.Serializable {
 
 	public ModuleMaster(String name) {
 		this.name = name;
+	}
+	
+	public ModuleMaster(String name, String description) {
+		super();
+		this.name = name;
+		this.description = description;
 	}
 
 	public ModuleMaster(String name, String description, Set<UserRole> userRoles) {
