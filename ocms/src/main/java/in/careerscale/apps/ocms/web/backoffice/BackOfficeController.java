@@ -288,7 +288,94 @@ public class BackOfficeController {
     }
     
     
+    @RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)
+    public String RoleMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+		log.debug("Within GET method for /backoffice/rolemaster");
+
+        return "backoffice/rolemaster";
+    }
+    
+    @RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.POST)
+    public String addRoleMaster(@ModelAttribute(value = "botype") BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+
+        //TODO Validations on server side
+        
+        try{
+            backOfficeService.addRoleMaster(bean);
+            
+        }catch(ApplicationException ae){
+               
+            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
+            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+            return "backoffice/rolemaster";
+        }
+        return "backoffice/success"; // we need to return next page.
+    }
+    
+    
+    @RequestMapping(value = "/backoffice/modulemaster", method = RequestMethod.GET)
+    public String ModuleMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+		log.debug("Within GET method for /backoffice/modulemaster");
+
+        return "backoffice/modulemaster";
+    }
+    
+    @RequestMapping(value = "/backoffice/modulemaster", method = RequestMethod.POST)
+    public String addModuleMaster(@ModelAttribute(value = "botype") BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+
+        //TODO Validations on server side
+        
+        try{
+            backOfficeService.addModuleMaster(bean);
+            
+        }catch(ApplicationException ae){
+               
+            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
+            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+            return "backoffice/modulemaster";
+        }
+        return "backoffice/success"; // we need to return next page.
+    }
+    
+    
    
+
+    @RequestMapping(value = "/backoffice/emailtemplate", method = RequestMethod.GET)
+    public String EmailTemplateIndex(@ModelAttribute(value = "botype")  BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+		log.debug("Within GET method for /backoffice/emailtemplate");
+
+        return "backoffice/emailtemplate";
+    }
+    
+    @RequestMapping(value = "/backoffice/emailtemplate", method = RequestMethod.POST)
+    public String addEmailTemplate(@ModelAttribute(value = "botype") BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+
+        //TODO Validations on server side
+        
+        try{
+            backOfficeService.addEmailTemplate(bean);
+            
+        }catch(ApplicationException ae){
+               
+            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
+            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+            return "backoffice/emailtemplate";
+        }
+        return "backoffice/success"; // we need to return next page.
+    }
+    
     
 	
 }

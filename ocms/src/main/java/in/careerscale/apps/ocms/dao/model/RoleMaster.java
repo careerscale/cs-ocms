@@ -24,6 +24,8 @@ public class RoleMaster implements java.io.Serializable {
 	private Integer id;
 	private String roleName;
 	private String description;
+	
+
 	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
 	private Set<RolePermission> rolePermissions = new HashSet<RolePermission>(0);
 
@@ -32,6 +34,12 @@ public class RoleMaster implements java.io.Serializable {
 
 	public RoleMaster(String roleName) {
 		this.roleName = roleName;
+	}
+	
+	public RoleMaster(String roleName, String description) {
+		super();
+		this.roleName = roleName;
+		this.description = description;
 	}
 
 	public RoleMaster(String roleName, String description,

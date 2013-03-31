@@ -7,8 +7,11 @@ import in.careerscale.apps.ocms.dao.BackOfficeRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.EmailTemplate;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
+import in.careerscale.apps.ocms.dao.model.ModuleMaster;
 import in.careerscale.apps.ocms.dao.model.OrgType;
+import in.careerscale.apps.ocms.dao.model.RoleMaster;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.backoffice.model.BOBean;
@@ -91,6 +94,36 @@ public class BackOfficeService {
 
 		try {
 			backofficeRepository.save(new OrgType(orgType.getName(),orgType.getDescription()));
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	
+	public void addRoleMaster(BOBean roleMaster)
+			throws ApplicationException {
+
+		try {
+			backofficeRepository.save(new RoleMaster(roleMaster.getRoleName(),roleMaster.getDescription()));
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+
+	public void addModuleMaster(BOBean moduleMaster)
+			throws ApplicationException {
+
+		try {
+			backofficeRepository.save(new ModuleMaster(moduleMaster.getName(),moduleMaster.getDescription()));
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	
+	public void addEmailTemplate(BOBean emailTemplate)
+			throws ApplicationException {
+
+		try {
+			backofficeRepository.save(new EmailTemplate(emailTemplate.getName(),emailTemplate.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
