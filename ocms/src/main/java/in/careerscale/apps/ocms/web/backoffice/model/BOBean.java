@@ -6,6 +6,24 @@ public class BOBean {
 	private String name;
 	private String description;
 	private Integer id;
+	private String caseStatusName;
+	private String caseStatusDescription;
+	
+	public String getCaseStatusName() {
+		return caseStatusName;
+	}
+	public void setCaseStatusName(String caseStatusName) {
+		this.caseStatusName = caseStatusName;
+	}
+	public String getCaseStatusDescription() {
+		return caseStatusDescription;
+	}
+	public void setCaseStatusDescription(String caseStatusDescription) {
+		this.caseStatusDescription = caseStatusDescription;
+	}
+
+	
+	
 	public Integer getId()
 	{
 		return id;
@@ -32,6 +50,8 @@ public class BOBean {
 		return new ToStringBuilder(this).
 			       append("name", name).
 			       append("description", description).
+			       append("caseStatusName",caseStatusName).
+			       append("caseStatusDescription",caseStatusDescription).
 			       toString();
 	}
 	

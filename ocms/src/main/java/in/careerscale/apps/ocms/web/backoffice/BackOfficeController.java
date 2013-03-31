@@ -229,6 +229,64 @@ public class BackOfficeController {
         return "backoffice/success"; // we need to return next page.
     }
     
+    @RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.GET)
+    public String CaseStatusMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+		log.debug("Within GET method for /backoffice/casestatus");
+
+        return "backoffice/casestatus";
+    }
+    
+    @RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.POST)
+    public String addCaseStatusMaster(@ModelAttribute(value = "botype") BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+
+        //TODO Validations on server side
+        
+        try{
+            backOfficeService.addCaseStatusMaster(bean);
+            
+        }catch(ApplicationException ae){
+               
+            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
+            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+            return "backoffice/casestatus";
+        }
+        return "backoffice/success"; // we need to return next page.
+    }
+    
+    
+   
+    @RequestMapping(value = "/backoffice/orgtype", method = RequestMethod.GET)
+    public String OrgTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) {
+		log.debug("Within GET method for /backoffice/orgtype");
+
+        return "backoffice/orgtype";
+    }
+    
+    @RequestMapping(value = "/backoffice/orgtype", method = RequestMethod.POST)
+    public String addOrgType(@ModelAttribute(value = "botype") BOBean bean,
+            BindingResult errors, HttpServletRequest request,
+            HttpServletResponse response) throws Exception {
+
+        //TODO Validations on server side
+        
+        try{
+            backOfficeService.addOrgType(bean);
+            
+        }catch(ApplicationException ae){
+               
+            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
+            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+            return "backoffice/orgtype";
+        }
+        return "backoffice/success"; // we need to return next page.
+    }
+    
     
    
     

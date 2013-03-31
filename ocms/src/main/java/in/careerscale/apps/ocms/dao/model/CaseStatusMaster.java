@@ -32,6 +32,13 @@ public class CaseStatusMaster implements java.io.Serializable {
 	public CaseStatusMaster(String caseStatusName) {
 		this.caseStatusName = caseStatusName;
 	}
+	
+
+	public CaseStatusMaster(String caseStatusName, String caseStatusDescription) {
+		super();
+		this.caseStatusName = caseStatusName;
+		this.caseStatusDescription = caseStatusDescription;
+	}
 
 	public CaseStatusMaster(String caseStatusName,
 			String caseStatusDescription, Set<CaseMaster> caseMasters) {

@@ -30,6 +30,13 @@ public class OrgType implements java.io.Serializable {
 	private Set<OrgType> orgTypes = new HashSet<OrgType>(0);
 	private Set<Organization> organizations = new HashSet<Organization>(0);
 
+	public OrgType(String name, String description) {
+		super();
+		this.name = name;
+		this.description = description;
+	}
+
+	
 	public OrgType() {
 	}
 

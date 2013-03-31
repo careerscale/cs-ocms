@@ -9,8 +9,9 @@
 	
 	<ul>
 	<li><a href="backoffice/casetype"><s:message code="view.backoffice.casetype.casetype.label" /></a> </li>
-	<li><a href="backoffice/helptype">Help Category Type</a> </li>
-	<li><a href="backoffice/casestatus">Case Status Master</a> </li>
+	<li><a href="backoffice/helptype"><s:message code="view.backoffice.helptype.helptype.label" /></a> </li>
+	<li><a href="backoffice/casestatus"><s:message code="view.backoffice.casestatus.casestatus.label" /></a> </li>
+	<li><a href="backoffice/orgtype"><s:message code="view.backoffice.orgtype.orgtype.label" /></a> </li>
 	</ul>
 	
 </p>
