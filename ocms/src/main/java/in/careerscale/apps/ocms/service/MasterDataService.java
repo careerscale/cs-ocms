@@ -76,10 +76,10 @@ public class MasterDataService {
 		   return casetypesList ;
 	 }
 
-		/*public List<MasterType> getHelpTypes() throws ApplicationException {
+		public List<MasterType> getHelpTypes() throws ApplicationException {
 			 List<MasterType> helpTypes = new ArrayList<MasterType>();
 			   try {
-				   List<HelpCategoryType> helpTypesList =repository.getHelpTypes();
+				   List<HelpCategoryType> helpTypesList =repository.getHelpCategoryTypes();
 				   
 				   for (HelpCategoryType helpType : helpTypesList) {
 					   String helpTypeName = helpType.getHelpCategoryType()!=null?helpType.getHelpCategoryType().getCategoryName() + " - " + helpType.getCategoryName() : helpType.getCategoryName();
@@ -93,7 +93,7 @@ public class MasterDataService {
 			   
 			   return helpTypes;
 			
-		}*/
+		}
 		
 		
 		 public List<MasterType> getCaseTypes1() throws ApplicationException{

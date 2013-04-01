@@ -70,8 +70,7 @@
 				<h1>Signup form</h1>
 				<p></p>
 				<br clear="all" />
-				<div>
-
+		
 					<div id="error">
 						<spring:hasBindErrors name="user">
 							<font color="red"> <c:forEach items="${errors.allErrors}"
@@ -96,7 +95,7 @@
 						</div>
 
 
-						<table cellpadding="0" cellspacing="0" border="0">
+						<table width="90%">
 							<tr>
 								<td class="label"><label for="emailId">Email Id:</label></td>
 								<td class="field"><form:input path="emailId" type="email"
@@ -176,10 +175,6 @@
 					</form:form>
 					<!-- </form> -->
 					<br clear="all" />
-
-
-				</div>
-
 
 
 			</div>

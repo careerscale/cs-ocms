@@ -40,7 +40,7 @@ img {
 }
 
 #header-background {
-	background: url(images/back_nav_blue.gif) repeat-x;
+	background: url(/images/back_nav_blue.gif) repeat-x;
 	margin: 0px auto;
 	padding: 0px;
 	height: 73px;
