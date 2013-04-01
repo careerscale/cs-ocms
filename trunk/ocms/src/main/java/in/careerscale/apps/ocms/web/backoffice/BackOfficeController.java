@@ -55,7 +55,7 @@ public class BackOfficeController {
 
 	
 	@RequestMapping(value = "/backoffice/casetype", method = RequestMethod.GET)	
-	public String getCaseTypes1(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
+	public String getCaseTypes(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		
@@ -84,7 +84,7 @@ public class BackOfficeController {
 		
 	}
 	
-	@RequestMapping(value = "/backoffice/DeleteData", method = RequestMethod.GET)
+	@RequestMapping(value = "/backoffice/delCaseType", method = RequestMethod.GET)
 	public String caseTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -113,8 +113,8 @@ public class BackOfficeController {
 		
 	}
 	
-	//why do you need 2 methods with same URL mapping?
-	@RequestMapping(value = "/backoffice/DeleteData1", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/backoffice/delCaseType", method = RequestMethod.POST)
 	public void caseTypeDelete1(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -138,7 +138,7 @@ public class BackOfficeController {
 	}
 
 	
-	@RequestMapping(value = "/backoffice/UpdateData", method = RequestMethod.POST)
+	@RequestMapping(value = "/backoffice/updateCaseType", method = RequestMethod.POST)
 	public @ResponseBody  String caseTypeUpdate(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -183,7 +183,7 @@ public class BackOfficeController {
 	
 	
 	
-	@RequestMapping(value = "/backoffice/casetype", method = RequestMethod.POST)
+	@RequestMapping(value = "/backoffice/addCaseType", method = RequestMethod.POST)
 	public String addCaseType(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -216,7 +216,7 @@ public class BackOfficeController {
 	
 	
 	@RequestMapping(value = "/backoffice/helptype", method = RequestMethod.GET)	
-	public String getHelpCategoryType1(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
+	public String getHelpCategoryType(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		
@@ -246,8 +246,8 @@ public class BackOfficeController {
 	}
 	
 
-    @RequestMapping(value = "/backoffice/DeleteHelpType", method = RequestMethod.GET)
-	public String HelpCategoryTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
+    @RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.GET)
+	public String getHelpCategoryTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/DeleteData");
@@ -258,8 +258,8 @@ public class BackOfficeController {
 	
 
 	
-	@RequestMapping(value = "/backoffice/helptypeAdd", method = RequestMethod.GET)
-	public void HelpCategoryTypeAdd(@ModelAttribute(value = "botype")  BOBean bean,
+	@RequestMapping(value = "/backoffice/addHelpType", method = RequestMethod.GET)
+	public void helpCategoryType(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		request.getParameterNames();
@@ -276,8 +276,8 @@ public class BackOfficeController {
 	}
 	
 	
-	@RequestMapping(value = "/backoffice/DeletehelpTypeData", method = RequestMethod.POST)
-	public void HelpCategoryTypeDelete1(@ModelAttribute(value = "botype")  BOBean bean,
+	@RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.POST)
+	public void deleteHelpCategoryType(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		String id = request.getParameter("id");
@@ -300,8 +300,8 @@ public class BackOfficeController {
 	}
 
 	
-	@RequestMapping(value = "/backoffice/UpdateData", method = RequestMethod.POST)
-	public @ResponseBody  String HelpCategoryTypeUpdate(@ModelAttribute(value = "botype")  BOBean bean,
+	@RequestMapping(value = "/backoffice/updateHelpType", method = RequestMethod.POST)
+	public @ResponseBody  String updateHelpCategoryType(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		BOBean bean1 = null;
@@ -349,7 +349,7 @@ public class BackOfficeController {
 	
 	
     
-    @RequestMapping(value = "/backoffice/helptype", method = RequestMethod.POST)
+    @RequestMapping(value = "/backoffice/addHelpType", method = RequestMethod.POST)
     public String addHelpCategoryType(@ModelAttribute(value = "botype") BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -370,7 +370,7 @@ public class BackOfficeController {
     
     
     @RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.GET)
-    public String CaseStatusMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
+    public String caseStatusMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/casestatus");
@@ -378,7 +378,7 @@ public class BackOfficeController {
         return "backoffice/casestatus";
     }
     
-    @RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.POST)
+    @RequestMapping(value = "/backoffice/addCaseStatus", method = RequestMethod.POST)
     public String addCaseStatusMaster(@ModelAttribute(value = "botype") BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -400,7 +400,7 @@ public class BackOfficeController {
     
    
     @RequestMapping(value = "/backoffice/orgtype", method = RequestMethod.GET)
-    public String OrgTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
+    public String orgTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/orgtype");
@@ -408,7 +408,7 @@ public class BackOfficeController {
         return "backoffice/orgtype";
     }
     
-    @RequestMapping(value = "/backoffice/orgtype", method = RequestMethod.POST)
+    @RequestMapping(value = "/backoffice/addOrgType", method = RequestMethod.POST)
     public String addOrgType(@ModelAttribute(value = "botype") BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -429,7 +429,7 @@ public class BackOfficeController {
     
     
     @RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)
-    public String RoleMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
+    public String roleMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/rolemaster");
@@ -437,7 +437,7 @@ public class BackOfficeController {
         return "backoffice/rolemaster";
     }
     
-    @RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.POST)
+    @RequestMapping(value = "/backoffice/addRoleMaster", method = RequestMethod.POST)
     public String addRoleMaster(@ModelAttribute(value = "botype") BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -458,7 +458,7 @@ public class BackOfficeController {
     
     
     @RequestMapping(value = "/backoffice/modulemaster", method = RequestMethod.GET)
-    public String ModuleMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
+    public String moduleMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/modulemaster");
@@ -489,7 +489,7 @@ public class BackOfficeController {
    
 
     @RequestMapping(value = "/backoffice/emailtemplate", method = RequestMethod.GET)
-    public String EmailTemplateIndex(@ModelAttribute(value = "botype")  BOBean bean,
+    public String emailTemplateIndex(@ModelAttribute(value = "botype")  BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/emailtemplate");
