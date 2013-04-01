@@ -76,7 +76,7 @@ public class MasterDataService {
 		   return casetypesList ;
 	 }
 
-		public List<MasterType> getHelpTypes() throws ApplicationException {
+		/*public List<MasterType> getHelpTypes() throws ApplicationException {
 			 List<MasterType> helpTypes = new ArrayList<MasterType>();
 			   try {
 				   List<HelpCategoryType> helpTypesList =repository.getHelpTypes();
@@ -93,7 +93,7 @@ public class MasterDataService {
 			   
 			   return helpTypes;
 			
-		}
+		}*/
 		
 		
 		 public List<MasterType> getCaseTypes1() throws ApplicationException{
@@ -113,5 +113,53 @@ public class MasterDataService {
 			   
 			   return caseTypes;
 		 }
+		 
+		 
 
+		 
+		 public Map<Integer, String> getHelpCategoryTypes() throws ApplicationException{
+			 Map<Integer, String> helpCategoryTypes = new HashMap<Integer, String>();		
+			   try {
+				   List<HelpCategoryType> helpCategoryTypeList =repository.getHelpCategoryTypes();
+				   
+				   for (HelpCategoryType helpCategoryType : helpCategoryTypeList) {
+					   helpCategoryTypes.put(helpCategoryType.getId(), helpCategoryType.getCategoryName());
+					
+				}
+		        } catch (PersistenceException pe) {
+		            throw new ApplicationException(pe.getMessage());
+		        }
+			   
+			   return helpCategoryTypes;
+		 }
+
+		 public List<MasterType> getHelpCategoryType1() throws ApplicationException{
+				
+			 List<MasterType> helpCategoryTypes = new ArrayList<MasterType>();
+			   try {
+				   List<HelpCategoryType> helpCategoryTypeList =repository.getHelpCategoryTypes();
+				   
+				   for (HelpCategoryType helpCategoryType : helpCategoryTypeList) {
+					   String helpCategoryTypeName = helpCategoryType.getHelpCategoryType()!=null?helpCategoryType.getHelpCategoryType().getCategoryName() + " - " + helpCategoryType.getCategoryName() : helpCategoryType.getCategoryName();
+					   helpCategoryTypes.add(new MasterType(helpCategoryType.getId(), helpCategoryTypeName));
+					
+				}
+		        } catch (PersistenceException pe) {
+		            throw new ApplicationException(pe.getMessage());
+		        }
+			   
+			   return helpCategoryTypes;
+		 }
+
+		 public List<HelpCategoryType> getHelpCategoryTypeList() throws ApplicationException{
+			 List<HelpCategoryType> helpCategoryTypeList  = null;  
+			 try {
+				 helpCategoryTypeList =repository.getHelpCategoryTypes();
+				
+		        } catch (PersistenceException pe) {
+		            throw new ApplicationException(pe.getMessage());
+		        }
+			   
+			   return helpCategoryTypeList ;
+		 }
 }

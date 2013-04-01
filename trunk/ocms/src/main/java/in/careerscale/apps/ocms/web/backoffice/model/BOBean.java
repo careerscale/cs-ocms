@@ -4,6 +4,14 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class BOBean {
 	private String name;
+	private String categoryName;
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	private String description;
 	private Integer id;
 	private String caseStatusName;
@@ -56,6 +64,7 @@ public class BOBean {
 	public String toString() {
 		return new ToStringBuilder(this).
 			       append("name", name).
+			       append("categoryName",categoryName).
 			       append("description", description).
 			       append("caseStatusName",caseStatusName).
 			       append("caseStatusDescription",caseStatusDescription).

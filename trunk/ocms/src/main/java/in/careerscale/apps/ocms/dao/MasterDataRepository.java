@@ -43,7 +43,7 @@ public class MasterDataRepository {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<HelpCategoryType> getHelpTypes() {
+	public List<HelpCategoryType> getHelpCategoryTypes() {
 		Query query =entityManager.createQuery("SELECT h FROM HelpCategoryType h order by h.helpCategoryType.id asc, h.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
