@@ -41,70 +41,75 @@ img {
 
 #header-background {
 	background: url(/images/back_nav_blue.gif) repeat-x;
-	margin: 0px auto;
-	padding: 0px;
+	margin: 5px auto;
+	padding: 10px;
 	height: 73px;
-	width: 80%;
+	width: 98%;
 	border-top: 4px solid #CCEAFE;
 	border-bottom: 4px solid #D4D4D4;
 }
 
 #page-container {
-	width: 80%;
+	width: 98%;
+	height:600px;
 	margin: 0px auto;
-	margin-top: 33px; /* pad from top menu to actions buts*/
-	margin-bottom: -11px;
+	margin-top: 10px; /* pad from top menu to actions buts*/
+	margin-bottom: 0px;
 	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-bottom: 0px;
 	background-color: #D4D4D4; /* light grey*/
 	border-right: 1px solid #464646;
+	border-bottom: 1px solid #464646;
+	border-left: 1px solid #464646;
+	border-top: 1px solid #464646;
 }
 
 #page-content-inner {
-	width: 75%;
-	margin: 0px auto;
+	width: 95%;
+	height:580px;
+	margin: 4px auto;
 	border-top: 1px solid #9F9FA0;
 	border-left: 1px solid #A2A09A;
+	border-bottom: 1px solid #9F9FA0;
+	border-right: 1px solid #9F9FA0;
 	background-color: #F4F1E9;
 	position: relative;
 }
 
 #page-content-inner #col-left {
 	width: 20%;
+	height:60px;
+	margin-top:-16px;
+	
 	float: left;
 	background-color: #F4F1E9;
 }
 
-#page-content-inner #col-main {
-	width: 60%;
-	background-color: #ffffff;
-	position: absolute;
-	right: 0px;
-	top: 0px;
-}
+
 
 #footer-container {
-	width: 95%;
+	width: 98%;
+	height:50px;
 	position: relative;
-	left: 8px;
-	padding: 2px 0px 10px 0px;
+	
+	padding: 0px 0px 0px 0px;
 	background-color: #D4D4D4; /* light grey*/
 }
 
 /* s2.0 - Global navigation bar */
 .nav-global-container {
 	width: 98%;
-	margin: 0px auto;
+	margin: 5px auto;
 	position: relative;
 }
 
 * html .nav-global-container { /* ie6 fix*/
-	margin-bottom: -6px;
+	margin-bottom: 6px;
 }
 
 .login {
 	position: absolute;
-	right: 20px;
+	right: 50px;
 	text-align: center;
 }
 
@@ -150,15 +155,15 @@ div.login a:hover span {
 
 .nav-global {
 	float: left;
-	width: 645px;
-	margin: 40px 0px 0px 40px;
+	width: 650px;
+	margin: 40px 0px -40px 40px;
 	background-color: transparent;
 	display:block;
 }
 
 .nav-global ul {
 	
-	margin-top:-43px;
+	margin-top:-20px;
 	margin-left:1px;
 	padding: 5px;
 	list-style: none;
@@ -221,6 +226,7 @@ div.nav-global li a.on span,div.nav-global li a.on:hover span {
 }
 
 div.action-container {
+	
 	position: relative;
 	top: -45px;
 	cursor: pointer;
@@ -427,14 +433,14 @@ div.action-bottom a span.shadow {
 	position: relative; /* ie6 fix */
 	background: url(images/tab_green.gif) 0 0 no-repeat;
 	height: 30px;
-	width: 166px;
+	width: 150px;
 	text-align: center;
 	color: #ffffff;
 	font: 20px 'trebuchet ms';
 	padding-top: 2px;
-	margin-top: -41px;
-	margin-left: 20px;
-	line-height: 29px;
+	margin-top: -47px;
+	margin-left: 10px;
+	line-height: 26px;
 	margin-bottom: 8px;
 	display: block;
 }
@@ -838,6 +844,7 @@ div.main-content li a {
 
 /* sX.0 - Footer */
 div.footer {
+	position:relative;
 	color: #666666;
 	font-size: .85em;
 	font-weight: normal;
