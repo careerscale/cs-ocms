@@ -36,16 +36,7 @@ public class BackOfficeRepository {
 		caseType = entityManager.find(CaseType.class, caseType.getId());
 		entityManager.remove(caseType);
 	}
-
-	public HelpCategoryType getHelpCategoryType(Integer id) {
-		return entityManager.find(HelpCategoryType.class, id);
-
-	}
-
-	public void save(HelpCategoryType helpCategoryType) {
-		entityManager.persist(helpCategoryType);
-	}
-
+	
 	public CaseType update(CaseType caseType) {
 		CaseType caseType1 = entityManager.find(CaseType.class,
 				caseType.getId());
@@ -56,7 +47,36 @@ public class BackOfficeRepository {
 		}
 		return entityManager.merge(caseType1);
 	}
+	
+	public HelpCategoryType getHelpCategoryType(Integer id) {
+		return entityManager.find(HelpCategoryType.class, id);
 
+	}
+
+	public void save(HelpCategoryType helpCategoryType) {
+		entityManager.persist(helpCategoryType);
+	}
+	
+	public void delete(HelpCategoryType helpCategoryType) {
+		// String query = "DELETE FROM CASE_TYPE where name = {:name}";
+		// entityManager.createNativeQuery(query).setParameter(1,
+		// caseType.getName()).executeUpdate();
+		helpCategoryType = entityManager.find(HelpCategoryType.class, helpCategoryType.getId());
+		entityManager.remove(helpCategoryType);
+	}
+
+	public HelpCategoryType update(HelpCategoryType helpCategoryType) {
+		HelpCategoryType helpCategoryType1 = entityManager.find(HelpCategoryType.class,
+				helpCategoryType.getId());
+		if (helpCategoryType.getCategoryName() != null) {
+			helpCategoryType1.setCategoryName(helpCategoryType.getCategoryName());
+		} else {
+			helpCategoryType1.setDescription(helpCategoryType.getDescription());
+		}
+		return entityManager.merge(helpCategoryType1);
+	}
+
+	
 	public CaseStatusMaster getCaseStatusMaster(Integer id) {
 		return entityManager.find(CaseStatusMaster.class, id);
 

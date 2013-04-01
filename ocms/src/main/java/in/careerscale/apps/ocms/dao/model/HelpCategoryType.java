@@ -2,6 +2,8 @@ package in.careerscale.apps.ocms.dao.model;
 
 // Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
 
+import in.careerscale.apps.ocms.service.model.MasterType;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -26,6 +28,8 @@ import javax.persistence.UniqueConstraint;
 public class HelpCategoryType implements java.io.Serializable {
 
 	private Integer id;
+	
+
 	private HelpCategoryType helpCategoryType;
 	private String categoryName;
 	private String description;
@@ -39,6 +43,12 @@ public class HelpCategoryType implements java.io.Serializable {
 
 	public HelpCategoryType(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	public HelpCategoryType(Integer id, String categoryName, String description) {
+		super();
+		this.id = id;
+		this.categoryName = categoryName;
+		this.description = description;
 	}
 
 	public HelpCategoryType(HelpCategoryType helpCategoryType,
@@ -124,5 +134,7 @@ public class HelpCategoryType implements java.io.Serializable {
 	public void setHelpCategoryTypes(Set<HelpCategoryType> helpCategoryTypes) {
 		this.helpCategoryTypes = helpCategoryTypes;
 	}
+
+	
 
 }

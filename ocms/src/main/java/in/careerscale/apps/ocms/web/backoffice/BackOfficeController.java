@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.service.BackOfficeService;
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.UserService;
@@ -83,7 +84,7 @@ public class BackOfficeController {
 		
 	}
 	
-	@RequestMapping(value = "/backoffice/DeleteData", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/backoffice/DeleteData", method = RequestMethod.GET)
 	public String caseTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -112,8 +113,8 @@ public class BackOfficeController {
 		
 	}
 	
-	
-	@RequestMapping(value = "/backoffice/DeleteData", method = RequestMethod.GET)
+	//why do you need 2 methods with same URL mapping?
+	@RequestMapping(value = "/backoffice/DeleteData1", method = RequestMethod.GET)
 	public void caseTypeDelete1(@ModelAttribute(value = "botype")  BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -201,14 +202,152 @@ public class BackOfficeController {
         return "backoffice/success"; // we need to return next page.
 	}
 	
-	@RequestMapping(value = "/backoffice/helptype", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/backoffice/helptype", method = RequestMethod.GET)
     public String HelpTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
             BindingResult errors, HttpServletRequest request,
             HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/helptype");
 
         return "backoffice/helptype";
-    }
+    }*/
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/backoffice/helptype", method = RequestMethod.GET)	
+	public String getHelpCategoryType1(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		log.debug("Within GET method for /backoffice/helptype");
+		List<HelpCategoryType> helpCategoryTypeList  = null;  
+	
+		  try{
+			  helpCategoryTypeList = masterDataService.getHelpCategoryTypeList();
+		        }catch(ApplicationException ae){
+		        	log.error(ae);
+		        }
+		  
+		  BOBean boBean = null;
+		  Iterator<HelpCategoryType> it = helpCategoryTypeList.iterator();
+		  Integer intName = null;
+		  HelpCategoryType helpCategoryType = null;
+		  while(it.hasNext()){
+			  helpCategoryType = (HelpCategoryType)it.next();
+			  boBean = new BOBean();
+			  boBean.setName(helpCategoryType.getCategoryName());
+			  boBean.setDescription(helpCategoryType.getDescription());
+			  boBean.setId(helpCategoryType.getId());
+			  lstBean.add(boBean);
+		  }
+		  return "backoffice/helptype";
+		
+	}
+	
+
+    @RequestMapping(value = "/backoffice/DeleteHelpType", method = RequestMethod.GET)
+	public String HelpCategoryTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		log.debug("Within GET method for /backoffice/DeleteData");
+
+		
+		return "backoffice/helptype";
+	}
+	
+
+	
+	@RequestMapping(value = "/backoffice/helptypeAdd", method = RequestMethod.GET)
+	public void HelpCategoryTypeAdd(@ModelAttribute(value = "botype")  BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		request.getParameterNames();
+		try{
+        	backOfficeService.addHelpCategoryType(bean);
+        	
+        }catch(ApplicationException ae){
+       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+        	
+		}
+		log.debug("Within GET method for /backoffice/helptypeAdd");
+
+		
+	}
+	
+	
+	@RequestMapping(value = "/backoffice/DeletehelpTypeData", method = RequestMethod.POST)
+	public void HelpCategoryTypeDelete1(@ModelAttribute(value = "botype")  BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		String id = request.getParameter("id");
+		
+		try{
+			if(bean.getName() == null && id != null && id.length() > 0){
+				bean = new BOBean();
+				bean.setId(Integer.parseInt(id));
+			}
+        	backOfficeService.deleteHelpCategoryType(bean);
+        	
+        }catch(ApplicationException ae){
+       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+        	
+		}
+		log.debug("Within GET method for /backoffice/DeleteData");
+
+		
+		//return "backoffice/casetype";
+	}
+
+	
+	@RequestMapping(value = "/backoffice/UpdateData", method = RequestMethod.POST)
+	public @ResponseBody  String HelpCategoryTypeUpdate(@ModelAttribute(value = "botype")  BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		BOBean bean1 = null;
+		String id = request.getParameter("id");
+		String name = null;
+		String description = null;
+		boolean boolName = false;
+		
+				String value = request.getParameter("value");
+				String clname = request.getParameter("columnName");
+				//String c = request.getParameter("columnId");
+				//String r = request.getParameter("rowId");
+				//String columnPosition = request.getParameter("columnPosition");
+				
+		
+		try{
+			if(value != null && id != null && id.length() > 0){
+				bean = new BOBean();
+				bean.setId(Integer.parseInt(id));
+				if(clname.equalsIgnoreCase("Help Type")){
+					bean.setName(value);
+					boolName = true;
+				}
+				else
+					bean.setDescription(value);
+			}
+			bean1 = backOfficeService.updateHelpCategoryType(bean);
+        	
+        }catch(ApplicationException ae){
+       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
+       		
+		}
+		log.debug("Within GET method for /backoffice/UpdateData");
+		if(boolName){
+			return bean1.getCategoryName();
+		}else{
+			return bean1.getDescription();
+		}
+	}
+
+	
+
+	
+	
+	
+	
     
     @RequestMapping(value = "/backoffice/helptype", method = RequestMethod.POST)
     public String addHelpCategoryType(@ModelAttribute(value = "botype") BOBean bean,
@@ -228,6 +367,7 @@ public class BackOfficeController {
         }
         return "backoffice/success"; // we need to return next page.
     }
+    
     
     @RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.GET)
     public String CaseStatusMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
@@ -377,5 +517,11 @@ public class BackOfficeController {
     }
     
     
+    
+    
+    
+    
+    
+	
 	
 }

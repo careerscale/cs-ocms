@@ -70,12 +70,39 @@ public class BackOfficeService {
 			throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new HelpCategoryType(helpCategoryType
-					.getName(), helpCategoryType.getDescription()));
+			backofficeRepository.save(new HelpCategoryType(helpCategoryType.getCategoryName(), helpCategoryType.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
+	
+	public BOBean updateHelpCategoryType(BOBean helpCategoryType) throws ApplicationException {
+		BOBean boBean = null;
+		try {
+			HelpCategoryType helpCategoryType2= backofficeRepository.update(new HelpCategoryType(
+					helpCategoryType.getId(), helpCategoryType.getCategoryName(), helpCategoryType
+							.getDescription()));
+			boBean = new BOBean();
+			boBean.setId(helpCategoryType2.getId());
+			boBean.setName(helpCategoryType2.getCategoryName());
+			boBean.setDescription(helpCategoryType2.getDescription());
+
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+		return boBean;
+	}
+	
+	public void deleteHelpCategoryType(BOBean helpCategoryType) throws ApplicationException {
+
+		try {
+			backofficeRepository.delete(new HelpCategoryType(helpCategoryType.getId(), helpCategoryType
+					.getCategoryName(),helpCategoryType.getDescription()));
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	
 
 	public void addCaseStatusMaster(BOBean caseStatusMaster)
 			throws ApplicationException {
