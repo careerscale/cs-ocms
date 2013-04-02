@@ -336,7 +336,7 @@ public class BackOfficeController {
 		}
 		log.debug("Within GET method for /backoffice/UpdateData");
 		if(boolName){
-			return bean1.getCategoryName();
+			return bean1.getName();
 		}else{
 			return bean1.getDescription();
 		}

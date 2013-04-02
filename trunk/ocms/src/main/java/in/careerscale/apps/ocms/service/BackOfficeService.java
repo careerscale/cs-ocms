@@ -70,7 +70,7 @@ public class BackOfficeService {
 			throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new HelpCategoryType(helpCategoryType.getCategoryName(), helpCategoryType.getDescription()));
+			backofficeRepository.save(new HelpCategoryType(helpCategoryType.getName(), helpCategoryType.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
@@ -80,7 +80,7 @@ public class BackOfficeService {
 		BOBean boBean = null;
 		try {
 			HelpCategoryType helpCategoryType2= backofficeRepository.update(new HelpCategoryType(
-					helpCategoryType.getId(), helpCategoryType.getCategoryName(), helpCategoryType
+					helpCategoryType.getId(), helpCategoryType.getName(), helpCategoryType
 							.getDescription()));
 			boBean = new BOBean();
 			boBean.setId(helpCategoryType2.getId());
@@ -97,7 +97,7 @@ public class BackOfficeService {
 
 		try {
 			backofficeRepository.delete(new HelpCategoryType(helpCategoryType.getId(), helpCategoryType
-					.getCategoryName(),helpCategoryType.getDescription()));
+					.getName(),helpCategoryType.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
@@ -109,8 +109,8 @@ public class BackOfficeService {
 
 		try {
 			backofficeRepository.save(new CaseStatusMaster(caseStatusMaster
-					.getCaseStatusName(), caseStatusMaster
-					.getCaseStatusDescription()));
+					.getName(), caseStatusMaster
+					.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
@@ -130,7 +130,7 @@ public class BackOfficeService {
 			throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new RoleMaster(roleMaster.getRoleName(),roleMaster.getDescription()));
+			backofficeRepository.save(new RoleMaster(roleMaster.getName(),roleMaster.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}

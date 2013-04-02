@@ -4,41 +4,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class BOBean {
 	private String name;
-	private String categoryName;
-	public String getCategoryName() {
-		return categoryName;
-	}
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
 	private String description;
 	private Integer id;
-	private String caseStatusName;
-	private String caseStatusDescription;
-	private String roleName;
-	
-	public String getRoleName() {
-		return roleName;
-	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-	public String getCaseStatusName() {
-		return caseStatusName;
-	}
-	public void setCaseStatusName(String caseStatusName) {
-		this.caseStatusName = caseStatusName;
-	}
-	public String getCaseStatusDescription() {
-		return caseStatusDescription;
-	}
-	public void setCaseStatusDescription(String caseStatusDescription) {
-		this.caseStatusDescription = caseStatusDescription;
-	}
-
-	
-	
 	public Integer getId()
 	{
 		return id;
@@ -64,11 +31,7 @@ public class BOBean {
 	public String toString() {
 		return new ToStringBuilder(this).
 			       append("name", name).
-			       append("categoryName",categoryName).
 			       append("description", description).
-			       append("caseStatusName",caseStatusName).
-			       append("caseStatusDescription",caseStatusDescription).
-			       append("roleName",roleName).
 			       toString();
 	}
 	
