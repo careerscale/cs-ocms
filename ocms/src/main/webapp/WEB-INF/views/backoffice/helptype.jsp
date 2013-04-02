@@ -53,11 +53,11 @@
 		
 		//alert(settings);
 		return(value); //Simulation of server-side response using a callback function
-	},sUpdateURL: "UpdateData",
+	},sUpdateURL: "updateHelpType",
 
 	
 								
-                             			sAddURL: "helptypeAdd",
+                             			sAddURL: "addHelpType",
                              			sAddHttpMethod: "GET",
                                     sDeleteHttpMethod: "GET",
 									oAddNewRowButtonOptions: {	label: "Add...",
