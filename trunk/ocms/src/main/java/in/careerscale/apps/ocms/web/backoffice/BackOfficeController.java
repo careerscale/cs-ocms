@@ -270,7 +270,7 @@ public class BackOfficeController {
        		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
         	
 		}
-		log.debug("Within GET method for /backoffice/helptypeAdd");
+		log.debug("Within GET method for /backoffice/addHelpType");
 
 		
 	}
