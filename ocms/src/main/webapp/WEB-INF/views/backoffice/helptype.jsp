@@ -68,7 +68,7 @@
 									},
 
 									oAddNewRowFormOptions: { 	
-                                                    title: 'Add a new Case',
+                                                    title: 'Add help a category',
 													show: "blind",
 													hide: "explode",
                                                     modal: true
@@ -98,7 +98,7 @@ sAddDeleteToolbarSelector: ".dataTables_length"
 						modelAttribute="casetype"-->
 						
         <label for="categoryName">Help Type</label><br />
-	<input type="text" name="categoryName" id="name" class="required" rel="0" />
+	<input type="text" name="name" id="name" class="required" rel="0" />
         <br />
         <label for="description">Description</label><br />
 	<input type="text" name="description" id="browser" rel="1" />
@@ -127,7 +127,7 @@ sAddDeleteToolbarSelector: ".dataTables_length"
 		  
 		<c:forEach items = "${botypeList}" var="helpCategoryType">
           <tr id='${helpCategoryType.id}'>
-             <td >${helpCategoryType.categoryName}</td>
+             <td >${helpCategoryType.name}</td>
              <td>${helpCategoryType.description}</td>
              
           </tr>

@@ -53,7 +53,7 @@
 		
 		//alert(settings);
 		return(value); //Simulation of server-side response using a callback function
-	},sUpdateURL: "UpdateData",
+	},sUpdateURL: "updateCaseType",
 
 	
 								
