@@ -60,7 +60,7 @@
 
 		<!-- start col-main -->
 
-		<div id="col-main" class="resize" style="">
+		
 			<!-- start main content  -->
 			<div class="main-content resize">
 
@@ -180,12 +180,12 @@
 			</div>
 			<!-- end main content  -->
 			<br />
-		</div>
+		
 		<!-- end col-main -->
 
 		<!-- start left col -->
 		<div id="col-left" class="nav-left-back empty resize"
-			style="position: absolute; min-height: 450px;">
+			style="position: absolute; min-height: 400px;">
 			<div class="col-left-header-tab" style="position: absolute;">Signup</div>
 			<div class="nav-left"></div>
 
