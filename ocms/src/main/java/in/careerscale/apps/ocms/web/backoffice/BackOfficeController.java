@@ -83,15 +83,7 @@ public class BackOfficeController {
 
 	}
 
-	@RequestMapping(value = "/backoffice/delCaseType", method = RequestMethod.GET)
-	public String caseTypeDelete(@ModelAttribute(value = "botype") BOBean bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) {
-		log.debug("Within GET method for /backoffice/DeleteData");
-
-		return "backoffice/casetype";
-	}
-
+	
 	@RequestMapping(value = "/backoffice/casetypeAdd", method = RequestMethod.GET)
 	public void caseTypeAdd(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
@@ -130,7 +122,7 @@ public class BackOfficeController {
 		return "backoffice/success"; // we need to return next page.
 	}
 
-	@RequestMapping(value = "/backoffice/delCaseType", method = RequestMethod.POST)
+	@RequestMapping(value = "/backoffice/delCaseType", method = RequestMethod.GET)
 	public @ResponseBody String caseTypeDelete1(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -258,16 +250,6 @@ public class BackOfficeController {
 	}
 
 	@RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.GET)
-	public void getHelpCategoryTypeDelete(
-			@ModelAttribute(value = "botype") BOBean bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) {
-		log.debug("Within GET method for /backoffice/DeleteData");
-
-		// return "backoffice/helptype";
-	}
-
-	@RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.POST)
 	public @ResponseBody String deleteHelpCategoryType(
 			@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,

@@ -55,18 +55,6 @@
 	padding: 2px 10px;
 }
 </style>
-
-<<<<<<< .mine
-									oAddNewRowFormOptions: { 	
-                                                    title: 'Add a help category',
-													show: "blind",
-													hide: "explode",
-                                                    modal: true
-									}	,
-sAddDeleteToolbarSelector: ".dataTables_length"								
-=======
->>>>>>> .r110
-
 <script type="text/javascript" src="/resources/media/js/complete.js"></script>
 <script src="/resources/media/js/jquery-1.4.4.min.js"
 	type="text/javascript"></script>
@@ -85,17 +73,12 @@ sAddDeleteToolbarSelector: ".dataTables_length"
 		var id = -1;//simulation of id
 		$('#example').dataTable({
 			bJQueryUI : true,
-
 			"sPaginationType" : "full_numbers"
 		}).makeEditable({
 			sUpdateURL : function(value, settings) {
-				//alert(value);
-
-				//alert(settings);
 				return (value); //Simulation of server-side response using a callback function
 			},
 			sUpdateURL : "updateHelpType",
-
 			sAddURL : "addHelpType",
 			sAddHttpMethod : "GET",
 			sDeleteHttpMethod : "GET",
