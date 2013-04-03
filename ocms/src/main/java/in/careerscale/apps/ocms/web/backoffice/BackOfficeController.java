@@ -36,17 +36,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class BackOfficeController {
 
 	Log log = LogFactory.getLog(BackOfficeController.class);
-	
+
 	@Autowired
 	private BackOfficeService backOfficeService;
-	
+
 	@Autowired
 	MasterDataService masterDataService;
-	
 
-	
 	@RequestMapping(value = "/backoffice", method = RequestMethod.GET)
-	public String index(@ModelAttribute(value = "botype")  BOBean bean,
+	public String index(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice");
@@ -54,600 +52,546 @@ public class BackOfficeController {
 		return "backoffice/index";
 	}
 
-	
-	@RequestMapping(value = "/backoffice/casetype", method = RequestMethod.GET)	
-	public String getCaseTypes(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
+	@RequestMapping(value = "/backoffice/casetype", method = RequestMethod.GET)
+	public String getCaseTypes(
+			@ModelAttribute(value = "botypeList") ArrayList<BOBean> lstBean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		
+
 		log.debug("Within GET method for /backoffice/casetype");
-		List<CaseType> casetypesList  = null;  
-	
-		  try{
-			  casetypesList = masterDataService.getCaseTypesList();
-		        }catch(ApplicationException ae){
-		        	log.error(ae);
-		        }
-		  
-		  BOBean boBean = null;
-		  Iterator<CaseType> it = casetypesList.iterator();
-		  Integer intName = null;
-		  CaseType caseType = null;
-		  while(it.hasNext()){
-			  caseType = (CaseType)it.next();
-			  boBean = new BOBean();
-			  boBean.setName(caseType.getName());
-			  boBean.setDescription(caseType.getDescription());
-			  boBean.setId(caseType.getId());
-			  lstBean.add(boBean);
-		  }
-		  return "backoffice/casetype";
-		
+		List<CaseType> casetypesList = null;
+
+		try {
+			casetypesList = masterDataService.getCaseTypesList();
+		} catch (ApplicationException ae) {
+			log.error(ae);
+		}
+
+		BOBean boBean = null;
+		Iterator<CaseType> it = casetypesList.iterator();
+		Integer intName = null;
+		CaseType caseType = null;
+		while (it.hasNext()) {
+			caseType = (CaseType) it.next();
+			boBean = new BOBean();
+			boBean.setName(caseType.getName());
+			boBean.setDescription(caseType.getDescription());
+			boBean.setId(caseType.getId());
+			lstBean.add(boBean);
+		}
+		return "backoffice/casetype";
+
 	}
-	
+
 	@RequestMapping(value = "/backoffice/delCaseType", method = RequestMethod.GET)
-	public String caseTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
+	public String caseTypeDelete(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/DeleteData");
 
-		
 		return "backoffice/casetype";
 	}
-	
 
-	
 	@RequestMapping(value = "/backoffice/casetypeAdd", method = RequestMethod.GET)
-	public void caseTypeAdd(@ModelAttribute(value = "botype")  BOBean bean,
+	public void caseTypeAdd(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		request.getParameterNames();
-		try{
-        	backOfficeService.addCaseType(bean);
-        	
-        }catch(ApplicationException ae){
-       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-        	
+		try {
+			backOfficeService.addCaseType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+
 		}
 		log.debug("Within GET method for /backoffice/casetypeAdd");
 
-		
 	}
+
 	@RequestMapping(value = "/backoffice/addCaseType", method = RequestMethod.POST)
-	public String addCaseType(@ModelAttribute(value = "botype")  BOBean bean,
+	public String addCaseType(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		//TODO Validations on server side
-		
-        try{
-        	backOfficeService.addCaseType(bean);
-        	
-        }catch(ApplicationException ae){
-       		
-        	//ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
-        	errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-        	return "backoffice/casetype";
+		// TODO Validations on server side
+
+		try {
+			backOfficeService.addCaseType(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+			return "backoffice/casetype";
 		}
-        return "backoffice/success"; // we need to return next page.
+		return "backoffice/success"; // we need to return next page.
 	}
-	
-	
 
 	@RequestMapping(value = "/backoffice/delCaseType", method = RequestMethod.POST)
-	public void caseTypeDelete1(@ModelAttribute(value = "botype")  BOBean bean,
+	public @ResponseBody String caseTypeDelete1(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		String id = request.getParameter("id");
-		
-		try{
-			if(bean.getName() == null && id != null && id.length() > 0){
+
+		try {
+			if (bean.getName() == null && id != null && id.length() > 0) {
 				bean = new BOBean();
 				bean.setId(Integer.parseInt(id));
 			}
-        	backOfficeService.deleteCaseType(bean);
-        	
-        }catch(ApplicationException ae){
-       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-        	
+			backOfficeService.deleteCaseType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+
 		}
 		log.debug("Within GET method for /backoffice/DeleteData");
+		return "Success";
 
-		
-		//return "backoffice/casetype";
 	}
 
-	
 	@RequestMapping(value = "/backoffice/updateCaseType", method = RequestMethod.POST)
-	public @ResponseBody  String caseTypeUpdate(@ModelAttribute(value = "botype")  BOBean bean,
+	public @ResponseBody
+	String caseTypeUpdate(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		BOBean bean1 = null;
 		String id = request.getParameter("id");
-		String name = null;
-		String description = null;
 		boolean boolName = false;
-		
-				String value = request.getParameter("value");
-				String clname = request.getParameter("columnName");
-				//String c = request.getParameter("columnId");
-				//String r = request.getParameter("rowId");
-				//String columnPosition = request.getParameter("columnPosition");
-				
-		
-		try{
-			if(value != null && id != null && id.length() > 0){
+
+		String value = request.getParameter("value");
+		String clname = request.getParameter("columnName");
+		try {
+			if (value != null && id != null && id.length() > 0) {
 				bean = new BOBean();
 				bean.setId(Integer.parseInt(id));
-				if(clname.equalsIgnoreCase("Case Type")){
+				if (clname.equalsIgnoreCase("Case Type")) {
 					bean.setName(value);
 					boolName = true;
-				}
-				else
+				} else
 					bean.setDescription(value);
 			}
-			bean1 = backOfficeService.updateCaseType(bean);
-        	
-        }catch(ApplicationException ae){
-       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-       		
+			backOfficeService.updateCaseType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+
 		}
 		log.debug("Within GET method for /backoffice/UpdateData");
-		if(boolName){
-			return bean1.getName();
-		}else{
-			return bean1.getDescription();
+		if (boolName) {
+			return bean.getName();
+		} else {
+			return bean.getDescription();
 		}
 	}
 
-	
-	
-	
-	
-	/*@RequestMapping(value = "/backoffice/helptype", method = RequestMethod.GET)
-    public String HelpTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) {
-		log.debug("Within GET method for /backoffice/helptype");
-
-        return "backoffice/helptype";
-    }*/
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/backoffice/helptype", method = RequestMethod.GET)	
-	public String getHelpCategoryType(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
+	@RequestMapping(value = "/backoffice/helptype", method = RequestMethod.GET)
+	public String getHelpCategoryType(
+			@ModelAttribute(value = "botypeList") ArrayList<BOBean> lstBean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		
+
 		log.debug("Within GET method for /backoffice/helptype");
-		List<HelpCategoryType> helpCategoryTypeList  = null;  
-	
-		  try{
-			  helpCategoryTypeList = masterDataService.getHelpCategoryTypeList();
-		        }catch(ApplicationException ae){
-		        	log.error(ae);
-		        }
-		  
-		  BOBean boBean = null;
-		  Iterator<HelpCategoryType> it = helpCategoryTypeList.iterator();
-		  Integer intName = null;
-		  HelpCategoryType helpCategoryType = null;
-		  while(it.hasNext()){
-			  helpCategoryType = (HelpCategoryType)it.next();
-			  boBean = new BOBean();
-			  boBean.setName(helpCategoryType.getCategoryName());
-			  boBean.setDescription(helpCategoryType.getDescription());
-			  boBean.setId(helpCategoryType.getId());
-			  lstBean.add(boBean);
-		  }
-		  return "backoffice/helptype";
-		
+		List<HelpCategoryType> helpCategoryTypeList = null;
+
+		try {
+			helpCategoryTypeList = masterDataService.getHelpCategoryTypeList();
+		} catch (ApplicationException ae) {
+			log.error(ae);
+		}
+
+		BOBean boBean = null;
+		Iterator<HelpCategoryType> it = helpCategoryTypeList.iterator();
+		HelpCategoryType helpCategoryType = null;
+		while (it.hasNext()) {
+			helpCategoryType = (HelpCategoryType) it.next();
+			boBean = new BOBean();
+			boBean.setName(helpCategoryType.getCategoryName());
+			boBean.setDescription(helpCategoryType.getDescription());
+			boBean.setId(helpCategoryType.getId());
+			lstBean.add(boBean);
+		}
+		return "backoffice/helptype";
+
 	}
-	
 
-  
-	
-
-	
 	@RequestMapping(value = "/backoffice/addHelpType", method = RequestMethod.GET)
-	public void helpCategoryType(@ModelAttribute(value = "botype")  BOBean bean,
+	public void helpCategoryType(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		request.getParameterNames();
-		try{
-        	backOfficeService.addHelpCategoryType(bean);
-        	
-        }catch(ApplicationException ae){
-       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-        	
+		try {
+			backOfficeService.addHelpCategoryType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+
 		}
 		log.debug("Within GET method for /backoffice/addHelpType");
 
-		
 	}
+
 	@RequestMapping(value = "/backoffice/addHelpType", method = RequestMethod.POST)
-    public String addHelpCategoryType(@ModelAttribute(value = "botype") BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+	public String addHelpCategoryType(
+			@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-        //TODO Validations on server side
-        
-        try{
-            backOfficeService.addHelpCategoryType(bean);
-            
-        }catch(ApplicationException ae){
-               
-            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
-            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-            return "backoffice/help_category_type";
-        }
-        return "backoffice/success"; // we need to return next page.
-    }
-	
-	  @RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.GET)
-		public String getHelpCategoryTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
-				BindingResult errors, HttpServletRequest request,
-				HttpServletResponse response) {
-			log.debug("Within GET method for /backoffice/DeleteData");
+		// TODO Validations on server side
 
-			
-			return "backoffice/helptype";
+		try {
+			backOfficeService.addHelpCategoryType(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+			return "backoffice/help_category_type";
 		}
-	
-	
-	@RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.POST)
-	public void deleteHelpCategoryType(@ModelAttribute(value = "botype")  BOBean bean,
+		return "backoffice/success"; // we need to return next page.
+	}
+
+	@RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.GET)
+	public void getHelpCategoryTypeDelete(
+			@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		String id = request.getParameter("id");
-		
-		try{
-			if(bean.getName() == null && id != null && id.length() > 0){
-				bean = new BOBean();
-				bean.setId(Integer.parseInt(id));
-			}
-        	backOfficeService.deleteHelpCategoryType(bean);
-        	
-        }catch(ApplicationException ae){
-       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-        	
-		}
 		log.debug("Within GET method for /backoffice/DeleteData");
 
-		
-		//return "backoffice/casetype";
+		// return "backoffice/helptype";
 	}
 
-	
-	@RequestMapping(value = "/backoffice/updateHelpType", method = RequestMethod.POST)
-	public @ResponseBody  String updateHelpCategoryType(@ModelAttribute(value = "botype")  BOBean bean,
+	@RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.POST)
+	public @ResponseBody String deleteHelpCategoryType(
+			@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		BOBean bean1 = null;
 		String id = request.getParameter("id");
-		String name = null;
-		String description = null;
-		boolean boolName = false;
-		
-				String value = request.getParameter("value");
-				String clname = request.getParameter("columnName");
-				//String c = request.getParameter("columnId");
-				//String r = request.getParameter("rowId");
-				//String columnPosition = request.getParameter("columnPosition");
-				
-		
-		try{
-			if(value != null && id != null && id.length() > 0){
+
+		try {
+			if (bean.getName() == null && id != null && id.length() > 0) {
 				bean = new BOBean();
 				bean.setId(Integer.parseInt(id));
-				if(clname.equalsIgnoreCase("Help Type")){
-					bean.setName(value);
-					boolName = true;
-				}
-				else
-					bean.setDescription(value);
 			}
-			bean1 = backOfficeService.updateHelpCategoryType(bean);
-        	
-        }catch(ApplicationException ae){
-       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-       		
+			backOfficeService.deleteHelpCategoryType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+
 		}
-		log.debug("Within GET method for /backoffice/UpdateData");
-		if(boolName){
-			return bean1.getName();
-		}else{
-			return bean1.getDescription();
-		}
+		log.debug("Within GET method for /backoffice/DeleteData");
+        return "success";
+		// return "backoffice/casetype";
 	}
 
-	 
-    
-    
- 
-    
-   
-   /* @RequestMapping(value = "/backoffice/orgtype", method = RequestMethod.GET)
-    public String orgTypeIndex(@ModelAttribute(value = "botype")  BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) {
-		log.debug("Within GET method for /backoffice/orgtype");
-
-        return "backoffice/orgtype";
-    }*/
-    
-    
-    @RequestMapping(value = "/backoffice/orgtype", method = RequestMethod.GET)	
-	public String getOrgType(@ModelAttribute(value = "botypeList")  ArrayList<BOBean> lstBean,
+	@RequestMapping(value = "/backoffice/updateHelpType", method = RequestMethod.POST)
+	public @ResponseBody
+	String updateHelpCategoryType(
+			@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		
-		log.debug("Within GET method for /backoffice/orgtype");
-		List<OrgType> orgTypeList  = null;  
-	
-		  try{
-			  orgTypeList = masterDataService.getOrgTypesList();
-		        }catch(ApplicationException ae){
-		        	log.error(ae);
-		        }
-		  
-		  BOBean boBean = null;
-		  Iterator<OrgType> it = orgTypeList.iterator();
-		  Integer intName = null;
-		  OrgType orgType = null;
-		  while(it.hasNext()){
-			  orgType = (OrgType)it.next();
-			  boBean = new BOBean();
-			  boBean.setName(orgType.getName());
-			  boBean.setDescription(orgType.getDescription());
-			  boBean.setId(orgType.getId());
-			  lstBean.add(boBean);
-		  }
-		  return "backoffice/orgtype";
-		
+		String id = request.getParameter("id");
+		boolean boolName = false;
+		String value = request.getParameter("value");
+		String clname = request.getParameter("columnName");
+		try {
+			if (value != null && id != null && id.length() > 0) {
+				bean = new BOBean();
+				bean.setId(Integer.parseInt(id));
+				if (clname.equalsIgnoreCase("Help Type")) {
+					bean.setName(value);
+					boolName = true;
+				} else
+					bean.setDescription(value);
+			}
+			backOfficeService.updateHelpCategoryType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+
+		}
+		log.debug("Within GET method for /backoffice/UpdateData");
+		if (boolName) {
+			return bean.getName();
+		} else {
+			return bean.getDescription();
+		}
 	}
-    
-    @RequestMapping(value = "/backoffice/addOrgType", method = RequestMethod.GET)
-	public void orgType(@ModelAttribute(value = "botype")  BOBean bean,
+
+	@RequestMapping(value = "/backoffice/orgtype", method = RequestMethod.GET)
+	public String getOrgType(
+			@ModelAttribute(value = "botypeList") ArrayList<BOBean> lstBean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		log.debug("Within GET method for /backoffice/orgtype");
+		List<OrgType> orgTypeList = null;
+
+		try {
+			orgTypeList = masterDataService.getOrgTypesList();
+		} catch (ApplicationException ae) {
+			log.error(ae);
+		}
+
+		BOBean boBean = null;
+		Iterator<OrgType> it = orgTypeList.iterator();
+		Integer intName = null;
+		OrgType orgType = null;
+		while (it.hasNext()) {
+			orgType = (OrgType) it.next();
+			boBean = new BOBean();
+			boBean.setName(orgType.getName());
+			boBean.setDescription(orgType.getDescription());
+			boBean.setId(orgType.getId());
+			lstBean.add(boBean);
+		}
+		return "backoffice/orgtype";
+
+	}
+
+	@RequestMapping(value = "/backoffice/addOrgType", method = RequestMethod.GET)
+	public void orgType(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		request.getParameterNames();
-		try{
-        	backOfficeService.addOrgType(bean);
-        	
-        }catch(ApplicationException ae){
-       		errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-        	
+		try {
+			backOfficeService.addOrgType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+
 		}
 		log.debug("Within GET method for /backoffice/addOrgType");
-    }
+	}
 
-    
-    @RequestMapping(value = "/backoffice/addOrgType", method = RequestMethod.POST)
-    public String addOrgType(@ModelAttribute(value = "botype") BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/backoffice/addOrgType", method = RequestMethod.POST)
+	public String addOrgType(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-        //TODO Validations on server side
-        
-        try{
-            backOfficeService.addOrgType(bean);
-            
-        }catch(ApplicationException ae){
-               
-            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
-            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-            return "backoffice/orgtype";
-        }
-        return "backoffice/success"; // we need to return next page.
-    }
-    
-    @RequestMapping(value = "/backoffice/delOrgType", method = RequestMethod.GET)
-	public String getOrgTypeDelete(@ModelAttribute(value = "botype")  BOBean bean,
+		// TODO Validations on server side
+
+		try {
+			backOfficeService.addOrgType(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+			return "backoffice/orgtype";
+		}
+		return "backoffice/success"; // we need to return next page.
+	}
+
+	@RequestMapping(value = "/backoffice/delOrgType", method = RequestMethod.GET)
+	public String getOrgTypeDelete(
+			@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/DeleteData");
 
-		
 		return "backoffice/orgtype";
 	}
 
-
-@RequestMapping(value = "/backoffice/delOrgType", method = RequestMethod.POST)
-public void deleteOrgType(@ModelAttribute(value = "botype")  BOBean bean,
-		BindingResult errors, HttpServletRequest request,
-		HttpServletResponse response) {
-	String id = request.getParameter("id");
-	
-	try{
-		if(bean.getName() == null && id != null && id.length() > 0){
-			bean = new BOBean();
-			bean.setId(Integer.parseInt(id));
-		}
-    	backOfficeService.deleteOrgType(bean);
-    	
-    }catch(ApplicationException ae){
-   		errors.addError(new ObjectError("caseTypeError", "Unable do add the organization." ));
-    	
-	}
-	log.debug("Within GET method for /backoffice/DeleteData");
-
-	
-	//return "backoffice/casetype";
-}
-
-@RequestMapping(value = "/backoffice/updateOrgType", method = RequestMethod.POST)
-	public @ResponseBody  String updateOrgType(@ModelAttribute(value = "botype")  BOBean bean,
+	@RequestMapping(value = "/backoffice/delOrgType", method = RequestMethod.POST)
+	public void deleteOrgType(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
-		BOBean bean1 = null;
 		String id = request.getParameter("id");
-		String name = null;
-		String description = null;
-		boolean boolName = false;
-		
-				String value = request.getParameter("value");
-				String clname = request.getParameter("columnName");
-				//String c = request.getParameter("columnId");
-				//String r = request.getParameter("rowId");
-				//String columnPosition = request.getParameter("columnPosition");
-				
-		
-		try{
-			if(value != null && id != null && id.length() > 0){
+
+		try {
+			if (bean.getName() == null && id != null && id.length() > 0) {
 				bean = new BOBean();
 				bean.setId(Integer.parseInt(id));
-				if(clname.equalsIgnoreCase("Organization Type")){
+			}
+			backOfficeService.deleteOrgType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the organization."));
+
+		}
+		log.debug("Within GET method for /backoffice/DeleteData");
+
+		// return "backoffice/casetype";
+	}
+
+	@RequestMapping(value = "/backoffice/updateOrgType", method = RequestMethod.POST)
+	public @ResponseBody
+	String updateOrgType(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		String id = request.getParameter("id");
+		boolean boolName = false;
+
+		String value = request.getParameter("value");
+		String clname = request.getParameter("columnName");
+
+		try {
+			if (value != null && id != null && id.length() > 0) {
+				bean = new BOBean();
+				bean.setId(Integer.parseInt(id));
+				if (clname.equalsIgnoreCase("Organization Type")) {
 					bean.setName(value);
 					boolName = true;
-				}
-				else
+				} else
 					bean.setDescription(value);
 			}
-			bean1 = backOfficeService.updateOrgType(bean);
-       	
-       }catch(ApplicationException ae){
-      		errors.addError(new ObjectError("caseTypeError", "Unable do add the organization." ));
-      		
+			backOfficeService.updateOrgType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the organization."));
+
 		}
 		log.debug("Within GET method for /backoffice/UpdateData");
-		if(boolName){
-			return bean1.getName();
-		}else{
-			return bean1.getDescription();
+		if (boolName) {
+			return bean.getName();
+		} else {
+			return bean.getDescription();
 		}
 	}
-    
-    
-    //.....for case  satatus.....
-    
-    @RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.GET)
-    public String caseStatusMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) {
+
+	// .....for case satatus.....
+
+	@RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.GET)
+	public String caseStatusMasterIndex(
+			@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/casestatus");
 
-        return "backoffice/casestatus";
-    }
-    
-    @RequestMapping(value = "/backoffice/addCaseStatus", method = RequestMethod.POST)
-    public String addCaseStatusMaster(@ModelAttribute(value = "botype") BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+		return "backoffice/casestatus";
+	}
 
-        //TODO Validations on server side
-        
-        try{
-            backOfficeService.addCaseStatusMaster(bean);
-            
-        }catch(ApplicationException ae){
-               
-            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
-            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-            return "backoffice/casestatus";
-        }
-        return "backoffice/success"; // we need to return next page.
-    }
-    
-   
+	@RequestMapping(value = "/backoffice/addCaseStatus", method = RequestMethod.POST)
+	public String addCaseStatusMaster(
+			@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-    
-    
-    
-    
- // ........................>>>for role master<<......................
-    @RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)
-    public String roleMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) {
+		// TODO Validations on server side
+
+		try {
+			backOfficeService.addCaseStatusMaster(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+			return "backoffice/casestatus";
+		}
+		return "backoffice/success"; // we need to return next page.
+	}
+
+	// ........................>>>for role master<<......................
+	@RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)
+	public String roleMasterIndex(
+			@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/rolemaster");
 
-        return "backoffice/rolemaster";
-    }
-    
-    @RequestMapping(value = "/backoffice/addRoleMaster", method = RequestMethod.POST)
-    public String addRoleMaster(@ModelAttribute(value = "botype") BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+		return "backoffice/rolemaster";
+	}
 
-        //TODO Validations on server side
-        
-        try{
-            backOfficeService.addRoleMaster(bean);
-            
-        }catch(ApplicationException ae){
-               
-            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
-            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-            return "backoffice/rolemaster";
-        }
-        return "backoffice/success"; // we need to return next page.
-    }
-    
-    
-    
- // ........................>>>for module master<<......................
-    @RequestMapping(value = "/backoffice/modulemaster", method = RequestMethod.GET)
-    public String moduleMasterIndex(@ModelAttribute(value = "botype")  BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) {
+	@RequestMapping(value = "/backoffice/addRoleMaster", method = RequestMethod.POST)
+	public String addRoleMaster(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		// TODO Validations on server side
+
+		try {
+			backOfficeService.addRoleMaster(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+			return "backoffice/rolemaster";
+		}
+		return "backoffice/success"; // we need to return next page.
+	}
+
+	// ........................>>>for module master<<......................
+	@RequestMapping(value = "/backoffice/modulemaster", method = RequestMethod.GET)
+	public String moduleMasterIndex(
+			@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/modulemaster");
 
-        return "backoffice/modulemaster";
-    }
-    
-    @RequestMapping(value = "/backoffice/modulemaster", method = RequestMethod.POST)
-    public String addModuleMaster(@ModelAttribute(value = "botype") BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+		return "backoffice/modulemaster";
+	}
 
-        //TODO Validations on server side
-        
-        try{
-            backOfficeService.addModuleMaster(bean);
-            
-        }catch(ApplicationException ae){
-               
-            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
-            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-            return "backoffice/modulemaster";
-        }
-        return "backoffice/success"; // we need to return next page.
-    }
-    
-    
-   
-// ........................>>>for email template<<......................
-    @RequestMapping(value = "/backoffice/emailtemplate", method = RequestMethod.GET)
-    public String emailTemplateIndex(@ModelAttribute(value = "botype")  BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) {
+	@RequestMapping(value = "/backoffice/modulemaster", method = RequestMethod.POST)
+	public String addModuleMaster(
+			@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		// TODO Validations on server side
+
+		try {
+			backOfficeService.addModuleMaster(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+			return "backoffice/modulemaster";
+		}
+		return "backoffice/success"; // we need to return next page.
+	}
+
+	// ........................>>>for email template<<......................
+	@RequestMapping(value = "/backoffice/emailtemplate", method = RequestMethod.GET)
+	public String emailTemplateIndex(
+			@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
 		log.debug("Within GET method for /backoffice/emailtemplate");
 
-        return "backoffice/emailtemplate";
-    }
-    
-    @RequestMapping(value = "/backoffice/emailtemplate", method = RequestMethod.POST)
-    public String addEmailTemplate(@ModelAttribute(value = "botype") BOBean bean,
-            BindingResult errors, HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+		return "backoffice/emailtemplate";
+	}
 
-        //TODO Validations on server side
-        
-        try{
-            backOfficeService.addEmailTemplate(bean);
-            
-        }catch(ApplicationException ae){
-               
-            //ae.getCause() == null? ae.getMessage():ae.getCause().getMessage())
-            errors.addError(new ObjectError("caseTypeError", "Unable do add the case." ));
-            return "backoffice/emailtemplate";
-        }
-        return "backoffice/success"; // we need to return next page.
-    }
-  }
+	@RequestMapping(value = "/backoffice/emailtemplate", method = RequestMethod.POST)
+	public String addEmailTemplate(
+			@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		// TODO Validations on server side
+
+		try {
+			backOfficeService.addEmailTemplate(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+			return "backoffice/emailtemplate";
+		}
+		return "backoffice/success"; // we need to return next page.
+	}
+}

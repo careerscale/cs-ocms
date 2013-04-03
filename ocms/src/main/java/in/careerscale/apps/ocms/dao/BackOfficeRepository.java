@@ -44,7 +44,7 @@ public class BackOfficeRepository {
 		entityManager.remove(orgType);
 	}
 	
-	public CaseType update(CaseType caseType) {
+	public void update(CaseType caseType) {
 		CaseType caseType1 = entityManager.find(CaseType.class,
 				caseType.getId());
 		if (caseType.getName() != null) {
@@ -52,10 +52,11 @@ public class BackOfficeRepository {
 		} else {
 			caseType1.setDescription(caseType.getDescription());
 		}
-		return entityManager.merge(caseType1);
+		entityManager.merge(caseType1);
+		entityManager.flush();
 	}
 	
-	public OrgType update(OrgType orgType) {
+	public void update(OrgType orgType) {
 		OrgType orgType1 = entityManager.find(OrgType.class,
 				orgType.getId());
 		if (orgType.getName() != null) {
@@ -63,7 +64,8 @@ public class BackOfficeRepository {
 		} else {
 			orgType1.setDescription(orgType.getDescription());
 		}
-		return entityManager.merge(orgType1);
+		entityManager.merge(orgType1);
+		entityManager.flush();
 	}
 	
 	public HelpCategoryType getHelpCategoryType(Integer id) {
@@ -83,7 +85,7 @@ public class BackOfficeRepository {
 		entityManager.remove(helpCategoryType);
 	}
 
-	public HelpCategoryType update(HelpCategoryType helpCategoryType) {
+	public void update(HelpCategoryType helpCategoryType) {
 		HelpCategoryType helpCategoryType1 = entityManager.find(HelpCategoryType.class,
 				helpCategoryType.getId());
 		if (helpCategoryType.getCategoryName() != null) {
@@ -91,7 +93,9 @@ public class BackOfficeRepository {
 		} else {
 			helpCategoryType1.setDescription(helpCategoryType.getDescription());
 		}
-		return entityManager.merge(helpCategoryType1);
+		entityManager.merge(helpCategoryType1);
+		entityManager.flush();
+		
 	}
 
 	

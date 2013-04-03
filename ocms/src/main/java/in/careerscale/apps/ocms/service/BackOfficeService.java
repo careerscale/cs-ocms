@@ -29,76 +29,65 @@ public class BackOfficeService {
 	@Autowired
 	private EmailSender emailService;
 
-	public void addCaseType(BOBean caseType) throws ApplicationException {
+	public void addCaseType(BOBean boBean) throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new CaseType(caseType.getName(), caseType
+			backofficeRepository.save(new CaseType(boBean.getName(), boBean
 					.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
 
-	public BOBean updateCaseType(BOBean caseType) throws ApplicationException {
-		BOBean boBean = null;
+	public void updateCaseType(BOBean boBean) throws ApplicationException {
+		
 		try {
-			CaseType caseType2 = backofficeRepository.update(new CaseType(
-					caseType.getId(), caseType.getName(), caseType
-							.getDescription()));
-			boBean = new BOBean();
-			boBean.setId(caseType2.getId());
-			boBean.setName(caseType2.getName());
-			boBean.setDescription(caseType2.getDescription());
-
+			backofficeRepository.update(new CaseType(
+					boBean.getId(), boBean.getName(), boBean.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
-		return boBean;
 	}
 
-	public void deleteCaseType(BOBean caseType) throws ApplicationException {
+	public void deleteCaseType(BOBean boBean) throws ApplicationException {
 
 		try {
-			backofficeRepository.delete(new CaseType(caseType.getId(), caseType
-					.getName(), caseType.getDescription()));
+			backofficeRepository.delete(new CaseType(boBean.getId(), boBean
+					.getName(), boBean.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
 	
 
-	public void addHelpCategoryType(BOBean helpCategoryType)
+	public void addHelpCategoryType(BOBean boBean)
 			throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new HelpCategoryType(helpCategoryType.getName(), helpCategoryType.getDescription()));
+			backofficeRepository.save(new HelpCategoryType(boBean.getName(), boBean.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
 	
-	public BOBean updateHelpCategoryType(BOBean helpCategoryType) throws ApplicationException {
-		BOBean boBean = null;
+	public void updateHelpCategoryType(BOBean boBean) throws ApplicationException {
+		
 		try {
-			HelpCategoryType helpCategoryType2= backofficeRepository.update(new HelpCategoryType(
-					helpCategoryType.getId(), helpCategoryType.getName(), helpCategoryType
-							.getDescription()));
-			boBean = new BOBean();
-			boBean.setId(helpCategoryType2.getId());
-			boBean.setName(helpCategoryType2.getCategoryName());
-			boBean.setDescription(helpCategoryType2.getDescription());
+			backofficeRepository.update(new HelpCategoryType(
+					boBean.getId(), boBean.getName(), boBean
+							.getDescription()));		
 
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
-		return boBean;
+		
 	}
 	
-	public void deleteHelpCategoryType(BOBean helpCategoryType) throws ApplicationException {
+	public void deleteHelpCategoryType(BOBean boBean) throws ApplicationException {
 
 		try {
-			backofficeRepository.delete(new HelpCategoryType(helpCategoryType.getId(), helpCategoryType
-					.getName(),helpCategoryType.getDescription()));
+			backofficeRepository.delete(new HelpCategoryType(boBean.getId(), boBean
+					.getName(),boBean.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
@@ -107,69 +96,64 @@ public class BackOfficeService {
 
 	
 
-	public void addOrgType(BOBean orgType)
+	public void addOrgType(BOBean boBean)
 			throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new OrgType(orgType.getName(),orgType.getDescription()));
+			backofficeRepository.save(new OrgType(boBean.getName(),boBean.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
 	
-	public BOBean updateOrgType(BOBean orgType) throws ApplicationException {
-		BOBean boBean = null;
+	public void updateOrgType(BOBean boBean) throws ApplicationException {		
 		try {
-		OrgType orgType2= backofficeRepository.update(new OrgType(
-					orgType.getId(), orgType.getName(), orgType
+		backofficeRepository.update(new OrgType(
+					boBean.getId(), boBean.getName(), boBean
 							.getDescription()));
-			boBean = new BOBean();
-			boBean.setId(orgType2.getId());
-			boBean.setName(orgType2.getName());
-			boBean.setDescription(orgType2.getDescription());
-
+		
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
-		return boBean;
+		
 	}
-	public void deleteOrgType(BOBean orgType) throws ApplicationException {
+	public void deleteOrgType(BOBean boBean) throws ApplicationException {
 
 		try {
-			backofficeRepository.delete(new OrgType(orgType.getId(), orgType
-					.getName(), orgType.getDescription()));
+			backofficeRepository.delete(new OrgType(boBean.getId(), boBean
+					.getName(), boBean.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
 	
-	public void addCaseStatusMaster(BOBean caseStatusMaster)
+	public void addCaseStatusMaster(BOBean boBean)
 			throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new CaseStatusMaster(caseStatusMaster
-					.getName(), caseStatusMaster
+			backofficeRepository.save(new CaseStatusMaster(boBean
+					.getName(), boBean
 					.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
 	
-	public void addRoleMaster(BOBean roleMaster)
+	public void addRoleMaster(BOBean boBean)
 			throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new RoleMaster(roleMaster.getName(),roleMaster.getDescription()));
+			backofficeRepository.save(new RoleMaster(boBean.getName(),boBean.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
 
-	public void addModuleMaster(BOBean moduleMaster)
+	public void addModuleMaster(BOBean boBean)
 			throws ApplicationException {
 
 		try {
-			backofficeRepository.save(new ModuleMaster(moduleMaster.getName(),moduleMaster.getDescription()));
+			backofficeRepository.save(new ModuleMaster(boBean.getName(),boBean.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
