@@ -4,6 +4,7 @@ import java.util.List;
 
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
+import in.careerscale.apps.ocms.dao.model.OrgType;
 
 import javax.persistence.*;
 
@@ -29,9 +30,16 @@ public class MasterDataRepository {
 		return entityManager.find(HelpCategoryType.class, id);
 
 	}
+	public OrgType getOrgType(Integer id) {
+		return entityManager.find(OrgType.class, id);
+
+	}
 
 	public void save(HelpCategoryType helpCategoryType) {
 		entityManager.persist(helpCategoryType);
+	}
+	public void save(OrgType orgType) {
+		entityManager.persist(orgType);
 	}
 
 	
@@ -45,6 +53,11 @@ public class MasterDataRepository {
 	@SuppressWarnings("unchecked")
 	public List<HelpCategoryType> getHelpCategoryTypes() {
 		Query query =entityManager.createQuery("SELECT h FROM HelpCategoryType h order by h.helpCategoryType.id asc, h.id asc"); // AS c WHERE c.caseType is NULL
+		return query.getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	public List<OrgType> getOrgTypes() {
+		Query query =entityManager.createQuery("SELECT o FROM OrgType o order by o.orgType.id asc, o.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
 

@@ -8,6 +8,7 @@ import java.util.Map;
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
+import in.careerscale.apps.ocms.dao.model.OrgType;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.service.model.MasterType;
@@ -45,6 +46,15 @@ public class MasterDataService {
 	            throw new ApplicationException(pe.getMessage());
 	        }
 	    }
+	 public void addOrgType(BOBean orgType) throws ApplicationException {
+
+	        try {
+	        	repository.save(new OrgType(orgType.getName(), orgType.getDescription()));
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+	    }
+	 
 	 
 	 
 	 public Map<Integer, String> getCaseTypes() throws ApplicationException{
@@ -62,7 +72,38 @@ public class MasterDataService {
 		   
 		   return caseTypes;
 	 }
+	 public Map<Integer, String> getHelpCategoryTypes() throws ApplicationException{
+		 Map<Integer, String> helpCategoryTypes = new HashMap<Integer, String>();		
+		   try {
+			   List<HelpCategoryType> helpCategoryTypeList =repository.getHelpCategoryTypes();
+			   
+			   for (HelpCategoryType helpCategoryType : helpCategoryTypeList) {
+				   helpCategoryTypes.put(helpCategoryType.getId(), helpCategoryType.getCategoryName());
+				
+			}
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+		   
+		   return helpCategoryTypes;
+	 }
 
+	 public Map<Integer, String> getOrgTypes() throws ApplicationException{
+		 Map<Integer, String> orgTypes = new HashMap<Integer, String>();		
+		   try {
+			   List<OrgType> orgtypesList =repository.getOrgTypes();
+			   
+			   for (OrgType orgType : orgtypesList) {
+				   orgTypes.put(orgType.getId(), orgType.getName());
+				
+			}
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+		   
+		   return orgTypes;
+	 }
+	 
 
 	 public List<CaseType> getCaseTypesList() throws ApplicationException{
 		 List<CaseType> casetypesList  = null;  
@@ -74,6 +115,28 @@ public class MasterDataService {
 	        }
 		   
 		   return casetypesList ;
+	 }
+	 public List<HelpCategoryType> getHelpCategoryTypeList() throws ApplicationException{
+		 List<HelpCategoryType> helpCategoryTypeList  = null;  
+		 try {
+			 helpCategoryTypeList =repository.getHelpCategoryTypes();
+			
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+		   
+		   return helpCategoryTypeList ;
+	 }
+	 public List<OrgType> getOrgTypesList() throws ApplicationException{
+		 List<OrgType> orgtypesList  = null;  
+		 try {
+			 orgtypesList =repository.getOrgTypes();
+			
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+		   
+		   return orgtypesList ;
 	 }
 
 		public List<MasterType> getHelpTypes() throws ApplicationException {
@@ -117,21 +180,7 @@ public class MasterDataService {
 		 
 
 		 
-		 public Map<Integer, String> getHelpCategoryTypes() throws ApplicationException{
-			 Map<Integer, String> helpCategoryTypes = new HashMap<Integer, String>();		
-			   try {
-				   List<HelpCategoryType> helpCategoryTypeList =repository.getHelpCategoryTypes();
-				   
-				   for (HelpCategoryType helpCategoryType : helpCategoryTypeList) {
-					   helpCategoryTypes.put(helpCategoryType.getId(), helpCategoryType.getCategoryName());
-					
-				}
-		        } catch (PersistenceException pe) {
-		            throw new ApplicationException(pe.getMessage());
-		        }
-			   
-			   return helpCategoryTypes;
-		 }
+		 
 
 		 public List<MasterType> getHelpCategoryType1() throws ApplicationException{
 				
@@ -150,16 +199,23 @@ public class MasterDataService {
 			   
 			   return helpCategoryTypes;
 		 }
-
-		 public List<HelpCategoryType> getHelpCategoryTypeList() throws ApplicationException{
-			 List<HelpCategoryType> helpCategoryTypeList  = null;  
-			 try {
-				 helpCategoryTypeList =repository.getHelpCategoryTypes();
+		 public List<MasterType> getOrgCategoryType1() throws ApplicationException{
 				
+			 List<MasterType> orgTypes = new ArrayList<MasterType>();
+			   try {
+				   List<OrgType> orgTypeList =repository.getOrgTypes();
+				   
+				   for (OrgType orgType : orgTypeList) {
+					   String orgTypeName = orgType.getOrgType()!=null?orgType.getOrgType().getName() + " - " + orgType.getName() : orgType.getName();
+					   orgTypes.add(new MasterType(orgType.getId(), orgTypeName));
+					
+				}
 		        } catch (PersistenceException pe) {
 		            throw new ApplicationException(pe.getMessage());
 		        }
 			   
-			   return helpCategoryTypeList ;
+			   return orgTypes;
 		 }
+
+		 
 }

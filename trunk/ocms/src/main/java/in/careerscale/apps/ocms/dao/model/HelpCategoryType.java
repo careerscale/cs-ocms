@@ -27,6 +27,12 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "help_category_type", catalog = "ocms", uniqueConstraints = @UniqueConstraint(columnNames = "category_name"))
 public class HelpCategoryType implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	private Integer id;
 	
 

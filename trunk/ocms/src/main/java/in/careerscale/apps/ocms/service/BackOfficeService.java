@@ -65,6 +65,7 @@ public class BackOfficeService {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
+	
 
 	public void addHelpCategoryType(BOBean helpCategoryType)
 			throws ApplicationException {
@@ -104,6 +105,44 @@ public class BackOfficeService {
 	}
 	
 
+	
+
+	public void addOrgType(BOBean orgType)
+			throws ApplicationException {
+
+		try {
+			backofficeRepository.save(new OrgType(orgType.getName(),orgType.getDescription()));
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	
+	public BOBean updateOrgType(BOBean orgType) throws ApplicationException {
+		BOBean boBean = null;
+		try {
+		OrgType orgType2= backofficeRepository.update(new OrgType(
+					orgType.getId(), orgType.getName(), orgType
+							.getDescription()));
+			boBean = new BOBean();
+			boBean.setId(orgType2.getId());
+			boBean.setName(orgType2.getName());
+			boBean.setDescription(orgType2.getDescription());
+
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+		return boBean;
+	}
+	public void deleteOrgType(BOBean orgType) throws ApplicationException {
+
+		try {
+			backofficeRepository.delete(new OrgType(orgType.getId(), orgType
+					.getName(), orgType.getDescription()));
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	
 	public void addCaseStatusMaster(BOBean caseStatusMaster)
 			throws ApplicationException {
 
@@ -111,16 +150,6 @@ public class BackOfficeService {
 			backofficeRepository.save(new CaseStatusMaster(caseStatusMaster
 					.getName(), caseStatusMaster
 					.getDescription()));
-		} catch (PersistenceException pe) {
-			throw new ApplicationException(pe.getMessage());
-		}
-	}
-
-	public void addOrgType(BOBean orgType)
-			throws ApplicationException {
-
-		try {
-			backofficeRepository.save(new OrgType(orgType.getName(),orgType.getDescription()));
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
 		}
