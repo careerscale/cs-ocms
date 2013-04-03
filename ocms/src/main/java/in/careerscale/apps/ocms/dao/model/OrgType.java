@@ -23,6 +23,10 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "org_type", catalog = "ocms", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class OrgType implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private OrgType orgType;
 	private String name;
@@ -34,6 +38,11 @@ public class OrgType implements java.io.Serializable {
 		super();
 		this.name = name;
 		this.description = description;
+	}
+	public OrgType(Integer id, String name, String description) {
+		this.id = id;
+		this.name= name;
+		this.description= description;
 	}
 
 	
