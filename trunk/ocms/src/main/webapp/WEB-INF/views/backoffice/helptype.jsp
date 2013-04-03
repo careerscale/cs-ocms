@@ -56,6 +56,16 @@
 }
 </style>
 
+<<<<<<< .mine
+									oAddNewRowFormOptions: { 	
+                                                    title: 'Add a help category',
+													show: "blind",
+													hide: "explode",
+                                                    modal: true
+									}	,
+sAddDeleteToolbarSelector: ".dataTables_length"								
+=======
+>>>>>>> .r110
 
 <script type="text/javascript" src="/resources/media/js/complete.js"></script>
 <script src="/resources/media/js/jquery-1.4.4.min.js"
