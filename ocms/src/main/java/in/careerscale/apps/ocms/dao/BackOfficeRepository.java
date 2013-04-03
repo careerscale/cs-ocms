@@ -36,6 +36,13 @@ public class BackOfficeRepository {
 		caseType = entityManager.find(CaseType.class, caseType.getId());
 		entityManager.remove(caseType);
 	}
+	public void delete(OrgType orgType) {
+		// String query = "DELETE FROM CASE_TYPE where name = {:name}";
+		// entityManager.createNativeQuery(query).setParameter(1,
+		// caseType.getName()).executeUpdate();
+		orgType = entityManager.find(OrgType.class, orgType.getId());
+		entityManager.remove(orgType);
+	}
 	
 	public CaseType update(CaseType caseType) {
 		CaseType caseType1 = entityManager.find(CaseType.class,
@@ -46,6 +53,17 @@ public class BackOfficeRepository {
 			caseType1.setDescription(caseType.getDescription());
 		}
 		return entityManager.merge(caseType1);
+	}
+	
+	public OrgType update(OrgType orgType) {
+		OrgType orgType1 = entityManager.find(OrgType.class,
+				orgType.getId());
+		if (orgType.getName() != null) {
+			orgType1.setName(orgType.getName());
+		} else {
+			orgType1.setDescription(orgType.getDescription());
+		}
+		return entityManager.merge(orgType1);
 	}
 	
 	public HelpCategoryType getHelpCategoryType(Integer id) {
