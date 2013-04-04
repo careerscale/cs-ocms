@@ -90,9 +90,12 @@ public class GoogleController {
 		User user =OAUthParser.getUserFromGoogleUserProfile(oauthResponse.getBody());
 		try {
 			userService.registerUser(user);
-		} catch (ApplicationException e) {
+			AuthrnicationController authrnicationController = new AuthrnicationController();
+			authrnicationController.authenticate(user);
+			
+		} catch (Exception e) {
 			log.error("Error while registering google user", e);
 		}
-		return "oauth/oauthprofile";
+		return "home/index";
 	}
 }
