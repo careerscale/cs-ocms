@@ -12,12 +12,13 @@ public class RootConfig {
 	@Bean
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-		//ppc.setLocation(new ClassPathResource("/persistence.properties"));
-		
+		ppc.setSystemPropertiesMode(org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE);
+		ppc.setSearchSystemEnvironment(true);
 		 Resource[] resources = new ClassPathResource[ ]
 				   { new ClassPathResource( "persistence.properties" ), new ClassPathResource( "application.properties" ) };
 		  ppc.setLocations( resources );
 				  ppc.setIgnoreUnresolvablePlaceholders( true );
+		
 		return ppc;
 	}
 	
