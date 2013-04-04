@@ -73,6 +73,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			login-processing-url="/j_spring_security_check" default-target-url="/user"
 			always-use-default-target="false"  />
 			
+			<security:http-basic/>
+			
 				<security:intercept-url pattern="/**"
 			access="isAuthenticated()" />
 
@@ -82,6 +84,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		erase-credentials="true">
 		<security:authentication-provider
 			user-service-ref="userService" />
+		<security:authentication-provider
+			user-service-ref="socialService" />
+		
 	</security:authentication-manager>
 
 	<!-- oauth -->
