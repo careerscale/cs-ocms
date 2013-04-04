@@ -9,6 +9,9 @@ Nothing changes on what goes in for phase 1 of OCMS. But only to provide immedia
 
 Let us remind each one of us of the immediate targets that we have to reach.
 
+The production URL for OCMS is: http://ocms-careerscale.rhcloud.com/login
+
+
 = Iteration 1 /Release 1 =
 
 == Target date : April 6th ==
@@ -20,6 +23,7 @@ Let us remind each one of us of the immediate targets that we have to reach.
   * Demo hosting with free/cheaper solutions 
   * Testing frameworks/Guidelines for automation - Pankaj
 
+Status: On time
 
 = Iteration 2 /Release 2 =
 
