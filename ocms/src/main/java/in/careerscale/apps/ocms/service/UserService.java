@@ -89,14 +89,23 @@ public class UserService implements UserDetailsService {
 				// if the email id is used for another OCMS account then, we may
 				// need to just link him to that account.
 				dbUser = userRepository.findByUsername(user.getEmailId());
-				if (dbUser == null) {
-					dbUser = new LoginMaster(user.getEmailId(),
-							user.getPassword(), user.getFirstName(),
-							user.getLastName(), user.getDateOfBirth());
-					userRepository.registerUser(dbUser);
+				if (dbUser != null) {
+					
+					//dbUser loginType shouldn't be null.
+					if(dbUser.getLoginType() == LoginMaster.SOCIAL_REGISTERED){						
+					//Good the user exists already, so let us skip further registration
+					//check if the association exists already. if yes, skip, it might be login action from user.
+						return;
+					}
 
 				}
-				//TODO check if the association exists already. if yes, skip, it might be login action from user.
+				dbUser = new LoginMaster(user.getEmailId(),
+						user.getPassword(), user.getFirstName(),
+						user.getLastName(), user.getDateOfBirth(), LoginMaster.SOCIAL_REGISTERED);				
+				//TODO set DB flag as well.
+				userRepository.registerUser(dbUser);
+				
+				
 				in.careerscale.apps.ocms.dao.model.SocialNetwork network = userRepository
 						.getSocialNetwork(user.getNetwork().getId());
 				UserNetwork userNetwork = new UserNetwork(
@@ -108,7 +117,7 @@ public class UserService implements UserDetailsService {
 				// regular form registration, let us go ahead here
 				dbUser = new LoginMaster(user.getEmailId(), user.getPassword(),
 						user.getFirstName(), user.getLastName(),
-						user.getDateOfBirth());
+						user.getDateOfBirth(), LoginMaster.LOCAL_REGISTERED);
 				userRepository.registerUser(dbUser);
 				List<CaseType> userCaseTypes = userRepository.getCaseTypes(user
 						.getCaseTypes());
