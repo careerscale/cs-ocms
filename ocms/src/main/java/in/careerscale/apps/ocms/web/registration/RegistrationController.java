@@ -37,8 +37,6 @@ public class RegistrationController implements Validator {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private DaoAuthenticationProvider authenticationProvider;
 	
 	@Autowired
 	private MasterDataService masterDataService;
