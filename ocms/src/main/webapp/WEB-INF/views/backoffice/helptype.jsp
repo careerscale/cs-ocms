@@ -80,6 +80,7 @@
 			},
 			sUpdateURL : "updateHelpType",
 			sAddURL : "addHelpType",
+			sDeleteURL : "delHelpType",
 			sAddHttpMethod : "GET",
 			sDeleteHttpMethod : "GET",
 			oAddNewRowButtonOptions : {
