@@ -75,7 +75,7 @@ public class User implements Serializable {
 
 
 	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+		this.emailId = trim(emailId);
 	}
 
 
@@ -83,38 +83,25 @@ public class User implements Serializable {
 	public String getPassword() {
 		return password;
 	}
-
-
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-
-
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = trim(firstName);
 	}
-
-
 
 	public String getLastName() {
 		return lastName;
 	}
 
-
-
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = trim(lastName);
 	}
-
-
 
 	public Date getDateOfBirth() {
 		return dateOfBirth;
@@ -125,10 +112,6 @@ public class User implements Serializable {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-
-	
-	
-
 
 	public List<Integer> getCaseTypes() {
 		return caseTypes;
@@ -171,10 +154,11 @@ public class User implements Serializable {
 
 	public void setNetwork(SocialNetwork network) {
 		this.network = network;
+		
 	}
 
 	public String getSocialNetworkId() {
-		return socialNetworkId;
+		return trim(socialNetworkId);
 	}
 
 	public void setSocialNetworkId(String socialNetworkId) {
@@ -201,6 +185,11 @@ public class User implements Serializable {
 	        dateFormat.setLenient(false);
 	        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	    }
+	 
+	 
+	 private String trim(String input){		
+		 return input != null ?input.replaceAll("^\"|\"$", ""): input;
+	 }
 	
 
 }
