@@ -158,11 +158,11 @@ public class User implements Serializable {
 	}
 
 	public String getSocialNetworkId() {
-		return trim(socialNetworkId);
+		return socialNetworkId;
 	}
 
 	public void setSocialNetworkId(String socialNetworkId) {
-		this.socialNetworkId = socialNetworkId;
+		this.socialNetworkId = trim(socialNetworkId);
 	}
 
 	@Override

@@ -67,7 +67,7 @@ public class SocialService implements UserDetailsService {
 		}
 
 		System.out.println(map);
-		username = username.substring(1, username.length()-2);
+		username = username.substring(0, username.length()-1);
 		LoginMaster user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("user not found");
