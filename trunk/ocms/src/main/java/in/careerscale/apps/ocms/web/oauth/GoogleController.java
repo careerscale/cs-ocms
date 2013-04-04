@@ -29,11 +29,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
-
-
 @Controller
 public class GoogleController {
-	
+
 	Log log = LogFactory.getLog(GoogleController.class);
 	@Autowired
 	@Qualifier("gmailServiceProvider")
@@ -41,60 +39,75 @@ public class GoogleController {
 
 	@Autowired
 	private UserService userService;
-	
-	@RequestMapping(value={"/login-google"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/login-google" }, method = RequestMethod.GET)
 	public String login(WebRequest request) {
-		
+
 		// getting request and access token from session
-		Token requestToken = (Token) request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
-		Token accessToken = (Token) request.getAttribute(ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
-		if(requestToken == null || accessToken == null) {
+		Token requestToken = (Token) request.getAttribute(
+				ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
+		Token accessToken = (Token) request.getAttribute(
+				ATTR_OAUTH_ACCESS_TOKEN, SCOPE_SESSION);
+		if (requestToken == null || accessToken == null) {
 			// generate new request token
 			OAuthService service = gmailServiceProvider.getService();
 			requestToken = service.getRequestToken();
-			request.setAttribute(ATTR_OAUTH_REQUEST_TOKEN, requestToken, SCOPE_SESSION);
-			//request.setAttribute("scope", "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&", SCOPE_SESSION);
-			
-			
-			
+			request.setAttribute(ATTR_OAUTH_REQUEST_TOKEN, requestToken,
+					SCOPE_SESSION);
+			// request.setAttribute("scope",
+			// "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&",
+			// SCOPE_SESSION);
+
 			// redirect to gmail auth page
 			return "redirect:" + service.getAuthorizationUrl(requestToken);
 		}
-		//TODO
-		//Get user information and update spring security context for the user. 
-		//Since we are trusting thirdparty oauth providers 
+		// TODO
+		// Get user information and update spring security context for the user.
+		// Since we are trusting thirdparty oauth providers
 		return "home/index";
 	}
-	
-	@RequestMapping(value={"/google-callback"}, method = RequestMethod.GET)
-	public String callback(@RequestParam(value="oauth_token", required=false) String oauthToken,
-			@RequestParam(value="oauth_verifier", required=false) String oauthVerifier, WebRequest request, HttpServletRequest req,
+
+	@RequestMapping(value = { "/google-callback" }, method = RequestMethod.GET)
+	public String callback(
+			@RequestParam(value = "oauth_token", required = false) String oauthToken,
+			@RequestParam(value = "oauth_verifier", required = false) String oauthVerifier,
+			WebRequest request, HttpServletRequest req,
 			HttpServletResponse response) {
-		
+
 		// getting request token
 		OAuthService service = gmailServiceProvider.getService();
-		Token requestToken = (Token) request.getAttribute(ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
-		
+		Token requestToken = (Token) request.getAttribute(
+				ATTR_OAUTH_REQUEST_TOKEN, SCOPE_SESSION);
+
 		// getting access token
 		Verifier verifier = new Verifier(oauthVerifier);
 		Token accessToken = service.getAccessToken(requestToken, verifier);
-		
+
 		// store access token as a session attribute
-		request.setAttribute(ATTR_OAUTH_ACCESS_TOKEN, accessToken, SCOPE_SESSION);
-		
+		request.setAttribute(ATTR_OAUTH_ACCESS_TOKEN, accessToken,
+				SCOPE_SESSION);
+
 		// getting user profile
-		OAuthRequest oauthRequest = new OAuthRequest(Verb.GET, "https://www.googleapis.com/oauth2/v1/userinfo");
-		service.signRequest(accessToken, oauthRequest); // the access token from step 4
+		OAuthRequest oauthRequest = new OAuthRequest(Verb.GET,
+				"https://www.googleapis.com/oauth2/v1/userinfo");
+		service.signRequest(accessToken, oauthRequest); // the access token from
+														// step 4
 		Response oauthResponse = oauthRequest.send();
 		log.debug(oauthResponse.getBody());
-		User user =OAUthParser.getUserFromGoogleUserProfile(oauthResponse.getBody());
+		User user = OAUthParser.getUserFromGoogleUserProfile(oauthResponse
+				.getBody());
+
 		try {
 			userService.registerUser(user);
-			AuthrnicationController authrnicationController = new AuthrnicationController();
-			authrnicationController.authenticate(user);
-			
 		} catch (Exception e) {
 			log.error("Error while registering google user", e);
+		}
+		try {
+			AuthrnicationController authrnicationController = new AuthrnicationController();
+			authrnicationController.authenticate(user);
+
+		} catch (Exception e) {
+			log.error("Error while logging in google user", e);
 		}
 		return "home/index";
 	}

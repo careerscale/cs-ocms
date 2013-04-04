@@ -524,8 +524,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (1, 'harinath@tmad.org', '5a105e8b9d40e1329780d62ea2265d8a', 'Harinath', 'Mallepally', '1979-06-06', NULL);
-INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (2, 'hari@harinath.in', '5a105e8b9d40e1329780d62ea2265d8a', 'Harinath', '', '1979-06-01', NULL);
+INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (1, 'harinath@tmad.org', 'test123', 'Harinath', 'Mallepally', '1979-06-06', 1);
+INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (2, 'hari@harinath.in', 'test123', 'Harinath', '', '1979-06-01', 1);
 
 COMMIT;
 
