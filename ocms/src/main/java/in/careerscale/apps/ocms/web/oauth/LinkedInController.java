@@ -89,14 +89,20 @@ public class LinkedInController {
 			log.error("Error while registering linkedin user", e1);
 		}
 
+
 		try {
-			//TODO what if user is null?
 			userService.registerUser(user);
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			log.error("Error while saving linked user registration in db", e);
+		} catch (Exception e) {
+			log.error("Error while registering google user", e);
 		}
-		return "oauth/oauthprofile";
+		try {
+			AuthrnicationController authrnicationController = new AuthrnicationController();
+			authrnicationController.authenticate(user);
+
+		} catch (Exception e) {
+			log.error("Error while logging in google user", e);
+		}
+		return "home/index";
 
 	}
 }
