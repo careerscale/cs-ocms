@@ -85,11 +85,17 @@ public class FacebookController {
 
 		try {
 			userService.registerUser(user);
-		} catch (ApplicationException e) {
-			log.error("Error while registering facebook user", e);
+		} catch (Exception e) {
+			log.error("Error while registering google user", e);
 		}
+		try {
+			AuthrnicationController authrnicationController = new AuthrnicationController();
+			authrnicationController.authenticate(user);
 
-		return "oauth/oauthprofile";
+		} catch (Exception e) {
+			log.error("Error while logging in google user", e);
+		}
+		return "home/index";
 
 	}
 }

@@ -106,12 +106,20 @@ public class TwitterController {
 		} catch (IOException e1) {
 			log.error(e1);
 		}
+
 		try {
 			userService.registerUser(user);
-		} catch (ApplicationException e) {
-			log.error("Error whle registering the twitter user in db", e);
+		} catch (Exception e) {
+			log.error("Error while registering google user", e);
 		}
-		return "oauth/oauthprofile";
+		try {
+			AuthrnicationController authrnicationController = new AuthrnicationController();
+			authrnicationController.authenticate(user);
+
+		} catch (Exception e) {
+			log.error("Error while logging in google user", e);
+		}
+		return "home/index";
 
 	}
 }
