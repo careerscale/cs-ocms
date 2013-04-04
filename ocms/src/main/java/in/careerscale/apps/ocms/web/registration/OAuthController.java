@@ -10,7 +10,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,9 +24,7 @@ public class OAuthController  {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-	private DaoAuthenticationProvider authenticationProvider;
-
+	
 	
 	@RequestMapping(value = "/oauth", method = RequestMethod.GET)
 	public String index(@ModelAttribute(value = "user") User bean,
