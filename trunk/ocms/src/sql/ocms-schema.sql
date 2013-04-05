@@ -534,11 +534,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (1, 'New', NULL);
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (2, 'Pending', NULL);
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (3, 'In Progress', NULL);
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (4, 'On Hold', NULL);
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (5, 'Resolved', NULL);
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (1, 'New', 'New case, just entered the system');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (2, 'Pending', 'Case is pending, not yet active');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (3, 'In Progress', 'Case is active');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (4, 'On Hold', 'Case is on hold for some dependency or clarification');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (5, 'Resolved', 'Case is successfully addressed. ');
 
 COMMIT;
 
@@ -547,10 +547,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `help_category_type` (`id`, `category_name`, `description`, `parent_type_id`) VALUES (1, 'Monetary', NULL, NULL);
-INSERT INTO `help_category_type` (`id`, `category_name`, `description`, `parent_type_id`) VALUES (2, 'Reference', NULL, NULL);
-INSERT INTO `help_category_type` (`id`, `category_name`, `description`, `parent_type_id`) VALUES (3, 'Guidance', NULL, NULL);
-INSERT INTO `help_category_type` (`id`, `category_name`, `description`, `parent_type_id`) VALUES (4, 'Non monetary', NULL, NULL);
+INSERT INTO `help_category_type` (`id`, `category_name`, `description`, `parent_type_id`) VALUES (1, 'Monetary', 'Monetary/Financial help', NULL);
+INSERT INTO `help_category_type` (`id`, `category_name`, `description`, `parent_type_id`) VALUES (2, 'Reference', 'Need/Provide reference person/information', NULL);
+INSERT INTO `help_category_type` (`id`, `category_name`, `description`, `parent_type_id`) VALUES (3, 'Guidance', 'Need/provide Guidance (SME)', NULL);
+INSERT INTO `help_category_type` (`id`, `category_name`, `description`, `parent_type_id`) VALUES (4, 'Non monetary', 'Any other non financial support needed/provided', NULL);
 
 COMMIT;
 
@@ -559,14 +559,14 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (1, 'Medical', NULL, NULL);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (2, 'Education', NULL, NULL);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (3, 'Amenities', NULL, NULL);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (4, 'Calamities', NULL, NULL);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (5, 'Heart Operation', NULL, 1);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (6, 'Kidney', NULL, 1);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (7, 'Education Loan', NULL, 2);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (8, 'Guidance', NULL, 2);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (1, 'Medical', 'Medical cases', NULL);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (2, 'Education', 'Education cases', NULL);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (3, 'Amenities', 'Amenities/facilities needed', NULL);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (4, 'Calamities', 'Natural calamitiies like floods or fire etc', NULL);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (5, 'Heart Operation', 'Medical/Heart specific', 1);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (6, 'Kidney', 'Medical/kidney specific', 1);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (7, 'Education Loan', 'Education/loan', 2);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (8, 'Guidance', 'Education/guidance', 2);
 
 COMMIT;
 
@@ -595,11 +595,11 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (1, 'NGO', NULL, NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (2, 'State Government', NULL, NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (3, 'Union/Central Government', NULL, NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (4, 'Private Limited/Corporate', NULL, NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (5, 'International Charity', NULL, NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (1, 'NGO', 'NGO Organization', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (2, 'State Government', 'State Govt. Organizations', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (3, 'Union/Central Government', 'Central Govt. organizations', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (4, 'Private Limited/Corporate', 'Private/Corporate company', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (5, 'International Charity', 'International organization', NULL);
 
 COMMIT;
 
@@ -620,10 +620,10 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (1, 'Case Registration', NULL);
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (2, 'User Registration', NULL);
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (3, 'Administration', NULL);
-INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (4, 'Case Life Cycle', NULL);
+INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (1, 'Case Registration', 'Case registration');
+INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (2, 'User Registration', 'User Registration');
+INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (3, 'Administration', 'Administration');
+INSERT INTO `module_master` (`id`, `name`, `description`) VALUES (4, 'Case Life Cycle', 'Case Life cycle');
 
 COMMIT;
 
