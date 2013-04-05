@@ -160,6 +160,9 @@ public class OAUthParser {
 			user.setSocialNetworkId(xp.evaluate("/person/id/text()", doc));
 			user.setFirstName(xp.evaluate("/person/first-name/text()", doc));
 			user.setLastName(xp.evaluate("/person/last-name/text()", doc));
+			//since linkedin doesnt provide email id, putting the id itself into the email id field to pass registration
+			user.setEmailId(xp.evaluate("/person/id/text()", doc));
+			
 
 		}
 		// ParserConfigurationException , SAXException, IOException
