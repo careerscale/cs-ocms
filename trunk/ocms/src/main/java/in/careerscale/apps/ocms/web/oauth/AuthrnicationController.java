@@ -2,6 +2,8 @@ package in.careerscale.apps.ocms.web.oauth;
 
 import in.careerscale.apps.ocms.web.registration.model.User;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,10 +12,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AuthrnicationController
 {
+	Log log = LogFactory.getLog(AuthrnicationController.class);
 	private static AuthenticationManager am = new SampleAuthenticationManager();
 	
 	public boolean authenticate(String emailAddress){
-		System.out.println("Inside authenticate:");
+		log.info("Inside authenticate:");
 		
 		 try {
 		        Authentication request = new UsernamePasswordAuthenticationToken(emailAddress, "password");
@@ -26,7 +29,7 @@ public class AuthrnicationController
 		    	  System.out.println("Authentication failed general Exception: " + e.getMessage());
 			}
 		 
-		 System.out.println("Successfully authenticated. Security context contains: " +
+		 log.info("Successfully authenticated. Security context contains: " +
 	              SecurityContextHolder.getContext().getAuthentication());
 		return false;
 	}
@@ -34,7 +37,7 @@ public class AuthrnicationController
 	public boolean authenticate(User user)
 	{
 		
-		System.out.println("Inside authenticate:");
+		log.info("Inside authenticate:");
 		
 		 try {
 		        //Authentication request = new UsernamePasswordAuthenticationToken(user.getEmailId(), "");
@@ -50,7 +53,7 @@ public class AuthrnicationController
 		    	  System.out.println("Authentication failed general Exception: " + e.getMessage());
 			}
 		 
-		 System.out.println("Successfully authenticated. Security context contains: " +
+		 log.info("Successfully authenticated. Security context contains: " +
 	              SecurityContextHolder.getContext().getAuthentication());
 		return false;
 	}
