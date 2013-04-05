@@ -35,6 +35,7 @@ public class BackOfficeRepository {
 		// caseType.getName()).executeUpdate();
 		caseType = entityManager.find(CaseType.class, caseType.getId());
 		entityManager.remove(caseType);
+		entityManager.flush();
 	}
 	public void delete(OrgType orgType) {
 		// String query = "DELETE FROM CASE_TYPE where name = {:name}";
@@ -42,6 +43,7 @@ public class BackOfficeRepository {
 		// caseType.getName()).executeUpdate();
 		orgType = entityManager.find(OrgType.class, orgType.getId());
 		entityManager.remove(orgType);
+		entityManager.flush();
 	}
 	
 	public void update(CaseType caseType) {
@@ -83,6 +85,7 @@ public class BackOfficeRepository {
 		// caseType.getName()).executeUpdate();
 		helpCategoryType = entityManager.find(HelpCategoryType.class, helpCategoryType.getId());
 		entityManager.remove(helpCategoryType);
+		entityManager.flush();
 	}
 
 	public void update(HelpCategoryType helpCategoryType) {
