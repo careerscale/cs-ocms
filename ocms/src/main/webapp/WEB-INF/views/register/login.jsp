@@ -1,47 +1,117 @@
 
+<!--  <body>
+	<div id="page-content-inner1" class="resize">
+
+		<div >
+			<form action="/j_spring_security_check" method="POST">
+			<div class="login1">
+
+				<table align="center" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td class="label"><label for="username">Email Id:</label></td>
+						<td class="field"><input id="username" name="j_username"
+							class="required email" type="text" tabindex="1" /></td>
+					</tr>
+					<tr>
+						<td class="label"><label for="password">Password:</label></td>
+
+						<td class="field"><input id="password" class="required"
+							name="j_password" type="password" tabindex="2" /></td>
+
+					</tr>
+					<tr>
+						<td><div class="buttonSubmit">
+								<input class="formButton" type="submit" value="Signin"
+									style="width: 120px" tabindex="3" />
+							</div></td>
+						<td><span class="registerlink"><a href="/register">
+									Register</a></span></td>
+								
+
+					</tr>
+					</table>
+					</div>
+					<div class="social">
+						
+					<table>
+					<tr>
+						<td><a href="/login-facebook">Login with facebook</a></td>
+						<td><a href="/login-google">Login with Google</a></td>
+
+					</tr>
+
+					<tr>
+						<td><a href="/login-twitter">Login with Twitter</a></td>
+						<td><a href="/login-linkedin">Login with Linkedin</a></td>
+
+					</tr>
+				</table>
+				</div>
+				</form>
+		</div>
+</div>
+</body>-->
 <body>
-<div class="login1">
-	<form action="/j_spring_security_check" method="POST">
+<div id="page-content-inner1" class="resize">
+<div id="login-box">
+<div id="login-intro">
+<h3>joining OCMS is free and easy! being a member you can help in many way.</h3>
+</div>
 
-		<table align="center" cellpadding="0" cellspacing="0" border="0">
-			<tr>
-				<td class="label"><label for="username">Email Id:</label></td>
-				<td class="field"><input id="username" name="j_username"
-					class="required email" type="text" tabindex="1" /></td>
-			</tr>
-			<tr>
-				<td class="label"><label for="password">Password:</label></td>
+	<form id="login-register" action="/j_spring_security_check" method="POST">
+	<fieldset>
+	<h5>login with registered account</h5>
+	            <div id="login-form" >
+					<table align="center" cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td class="label"><label for="username">Email Id:</label></td>
+						<td class="field"><input id="username" name="j_username"
+							class="required email" type="text" tabindex="1" /></td>
+					</tr>
+					<tr>
+						<td class="label"><label for="password">Password:</label></td>
 
-				<td class="field"><input id="password" class="required"
-					name="j_password" type="password" tabindex="2" /></td>
+						<td class="field"><input id="password" class="required"
+							name="j_password" type="password" tabindex="2" /></td>
 
-			</tr>
-			<tr>
-				<td><div class="buttonSubmit">
-						<input class="formButton" type="submit" value="Signin"
-							style="width: 120px" tabindex="3" />
-				  </div></td><td><span class="registerlink"><a href="/register"> Register</a></span></td>
-				  
-			</tr>
+					</tr>
+					<tr>
+						<td><div class="buttonSubmit">
+								<input class="formButton" type="submit" value="Signin"
+									style="width: 120px" tabindex="3" />
+							</div></td>
+						<td><span class="registerlink"><a href="/register">
+									Register</a></span></td>
+								
+
+					</tr>
+					</table>
+					</div>
+	
+	</fieldset>
+	<div class="socialconnect">
+	<h5 class="margin-15">Use your social network</h5>
+	<div id ="social-connect">
+	<div class="logo">
+			<a href="/login-facebook"><img src="resources/images/facebook.png"
+				width="78" height="50" alt="facebook" /></a>
 		
-			<tr>
-				<td>
-				<a href="/login-facebook">Login with facebook</a>				
-				 </td><td><a href="/login-google">Login with Google</a></td>
-				  
-			</tr>
-			
-			<tr>
-				<td>
-				<a href="/login-twitter">Login with Twitter</a>
+		 <a href="/login-google"><img src="resources/images/google..jpg"
+				width="78" height="50" alt="google" /></a>
 				
-				 </td><td><a href="/login-linkedin">Login with Linkedin</a></td>
-				  
-			</tr>
-			
-			
-
-		</table>
+				<a href="/login-twitter"><img src="resources/images/twitter.png"
+				width="78" height="50" alt="google" /></a>
+				
+				<a href="/login-linkedin"><img src="resources/images/linkedin.jpg"
+				width="78" height="50" alt="google" /></a>
+		</div>
+		
+	</div>
+	</div>
 	</form>
 	</div>
+
+</div>
+
+
 </body>
