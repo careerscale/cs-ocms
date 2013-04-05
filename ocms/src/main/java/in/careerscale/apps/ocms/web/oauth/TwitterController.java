@@ -12,6 +12,7 @@ import in.careerscale.apps.ocms.web.registration.model.User;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
@@ -70,7 +71,7 @@ public class TwitterController {
 	public String callback(
 			@RequestParam(value = "oauth_token", required = false) String oauthToken,
 			@RequestParam(value = "oauth_verifier", required = false) String oauthVerifier,
-			WebRequest request, HttpServletRequest req) {
+			WebRequest request, HttpServletRequest req, HttpServletResponse res) {
 
 		// getting request token
 		OAuthService service = twitterServiceProvider.getService();
@@ -115,7 +116,7 @@ public class TwitterController {
 		try {
 			AuthrnicationController authrnicationController = new AuthrnicationController();
 			authrnicationController.authenticate(user);
-
+			res.sendRedirect("/user");
 		} catch (Exception e) {
 			log.error("Error while logging in google user", e);
 		}

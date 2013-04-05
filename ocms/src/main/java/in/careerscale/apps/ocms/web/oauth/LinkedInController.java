@@ -12,6 +12,7 @@ import in.careerscale.apps.ocms.web.oauth.util.OAUthParser;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,7 +64,7 @@ public class LinkedInController {
 	}
 	
 	@RequestMapping(value={"/linkedin-callback"}, method = RequestMethod.GET)
-	public String callback(@RequestParam(value="oauth_verifier", required=false) String oauthVerifier, WebRequest request,HttpServletRequest req) {
+	public String callback(@RequestParam(value="oauth_verifier", required=false) String oauthVerifier, WebRequest request,HttpServletRequest req, HttpServletResponse response) {
 		
 		// getting request tocken
 		OAuthService service = linkedInServiceProvider.getService();
@@ -98,7 +99,7 @@ public class LinkedInController {
 		try {
 			AuthrnicationController authrnicationController = new AuthrnicationController();
 			authrnicationController.authenticate(user);
-
+			response.sendRedirect("/user");
 		} catch (Exception e) {
 			log.error("Error while logging in google user", e);
 		}

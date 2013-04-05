@@ -11,6 +11,7 @@ import in.careerscale.apps.ocms.web.oauth.util.OAUthParser;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,7 +62,7 @@ public class FacebookController {
 	}
 	
 	@RequestMapping(value={"/facebook-callback"}, method = RequestMethod.GET)
-	public String callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request,HttpServletRequest req) {
+	public String callback(@RequestParam(value="code", required=false) String oauthVerifier, WebRequest request,HttpServletRequest req,HttpServletResponse response ) {
 		
 		// getting request token
 		OAuthService service = facebookServiceProvider.getService();
@@ -91,7 +92,7 @@ public class FacebookController {
 		try {
 			AuthrnicationController authrnicationController = new AuthrnicationController();
 			authrnicationController.authenticate(user);
-
+			response.sendRedirect("/user");
 		} catch (Exception e) {
 			log.error("Error while logging in google user", e);
 		}
