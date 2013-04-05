@@ -4,6 +4,8 @@ import static in.careerscale.apps.ocms.web.oauth.SessionAttributes.ATTR_OAUTH_AC
 import static in.careerscale.apps.ocms.web.oauth.SessionAttributes.ATTR_OAUTH_REQUEST_TOKEN;
 import static org.springframework.web.context.request.RequestAttributes.SCOPE_SESSION;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -105,10 +107,11 @@ public class GoogleController {
 		try {
 			AuthrnicationController authrnicationController = new AuthrnicationController();
 			authrnicationController.authenticate(user);
-
+			response.sendRedirect("/user");
 		} catch (Exception e) {
 			log.error("Error while logging in google user", e);
 		}
+		
 		return "home/index";
 	}
 }
