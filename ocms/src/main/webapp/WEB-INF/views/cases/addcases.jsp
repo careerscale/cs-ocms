@@ -12,7 +12,7 @@
 <![endif]-->
 <!-- start page container 2 div-->
 <h1>
-	<spring:message code="register.cases.title" />
+	<spring:message code="cases.addcase.title" />
 </h1>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -147,7 +147,7 @@
 								Types </label></td>
 						<td class="field"><form:select path="caseTypes"
 								multiple="true">
-								<form:options items="${case.caseMasterTypes}" itemValue="id"
+								<form:options items="${caseMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select></td>
 					</tr>
@@ -158,7 +158,7 @@
 								Category Types </label></td>
 						<td class="field"><form:select path="helpTypes"
 								multiple="true">
-								<form:options items="${case.helpMasterTypes}" itemValue="id"
+								<form:options items="${helpMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select></td>
 					</tr> 
