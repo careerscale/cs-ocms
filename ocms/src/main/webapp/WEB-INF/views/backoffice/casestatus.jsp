@@ -35,12 +35,12 @@
                 <table cellpadding="0" cellspacing="0" border="0">
                     <tr>
                         <td class="label"><label for="caseStatusName">Case Status Name:</label></td>
-                        <td class="field"><form:input path="caseStatusName" type="text"
+                        <td class="field"><form:input path="name" type="text"
                                 class="required" value="" tabindex="1" /></td>
                     </tr>
                          <tr>
                         <td class="label"><label for="caseStatusDescription"> Case Status Description:</label></td>
-                        <td class="field"><form:input path="caseStatusDescription" type="textarea"
+                        <td class="field"><form:input path="description" type="textarea"
                                 class="required" value="" tabindex="2" /></td>
                     </tr>
                     

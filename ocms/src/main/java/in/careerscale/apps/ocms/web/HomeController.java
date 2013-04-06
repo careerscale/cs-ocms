@@ -12,4 +12,10 @@ public class HomeController {
 	public String index(Model model) {
 		return "home/index";
 	}
+	
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String aboutUs(Model model) {
+		return "home/about";
+	}
+
 }
