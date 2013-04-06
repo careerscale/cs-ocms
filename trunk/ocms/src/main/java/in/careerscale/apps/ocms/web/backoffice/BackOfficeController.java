@@ -123,7 +123,7 @@ public class BackOfficeController {
 	}
 
 	@RequestMapping(value = "/backoffice/delCaseType", method = RequestMethod.GET)
-	public @ResponseBody String caseTypeDelete1(@ModelAttribute(value = "botype") BOBean bean,
+	public void  caseTypeDelete(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
 		String id = request.getParameter("id");
@@ -140,8 +140,8 @@ public class BackOfficeController {
 					"Unable do add the case."));
 
 		}
-		log.debug("Within GET method for /backoffice/DeleteData");
-		return "Success";
+		log.debug("Within GET method for /backoffice/delCaseType");
+		//return "backoffice/casetype";
 
 	}
 
@@ -250,7 +250,7 @@ public class BackOfficeController {
 	}
 
 	@RequestMapping(value = "/backoffice/delHelpType", method = RequestMethod.GET)
-	public @ResponseBody String deleteHelpCategoryType(
+	public void deleteHelpCategoryType(
 			@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -268,8 +268,8 @@ public class BackOfficeController {
 					"Unable do add the case."));
 
 		}
-		log.debug("Within GET method for /backoffice/DeleteData");
-        return "success";
+		log.debug("Within GET method for /backoffice/delHelpType");
+       
 		// return "backoffice/casetype";
 	}
 
@@ -300,7 +300,7 @@ public class BackOfficeController {
 					"Unable do add the case."));
 
 		}
-		log.debug("Within GET method for /backoffice/UpdateData");
+		log.debug("Within GET method for /backoffice/updateHelpType");
 		if (boolName) {
 			return bean.getName();
 		} else {
@@ -377,16 +377,6 @@ public class BackOfficeController {
 	}
 
 	@RequestMapping(value = "/backoffice/delOrgType", method = RequestMethod.GET)
-	public String getOrgTypeDelete(
-			@ModelAttribute(value = "botype") BOBean bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) {
-		log.debug("Within GET method for /backoffice/DeleteData");
-
-		return "backoffice/orgtype";
-	}
-
-	@RequestMapping(value = "/backoffice/delOrgType", method = RequestMethod.POST)
 	public void deleteOrgType(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -404,9 +394,8 @@ public class BackOfficeController {
 					"Unable do add the organization."));
 
 		}
-		log.debug("Within GET method for /backoffice/DeleteData");
+		log.debug("Within GET method for /backoffice/delOrgType");
 
-		// return "backoffice/casetype";
 	}
 
 	@RequestMapping(value = "/backoffice/updateOrgType", method = RequestMethod.POST)
@@ -437,7 +426,7 @@ public class BackOfficeController {
 					"Unable do add the organization."));
 
 		}
-		log.debug("Within GET method for /backoffice/UpdateData");
+		log.debug("Within GET method for /backoffice/updateOrgType");
 		if (boolName) {
 			return bean.getName();
 		} else {
