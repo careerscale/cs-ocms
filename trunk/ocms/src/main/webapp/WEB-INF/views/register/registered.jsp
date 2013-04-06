@@ -9,6 +9,10 @@
 <!--[if lte IE 6]>
   <link rel="stylesheet" type="text/css" media="all" href="ie6.css" />
 <![endif]-->
+<h1>
+	<spring:message code="register.registered.title" />
+</h1>
+
 <!-- start page container 2 div-->
 <div id="page-container" class="resize">
 	<div id="page-content-inner" class="resize">
@@ -22,7 +26,7 @@
 				<div class="action-container" style="display: none;"></div>
 
 
-				<h1>Registration successful</h1>
+				<h2>Thank you for registering with OCMS.</h2>
 				<p>Please <a href="/user">Login</a> with your email id and password to continue with this site</p>
 				<br clear="all" />
 				<div>

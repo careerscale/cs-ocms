@@ -4,7 +4,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 
-
+view.backoffice.casetype.title
 
 
 <div id="page-container" class="resize">

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <h1>
-	<spring:message code="view.backoffice.casetype.title" />
+	<spring:message code="oauth.oauthprofile.title" />
 </h1>
 
 

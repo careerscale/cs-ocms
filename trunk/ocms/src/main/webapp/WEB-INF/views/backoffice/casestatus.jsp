@@ -1,10 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <h1>
     <spring:message code="view.backoffice.casestatus.title" />
+   
 </h1>
-
+ <tiles:putAttribute name="pageTitle" value="${view.backoffice.casestatus.title}" />
+ 
 <div id="page-container" class="resize">
     <div id="page-content-inner" class="resize">
         <br clear="all" />

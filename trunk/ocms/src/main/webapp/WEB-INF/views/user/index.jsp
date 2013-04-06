@@ -3,7 +3,9 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 
-
+<h1>
+    <s:message code="user.index.title" />
+</h1>
 
 
 <div id="page-container" class="resize">
