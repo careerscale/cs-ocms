@@ -9,8 +9,11 @@
 	href="http://www.datatables.net/media/images/favicon.ico">
 <link rel="alternate" type="application/rss+xml" title="RSS 2.0"
 	href="http://www.datatables.net/rss.xml">
-
-<tiles:putAttribute name="pageTitle" value="${view.backoffice.casestatus.title}" />
+<h1>
+    <spring:message code="view.backoffice.orgtype.title" />
+   
+</h1>
+<tiles:putAttribute name="pageTitle" value="${view.backoffice.orgtype.title}" />
 <style type="text/css" media="screen">
 @import "/resources/media/css/demo_page.css";
 

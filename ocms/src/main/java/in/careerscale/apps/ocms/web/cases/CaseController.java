@@ -31,4 +31,10 @@ public class CaseController {
 		LOG.info(userDetails.toString());
 		return "cases/index";
 	}
+	
+	@RequestMapping(value = "cases/active", method = RequestMethod.GET)	
+	public String activeCaess(UserDetails userDetails, Model model) {
+		LOG.info(userDetails.toString());
+		return "cases/activecases";
+	}
 }
