@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags">
+<h:head>
+    <title><ui:insert name="title">#{msg['template.page.header.title']}</ui:insert></title>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/primefacesoverrides.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/layout.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/typography.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/landing.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/general.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/csetupgeneral.css"/>
+    <link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/csetup.css"/>
+
+    <h:outputScript name="cat_functions.js" library="javascript"/>
+    <h:outputScript name="smartTooltip.js" library="javascript"/>
+    <h:outputScript name="jquery-1.9.1.min.js" library="javascript"/>
+
+
+</h:head>
+<h:body>
+    <f:view>
+        <div id="header" class="pageHeader">
+            <div class="pageCenter">
+                <div class="logo"></div>
+              
+                <sec:authorize ifAnyGranted="ViewCampaign">
+                    <div class="userbox">
+                        <div class="data">
+                            <div class="username">#{msg['template.page.header.user.greeting']},
+                                <b>
+                                    <h:outputText
+                                            value="#{viewCampaignsAction.viewCampaignsResponse.userInfo.displayName}"/>
+                                </b>
+                            </div>
+                            <div class="role">
+                                <h:outputText value="#{viewCampaignsAction.viewCampaignsResponse.userInfo.role}"/>
+                            </div>
+                             <div class="logOut"><a 
+                                             href="#{request.contextPath}/j_spring_security_logout">Logout</a><a
+                            href="#{request.contextPath}/j_spring_security_logout"></a></div>
+                            </div>
+                        </div>
+			
+			  
+                </sec:authorize>
+
+            </div>
+        </div>
+
+      
+
+        <div id="content" class="pageContent">
+            <ui:insert name="content">Default content</ui:insert>
+        </div>
+
+        <div id="footer" style="position:fixed;width:100%;bottom:0;">
+        	#{msg['footer.msg']}
+        </div>
+    </f:view>
+</h:body>
+</html>
