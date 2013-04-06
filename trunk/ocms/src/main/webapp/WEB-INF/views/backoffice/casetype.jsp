@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
-<spring:message code="view.backoffice.casetype.title" />
+<h1><spring:message code="view.backoffice.casetype.title" /></h1>
 
 <link rel="shortcut icon" type="image/ico"
 	href="http://www.datatables.net/media/images/favicon.ico">

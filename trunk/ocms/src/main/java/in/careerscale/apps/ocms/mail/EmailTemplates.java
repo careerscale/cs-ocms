@@ -15,7 +15,7 @@ public class EmailTemplates {
 	"Administrator\n"+
 	"OCMS\n"+
 	"India\n" +
-	"http://localhost:8080";	
+	"http://ocms-careerscale.rhcloud.com/";	
 	
 	private static String forgotPasswordTemplate ="Dear ${firstName}, \n We have received your forgot password request." +
 			"Please click the link below to reset your password \n"+
@@ -24,7 +24,7 @@ public class EmailTemplates {
 			"Administrator\n"+
 			"OCMS\n"+
 			"India\n" +
-			"http://localhost:8080/";
+			"http://ocms-careerscale.rhcloud.com/";
 	
 	public static final String firstName ="firstName";
 	public static final String userName="username";

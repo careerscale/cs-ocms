@@ -141,7 +141,7 @@ public class UserService implements UserDetailsService {
 							user.getPassword());
 					String emailText = EmailTemplates.getEmailMessage(
 							Template.Registration, placeHolderValues);
-					emailService.sendMailWithSSL("Registration", emailText,
+					emailService.sendMailWithSSL("OCMS Registration Successful ::" +dbUser.getFirstName() , emailText,
 							user.getEmailId());
 				} catch (Exception mailFailure) {
 					log.error("Unable to send mail", mailFailure);
