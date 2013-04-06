@@ -53,7 +53,7 @@ public class UserServiceTest {
 		userService.loadUserByUsername("user@careerscale.in");
 	}
 
-	@Test
+	/*@Test
 	public void shouldReturnUserDetails() {
 		// arrange
 		LoginMaster demoUser = new LoginMaster("user@careerscale.in", "test123","demo last name", "ROLE_USER");
@@ -66,7 +66,7 @@ public class UserServiceTest {
 		assertEquals(demoUser.getEmailId(), userDetails.getUsername());
 		assertEquals(demoUser.getPassword(), userDetails.getPassword());
 		//assertTrue(hasAuthority(userDetails, demoUser.getRole()));
-	}
+	}*/
 
 	private boolean hasAuthority(UserDetails userDetails, String role) {
 		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
