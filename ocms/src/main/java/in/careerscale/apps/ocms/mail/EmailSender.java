@@ -28,12 +28,25 @@ import org.springframework.stereotype.Service;
 public class EmailSender {
 
 	private static Log logger = LogFactory.getLog(EmailSender.class);
-	private static final String host = "smtp.gmail.com";
-	private static final int SSLport = 465;
-	private static final int smtpPort = 587;
-	private static final String username = "webdemo2012@gmail.com";
-	private static final String password = "webdemo2012@123";
-	private static final String from = "webdemo2012@gmail.com";
+	private final String host;// = "smtp.gmail.com";
+	private  final int SSLport;// = 465;
+	private  final int smtpPort;// = 587;
+	private  final String username;// = "webdemo2012@gmail.com";
+	private  final String password;// = "webdemo2012@123";
+	private  final String from;// = "webdemo2012@gmail.com";
+	
+	
+	public  EmailSender(String host, int sslPort, int smtpPort, String userName, String password, String from){
+		this.host=host;
+		this.SSLport=sslPort;
+		this.smtpPort=smtpPort;
+		this.username=userName;
+		this.password=password;
+		this.from=from;
+		
+		
+	}
+	
 	//TODO update with OCMS/CAREERSCALE email id.
 
 	/**
@@ -82,7 +95,7 @@ public class EmailSender {
 	 * @param template the template name to be used.
 	 * @param email the email id to which the mail need to be sent.
 	 */
-	public static void sendMailWithSSL(String subject, String body, String email) {
+	public void sendMailWithSSL(String subject, String body, String email) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", SSLport);
@@ -124,7 +137,7 @@ public class EmailSender {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		EmailSender sender = new EmailSender();
+		EmailSender sender = new EmailSender("smtp.gmail.com",465,587,"webdemo2012@gmail.com","webdemo2012@123","webdemo2012@gmail.com");
 		//commented next lines to skip the erring code.
 		//TODO when bandwidth is available fix it.
 	/*	try {

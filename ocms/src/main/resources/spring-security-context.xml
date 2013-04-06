@@ -147,6 +147,17 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<constructor-arg name="config" ref="gmailServiceConfig" />
 
 	</bean>
+	
+	<bean id="emailService" class="in.careerscale.apps.ocms.mail.EmailSender">
+	<constructor-arg value="${emailserver.server}" />
+	<constructor-arg value="${emailserver.sslPort}" type="int" />
+	<constructor-arg value="${emailserver.smtpPort}" type="int" />
+	<constructor-arg value="${emailserver.userName}" />
+	<constructor-arg value="${emailserver.password}" />
+	<constructor-arg value="${emailserver.from}" />
+	<!-- String host, int sslPort, int smtpPort, String userName, String password, String from  -->
+	
+	</bean>
 
 	<!-- end of oauth -->
 
