@@ -15,8 +15,8 @@
 				</sec:authorize> </a>
 		</div>
 		<div class="logo">
-			<a href="#"><img src="/resources/images/logo_careerscale.gif"
-				width="168" height="73" alt="CareerScale" /></a>
+			<a href="#"><img src="/resources/images/ocms_logo.png"
+				width="168" height="73" alt="OCMS | Online Case Management System by CareerScale" /></a>
 
 		</div>
 		<strong>OCMS - Online Case Management System, Connecting the
@@ -24,10 +24,10 @@
 		<div class="nav-global">
 			<ul>
 				<li><a href="/" class="nav-g01"><span></span>Home</a></li>
-				<li><a href="/cases" class="nav-g02"><span></span>Cases</a></li>
-				<li><a href="/support" class="nav-g04"><span></span>Support</a></li>
 				<li><a href="/about" class="nav-g05"><span></span>About
 						OCMS</a></li>
+				<li><a href="/cases" class="nav-g02"><span></span>Cases</a></li>
+				<li><a href="/cases/active" class="nav-g04"><span></span>Support</a></li>
 				<li><a href="/backoffice" class="nav-g06"><span></span>Back
 						Office</a></li>
 			</ul>

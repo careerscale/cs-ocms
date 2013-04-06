@@ -4,9 +4,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <h1>
-    <s:message code="cases.index.title" />   
+    <s:message code="cases.activecases.title" />   
 </h1>
- <tiles:putAttribute name="pageTitle" value="${cases.index.title}" />
+ <tiles:putAttribute name="pageTitle" value="${cases.activecases.title}" />
 
 <div id="page-container" class="resize">
 
