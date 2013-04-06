@@ -2,29 +2,26 @@ package in.careerscale.apps.ocms.web.cases;
 
 
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import in.careerscale.apps.ocms.service.CaseService;
 import in.careerscale.apps.ocms.service.MasterDataService;
-
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
-import in.careerscale.apps.ocms.web.registration.RegistrationController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
-
 import org.springframework.stereotype.Controller;
-
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @Secured("ROLE_USER")
@@ -45,8 +42,8 @@ public class CaseController implements Validator  {
 		return "register/login";
 	}*/
 	
-	@RequestMapping(value = "/case", method = RequestMethod.GET)	
-	public String index(@ModelAttribute(value = "case") Case bean,
+	@RequestMapping(value = "/addcase", method = RequestMethod.GET)	
+	public String index(@ModelAttribute(value = "caseDetails") Case bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) throws Exception
 			{
@@ -55,8 +52,9 @@ public class CaseController implements Validator  {
 		
 	}
 	
-	@RequestMapping(value = "/case", method = RequestMethod.POST)
-	public String register(@ModelAttribute(value = "case") Case bean,
+	
+	@RequestMapping(value = "/addcase", method = RequestMethod.POST)
+	public String register(@ModelAttribute(value = "caseDetails") Case bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) throws Exception
 			{

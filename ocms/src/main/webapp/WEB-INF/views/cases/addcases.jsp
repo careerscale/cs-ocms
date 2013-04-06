@@ -75,7 +75,7 @@
 			<br clear="all" />
 
 			<div id="error">
-				<spring:hasBindErrors name="user">
+				<spring:hasBindErrors name="caseDetails">
 					<font color="red"> <c:forEach items="${errors.allErrors}"
 							var="error">
 							<spring:message code="${error.code}"
@@ -85,12 +85,8 @@
 					</font>
 				</spring:hasBindErrors>
 			</div>
-			<form:form method="post" action="addcases" id="signUpForm"
-				modelAttribute="case">
-				<!-- <form id="signUpForm" type="actionForm" commandName="user" action="register"
-								method="post">
- -->
-
+			<form:form method="post" action="addcase" id="signUpForm"
+				modelAttribute="caseDetails">
 				<div class="error" style="display: none;">
 					<img src="resources/images/warning.gif" alt="Warning!" width="24"
 						height="24" style="float: left; margin: -5px 10px 0px 0px;" /> <span></span>.<br
@@ -107,30 +103,15 @@
 					<tr>
 						<td class="label"><label for="password">Case Details:</label></td>
 
-						<td class="field"><form:input path="caseDescription" type="text"
-								class="password" value="" tabindex="2" /></td>
+						<td class="field"><form:input path="caseDescription"
+								type="text" class="password" value="" tabindex="2" /></td>
 					</tr>
-					<!-- <tr>
-						<td class="label"><label for="confirmPassword">Retype
-								Password:</label></td>
-						<td class="field"><input id="confirmPassword"
-							class="required" equalTo="#password" maxlength="40"
-							name="password2" size="20" type="password" tabindex="3"
-							value="test123" />
-							<div class="formError"></div></td>
-					</tr> -->
 					<tr>
-						<td class="label"><label for="firstName">Concerned Source:</label></td>
+						<td class="label"><label for="firstName">Concerned
+								Source:</label></td>
 						<td class="field"><form:input path="caseSource" type="text"
 								class="required" value="FirstName" tabindex="4" maxlength="40" />
 						</td>
-					<%-- </tr>
-					<tr>
-						<td class="label"><label for="lastName">Last Name:</label></td>
-						<td class="field"><form:input path="lastName" type="text"
-								class="required" value="lastName" tabindex="5" maxlength="40" />
-						</td>
-					</tr> --%>
 					<tr>
 						<td class="label"><label for="dateOfBirth">Birth
 								Date:</label></td>
@@ -138,16 +119,16 @@
 								class="required date" tabindex="6" maxlength="15"
 								value="1980-01-01" />
 					</tr>
-					
 
 
-					 <tr>
+
+					<tr>
 						<td class="label"><label for="caseTypes"
 							title='Please select all type of cases that you want to informed about'>Case
 								Types </label></td>
 						<td class="field"><form:select path="caseTypes"
 								multiple="true">
-								<form:options items="${caseMasterTypes}" itemValue="id"
+								<form:options items="${caseDetails.caseMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select></td>
 					</tr>
@@ -158,10 +139,10 @@
 								Category Types </label></td>
 						<td class="field"><form:select path="helpTypes"
 								multiple="true">
-								<form:options items="${helpMasterTypes}" itemValue="id"
+								<form:options items="${caseDetails.helpMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select></td>
-					</tr> 
+					</tr>
 					<tr>
 						<td></td>
 						<td>
