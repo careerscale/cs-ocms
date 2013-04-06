@@ -20,7 +20,8 @@
 	content="Online Case Management System application" />
 <meta name="keywords" content="OCMS, TMAD" />
 <meta name="language" content="en" />
-<title>Register @OCMS | Developed by CareerScale</title>
+
+<title><tiles:getAsString name="pageTitle" defaultValue="OCMS | The Online Case Management System by Careerscale" /></title>
 
 <link rel="shortcut icon" href="/favicon.ico" />
 

@@ -4,16 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-<title>Organizations</title>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <link rel="shortcut icon" type="image/ico"
 	href="http://www.datatables.net/media/images/favicon.ico">
 <link rel="alternate" type="application/rss+xml" title="RSS 2.0"
 	href="http://www.datatables.net/rss.xml">
 
+<tiles:putAttribute name="pageTitle" value="${view.backoffice.casestatus.title}" />
 <style type="text/css" media="screen">
 @import "/resources/media/css/demo_page.css";
 
@@ -110,12 +107,7 @@
 
 	});
 </script>
-
-</head>
-
-
-
-<body id="index" class="grid_2_3">
+<div id="index" class="grid_2_3">
 	<div id="fw_container">
 
 		<div id="fw_header">
@@ -187,6 +179,6 @@
 	</div>
 
 
-</body>
+</div>
 
 </html>

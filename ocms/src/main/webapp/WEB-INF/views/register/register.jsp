@@ -6,11 +6,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
 <!--[if lte IE 6]>
   <link rel="stylesheet" type="text/css" media="all" href="ie6.css" />
 <![endif]-->
 <!-- start page container 2 div-->
-
+<h1>
+	<spring:message code="register.register.title" />
+</h1>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#dateOfBirth").datepicker({

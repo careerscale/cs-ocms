@@ -2,7 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <h1>
-    <spring:message code="view.backoffice.modulemaster.title" />
+    <spring:message code="backoffice.modulemaster.title" />
 </h1>
 
 <div id="page-container" class="resize">
@@ -64,10 +64,6 @@
 
 
         </div>
-
-
-
-        </p>
 
     </div>
 </div>

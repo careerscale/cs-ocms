@@ -5,13 +5,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
-<title>Help Types</title>
-
+<h1>
+    <spring:message code="backoffice.helpcategoryType.title" />
+</h1>
 <link rel="shortcut icon" type="image/ico"
 	href="http://www.datatables.net/media/images/favicon.ico">
 <link rel="alternate" type="application/rss+xml" title="RSS 2.0"
@@ -109,10 +105,9 @@
 	});
 </script>
 
-</head>
 
 
-<body id="index" class="grid_2_3">
+<div id="index" class="grid_2_3">
 	<div id="fw_container">
 
 		<div id="fw_header">
@@ -184,6 +179,4 @@
 	</div>
 
 
-</body>
-
-</html>
+</div>
