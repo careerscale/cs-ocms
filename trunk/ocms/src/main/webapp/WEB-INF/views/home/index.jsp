@@ -23,7 +23,7 @@ visibility: hidden;
    <div id="page">
 
 
-             <div class="home" id="content_container" style="padding-bottom: 805px; padding-left: 200px;">
+             <div class="home" id="content_container" style="padding-bottom: 505px; padding-left: 200px;">
             <!-- content_container start -->
             <div id="content">
                 <div class="top_info">
@@ -172,4 +172,153 @@ visibility: hidden;
             </div>
         <!--end header-->   
         </div>
+        
+        
+        
+        <div id="footer"><!-- footer start -->
+			<div id="footer_strip_1">
+				<div class="footer_content">
+					<div id="footer_menus">  <div class="clear-block block block-menu" id="block-menu-menu-reach-about">
+
+  <h2>About</h2>
+
+  <div class="content"><ul class="menu"><li class="leaf first"><a title="" href="">About OCMS</a></li>
+<li class="leaf"><a title="" href="/content/reach-clients">Clients</a></li>
+<li class="leaf"><a title="" href="">Overview Video</a></li>
+<li class="leaf last"><a title="" href="">About CareerScale</a></li>
+</ul></div>
+</div>
+  <div class="clear-block block block-menu" id="block-menu-menu-reach-news">
+
+  <h2>In the News</h2>
+
+  <div class="content"><ul class="menu"><li class="leaf first"><a title="Reach in the News" href="/content/reach-news/press-releases">Press Releases</a></li>
+<li class="leaf last"><a title="" href="/content/reach-news/media-coverage">Media Coverage</a></li>
+</ul></div>
+</div>
+  <div class="clear-block block block-menu" id="block-menu-menu-reach-follow-us">
+
+  <h2>Follow Us</h2>
+
+  <div class="content"><ul class="menu"><li class="leaf first"><a title="" href="">Blog</a></li>
+<li class="leaf"><a title="" href="">Twitter</a></li>
+<li class="leaf"><a title="" href="">Facebook</a></li>
+<li class="leaf"><a title="" href="">YouTube</a></li>
+<li class="leaf last"><a title="" href="">LinkedIn</a></li>
+</ul></div>
+</div>
+  <div class="clear-block block block-block" id="block-block-11">
+
+  <h2>Contact Us</h2>
+
+  <div class="content"><ul>
+						<li>
+OCMS
+<br>
+Address
+<br>
+
+
+						</li>
+					</ul></div>
+</div>
+  <div class="clear-block block block-block" id="block-block-10">
+
+
+  <div class="content"><ul>
+
+						<li class="last">
+                                                        
+							
+                                                        
+                                                        <div style="color: #0b4e6b">SUPPORT</div>
+                                                        <a target="_blank" href="http://getsatisfaction.com/bullhorn">Support Help</a>
+						</li>
+					</ul>
+
+<style type="text/css">
+#footer_strip_1 #block-block-10 {padding-left: 12px !important ;}
+</style></div>
+</div>
+</div><!-- !/footer_menus -->
+				</div>
+			</div>
+			
+			<div id="footer_strip_2">
+				<div class="footer_content">
+					<div class="about"><p>
+OCMS
+</p><br>
+<p>
+</p><br>
+<p>
+</p>
+<br></div>
+				</div>
+			</div>
+			
+			<div id="footer_strip_3">
+				<div class="footer_content">
+					<div class="copyright">					
+						Copyright 2013 OCMS. All Rights Reserved
+					</div>
+					<div class="legal">  <div class="clear-block block block-menu" id="block-menu-menu-reach-legal">
+
+
+  <div class="content"><ul class="menu"><li class="leaf first"><a title="Privacy Policy" href="/content/privacy-policy">Privacy Policy</a></li>
+<li class="leaf last"><a title="Terms of Use" href="/content/terms-use">Terms of Use</a></li>
+</ul></div>
+</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="footer_strip_4">
+				<div class="footer_content">
+					<div class="footer_jobs">
+						  <div class="clear-block block block-block" id="block-block-12">
+
+
+  <div class="content"><style type="text/css"> #seo-jobs-content a:hover {text-decoration: underline;}
+#block-menu-menu-reach-follow-us {margin-right: 10px !important;}
+
+</style>
+
+
+<style type="text/css">
+
+h3 a, #rmb_content .title a
+{color: #F15904;}
+
+h3 a:hover, #rmb_content  .title a:hover
+{color: #F15904; text-decoration: underline;}
+
+
+</style>
+
+
+</div>
+</div>
+  <div class="clear-block block block-block" id="block-block-21">
+
+
+  <div class="content"><p></p>
+<style type="text/css">
+
+#pro_left_col, #pro_right_col
+{margin-top: 40px;}
+
+.view-bhr-product-landing{
+	margin-top: 40px;
+}
+
+.view-bhr-product-landing .views-row
+{width: 315px !important;}
+</style></div>
+</div>
+					</div><!-- //footer jobs -->
+				</div>
+			</div>
+	
+			<!-- footer end --></div>
     </div>
