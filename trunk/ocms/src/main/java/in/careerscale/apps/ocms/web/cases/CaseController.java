@@ -34,14 +34,7 @@ public class CaseController implements Validator  {
 	
 	@Autowired
 	private MasterDataService masterDataService;
-	/*@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(HttpServletRequest request,
-			HttpServletResponse response) {
-		log.debug("within login GET method call");
-
-		return "register/login";
-	}*/
-	
+		
 	@RequestMapping(value = "/addcase", method = RequestMethod.GET)	
 	public String index(@ModelAttribute(value = "caseDetails") Case bean,
 			BindingResult errors, HttpServletRequest request,
@@ -61,6 +54,7 @@ public class CaseController implements Validator  {
 		try{
 			caseService.registerCase(bean);
 		}catch(ApplicationException ae){
+			log.error("error while registering new case", ae);
 			errors.addError(new ObjectError("view.case.registration.error", "case is already registered, please choose another one" ));
         	setMasterData(bean);
 			return "cases/addcases";

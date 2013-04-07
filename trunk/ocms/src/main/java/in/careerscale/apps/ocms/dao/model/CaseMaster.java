@@ -95,6 +95,20 @@ public class CaseMaster implements java.io.Serializable {
 		this.caseUsers = caseUsers;
 	}
 
+	public CaseMaster(Date createdDate, Date updatedDate, String personName2,
+			Date dateOfBirth2, String caseDescription2, String contact1,
+			String contact2, String caseSource) {
+		this.createdOn =createdDate;
+		this.updatedOn=updatedDate;
+		this.personName=personName2;
+		this.dateOfBirth=dateOfBirth2;
+		this.caseDescription= caseDescription2;
+		this.contactNumber1=contact1;
+		this.contactNumber2= contact2;
+		this.source=caseSource;
+		
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)

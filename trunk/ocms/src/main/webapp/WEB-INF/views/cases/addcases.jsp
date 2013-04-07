@@ -98,20 +98,21 @@
 					<tr>
 						<td class="label"><label for="emailId">User Name:</label></td>
 						<td class="field"><form:input path="personName" type="text"
-								class="required email" value="user@careerscale.in" tabindex="1" /></td>
+								class="required" tabindex="1" /></td>
 					</tr>
 					<tr>
-						<td class="label"><label for="password">Case Details:</label></td>
+						<td class="label"><label for="caseDescription">Case
+								Details(should be multi line):</label></td>
 
 						<td class="field"><form:input path="caseDescription"
-								type="text" class="password" value="" tabindex="2" /></td>
+								type="textarea" class="required"  value="" tabindex="2" /></td>
 					</tr>
 					<tr>
 						<td class="label"><label for="firstName">Concerned
 								Source:</label></td>
 						<td class="field"><form:input path="caseSource" type="text"
-								class="required" value="FirstName" tabindex="4" maxlength="40" />
-						</td>
+								class="required" tabindex="4" maxlength="40" /></td>
+					</tr>
 					<tr>
 						<td class="label"><label for="dateOfBirth">Birth
 								Date:</label></td>
@@ -120,6 +121,19 @@
 								value="1980-01-01" />
 					</tr>
 
+					<tr>
+						<td class="label"><label for="contact1">Contact Number 1
+								</label></td>
+						<td class="field"><form:input path="contact1" type="text"
+								class="required" tabindex="7" maxlength="40" /></td>
+					</tr>
+					
+										<tr>
+						<td class="label"><label for="contact2">Contact Number 2
+								</label></td>
+						<td class="field"><form:input path="contact2" type="text"
+								class="required" tabindex="8" maxlength="40" /></td>
+					</tr>
 
 
 					<tr>
@@ -127,9 +141,9 @@
 							title='Please select all type of cases that you want to informed about'>Case
 								Types </label></td>
 						<td class="field"><form:select path="caseTypes"
-								multiple="true">
-								<form:options items="${caseDetails.caseMasterTypes}" itemValue="id"
-									itemLabel="name" />
+								multiple="false">
+								<form:options items="${caseDetails.caseMasterTypes}"
+									itemValue="id" itemLabel="name" />
 							</form:select></td>
 					</tr>
 
@@ -138,9 +152,9 @@
 							title='Please select how many ways you want to help others'>Help
 								Category Types </label></td>
 						<td class="field"><form:select path="helpTypes"
-								multiple="true">
-								<form:options items="${caseDetails.helpMasterTypes}" itemValue="id"
-									itemLabel="name" />
+								multiple="false">
+								<form:options items="${caseDetails.helpMasterTypes}"
+									itemValue="id" itemLabel="name" />
 							</form:select></td>
 					</tr>
 					<tr>
@@ -148,7 +162,7 @@
 						<td>
 							<div class="buttonSubmit">
 								<span></span> <input class="formButton" type="submit"
-									value="Signup" style="width: 140px" tabindex="14" />
+									value="Register case" style="width: 140px" tabindex="14" />
 							</div>
 
 						</td>
