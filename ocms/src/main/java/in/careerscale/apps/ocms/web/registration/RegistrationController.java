@@ -59,7 +59,7 @@ public class RegistrationController implements Validator {
 			HttpServletResponse response) {
 		log.debug("within login GET method call");
 
-		return "register/login";
+		return "home/index";
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
