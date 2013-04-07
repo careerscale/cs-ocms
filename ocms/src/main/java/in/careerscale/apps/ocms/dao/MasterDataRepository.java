@@ -60,6 +60,10 @@ public class MasterDataRepository {
 		Query query =entityManager.createQuery("SELECT o FROM OrgType o order by o.orgType.id asc, o.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
+	
+	public Object getById(Class classObject, Object id){
+		return entityManager.find(classObject, id);
+	}
 
 	
 }

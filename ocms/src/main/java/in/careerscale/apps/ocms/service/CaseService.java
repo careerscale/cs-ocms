@@ -6,6 +6,7 @@ import in.careerscale.apps.ocms.dao.CaseRepository;
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
+import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
@@ -38,6 +39,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.ibm.icu.util.Calendar;
+
 @Service("caseService")
 public class CaseService {
 
@@ -60,9 +63,7 @@ public class CaseService {
 	
 
 	public void registerCase(Case bean) throws ApplicationException {
-		// for bravity no validations done at service layer, we need to handle
-		// and also introduce valid exception handling to manage error
-		// situations
+		
 		CaseMaster caseMaster;
 		try {
 
@@ -70,6 +71,18 @@ public class CaseService {
 			caseMaster = new CaseMaster(bean.getCreatedDate(),bean.getUpdatedDate(), bean.getPersonName(),
 						bean.getDateOfBirth(), bean.getCaseDescription(),bean.getContact1(),bean.getContact2(),bean.getCaseSource());				
 				//TODO set DB flag as well.
+			caseMaster.setCaseStatusMaster((CaseStatusMaster)masterDataRepository.getById(CaseStatusMaster.class, new Integer(2))); 
+			//TODO replace with status enum or something like that. Here 2 means pending in db.
+			caseMaster.setCaseType((CaseType) masterDataRepository.getCaseType(bean.getCaseTypes().get(0)));
+			caseMaster.setHelpCategoryType((HelpCategoryType)masterDataRepository.getHelpCategoryType(bean.getHelpTypes().get(0)));
+			caseMaster.setContactNumber1(bean.getContact1());
+			caseMaster.setContactNumber2(bean.getContact2());
+			caseMaster.setCreatedOn(Calendar.getInstance().getTime());
+			caseMaster.setUpdatedOn(Calendar.getInstance().getTime());
+			//TODO hardcoded for now, pleaes fetch this from session and use accordingly. 
+			caseMaster.setLoginMasterByCreatedBy((LoginMaster)masterDataRepository.getById(LoginMaster.class, new Integer(1)));
+			caseMaster.setLoginMasterByUpdatedBy((LoginMaster)masterDataRepository.getById(LoginMaster.class, new Integer(1)));
+			
 			caseRepository.registerCase(caseMaster);
 				
 		} catch (PersistenceException pe) {
