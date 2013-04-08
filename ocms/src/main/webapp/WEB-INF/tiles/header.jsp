@@ -26,7 +26,7 @@
 				<li><a href="/" class="nav-g01"><span></span>Home</a></li>
 				<li><a href="/about" class="nav-g05"><span></span>About
 						OCMS</a></li>
-				<li><a href="/cases" class="nav-g02"><span></span>Cases</a></li>
+				<li><a href="/addcase" class="nav-g02"><span></span>Add a case</a></li>
 				<li><a href="/cases/active" class="nav-g04"><span></span>Support</a></li>
 				<li><a href="/backoffice" class="nav-g06"><span></span>Back
 						Office</a></li>
