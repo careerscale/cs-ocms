@@ -5,6 +5,7 @@ import java.util.List;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.OrgType;
+import in.careerscale.apps.ocms.dao.model.RoleMaster;
 
 import javax.persistence.*;
 
@@ -25,21 +26,32 @@ public class MasterDataRepository {
 	public void save(CaseType caseType) {
 		entityManager.persist(caseType);
 	}
+	
 
 	public HelpCategoryType getHelpCategoryType(Integer id) {
 		return entityManager.find(HelpCategoryType.class, id);
 
 	}
+	public void save(HelpCategoryType helpCategoryType) {
+		entityManager.persist(helpCategoryType);
+	}
+	
 	public OrgType getOrgType(Integer id) {
 		return entityManager.find(OrgType.class, id);
 
 	}
-
-	public void save(HelpCategoryType helpCategoryType) {
-		entityManager.persist(helpCategoryType);
-	}
 	public void save(OrgType orgType) {
 		entityManager.persist(orgType);
+	}
+	
+	
+	public RoleMaster getRoleType(Integer id)
+	{
+		return entityManager.find(RoleMaster.class,id);
+	}
+	public void save(RoleMaster roleType)
+	{
+		entityManager.persist(roleType);
 	}
 
 	
@@ -58,6 +70,11 @@ public class MasterDataRepository {
 	@SuppressWarnings("unchecked")
 	public List<OrgType> getOrgTypes() {
 		Query query =entityManager.createQuery("SELECT o FROM OrgType o order by o.orgType.id asc, o.id asc"); // AS c WHERE c.caseType is NULL
+		return query.getResultList();
+	}
+	@SuppressWarnings("unchecked")
+	public List<RoleMaster> getRoleTypes() {
+		Query query =entityManager.createQuery("SELECT r FROM RoleMaster r order by r.roleMaster.id asc, r.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
 	

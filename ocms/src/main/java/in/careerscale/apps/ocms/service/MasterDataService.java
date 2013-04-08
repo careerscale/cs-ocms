@@ -9,6 +9,7 @@ import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.OrgType;
+import in.careerscale.apps.ocms.dao.model.RoleMaster;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.service.model.MasterType;
@@ -50,6 +51,14 @@ public class MasterDataService {
 
 	        try {
 	        	repository.save(new OrgType(orgType.getName(), orgType.getDescription()));
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+	    }
+	 public void addRoleType(BOBean roleType) throws ApplicationException {
+
+	        try {
+	        	repository.save(new RoleMaster(roleType.getName(), roleType.getDescription()));
 	        } catch (PersistenceException pe) {
 	            throw new ApplicationException(pe.getMessage());
 	        }
@@ -103,6 +112,21 @@ public class MasterDataService {
 		   
 		   return orgTypes;
 	 }
+	 public Map<Integer, String> getRoleTypes() throws ApplicationException{
+		 Map<Integer, String> roleTypes = new HashMap<Integer, String>();		
+		   try {
+			   List<RoleMaster> roletypesList =repository.getRoleTypes();
+			   
+			   for (RoleMaster roleType : roletypesList) {
+				   roleTypes.put(roleType.getId(), roleType.getRoleName());
+				
+			}
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+		   
+		   return roleTypes;
+	 }
 	 
 
 	 public List<CaseType> getCaseTypesList() throws ApplicationException{
@@ -137,6 +161,17 @@ public class MasterDataService {
 	        }
 		   
 		   return orgtypesList ;
+	 }
+	 public List<RoleMaster> getRoleTypesList() throws ApplicationException{
+		 List<RoleMaster> roletypesList  = null;  
+		 try {
+			 roletypesList =repository.getRoleTypes();
+			
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+		   
+		   return roletypesList ;
 	 }
 
 		public List<MasterType> getHelpTypes() throws ApplicationException {

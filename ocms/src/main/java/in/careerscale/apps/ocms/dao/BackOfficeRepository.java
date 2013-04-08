@@ -37,15 +37,6 @@ public class BackOfficeRepository {
 		entityManager.remove(caseType);
 		entityManager.flush();
 	}
-	public void delete(OrgType orgType) {
-		// String query = "DELETE FROM CASE_TYPE where name = {:name}";
-		// entityManager.createNativeQuery(query).setParameter(1,
-		// caseType.getName()).executeUpdate();
-		orgType = entityManager.find(OrgType.class, orgType.getId());
-		entityManager.remove(orgType);
-		entityManager.flush();
-	}
-	
 	public void update(CaseType caseType) {
 		CaseType caseType1 = entityManager.find(CaseType.class,
 				caseType.getId());
@@ -57,6 +48,55 @@ public class BackOfficeRepository {
 		entityManager.merge(caseType1);
 		entityManager.flush();
 	}
+	
+	public RoleMaster getRoleMaster(Integer id) {
+		return entityManager.find(RoleMaster.class, id);
+
+	}
+
+	public void save(RoleMaster roleType) {
+		entityManager.persist(roleType);
+	}
+	
+	public void delete(RoleMaster roleType) {
+		// String query = "DELETE FROM CASE_TYPE where name = {:name}";
+		// entityManager.createNativeQuery(query).setParameter(1,
+		// caseType.getName()).executeUpdate();
+		roleType = entityManager.find(RoleMaster.class, roleType.getId());
+		entityManager.remove(roleType);
+		entityManager.flush();
+	}
+	
+	public void update(RoleMaster roleType) {
+		RoleMaster roleType1 = entityManager.find(RoleMaster.class,
+				roleType.getId());
+		if (roleType.getRoleName() != null) {
+			roleType1.setRoleName(roleType.getRoleName());
+		} else {
+			roleType1.setDescription(roleType.getDescription());
+		}
+		entityManager.merge(roleType1);
+		entityManager.flush();
+	}
+	public OrgType getOrgType(Integer id) {
+		return entityManager.find(OrgType.class, id);
+
+	}
+	
+
+	public void save(OrgType orgType) {
+		entityManager.persist(orgType);
+	}
+	public void delete(OrgType orgType) {
+		// String query = "DELETE FROM CASE_TYPE where name = {:name}";
+		// entityManager.createNativeQuery(query).setParameter(1,
+		// caseType.getName()).executeUpdate();
+		orgType = entityManager.find(OrgType.class, orgType.getId());
+		entityManager.remove(orgType);
+		entityManager.flush();
+	}
+	
+	
 	
 	public void update(OrgType orgType) {
 		OrgType orgType1 = entityManager.find(OrgType.class,
@@ -111,23 +151,9 @@ public class BackOfficeRepository {
 		entityManager.persist(caseStatusMaster);
 	}
 
-	public OrgType getOrgType(Integer id) {
-		return entityManager.find(OrgType.class, id);
+	
 
-	}
-
-	public void save(OrgType orgType) {
-		entityManager.persist(orgType);
-	}
-
-	public RoleMaster getRoleMaster(Integer id) {
-		return entityManager.find(RoleMaster.class, id);
-
-	}
-
-	public void save(RoleMaster roleMaster) {
-		entityManager.persist(roleMaster);
-	}
+	
 
 	public ModuleMaster getModuleMaster(Integer id) {
 		return entityManager.find(ModuleMaster.class, id);
