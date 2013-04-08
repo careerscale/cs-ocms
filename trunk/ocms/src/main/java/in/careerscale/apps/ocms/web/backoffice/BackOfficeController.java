@@ -9,6 +9,7 @@ import java.util.Map;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.OrgType;
+import in.careerscale.apps.ocms.dao.model.RoleMaster;
 import in.careerscale.apps.ocms.service.BackOfficeService;
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.UserService;
@@ -338,6 +339,7 @@ public class BackOfficeController {
 		return "backoffice/orgtype";
 
 	}
+	
 
 	@RequestMapping(value = "/backoffice/addOrgType", method = RequestMethod.GET)
 	public void orgType(@ModelAttribute(value = "botype") BOBean bean,
@@ -433,6 +435,131 @@ public class BackOfficeController {
 			return bean.getDescription();
 		}
 	}
+	@RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)
+	public String getRoleType(
+			@ModelAttribute(value = "botypeList") ArrayList<BOBean> lstBean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		log.debug("Within GET method for /backoffice/rolemaster");
+		List<RoleMaster> roleTypeList = null;
+
+		try {
+			roleTypeList = masterDataService.getRoleTypesList();
+		} catch (ApplicationException ae) {
+			log.error(ae);
+		}
+
+		BOBean boBean = null;
+		Iterator<RoleMaster> it = roleTypeList.iterator();
+		Integer intName = null;
+		RoleMaster roleType = null;
+		while (it.hasNext()) {
+			roleType = (RoleMaster) it.next();
+			boBean = new BOBean();
+			boBean.setName(roleType.getRoleName());
+			boBean.setDescription(roleType.getDescription());
+			boBean.setId(roleType.getId());
+			lstBean.add(boBean);
+		}
+		return "backoffice/rolemaster";
+
+	}
+	
+	public @ResponseBody
+	String updateRoleType(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		String id = request.getParameter("id");
+		boolean boolName = false;
+
+		String value = request.getParameter("value");
+		String clname = request.getParameter("columnName");
+
+		try {
+			if (value != null && id != null && id.length() > 0) {
+				bean = new BOBean();
+				bean.setId(Integer.parseInt(id));
+				if (clname.equalsIgnoreCase("Role Master")) {
+					bean.setName(value);
+					boolName = true;
+				} else
+					bean.setDescription(value);
+			}
+			backOfficeService.updateRoleType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("roleTypeError",
+					"Unable do add new role."));
+
+		}
+		log.debug("Within GET method for /backoffice/updateRoleType");
+		if (boolName) {
+			return bean.getName();
+		} else {
+			return bean.getDescription();
+		}
+	}
+	
+	@RequestMapping(value = "/backoffice/delRoleType", method = RequestMethod.GET)
+	public void deleteRoleType(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		String id = request.getParameter("id");
+
+		try {
+			if (bean.getName() == null && id != null && id.length() > 0) {
+				bean = new BOBean();
+				bean.setId(Integer.parseInt(id));
+			}
+			backOfficeService.deleteOrgType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("roleMasterError",
+					"Unable do add the organization."));
+
+		}
+		log.debug("Within GET method for /backoffice/delRoleType");
+
+	}
+	
+	
+	@RequestMapping(value = "/backoffice/addRoleType", method = RequestMethod.POST)
+	public String addRoleType(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		// TODO Validations on server side
+
+		try {
+			backOfficeService.addRoleType(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("roleTypeError",
+					"Unable do add the role."));
+			return "backoffice/roletype";
+		}
+		return "backoffice/success"; // we need to return next page.
+	}
+	@RequestMapping(value = "/backoffice/addRoleType", method = RequestMethod.GET)
+	public void roleType(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		request.getParameterNames();
+		try {
+			backOfficeService.addRoleType(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("roleTypeError",
+					"Unable do add the role."));
+
+		}
+		log.debug("Within GET method for /backoffice/addRoleType");
+
+	}
 
 	// .....for case satatus.....
 
@@ -469,7 +596,7 @@ public class BackOfficeController {
 	}
 
 	// ........................>>>for role master<<......................
-	@RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)
 	public String roleMasterIndex(
 			@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
@@ -498,7 +625,7 @@ public class BackOfficeController {
 			return "backoffice/rolemaster";
 		}
 		return "backoffice/success"; // we need to return next page.
-	}
+	}*/
 
 	// ........................>>>for module master<<......................
 	@RequestMapping(value = "/backoffice/modulemaster", method = RequestMethod.GET)
