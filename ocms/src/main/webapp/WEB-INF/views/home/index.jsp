@@ -63,7 +63,7 @@
 						<div id="home_content">
 							<div id="home_left_col">
 								<a href="/resources/docs/OCMS.pptx"> <img
-									src="/resources/images/OCMShighlevelflow.png" />
+									src="/resources/images/OCMShighlevelflow.jpg" />
 								</a>
 
 							</div>
@@ -95,7 +95,9 @@
 												<div class="formBox">
 													<input type="submit" value="Login" class="btn_getstarted" />
 												</div>
-
+												<div class="formBox">
+													<a href="/forgotpassword">Forgot password? </a>
+												</div>
 
 												<div class="formBox">Sign in using your account with</div>
 												<div class="formBox">

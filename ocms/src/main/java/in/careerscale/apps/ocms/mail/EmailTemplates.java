@@ -18,8 +18,9 @@ public class EmailTemplates {
 	"http://ocms-careerscale.rhcloud.com/";	
 	
 	private static String forgotPasswordTemplate ="Dear ${firstName}, \n We have received your forgot password request." +
-			"Please click the link below to reset your password \n"+
-			"http://localhost:8080/demoweb/forgotPassword?username=${username}&activationCode=${activationCode}"+
+			" \n Here are your login details:\n"+
+				"username:  ${username} \n" +
+				"Password:  ${password} \n" +
 			"\nRegards, \n"+
 			"Administrator\n"+
 			"OCMS\n"+

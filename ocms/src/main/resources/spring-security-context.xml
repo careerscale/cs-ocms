@@ -28,6 +28,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<security:logout logout-url="/logout" />
 		<security:intercept-url pattern="/" access="permitAll" />
 		<security:intercept-url pattern="/about" access="permitAll" />
+		<security:intercept-url pattern="/forgotpassword" access="permitAll" />
 		<security:intercept-url pattern="/register"
 			access="permitAll" />
 		<security:intercept-url pattern="/oauth"
