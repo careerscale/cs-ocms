@@ -167,4 +167,33 @@ public class UserService implements UserDetailsService {
 			return null;
 		}
 	}
+
+	public void forgotPassword(User user) {
+		
+		LoginMaster dbUser = userRepository.findByUsername(user.getEmailId());
+		if(dbUser == null){
+			new ApplicationException("No user account found with the given email id. Please try again");
+		}
+		
+		try {
+			// Resolve variables
+			Map<String, String> placeHolderValues = new HashMap<String, String>();
+			placeHolderValues.put(EmailTemplates.firstName,
+					user.getFirstName());
+			placeHolderValues.put(EmailTemplates.userName,
+					user.getEmailId());
+			placeHolderValues.put(EmailTemplates.password,
+					user.getPassword());
+			String emailText = EmailTemplates.getEmailMessage(
+					Template.ForgotPassword, placeHolderValues);
+			emailService.sendMailWithSSL(dbUser.getFirstName() +" Your OCMS Password " , emailText,
+					user.getEmailId());
+		} catch (Exception mailFailure) {
+			log.error("Unable to send mail", mailFailure);
+			new ApplicationException("Unable to send email. Please try again later.");
+		}
+		
+		
+		
+	}
 }
