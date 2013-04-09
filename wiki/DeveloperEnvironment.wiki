@@ -12,6 +12,7 @@ The tech stack used in the applicatioin
     JSP, Java (Spring MVC)
  ## Spring framework (IOC, Spring DAO,mail)
  ## Hibernate 4, JPA
+ ## Third party APIs (Scribe for OAuth, Xpath, apache lang, commons etc).
  ## MYSQL
  ## Maven
  ## SVN
