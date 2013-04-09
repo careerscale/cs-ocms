@@ -5,6 +5,21 @@
 
 This page is primarily to setup the developer environment in his/her computer.
 
+The tech stack used in the applicatioin
+
+== Tech stack ==
+ ## Tiles, HTML, CSS, Javascript (JQuery and others etc).
+    JSP, Java (Spring MVC)
+ ## Spring framework (IOC, Spring DAO,mail)
+ ## Hibernate 4, JPA
+ ## MYSQL
+ ## Maven
+ ## SVN
+ ## JUnit, Mockito
+ ## Selenium (Proposed) for FT
+ ## Web services and REST services (proposed)
+
+
 
 = Pre-requisites =
 
