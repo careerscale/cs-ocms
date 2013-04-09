@@ -33,6 +33,6 @@ System
 Once the case status is marked as resolved, case creator or moderator has to be uploading required set of documents for bills/receipts related to case.
 Until this task is done, system should keep sending them reminders.
 
-==Step 6/ Bills verified/Case Completed ==
+==Step 7/ Bills verified/Case Completed ==
 Moderator verifies the case bills and then changes the case status to "Resolved with proofs".
 System updates the status and sends notifications to all the users of this case with the status.
