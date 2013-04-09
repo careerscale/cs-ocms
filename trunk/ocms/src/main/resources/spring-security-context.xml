@@ -2,12 +2,14 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security-3.1.xsd
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd ">
 
 
 	<!-- Dont try to place place holder configurers in xml. If you are addding 
@@ -27,8 +29,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		use-expressions="true">
 		<security:logout logout-url="/logout" />
 		<security:intercept-url pattern="/" access="permitAll" />
-		<security:intercept-url pattern="/about" access="permitAll" />
-		<security:intercept-url pattern="/forgotpassword" access="permitAll" />
+		<security:intercept-url pattern="/about"
+			access="permitAll" />
+		<security:intercept-url pattern="/forgotpassword"
+			access="permitAll" />
 		<security:intercept-url pattern="/register"
 			access="permitAll" />
 		<security:intercept-url pattern="/oauth"
@@ -38,15 +42,15 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
 
-		
-		<!-- This is an example of role enablement, when needed
-		<security:intercept-url pattern="/**" access=" hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->	
-	
-	
+
+		<!-- This is an example of role enablement, when needed <security:intercept-url 
+			pattern="/**" access=" hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->
+
+
 		<security:intercept-url pattern="/j_spring_security_check"
 			access="permitAll" />
 
-			
+
 
 		<!-- <Open ID integration URLS need to be skipped as well -->
 
@@ -73,11 +77,11 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
 		<security:form-login login-page="/login"
 			login-processing-url="/j_spring_security_check" default-target-url="/user"
-			always-use-default-target="false"  />
-			
-			<security:http-basic/>
-			
-				<security:intercept-url pattern="/**"
+			always-use-default-target="false" />
+
+		<security:http-basic />
+
+		<security:intercept-url pattern="/**"
 			access="isAuthenticated()" />
 
 	</security:http>
@@ -88,7 +92,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			user-service-ref="userService" />
 		<security:authentication-provider
 			user-service-ref="socialService" />
-		
+
 	</security:authentication-manager>
 
 	<!-- oauth -->
@@ -140,7 +144,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<constructor-arg value="${app.config.oauth.gmail.apisecret}" />
 		<constructor-arg value="${app.config.oauth.gmail.callback}" />
 		<constructor-arg value="org.scribe.builder.api.GoogleApi" />
-		<constructor-arg value="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile" />
+		<constructor-arg
+			value="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile" />
 	</bean>
 
 	<bean id="gmailServiceProvider"
@@ -148,19 +153,28 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 		<constructor-arg name="config" ref="gmailServiceConfig" />
 
 	</bean>
-	
+
 	<bean id="emailService" class="in.careerscale.apps.ocms.mail.EmailSender">
-	<constructor-arg value="${emailserver.server}" />
-	<constructor-arg value="${emailserver.sslPort}" type="int" />
-	<constructor-arg value="${emailserver.smtpPort}" type="int" />
-	<constructor-arg value="${emailserver.userName}" />
-	<constructor-arg value="${emailserver.password}" />
-	<constructor-arg value="${emailserver.from}" />
-	<!-- String host, int sslPort, int smtpPort, String userName, String password, String from  -->
-	
+		<constructor-arg value="${emailserver.server}" />
+		<constructor-arg value="${emailserver.sslPort}" type="int" />
+		<constructor-arg value="${emailserver.smtpPort}" type="int" />
+		<constructor-arg value="${emailserver.userName}" />
+		<constructor-arg value="${emailserver.password}" />
+		<constructor-arg value="${emailserver.from}" />
+		<!-- String host, int sslPort, int smtpPort, String userName, String password, 
+			String from -->
+
 	</bean>
 
 	<!-- end of oauth -->
+
+
+
+	<!-- scheduling -->
+	<task:annotation-driven scheduler="taskScheduler" />
+	<task:scheduler id="taskScheduler" pool-size="2" />
+
+
 
 
 
