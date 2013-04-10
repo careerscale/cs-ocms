@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.scheule;
+package in.careerscale.apps.ocms.scheduler;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
