@@ -85,9 +85,13 @@ public class SocialService implements UserDetailsService {
 		}
 
 		user.setPassword("password");
-		return new org.springframework.security.core.userdetails.User(
-				user.getFirstName(), user.getPassword(), roleSet);
+		//return new org.springframework.security.core.userdetails.User(user.getFirstName(), user.getPassword(), roleSet);
+		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), roleSet);
+		//return new org.springframework.security.core.userdetails.User(user.getFirstName(), user.getPassword(), roleSet);
+		return new ExtendedUser(userDetails,user.getFirstName(), roleSet.toString() , user.getId() );
 
+
+		
 	}
 
 	
