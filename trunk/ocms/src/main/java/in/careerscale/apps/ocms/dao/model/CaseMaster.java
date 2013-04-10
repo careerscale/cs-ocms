@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 public class CaseMaster implements java.io.Serializable {
 
 	private Integer id;
+	private Address address;
 	private LoginMaster loginMasterByCreatedBy;
 	private CaseStatusMaster caseStatusMaster;
 	private LoginMaster loginMasterByUpdatedBy;
@@ -94,7 +95,38 @@ public class CaseMaster implements java.io.Serializable {
 		this.caseActivities = caseActivities;
 		this.caseUsers = caseUsers;
 	}
-
+	
+	public CaseMaster(Address address,LoginMaster loginMasterByCreatedBy,
+			CaseStatusMaster caseStatusMaster,
+			LoginMaster loginMasterByUpdatedBy,
+			HelpCategoryType helpCategoryType, CaseType caseType,
+			Date createdOn, Date updatedOn, String personName,
+			Date dateOfBirth, String caseDescription, String contactNumber1,
+			String contactNumber2, String source,
+			Set<CaseArtifact> caseArtifacts,
+			Set<FundManagement> fundManagements,
+			Set<CaseActivity> caseActivities, Set<CaseUser> caseUsers) {
+		this.address = address;
+		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.caseStatusMaster = caseStatusMaster;
+		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.helpCategoryType = helpCategoryType;
+		this.caseType = caseType;
+		this.createdOn = createdOn;
+		this.updatedOn = updatedOn;
+		this.personName = personName;
+		this.dateOfBirth = dateOfBirth;
+		this.caseDescription = caseDescription;
+		this.contactNumber1 = contactNumber1;
+		this.contactNumber2 = contactNumber2;
+		this.source = source;
+		this.caseArtifacts = caseArtifacts;
+		this.fundManagements = fundManagements;
+		this.caseActivities = caseActivities;
+		this.caseUsers = caseUsers;
+	}
+	
+	
 	public CaseMaster(Date createdDate, Date updatedDate, String personName2,
 			Date dateOfBirth2, String caseDescription2, String contact1,
 			String contact2, String caseSource) {

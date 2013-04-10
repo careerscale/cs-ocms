@@ -81,6 +81,77 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `country`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `country` ;
+
+CREATE  TABLE IF NOT EXISTS `country` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `state`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `state` ;
+
+CREATE  TABLE IF NOT EXISTS `state` (
+  `id` INT(15) NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  `fk_country_id` INT(15) NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_state_countries1_idx` (`fk_country_id` ASC) ,
+  CONSTRAINT `fk_state_countries1`
+    FOREIGN KEY (`fk_country_id` )
+    REFERENCES `country` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `city`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `city` ;
+
+CREATE  TABLE IF NOT EXISTS `city` (
+  `id` INT(15) NOT NULL ,
+  `city_name` VARCHAR(45) NOT NULL ,
+  `fk_state_id` INT(15) NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_cities_state1_idx` (`fk_state_id` ASC) ,
+  CONSTRAINT `fk_cities_state1`
+    FOREIGN KEY (`fk_state_id` )
+    REFERENCES `state` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `address` ;
+
+CREATE  TABLE IF NOT EXISTS `address` (
+  `id` INT NOT NULL ,
+  `address_line1` VARCHAR(150) NOT NULL ,
+  `address_line2` VARCHAR(45) NULL ,
+  `city_id` INT NOT NULL DEFAULT 0 ,
+  `zip code` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_address_cities1_idx` (`city_id` ASC) ,
+  CONSTRAINT `fk_address_city_id`
+    FOREIGN KEY (`city_id` )
+    REFERENCES `city` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `case_master`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `case_master` ;
@@ -100,12 +171,15 @@ CREATE  TABLE IF NOT EXISTS `case_master` (
   `case_status_id` INT NOT NULL ,
   `case_type_id` INT NOT NULL ,
   `help_category_id` INT NOT NULL ,
+  `email_id` VARCHAR(45) NULL ,
+  `address_id` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_case_master_status_id_idx` (`case_status_id` ASC) ,
   INDEX `fk_case_master_help_category_id_idx` (`help_category_id` ASC) ,
   INDEX `fk_case_master_created_by_idx` (`created_by` ASC) ,
   INDEX `fk_case_master_updated_by_idx` (`updated_by` ASC) ,
   INDEX `fk_case_master_case_type_id_idx` (`case_type_id` ASC) ,
+  INDEX `fk_case_master_address_id_idx` (`address_id` ASC) ,
   CONSTRAINT `fk_case_master_status_id`
     FOREIGN KEY (`case_status_id` )
     REFERENCES `case_status_master` (`id` )
@@ -129,6 +203,11 @@ CREATE  TABLE IF NOT EXISTS `case_master` (
   CONSTRAINT `fk_case_master_case_type_id`
     FOREIGN KEY (`case_type_id` )
     REFERENCES `case_type` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_case_master_address_id`
+    FOREIGN KEY (`address_id` )
+    REFERENCES `address` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -575,8 +654,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`) VALUES (1, 1, '2008-05-27', 1, '2009-02-23', 'Prasanthi', '1980-01-01', 'need urgent blood group O-', '898989898', '898989', 'friend', 1, 1, 1);
-INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`) VALUES (2, 1, '2011-01-9', 1, '2009-09-12', 'Kashyap', '1979-05-05', 'Fresher needs Job', '2342343', '4324324', 'news paper', 1, 2, 1);
+INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`) VALUES (1, 1, '2008-05-27', 1, '2009-02-23', 'Prasanthi', '1980-01-01', 'need urgent blood group O-', '898989898', '898989', 'friend', 1, 1, 1, NULL, NULL);
+INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`) VALUES (2, 1, '2011-01-9', 1, '2009-09-12', 'Kashyap', '1979-05-05', 'Fresher needs Job', '2342343', '4324324', 'news paper', 1, 2, 1, NULL, NULL);
 
 COMMIT;
 
