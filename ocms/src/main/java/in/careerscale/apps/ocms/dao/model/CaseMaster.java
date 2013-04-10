@@ -312,5 +312,17 @@ public class CaseMaster implements java.io.Serializable {
 	public void setCaseUsers(Set<CaseUser> caseUsers) {
 		this.caseUsers = caseUsers;
 	}
+	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "address_id")
+	public Address getAddress() {
+		return this.address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 
 }
