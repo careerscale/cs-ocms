@@ -10,7 +10,7 @@
 					<a href="login">Login</a>
 
 				</sec:authorize> <sec:authorize ifNotGranted="ROLE_ANONYMOUS">
-				Hello <sec:authentication property="principal.username" />
+				Hello <sec:authentication property="principal.displayName" />
 					<a href="logout">Logout</a>
 				</sec:authorize> </a>
 		</div>
