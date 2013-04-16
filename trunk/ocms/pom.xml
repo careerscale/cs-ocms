@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
+		<activiti-version>5.12</activiti-version>
 	</properties>
 	<pluginRepositories>
 		<pluginRepository>
@@ -35,7 +36,7 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 	<repositories>
 		<repository>
 			<id>eap</id>
@@ -62,20 +63,37 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+
+		<repository>
+			<id>Activiti</id>
+			<url>https://maven.alfresco.com/nexus/content/repositories/activiti-releases/</url>
+		</repository>
+
 	</repositories>
 	<dependencies>
-	
-	<!-- part of openshift generated POM file, adapted -->
+
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-engine</artifactId>
+			<version>${activiti-version}</version>
+		</dependency>
 	<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-spring</artifactId>
+			<version>${activiti-version}</version>
+		</dependency>
+
+		<!-- part of openshift generated POM file, adapted -->
+		<dependency>
 			<groupId>org.jboss.spec</groupId>
 			<artifactId>jboss-javaee-6.0</artifactId>
 			<version>3.0.0.Final-redhat-1</version>
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- open shift dependencies are done -->
-		
+
 		<!-- thymeleaf -->
 		<!-- <dependency> <groupId>org.thymeleaf</groupId> <artifactId>thymeleaf-spring3</artifactId> 
 			<version>${thymeleaf.version}</version> </dependency> <dependency> <groupId>org.thymeleaf</groupId> 
@@ -225,7 +243,7 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -382,8 +400,8 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-		<profiles>
+
+	<profiles>
 		<profile>
 			<!-- When built in OpenShift the 'openshift' profile will be used when 
 				invoking mvn. -->
@@ -409,5 +427,5 @@
 		</profile>
 	</profiles>
 
-	
+
 </project>

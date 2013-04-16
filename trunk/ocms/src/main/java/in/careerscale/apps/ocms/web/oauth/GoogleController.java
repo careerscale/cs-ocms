@@ -98,7 +98,7 @@ public class GoogleController {
 		log.debug(oauthResponse.getBody());
 		User user = OAUthParser.getUserFromGoogleUserProfile(oauthResponse
 				.getBody());
-
+		user.setUserAccessToken(accessToken.getToken());
 		try {
 			userService.registerUser(user);
 		} catch (Exception e) {

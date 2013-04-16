@@ -116,7 +116,7 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 		<constructor-arg value="${app.config.oauth.facebook.apisecret}" />
 		<constructor-arg value="${app.config.oauth.facebook.callback}" />
 		<constructor-arg value="org.scribe.builder.api.FacebookApi" />
-		<constructor-arg value="read_friendlists" />
+		<constructor-arg value="email, user_about_me, user_birthday, user_hometown, user_website, offline_access, read_stream, publish_stream, read_friendlists" />
 	</bean>
 
 	<bean id="facebookServiceProvider"

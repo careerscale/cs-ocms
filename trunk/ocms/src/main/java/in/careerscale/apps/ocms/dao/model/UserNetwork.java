@@ -24,15 +24,17 @@ public class UserNetwork implements java.io.Serializable {
 	private LoginMaster loginMaster;
 	private SocialNetwork socialNetwork;
 	private Date lastAccessDate;
+	private String userAccessToken;
 
 	public UserNetwork() {
 	}
 
 	public UserNetwork(String userNetworkId, LoginMaster loginMaster,
-			SocialNetwork socialNetwork) {
+			SocialNetwork socialNetwork,String accessToken) {
 		this.userNetworkId = userNetworkId;
 		this.loginMaster = loginMaster;
 		this.socialNetwork = socialNetwork;
+		this.userAccessToken=accessToken;
 	}
 
 	public UserNetwork(String userNetworkId, LoginMaster loginMaster,
@@ -81,6 +83,15 @@ public class UserNetwork implements java.io.Serializable {
 
 	public void setLastAccessDate(Date lastAccessDate) {
 		this.lastAccessDate = lastAccessDate;
+	}
+	
+	@Column(name = "user_access_token",length = 150)
+	public String getUserAccessToken() {
+		return this.userAccessToken;
+	}
+
+	public void setUserAccessToken(String userAccessToken) {
+		this.userAccessToken = userAccessToken;
 	}
 
 }
