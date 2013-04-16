@@ -11,6 +11,7 @@ import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.mail.EmailTemplates;
 import in.careerscale.apps.ocms.mail.Template;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.service.model.RegistrationResult;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
 import java.util.HashMap;
@@ -77,11 +78,12 @@ public class UserService implements UserDetailsService {
 
 	}
 
-	public void registerUser(User user) throws ApplicationException {
+	public RegistrationResult registerUser(User user) throws ApplicationException {
 		// for bravity no validations done at service layer, we need to handle
 		// and also introduce valid exception handling to manage error
 		// situations
 		LoginMaster dbUser;
+		RegistrationResult result = RegistrationResult.Error;
 		try {
 
 			if (user.getNetwork() != null) {
@@ -96,7 +98,7 @@ public class UserService implements UserDetailsService {
 					if(dbUser.getLoginType() == LoginMaster.SOCIAL_REGISTERED){						
 					//Good the user exists already, so let us skip further registration
 					//check if the association exists already. if yes, skip, it might be login action from user.
-						return;
+						return RegistrationResult.SocialRegisteredAlready;
 					}
 
 				}
@@ -110,8 +112,9 @@ public class UserService implements UserDetailsService {
 				in.careerscale.apps.ocms.dao.model.SocialNetwork network = userRepository
 						.getSocialNetwork(user.getNetwork().getId());
 				UserNetwork userNetwork = new UserNetwork(
-						user.getSocialNetworkId(), dbUser, network);
+						user.getSocialNetworkId(), dbUser, network,user.getUserAccessToken());
 				userRepository.save(userNetwork);
+				result = RegistrationResult.SocialRegistered;
 				
 
 			} else {
@@ -131,6 +134,8 @@ public class UserService implements UserDetailsService {
 				dbUser.setHelpCategoryTypes(new HashSet<HelpCategoryType>(
 						userHelpTypes));
 				userRepository.update(dbUser);
+				result = RegistrationResult.Registered;
+			
 				try {
 					// Resolve variables
 					Map<String, String> placeHolderValues = new HashMap<String, String>();
@@ -145,14 +150,18 @@ public class UserService implements UserDetailsService {
 					emailService.sendMailWithSSL("OCMS Registration Successful ::" +dbUser.getFirstName() , emailText,
 							user.getEmailId());
 				} catch (Exception mailFailure) {
+					result = RegistrationResult.Error;
 					log.error("Unable to send mail", mailFailure);
 				}
 
 			}
 
 		} catch (PersistenceException pe) {
+			result = RegistrationResult.Error;
 			throw new ApplicationException(pe.getMessage());
+			
 		}
+		return result;
 
 	}
 
