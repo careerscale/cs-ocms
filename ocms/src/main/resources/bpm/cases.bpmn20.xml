@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema"
+	expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/ocms">
+	<process id="ocms" name="ocms" isExecutable="true">
+		<startEvent id="startOCMS" name="Start"></startEvent>
+		<endEvent id="endOCMS" name="End"></endEvent>
+
+		<serviceTask id="caseValidationStep" name="Case Validation"
+			activiti:class="in.careerscale.apps.ocms.bpm.CaseValidatorStep"></serviceTask>
+		<sequenceFlow id="flow1" sourceRef="startOCMS" targetRef="caseValidationStep"></sequenceFlow>
+		<sequenceFlow id="flow2" sourceRef="caseValidationStep"
+			targetRef="endOCMS"></sequenceFlow>
+	</process>
+	<process id="bo" name="bo">
+		<startEvent id="startEvent" name="Start" />
+		<sequenceFlow sourceRef="startEvent" targetRef="validateOrder" />
+		<serviceTask id="validateOrder"
+			activiti:expression="#{validateTask.validate(isbn, 
+		amount)}" />
+		<sequenceFlow sourceRef="validateOrder" targetRef="scriptOutput" />
+		<scriptTask id="scriptOutput" scriptFormat="groovy">
+			<script> out:println
+				"order for isbn " + bookOrder.isbn + " and amount
+				" + bookOrder.amount +
+				" is approved? " + bookOrder.approved + "\n";
+			</script>
+		</scriptTask>
+		<sequenceFlow sourceRef="scriptOutput" targetRef="endEvent" />
+		<endEvent id="endEvent" name="End" />
+	</process>
+
+	<process id="hari" name="hari" isExecutable="true">
+
+		<serviceTask id="caseValidationStep1" name="Case Validation"
+			activiti:class="in.careerscale.apps.ocms.bpm.CaseValidatorStep"></serviceTask>
+		<startEvent id="startHari" name="Start"></startEvent>
+		<endEvent id="endHari" name="End"></endEvent>
+		<sequenceFlow id="beginHari" sourceRef="startHari"
+			targetRef="caseValidationStep1"></sequenceFlow>
+		<sequenceFlow id="EndHari" sourceRef="caseValidationStep1"
+			targetRef="endHari"></sequenceFlow>
+	</process>
+
+	<process id="demo" name="demo" isExecutable="true">
+
+		<serviceTask id="caseValidationStepDemo" name="Case Validation"
+			activiti:class="in.careerscale.apps.ocms.bpm.CaseValidatorStep"></serviceTask>
+		<startEvent id="startDemo" name="Start"></startEvent>
+		<endEvent id="endDemo" name="End"></endEvent>
+		<sequenceFlow id="demoFlow1" sourceRef="startDemo"
+			targetRef="caseValidationStepDemo"></sequenceFlow>
+		<sequenceFlow id="demoflow2" sourceRef="caseValidationStepDemo"
+			targetRef="endDemo"></sequenceFlow>
+	</process>
+
+
+</definitions>
+  

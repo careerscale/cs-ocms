@@ -37,6 +37,7 @@ public class User implements Serializable {
 	private SocialNetwork network;
 	
 	private String socialNetworkId;
+	private String userAccessToken;
 	
 	
 	/*
@@ -165,6 +166,16 @@ public class User implements Serializable {
 		this.socialNetworkId = trim(socialNetworkId);
 	}
 
+	
+	
+	public String getUserAccessToken() {
+		return userAccessToken;
+	}
+
+	public void setUserAccessToken(String userAccessToken) {
+		this.userAccessToken = userAccessToken;
+	}
+
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this).
@@ -173,6 +184,7 @@ public class User implements Serializable {
 			       append("lastName", lastName).
 			       append("dateOfBirth", dateOfBirth).
 			       append("emailId", emailId).
+			       append("userAccessToken", userAccessToken).
 			       toString();
 	}
 	

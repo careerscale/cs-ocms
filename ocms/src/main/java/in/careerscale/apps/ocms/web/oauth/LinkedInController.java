@@ -86,6 +86,7 @@ public class LinkedInController {
 		User user = null;
 		try {
 			user = OAUthParser.getUserFromLinkedinUserProfile(oauthResponse.getBody());
+			user.setUserAccessToken(accessToken.getToken());
 		} catch (LinkedInException e1) {
 			log.error("Error while registering linkedin user", e1);
 		}

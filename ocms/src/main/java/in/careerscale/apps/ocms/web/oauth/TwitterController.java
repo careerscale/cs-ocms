@@ -98,6 +98,7 @@ public class TwitterController {
 		try {
 			user = OAUthParser.getUserFromTwitterUserProfile(oauthResponse
 					.getBody());
+			user.setUserAccessToken(accessToken.getToken());
 		} catch (XPathExpressionException e1) {
 			log.error(e1);
 		} catch (ParserConfigurationException e1) {

@@ -18,6 +18,9 @@
 	<logger name="org.apache.jasper.compiler.TldLocationsCache">
 		<level value="info" />
 	</logger>
+<logger name="org.activiti">
+		<level value="debug" />
+	</logger>
 
 
 	<!-- Root Logger -->
