@@ -40,6 +40,7 @@ public class CaseMaster implements java.io.Serializable {
 	private String contactNumber1;
 	private String contactNumber2;
 	private String source;
+	private String emailId;
 	private Set<CaseArtifact> caseArtifacts = new HashSet<CaseArtifact>(0);
 	private Set<FundManagement> fundManagements = new HashSet<FundManagement>(0);
 	private Set<CaseActivity> caseActivities = new HashSet<CaseActivity>(0);
@@ -140,6 +141,20 @@ public class CaseMaster implements java.io.Serializable {
 		this.source=caseSource;
 		
 	}
+	public CaseMaster(Date createdDate, Date updatedDate, String personName2,
+			String emialId,Date dateOfBirth2, String caseDescription2, String contact1,
+			String contact2, String caseSource) {
+		this.emailId=emialId;
+		this.createdOn =createdDate;
+		this.updatedOn=updatedDate;
+		this.personName=personName2;
+		this.dateOfBirth=dateOfBirth2;
+		this.caseDescription= caseDescription2;
+		this.contactNumber1=contact1;
+		this.contactNumber2= contact2;
+		this.source=caseSource;
+		
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -150,6 +165,15 @@ public class CaseMaster implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	@Column(name = "email_id", unique = true, nullable = true, length = 100)
+	public String getEmailId() {
+		return this.emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

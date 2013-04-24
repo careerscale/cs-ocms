@@ -591,6 +591,125 @@ CREATE  TABLE IF NOT EXISTS `user_network` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `notification_template_status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `notification_template_status` ;
+
+CREATE  TABLE IF NOT EXISTS `notification_template_status` (
+  `id` INT NOT NULL ,
+  `name` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `notification_template`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `notification_template` ;
+
+CREATE  TABLE IF NOT EXISTS `notification_template` (
+  `id` INT NOT NULL ,
+  `name` VARCHAR(45) NULL ,
+  `status_id` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_notification_template_notification_temp_status1_idx` (`status_id` ASC) ,
+  CONSTRAINT `fk_notification_template_notification_temp_status1`
+    FOREIGN KEY (`status_id` )
+    REFERENCES `notification_template_status` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `notification_status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `notification_status` ;
+
+CREATE  TABLE IF NOT EXISTS `notification_status` (
+  `id` INT NOT NULL ,
+  `name` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `notification_details`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `notification_details` ;
+
+CREATE  TABLE IF NOT EXISTS `notification_details` (
+  `id` INT NOT NULL ,
+  `template_id` INT NULL ,
+  `notification_type` VARCHAR(45) NULL ,
+  `template_text` TEXT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_notification_details_notification_template1_idx` (`template_id` ASC) ,
+  CONSTRAINT `fk_notification_details_notification_template1`
+    FOREIGN KEY (`template_id` )
+    REFERENCES `notification_template` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `notification_recipient`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `notification_recipient` ;
+
+CREATE  TABLE IF NOT EXISTS `notification_recipient` (
+  `id` INT NOT NULL ,
+  `type` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `notification`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `notification` ;
+
+CREATE  TABLE IF NOT EXISTS `notification` (
+  `id` INT NOT NULL ,
+  `template_id` INT NULL ,
+  `case_id` INT NULL ,
+  `reciepient_type` INT NULL ,
+  `recepient_additional_info` VARCHAR(95) NULL ,
+  `status` INT NULL ,
+  `created_on` DATETIME NOT NULL ,
+  `created_by` INT NOT NULL ,
+  `updated_on` DATETIME NOT NULL ,
+  `updated_by` INT NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_notification_notification_template_id_idx` (`template_id` ASC) ,
+  INDEX `fk_notification_case_master_id_idx` (`case_id` ASC) ,
+  INDEX `fk_notification_notification_status_id_idx` (`status` ASC) ,
+  INDEX `fk_notification_notification_recipient_id_idx` (`reciepient_type` ASC) ,
+  CONSTRAINT `fk_notification_notification_template_id`
+    FOREIGN KEY (`template_id` )
+    REFERENCES `notification_template` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notification_case_master_id`
+    FOREIGN KEY (`case_id` )
+    REFERENCES `case_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notification_notification_status_id`
+    FOREIGN KEY (`status` )
+    REFERENCES `notification_status` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notification_notification_recipient_id`
+    FOREIGN KEY (`reciepient_type` )
+    REFERENCES `notification_recipient` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 USE `ocms` ;
 
 

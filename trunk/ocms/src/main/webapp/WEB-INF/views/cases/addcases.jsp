@@ -101,6 +101,10 @@
 								class="required" tabindex="1" /></td>
 					</tr>
 					<tr>
+					 <td class="label"><label for ="emailId">Email Address</label></td>
+					 <td class="field"><form:input path="emailId" type="email" tabindex="2"/></td>
+					</tr>
+					<tr>
 						<td class="label"><label for="caseDescription">Case
 								Details(should be multi line):</label></td>
 

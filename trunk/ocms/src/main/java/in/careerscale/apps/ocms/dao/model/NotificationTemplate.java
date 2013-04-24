@@ -14,7 +14,7 @@ public class NotificationTemplate implements java.io.Serializable
 {
 	private Integer id;
 	private String name;
-	private NotificationTempStatus notificationTempStatus;
+	private NotificationTemplateStatus notificationTemplateStatus;
 	
 	public NotificationTemplate()
 	{
@@ -24,10 +24,10 @@ public class NotificationTemplate implements java.io.Serializable
 	{
 		this.name=name;
 	}
-	public NotificationTemplate(String name,NotificationTempStatus notificationTempStatus)
+	public NotificationTemplate(String name,NotificationTemplateStatus notificationTempStatus)
 	{
 		this.name=name;
-		this.notificationTempStatus=notificationTempStatus;
+		this.notificationTemplateStatus=notificationTempStatus;
 	}
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -46,12 +46,12 @@ public class NotificationTemplate implements java.io.Serializable
 	}
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "status_id", nullable = false)
-	public NotificationTempStatus getNotificationTempStatus() {
-		return notificationTempStatus;
+	public NotificationTemplateStatus getNotificationTemplateStatus() {
+		return notificationTemplateStatus;
 	}
-	public void setNotificationTempStatus(
-			NotificationTempStatus notificationTempStatus) {
-		this.notificationTempStatus = notificationTempStatus;
+	public void setNotificationTemplateStatus(
+			NotificationTemplateStatus notificationTemplateStatus) {
+		this.notificationTemplateStatus = notificationTemplateStatus;
 	}
 	
 }
