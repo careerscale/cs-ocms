@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.config;
+package in.careerscale.apps.ocms.web.config;
 
 import java.util.EnumSet;
 import java.util.Set;
@@ -17,7 +17,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 	public void onStartup(ServletContext servletContext) throws ServletException {
 
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.setConfigLocation("in.careerscale.apps.ocms.config");
+		context.setConfigLocation("in.careerscale.apps.ocms.web.config");
 		
 		FilterRegistration.Dynamic securityFilter = servletContext.addFilter("securityFilter", new DelegatingFilterProxy("springSecurityFilterChain"));
 		securityFilter.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");

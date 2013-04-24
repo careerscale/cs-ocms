@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.config;
+package in.careerscale.apps.ocms.web.config;
 
 import org.springframework.context.annotation.*;
 
