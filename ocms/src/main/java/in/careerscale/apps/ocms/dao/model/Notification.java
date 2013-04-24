@@ -103,7 +103,7 @@ public class Notification implements java.io.Serializable {
 		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
 	}
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "case_id", nullable = false)
+	@JoinColumn(name = "case_id", nullable = true)
 	public CaseMaster getCaseMaster() {
 		return caseMaster;
 	}
