@@ -15,23 +15,23 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "notification_temp_status", catalog = "ocms")
-public class NotificationTempStatus implements java.io.Serializable  {
+@Table(name = "notification_template_status", catalog = "ocms")
+public class NotificationTemplateStatus implements java.io.Serializable  {
 	private Integer id;
 	private String name;
-	private Set<NotificationTemplate> notificationtemp = new HashSet<NotificationTemplate>(0);
+	private Set<NotificationTemplate> notificationTemplate = new HashSet<NotificationTemplate>(0);
 	
-	public NotificationTempStatus()
+	public NotificationTemplateStatus()
 	{
 		
 	}
-	public NotificationTempStatus(String name) {
+	public NotificationTemplateStatus(String name) {
 		this.name = name;
 	}
 	
-	public NotificationTempStatus(String name, Set<NotificationTemplate> notificationtemp) {
+	public NotificationTemplateStatus(String name, Set<NotificationTemplate> notificationtemp) {
 		this.name = name;
-		this.notificationtemp = notificationtemp;
+		this.notificationTemplate = notificationtemp;
 	}
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -52,12 +52,12 @@ public class NotificationTempStatus implements java.io.Serializable  {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "notification_template")
-	public Set<NotificationTemplate> getNotificationtemp() {
-		return notificationtemp;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "notificationTemplateStatus")
+	public Set<NotificationTemplate> getNotificationTemplate() {
+		return notificationTemplate;
 	}
-	public void setNotificationtemp(Set<NotificationTemplate> notificationtemp) {
-		this.notificationtemp = notificationtemp;
+	public void setNotificationTemplate(Set<NotificationTemplate> notificationtemp) {
+		this.notificationTemplate = notificationtemp;
 	}
 	
 

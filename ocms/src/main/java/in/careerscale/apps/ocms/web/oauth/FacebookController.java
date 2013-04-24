@@ -122,7 +122,7 @@ public class FacebookController {
 			log.error("Error while registering google user", e);
 		}
 		try {
-			AuthrnicationController authrnicationController = new AuthrnicationController();
+			AuthenticationController authrnicationController = new AuthenticationController();
 			authrnicationController.authenticate(user);
 			response.sendRedirect("/user");
 		} catch (Exception e) {

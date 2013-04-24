@@ -53,7 +53,9 @@ public class NotificationRecipient implements java.io.Serializable {
 		this.name = name;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "notification")
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "recipient")
 	public Set<Notification> getNotification() {
 		return this.notification;
 	}

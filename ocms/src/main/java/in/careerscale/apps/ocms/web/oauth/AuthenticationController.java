@@ -10,9 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class AuthrnicationController
+public class AuthenticationController
 {
-	Log log = LogFactory.getLog(AuthrnicationController.class);
+	Log log = LogFactory.getLog(AuthenticationController.class);
 	private static AuthenticationManager am = new SampleAuthenticationManager();
 	
 	public boolean authenticate(String emailAddress){

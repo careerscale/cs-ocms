@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 
 @SuppressWarnings("serial")
-public class Case  implements Serializable {
+public class Case  implements Serializable 
+{
 	private String personName;
+	private String emailId;
 	private String caseDescription;
 	private String  caseSource;
 	private Date dateOfBirth;
@@ -61,6 +63,17 @@ public class Case  implements Serializable {
 		this.contact1=contact1;
 		
 	}
+	public Case(String personName,String emailId,String caseDescription,String  caseSource,Date dateOfBirth,Date createdDate,String contact1)
+	{
+		this.emailId=emailId;
+		this.personName =personName;
+		this.caseDescription = caseDescription;
+		this.caseSource = caseSource;
+		this.dateOfBirth = dateOfBirth;
+		this.createdDate=createdDate;
+		this.contact1=contact1;
+		
+	}
 	
 	public String getPersonName() {
 		return personName;
@@ -72,6 +85,15 @@ public class Case  implements Serializable {
 		this.personName = personName;
 	}
 
+	public String getEmailId() {
+		return emailId;
+	}
+
+
+
+	public void setEmailId(String emailId) {
+		this.emailId = trim(emailId);
+	}
 
 
 	public String getCaseDescription() {

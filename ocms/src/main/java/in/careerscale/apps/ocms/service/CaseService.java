@@ -68,7 +68,7 @@ public class CaseService {
 		try {
 
 			
-			caseMaster = new CaseMaster(bean.getCreatedDate(),bean.getUpdatedDate(), bean.getPersonName(),
+			caseMaster = new CaseMaster(bean.getCreatedDate(),bean.getUpdatedDate(), bean.getPersonName(),bean.getEmailId(),
 						bean.getDateOfBirth(), bean.getCaseDescription(),bean.getContact1(),bean.getContact2(),bean.getCaseSource());				
 				//TODO set DB flag as well.
 			caseMaster.setCaseStatusMaster((CaseStatusMaster)masterDataRepository.getById(CaseStatusMaster.class, new Integer(2))); 
@@ -77,6 +77,7 @@ public class CaseService {
 			caseMaster.setHelpCategoryType((HelpCategoryType)masterDataRepository.getHelpCategoryType(bean.getHelpTypes().get(0)));
 			caseMaster.setContactNumber1(bean.getContact1());
 			caseMaster.setContactNumber2(bean.getContact2());
+			caseMaster.setEmailId(bean.getEmailId());
 			caseMaster.setCreatedOn(Calendar.getInstance().getTime());
 			caseMaster.setUpdatedOn(Calendar.getInstance().getTime());
 			//TODO hardcoded for now, pleaes fetch this from session and use accordingly. 
