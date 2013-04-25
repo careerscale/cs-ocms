@@ -18,6 +18,7 @@ import javax.persistence.Table;
 public class NotificationRecipient implements java.io.Serializable {
 	private Integer id;
 	private String name;
+	private NotificationRecipient notificationRecipient;
 	private Set<Notification> notification = new HashSet<Notification>(0);
 	
 	public NotificationRecipient()

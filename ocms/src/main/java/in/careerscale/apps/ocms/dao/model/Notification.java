@@ -28,10 +28,7 @@ public class Notification implements java.io.Serializable {
 	private NotificationStatus status;
 	private NotificationTemplate template;
 
-	public Notification() {
-
-	}
-
+	
 	public Notification( String recipientInfo, Date createdOn,
 			Date updatedOn, LoginMaster loginMasterByCreatedBy,
 			LoginMaster loginMasterByUpdatedBy, CaseMaster caseMaster,
@@ -48,6 +45,26 @@ public class Notification implements java.io.Serializable {
 	    this.template=template;
 
 	}
+	public Notification( Date createdOn,
+			Date updatedOn, LoginMaster loginMasterByCreatedBy,
+			LoginMaster loginMasterByUpdatedBy, CaseMaster caseMaster,
+			NotificationRecipient recipient, NotificationStatus status,
+			NotificationTemplate template) {
+		this.caseMaster=caseMaster;
+		this.createdOn=createdOn;
+		this.updatedOn=updatedOn;
+	    this.loginMasterByCreatedBy=loginMasterByCreatedBy;
+	    this.loginMasterByUpdatedBy=loginMasterByUpdatedBy;
+	    this.recipient=recipient;
+	   
+	    this.status=status;
+	    this.template=template;
+
+	}
+	public Notification(Date createdOn)
+	{
+		this.createdOn=createdOn;
+	}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
@@ -58,7 +75,7 @@ public class Notification implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	@Column(name = "recepient_additional_info", nullable = false, length = 95)
+	@Column(name = "recepient_additional_info", nullable = true, length = 95)
 	public String getRecipientInfo() {
 		return recipientInfo;
 	}

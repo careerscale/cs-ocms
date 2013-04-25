@@ -14,6 +14,7 @@ public class NotificationTemplate implements java.io.Serializable
 {
 	private Integer id;
 	private String name;
+	private NotificationTemplate notificationTemplate; 
 	private NotificationTemplateStatus notificationTemplateStatus;
 	
 	public NotificationTemplate()
