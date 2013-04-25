@@ -20,6 +20,7 @@ public class NotificationStatus implements java.io.Serializable {
 	
 	private Integer id;
 	private String name;
+	private NotificationStatus notificationStatus;
 	private Set<Notification> notification = new HashSet<Notification>(0);
 	
 	public NotificationStatus()

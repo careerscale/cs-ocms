@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 public class CaseMaster implements java.io.Serializable {
 
 	private Integer id;
+	private CaseMaster caseMaster;
 	private Address address;
 	private LoginMaster loginMasterByCreatedBy;
 	private CaseStatusMaster caseStatusMaster;

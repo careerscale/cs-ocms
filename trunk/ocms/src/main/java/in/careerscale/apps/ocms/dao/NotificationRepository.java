@@ -2,9 +2,14 @@ package in.careerscale.apps.ocms.dao;
 
 import java.util.List;
 
+import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
+import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.Notification;
+import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
+import in.careerscale.apps.ocms.dao.model.NotificationStatus;
+import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
 import in.careerscale.apps.ocms.dao.model.OrgType;
 import in.careerscale.apps.ocms.dao.model.RoleMaster;
 
@@ -19,63 +24,70 @@ public class NotificationRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-
-	public CaseType getCaseType(Integer id) {
-		return entityManager.find(CaseType.class, id);
-	}
-
-	public void save(CaseType caseType) {
-		entityManager.persist(caseType);
-	}
 	
-
-	public HelpCategoryType getHelpCategoryType(Integer id) {
-		return entityManager.find(HelpCategoryType.class, id);
-
-	}
-	public void save(HelpCategoryType helpCategoryType) {
-		entityManager.persist(helpCategoryType);
-	}
-	
-	public OrgType getOrgType(Integer id) {
-		return entityManager.find(OrgType.class, id);
-
-	}
+	@Transactional
 	public void save(Notification notification) {
 		entityManager.persist(notification);
 	}
 	
 	
-	public RoleMaster getRoleType(Integer id)
-	{
-		return entityManager.find(RoleMaster.class,id);
+	public CaseMaster getCaseMaster(Integer id) {
+		return entityManager.find(CaseMaster.class, id);
 	}
-	public void save(RoleMaster roleType)
+
+	public void save(CaseMaster caseMaster) {
+		entityManager.persist(caseMaster);
+	}
+	
+
+	public NotificationRecipient getNotificationRecipient(Integer id) {
+		return entityManager.find(NotificationRecipient.class, id);
+
+	}
+	public void save(NotificationRecipient notificationRecipient) {
+		entityManager.persist(notificationRecipient);
+	}
+	
+	public NotificationStatus getNotificationStatus(Integer id) {
+		return entityManager.find(NotificationStatus.class, id);
+
+	}
+	public void save(NotificationStatus notificationStatus) {
+		entityManager.persist(notificationStatus);
+	}
+	
+	
+	
+	public NotificationTemplate getNotificationTemplate(Integer id)
 	{
-		entityManager.persist(roleType);
+		return entityManager.find(NotificationTemplate.class,id);
+	}
+	public void save(NotificationTemplate notificationTemplate)
+	{
+		entityManager.persist(notificationTemplate);
 	}
 
 	
 	@SuppressWarnings("unchecked")
-	public List<CaseType> getCaseTypes() {
-		Query query =entityManager.createQuery("SELECT c FROM CaseType c order by c.caseType.id, c.id"); // AS c WHERE c.caseType is NULL
+	public List<CaseMaster> getCaseMasters() {
+		Query query =entityManager.createQuery("SELECT c FROM CaseMaster c order by c.caseMaster.id, c.id"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 		
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<HelpCategoryType> getHelpCategoryTypes() {
-		Query query =entityManager.createQuery("SELECT h FROM HelpCategoryType h order by h.helpCategoryType.id asc, h.id asc"); // AS c WHERE c.caseType is NULL
+	public List<NotificationRecipient> getNotificationRecipients() {
+		Query query =entityManager.createQuery("SELECT h FROM NotificationRecipient h order by h.notificationRecipient.id asc, h.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
 	@SuppressWarnings("unchecked")
-	public List<OrgType> getOrgTypes() {
-		Query query =entityManager.createQuery("SELECT o FROM OrgType o order by o.orgType.id asc, o.id asc"); // AS c WHERE c.caseType is NULL
+	public List<NotificationStatus> getNotificationStatuss() {
+		Query query =entityManager.createQuery("SELECT o FROM NotificationStatus o order by o.notificationStatus.id asc, o.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
 	@SuppressWarnings("unchecked")
-	public List<RoleMaster> getRoleTypes() {
-		Query query =entityManager.createQuery("SELECT r FROM RoleMaster r order by r.roleMaster.id asc, r.id asc"); // AS c WHERE c.caseType is NULL
+	public List<NotificationTemplate> getNotificationTemplates() {
+		Query query =entityManager.createQuery("SELECT r FROM NotificationTemplate r order by r.notificationTemplate.id asc, r.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
 	

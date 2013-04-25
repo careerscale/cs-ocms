@@ -598,7 +598,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `notification_template_status` ;
 
 CREATE  TABLE IF NOT EXISTS `notification_template_status` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -610,7 +610,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `notification_template` ;
 
 CREATE  TABLE IF NOT EXISTS `notification_template` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   `status_id` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
@@ -629,7 +629,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `notification_status` ;
 
 CREATE  TABLE IF NOT EXISTS `notification_status` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -661,7 +661,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `notification_recipient` ;
 
 CREATE  TABLE IF NOT EXISTS `notification_recipient` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `type` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
@@ -673,7 +673,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `notification` ;
 
 CREATE  TABLE IF NOT EXISTS `notification` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `template_id` INT NULL ,
   `case_id` INT NULL ,
   `reciepient_type` INT NULL ,
@@ -848,5 +848,36 @@ INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secre
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (2, 'Facebook', 'Facebook', '547688988597448', '9a07fdf996236b9c4e7a010549d638d3', 'http://careerscale.in:9090/facebook-callback', NULL);
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (3, 'Google', 'Google', '179271485873.apps.googleusercontent.com', 'ghGOdAEKfCWlz_ClgbYLTLEp', 'http://localhost:9090/google-callback', 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile');
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (4, 'Twitter', 'Twitter', 'FDyGFjNABJKZlPo80TmcA', '0JS0T1PcgFVDQlKhaM6LNwhInzhjmrimgq0k88QgUE', 'http://localhost:9090/twitter-callback', NULL);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `notification_template_status`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `notification_template_status` (`id`, `name`) VALUES (1, 'Active');
+INSERT INTO `notification_template_status` (`id`, `name`) VALUES (2, 'Pending');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `notification_template`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `notification_template` (`id`, `name`, `status_id`) VALUES (1, 'NewCase', 1);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `notification_status`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `notification_status` (`id`, `name`) VALUES (1, 'Pending');
+INSERT INTO `notification_status` (`id`, `name`) VALUES (2, 'Processing');
+INSERT INTO `notification_status` (`id`, `name`) VALUES (3, 'Processed');
+INSERT INTO `notification_status` (`id`, `name`) VALUES (4, 'Failed');
 
 COMMIT;
