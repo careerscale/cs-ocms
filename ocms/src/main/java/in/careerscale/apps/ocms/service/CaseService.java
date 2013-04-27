@@ -4,14 +4,9 @@ package in.careerscale.apps.ocms.service;
 
 import in.careerscale.apps.ocms.dao.CaseRepository;
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
+import in.careerscale.apps.ocms.dao.NotificationRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
-import in.careerscale.apps.ocms.dao.model.CaseMaster;
-import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
-import in.careerscale.apps.ocms.dao.model.CaseType;
-import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
-import in.careerscale.apps.ocms.dao.model.LoginMaster;
-import in.careerscale.apps.ocms.dao.model.UserNetwork;
-import in.careerscale.apps.ocms.dao.model.UserRole;
+import in.careerscale.apps.ocms.dao.model.*;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.mail.EmailTemplates;
 import in.careerscale.apps.ocms.mail.Template;
@@ -25,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Calendar;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.PersistenceException;
@@ -39,7 +35,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ibm.icu.util.Calendar;
+
 
 @Service("caseService")
 public class CaseService {
@@ -48,11 +44,12 @@ public class CaseService {
 	
 	@Autowired
 	private CaseRepository caseRepository;
-	
-	
 
 	@Autowired
 	private MasterDataRepository masterDataRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
 	@PostConstruct
 	protected void initialize() {
@@ -85,6 +82,14 @@ public class CaseService {
 			caseMaster.setLoginMasterByUpdatedBy((LoginMaster)masterDataRepository.getById(LoginMaster.class, new Integer(1)));
 			
 			caseRepository.registerCase(caseMaster);
+            LoginMaster loggedInUser = (LoginMaster) notificationRepository.getById(LoginMaster.class, 1);
+
+            NotificationRecipient recipient = null;
+            NotificationStatus status = (NotificationStatus) notificationRepository.getById(NotificationStatus.class, 1);
+            NotificationTemplate template = (NotificationTemplate) notificationRepository.getById(NotificationTemplate.class, 1);
+            Notification notification = new Notification("this is recipient", Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), loggedInUser, loggedInUser, caseMaster, recipient, status, template);
+            //	 notification.setCreatedOn();
+            notificationRepository.save(notification);
 				
 		} catch (PersistenceException pe) {
 			throw new ApplicationException(pe.getMessage());
