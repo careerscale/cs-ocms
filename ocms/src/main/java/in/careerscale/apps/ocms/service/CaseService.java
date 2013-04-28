@@ -28,8 +28,10 @@ import javax.persistence.PersistenceException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -82,7 +84,11 @@ public class CaseService {
 			caseMaster.setLoginMasterByUpdatedBy((LoginMaster)masterDataRepository.getById(LoginMaster.class, new Integer(1)));
 			
 			caseRepository.registerCase(caseMaster);
-            LoginMaster loggedInUser = (LoginMaster) notificationRepository.getById(LoginMaster.class, 1);
+            
+			Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+			ExtendedUser user = (ExtendedUser) authentication.getPrincipal();
+			Integer userId = user.getId();
+			LoginMaster loggedInUser = (LoginMaster) masterDataRepository.getById(LoginMaster.class, userId);
 
             NotificationRecipient recipient = null;
             NotificationStatus status = (NotificationStatus) notificationRepository.getById(NotificationStatus.class, 1);
