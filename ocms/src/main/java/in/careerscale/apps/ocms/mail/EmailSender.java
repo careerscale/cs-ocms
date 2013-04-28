@@ -34,6 +34,7 @@ public class EmailSender {
 	private  final String username;// = "webdemo2012@gmail.com";
 	private  final String password;// = "webdemo2012@123";
 	private  final String from;// = "webdemo2012@gmail.com";
+	private String useSSL="true";
 	
 	
 	public  EmailSender(String host, int sslPort, int smtpPort, String userName, String password, String from){
@@ -47,6 +48,21 @@ public class EmailSender {
 		
 	}
 	
+	
+	
+	public  EmailSender(String host, int sslPort, int smtpPort, String userName, String password, String from, String userSSL){
+		this.host=host;
+		this.SSLport=sslPort;
+		this.smtpPort=smtpPort;
+		this.username=userName;
+		this.password=password;
+		this.from=from;
+		this.useSSL = useSSL;
+		
+		
+	}
+	
+	
 	//TODO update with OCMS/CAREERSCALE email id.
 
 	/**
@@ -58,7 +74,7 @@ public class EmailSender {
 	public void sendEmail(String template, String email) {
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.starttls.enable", useSSL);
 		props.put("mail.smtp.port", smtpPort);
 		Session session = Session.getInstance(props,new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {

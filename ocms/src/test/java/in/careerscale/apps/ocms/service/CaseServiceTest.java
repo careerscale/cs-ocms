@@ -5,6 +5,7 @@ import in.careerscale.apps.ocms.config.RootConfig;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Calendar;
 
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(classes=RootConfig.class,loader=AnnotationConfigContextLoader.class)
 @ContextConfiguration(classes={ RootConfig.class, PersistenceConfig.class})

@@ -47,6 +47,14 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private MasterDataRepository masterDataRepository;
 
+
+	
+	
+	
+	public void setEmailService(EmailSender emailService) {
+		this.emailService = emailService;
+	}
+
 	@PostConstruct
 	protected void initialize() {
 		// userRepository.save(new User("user", "demo", "ROLE_USER"));
