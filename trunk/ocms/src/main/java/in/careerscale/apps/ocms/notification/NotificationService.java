@@ -1,5 +1,6 @@
 package in.careerscale.apps.ocms.notification;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import in.careerscale.apps.ocms.dao.NotificationRepository;
@@ -15,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ibm.icu.util.Calendar;
+
 @Service("notificationService")
 public class NotificationService {
 

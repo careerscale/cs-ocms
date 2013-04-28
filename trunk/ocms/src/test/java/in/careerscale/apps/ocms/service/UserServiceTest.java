@@ -1,80 +1,120 @@
 package in.careerscale.apps.ocms.service;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
+import java.util.Calendar;
 
+import in.careerscale.apps.ocms.config.PersistenceConfig;
+import in.careerscale.apps.ocms.config.RootConfig;
 import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
+import in.careerscale.apps.ocms.mail.EmailSender;
+import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.web.registration.model.User;
 
-
-
-import java.util.Collection;
-
-import org.junit.Rule;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+import org.subethamail.wiser.Wiser;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes=RootConfig.class,loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes={ RootConfig.class, PersistenceConfig.class})
+@WebAppConfiguration
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+@Transactional
 public class UserServiceTest {
 
-	@InjectMocks
-	private UserService userService = new UserService();
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private EmailSender emailService;
+	
+	Wiser wiser = new Wiser();
 
-	@Mock
-	private UserRepository userRepositoryMock;
+	@Before
+	public void setup(){
+	
+		wiser.setPort(2500); // Default is 25
+		wiser.start();
+		wiser.accept("unittest", "unittest");
+		
+		//emailService = new EmailSender("localhost", 2500, 2500, "unittest", "unittest", "unittest","false");
+		//userService.setEmailService(emailService);
+		
+	}
+	
+	@After
+	public void tearDown(){
+		wiser.stop();
+		
+	}
+	
+	
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
-
-	@Test
+	/*@Test
 	public void shouldInitializeWithOneDemoUser() {
 		// act
-		userService.initialize();
+		//userService.initialize();
 		// assert
 		//verify(userRepositoryMock, times(2)).save(any(LoginMaster.class));
 	}
-
+	*/
+	
+	
 	@Test
-	public void shouldThrowExceptionWhenUserNotFound() {
-		// arrange
-		thrown.expect(UsernameNotFoundException.class);
-		thrown.expectMessage("user not found");
-
-		when(userRepositoryMock.findByUsername("user@careerscale.in")).thenReturn(null);
-		// act
-		userService.loadUserByUsername("user@careerscale.in");
+	public void testRegister_normal() throws ApplicationException{
+		
+		User user = new User("testemail", "testfirstname", "testLastName", Calendar.getInstance().getTime());
+		userService.registerUser(user);
+		LoginMaster loginMaster = userRepository.findByUsername("testemail");
+		Assert.assertNotNull(loginMaster);
+		
+		
 	}
-
-	/*@Test
-	public void shouldReturnUserDetails() {
-		// arrange
-		LoginMaster demoUser = new LoginMaster("user@careerscale.in", "test123","demo last name", "ROLE_USER");
-		when(userRepositoryMock.findByUsername("user")).thenReturn(demoUser);
-
-		// act
-		UserDetails userDetails = userService.loadUserByUsername("user");
-
-		// assert
-		assertEquals(demoUser.getEmailId(), userDetails.getUsername());
-		assertEquals(demoUser.getPassword(), userDetails.getPassword());
-		//assertTrue(hasAuthority(userDetails, demoUser.getRole()));
-	}*/
-
-	private boolean hasAuthority(UserDetails userDetails, String role) {
-		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-		for(GrantedAuthority authority : authorities) {
-			if(authority.getAuthority().equals(role)) {
-				return true;
-			}
-		}
-		return false;
+	
+	@Test
+	public void testRegister_nullUserName() throws ApplicationException{
+		
+		User user = new User(null, "testfirstname", "testLastName", Calendar.getInstance().getTime());
+		userService.registerUser(user);
+		//TODO I think the userId should be must, no check is done so far. 
+		
+		LoginMaster loginMaster = userRepository.findByUsername("testemail");
+		Assert.assertNull(loginMaster);
+		
+		
 	}
+	
+
+	@Test(expected=ApplicationException.class)
+	public void testRegister_nullFirstName() throws ApplicationException{		
+		User user = new User("unittest", null, "testLastName", Calendar.getInstance().getTime());
+		userService.registerUser(user);
+	}
+	
+	@Test(expected=ApplicationException.class)
+	public void testRegister_duplicateUserName() throws ApplicationException{		
+		User user = new User("unittest", "testFirstName", "testLastName", Calendar.getInstance().getTime());
+		userService.registerUser(user);
+		userService.registerUser(user);
+		//2nd registration with same user should fail causing ApplicationException
+	}
+	
+
+	
+	
 }
