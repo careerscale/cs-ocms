@@ -2,6 +2,7 @@ package in.careerscale.apps.ocms.service;
 
 import in.careerscale.apps.ocms.config.PersistenceConfig;
 import in.careerscale.apps.ocms.config.RootConfig;
+import in.careerscale.apps.ocms.dao.CaseRepository;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 
@@ -10,10 +11,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.agent.PowerMockAgent;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -44,8 +47,13 @@ import java.util.Calendar;
 @PowerMockIgnore({"javax.management.*", "javax.xml.parsers.*", "com.sun.org.apache.xerces.internal.jaxp.*", "ch.qos.logback.*", "org.slf4j.*"})
 public class CaseServiceTest {
 	
-	@Rule
-    public PowerMockRule rule = new PowerMockRule();
+	 static {
+	       PowerMockAgent.initializeIfNeeded();
+	   }
+
+	
+//	@Rule
+//    public PowerMockRule rule = new PowerMockRule();
 	
 	@Mock
 	SecurityContext mockSecurityContext;   
@@ -54,16 +62,22 @@ public class CaseServiceTest {
 	@Autowired
 	private CaseService caseService;
 	
+	@Mock
+	CaseRepository  caseRepository;
+	
 	@Test
 	public void registerCase() throws ApplicationException{
                 
+		caseRepository= PowerMockito.mock(CaseRepository.class);
+		caseService.setCaseRepository(caseRepository);
 		ExtendedUser extendedUser = PowerMockito.mock(ExtendedUser.class);
 		Authentication auth = PowerMockito.mock(Authentication.class);
 		PowerMockito.mockStatic(SecurityContextHolder.class);
 		System.out.println("\n\n\n before registerCase  1");
 		PowerMockito.when(SecurityContextHolder.getContext()).thenReturn(mockSecurityContext);
 		PowerMockito.when(mockSecurityContext.getAuthentication()).thenReturn(auth);
-		PowerMockito.when(auth.getPrincipal()).thenReturn(extendedUser);		
+		PowerMockito.when(auth.getPrincipal()).thenReturn(extendedUser);	
+		//Mockito.when(caseRepository.registerCase());
 		Case caseBean = new Case("dummycase", "dummy description", "new paper", Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), "232323");
 		System.out.println("\n\n\n before registerCase");
 		caseService.registerCase(caseBean);
