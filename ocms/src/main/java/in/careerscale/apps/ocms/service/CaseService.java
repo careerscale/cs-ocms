@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -79,17 +80,18 @@ public class CaseService {
 			caseMaster.setEmailId(bean.getEmailId());
 			caseMaster.setCreatedOn(Calendar.getInstance().getTime());
 			caseMaster.setUpdatedOn(Calendar.getInstance().getTime());
-			//TODO hardcoded for now, pleaes fetch this from session and use accordingly. 
-			caseMaster.setLoginMasterByCreatedBy((LoginMaster)masterDataRepository.getById(LoginMaster.class, new Integer(1)));
-			caseMaster.setLoginMasterByUpdatedBy((LoginMaster)masterDataRepository.getById(LoginMaster.class, new Integer(1)));
-			
-			caseRepository.registerCase(caseMaster);
-            
-			Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+		    
+			SecurityContext context =SecurityContextHolder.getContext();
+			Authentication authentication = context.getAuthentication();
 			ExtendedUser user = (ExtendedUser) authentication.getPrincipal();
 			Integer userId = user.getId();
 			LoginMaster loggedInUser = (LoginMaster) masterDataRepository.getById(LoginMaster.class, userId);
 
+			caseMaster.setLoginMasterByCreatedBy(loggedInUser);
+			caseMaster.setLoginMasterByUpdatedBy(loggedInUser);
+		
+			caseRepository.registerCase(caseMaster);
+	        
             NotificationRecipient recipient = null;
             NotificationStatus status = (NotificationStatus) notificationRepository.getById(NotificationStatus.class, 1);
             NotificationTemplate template = (NotificationTemplate) notificationRepository.getById(NotificationTemplate.class, 1);
