@@ -9,6 +9,7 @@ import in.careerscale.apps.ocms.web.cases.model.Case;
 
 import java.util.Calendar;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -58,6 +59,7 @@ public class CaseServiceTest {
 //	public PowerMockRule rule = new PowerMockRule();
 
 	
+	@Mock 
 	SecurityContext mockSecurityContext;
 
 	@Autowired
@@ -65,26 +67,34 @@ public class CaseServiceTest {
 
 	@Mock
 	CaseRepository caseRepository;
+	
+	
+	@Before  
+	public void setup(){
 
-	@Test
-	public void registerCase() throws ApplicationException {
-
-		caseRepository = PowerMockito.mock(CaseRepository.class);
+		caseRepository = Mockito.mock(CaseRepository.class);
+		mockSecurityContext = Mockito.mock(SecurityContext.class);
 		caseService.setCaseRepository(caseRepository);
 	
 		System.out.println("\n\n\n before registerCase  1");
+		
 		PowerMockito.mockStatic(SecurityContextHolder.class);
-		mockSecurityContext = PowerMockito.mock(SecurityContext.class);
-		ExtendedUser extendedUser = PowerMockito.mock(ExtendedUser.class);
-		Authentication auth = PowerMockito.mock(Authentication.class);
-		when(SecurityContextHolder.getContext()).thenReturn(mockSecurityContext);
-		Mockito.when(SecurityContextHolder.getContext()).thenReturn(mockSecurityContext);
+ 
+		ExtendedUser extendedUser =Mockito.mock(ExtendedUser.class);
+		Authentication auth = Mockito.mock(Authentication.class);
+
 		Mockito.when(mockSecurityContext.getAuthentication()).thenReturn(auth);
 		Mockito.when(auth.getPrincipal()).thenReturn(extendedUser);
 		Mockito.when(extendedUser.getUsername()).thenReturn("hari");
 		Mockito.when(extendedUser.getId()).thenReturn(1);
-		PowerMockito.when(auth.getPrincipal()).thenReturn(extendedUser);
-		// Mockito.when(caseRepository.registerCase());
+		Mockito.when(auth.getPrincipal()).thenReturn(extendedUser);
+		PowerMockito.when(SecurityContextHolder.getContext()).thenReturn(mockSecurityContext);
+
+		
+	}
+
+	@Test
+	public void registerCase() throws ApplicationException {
 		Case caseBean = new Case("dummycase", "dummy description", "new paper",
 				Calendar.getInstance().getTime(), Calendar.getInstance()
 						.getTime(), "232323");
