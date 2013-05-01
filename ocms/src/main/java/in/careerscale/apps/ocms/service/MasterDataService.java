@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
+import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.OrgType;
@@ -63,6 +64,14 @@ public class MasterDataService {
 	            throw new ApplicationException(pe.getMessage());
 	        }
 	    }
+	 public void addCaseStatus(BOBean caseStatusMaster) throws ApplicationException {
+
+	        try {
+	        	repository.save(new CaseStatusMaster(caseStatusMaster.getName(), caseStatusMaster.getDescription()));
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+	    }
 	 
 	 
 	 
@@ -72,7 +81,7 @@ public class MasterDataService {
 			   List<CaseType> casetypesList =repository.getCaseTypes();
 			   
 			   for (CaseType caseType : casetypesList) {
-				   caseTypes.put(caseType.getId(), caseType.getName());
+				   caseTypes.put(caseType.getId(),caseType.getName());
 				
 			}
 	        } catch (PersistenceException pe) {
@@ -81,6 +90,24 @@ public class MasterDataService {
 		   
 		   return caseTypes;
 	 }
+	 
+	 public Map<Integer, String> getCaseStatus() throws ApplicationException{
+		 Map<Integer, String> caseStatus = new HashMap<Integer, String>();		
+		   try {
+			   List<CaseStatusMaster> caseStatusList =repository.getCaseStatusMasters();
+			   
+			   for (CaseStatusMaster caseStatuses : caseStatusList) {
+				   caseStatus.put(caseStatuses.getId(),caseStatuses.getCaseStatusName());
+				
+			}
+	        } catch (PersistenceException pe) {
+	            throw new ApplicationException(pe.getMessage());
+	        }
+		   
+		   return caseStatus;
+	 }
+	 
+	 
 	 public Map<Integer, String> getHelpCategoryTypes() throws ApplicationException{
 		 Map<Integer, String> helpCategoryTypes = new HashMap<Integer, String>();		
 		   try {
@@ -128,6 +155,7 @@ public class MasterDataService {
 		   return roleTypes;
 	 }
 	 
+	 
 
 	 public List<CaseType> getCaseTypesList() throws ApplicationException{
 		 List<CaseType> casetypesList  = null;  
@@ -173,8 +201,21 @@ public class MasterDataService {
 		   
 		   return roletypesList ;
 	 }
+	 
+	 public List<CaseStatusMaster> getCaseStatusList() throws ApplicationException{
+		 List<CaseStatusMaster> caseStatusList=null;
+		 try{
+			 caseStatusList=repository.getCaseStatusMasters();
+		 }catch(PersistenceException pe)
+		 {
+			 throw new ApplicationException(pe.getMessage());
+		 }
+		 return caseStatusList;
+	 }
 
-		public List<MasterType> getHelpTypes() throws ApplicationException {
+		
+	 
+	 public List<MasterType> getHelpTypes() throws ApplicationException {
 			 List<MasterType> helpTypes = new ArrayList<MasterType>();
 			   try {
 				   List<HelpCategoryType> helpTypesList =repository.getHelpCategoryTypes();
@@ -194,7 +235,8 @@ public class MasterDataService {
 		}
 		
 		
-		 public List<MasterType> getCaseTypes1() throws ApplicationException{
+		
+		public List<MasterType> getCaseTypes1() throws ApplicationException{
 				
 			 List<MasterType> caseTypes = new ArrayList<MasterType>();
 			   try {
@@ -252,5 +294,21 @@ public class MasterDataService {
 			   return orgTypes;
 		 }
 
-		 
+public List<MasterType> getCaseStatus1() throws ApplicationException{
+	
+	 List<MasterType> caseStatus = new ArrayList<MasterType>();
+	   try {
+		   List<CaseStatusMaster> caseStatusList =repository.getCaseStatusMasters();
+		   
+		   for (CaseStatusMaster caseStatus2 : caseStatusList) {
+			   String caseStatusName = caseStatus2.getCaseStatusMaster()!=null?caseStatus2.getCaseStatusMaster().getCaseStatusName()+ " - " + caseStatus2.getCaseStatusName() : caseStatus2.getCaseStatusName();
+			   caseStatus.add(new MasterType(caseStatus2.getId(), caseStatusName));
+			
+		}
+       } catch (PersistenceException pe) {
+           throw new ApplicationException(pe.getMessage());
+       }
+	   
+	   return caseStatus;
+}
 }

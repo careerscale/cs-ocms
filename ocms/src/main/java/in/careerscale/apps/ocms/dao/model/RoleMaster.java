@@ -21,13 +21,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "role_master", catalog = "ocms", uniqueConstraints = @UniqueConstraint(columnNames = "role_name"))
 public class RoleMaster implements java.io.Serializable {
 
-	public RoleMaster getRoleMaster() {
-		return roleMaster;
-	}
-
-	public void setRoleMaster(RoleMaster roleMaster) {
-		this.roleMaster = roleMaster;
-	}
+	
 
 	private Integer id;
 	private String roleName;
@@ -74,6 +68,13 @@ public class RoleMaster implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public RoleMaster getRoleMaster() {
+		return roleMaster;
+	}
+
+	public void setRoleMaster(RoleMaster roleMaster) {
+		this.roleMaster = roleMaster;
 	}
 
 	@Column(name = "role_name", unique = true, nullable = false, length = 45)

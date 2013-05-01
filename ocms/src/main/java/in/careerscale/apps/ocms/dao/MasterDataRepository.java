@@ -2,6 +2,7 @@ package in.careerscale.apps.ocms.dao;
 
 import java.util.List;
 
+import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.OrgType;
@@ -53,6 +54,15 @@ public class MasterDataRepository {
 	{
 		entityManager.persist(roleType);
 	}
+	
+	public CaseStatusMaster getCaseStatus(Integer id)
+	{
+		return entityManager.find(CaseStatusMaster.class, id);
+	}
+	public void save(CaseStatusMaster caseStatusMaster)
+	{
+		entityManager.persist(caseStatusMaster);
+	}
 
 	
 	@SuppressWarnings("unchecked")
@@ -76,6 +86,14 @@ public class MasterDataRepository {
 	public List<RoleMaster> getRoleTypes() {
 		Query query =entityManager.createQuery("SELECT r FROM RoleMaster r order by r.roleMaster.id asc, r.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<CaseStatusMaster> getCaseStatusMasters()
+	{
+		Query query=entityManager.createQuery("select cs from CaseStatusMaster cs order by cs.caseStatusMaster.id asc,cs.id asc");
+		return query.getResultList();
+		
 	}
 	
 	public Object getById(Class classObject, Object id){

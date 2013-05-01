@@ -106,6 +106,35 @@ public class BackOfficeService {
 		}
 	}
 	
+	public void addCaseStatus(BOBean boBean) throws ApplicationException{
+		try
+		{
+			backofficeRepository.save(new CaseStatusMaster(boBean.getName(),boBean.getDescription()));
+		}catch(PersistenceException pe)
+		{
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	
+	public void updateCaseStatus(BOBean boBean) throws ApplicationException{
+		try
+		{
+			backofficeRepository.update(new CaseStatusMaster(boBean.getId(),boBean.getName(),boBean.getDescription()));
+		}catch(PersistenceException pe)
+		{
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	public void deleteCaseStatus(BOBean boBean) throws ApplicationException {
+
+		try {
+			backofficeRepository.delete(new CaseStatusMaster(boBean.getId(), boBean
+					.getName(), boBean.getDescription()));
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+	}
+	
 	public void updateOrgType(BOBean boBean) throws ApplicationException {		
 		try {
 		backofficeRepository.update(new OrgType(
@@ -159,7 +188,7 @@ public class BackOfficeService {
 	}
 	
 	
-	public void addCaseStatusMaster(BOBean boBean)
+	/*public void addCaseStatusMaster(BOBean boBean)
 			throws ApplicationException {
 
 		try {
@@ -170,7 +199,7 @@ public class BackOfficeService {
 			throw new ApplicationException(pe.getMessage());
 		}
 	}
-	
+	*/
 	/*public void addRoleMaster(BOBean boBean)
 			throws ApplicationException {
 
