@@ -29,13 +29,13 @@ public class Case  implements Serializable
 	private String contact2;
 	
 	
-	private List<Integer> caseTypes;
-	private List<Integer> helpTypes;
-	private List<Integer> caseStatus;
+	private List<Integer> caseTypes=new ArrayList<Integer>();
+	private List<Integer> helpTypes= new ArrayList<Integer>();
+	private List<Integer> caseStatus = new ArrayList<Integer>();
 	
-	private List<MasterType> caseMasterTypes;
-	private List<MasterType> helpMasterTypes;
-	private List<MasterType> caseStatusTypes;
+	private List<MasterType> caseMasterTypes= new ArrayList<MasterType>();
+	private List<MasterType> helpMasterTypes = new ArrayList<MasterType>();
+	private List<MasterType> caseStatusTypes=new ArrayList<MasterType>();
 	
 	
 	public Case(){

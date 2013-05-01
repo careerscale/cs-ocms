@@ -53,14 +53,31 @@ public class CaseService {
 
     @Autowired
     private NotificationRepository notificationRepository;
+    
+    
+   	
 
-	@PostConstruct
-	protected void initialize() {
-		// userRepository.save(new User("user", "demo", "ROLE_USER"));
-		// userRepository.save(new User("admin", "admin", "ROLE_ADMIN"));
+	public void setCaseRepository(CaseRepository caseRepository) {
+		this.caseRepository = caseRepository;
 	}
 
-	
+
+
+
+	public void setMasterDataRepository(MasterDataRepository masterDataRepository) {
+		this.masterDataRepository = masterDataRepository;
+	}
+
+
+
+
+	public void setNotificationRepository(
+			NotificationRepository notificationRepository) {
+		this.notificationRepository = notificationRepository;
+	}
+
+
+
 
 	public void registerCase(Case bean) throws ApplicationException {
 		
@@ -73,8 +90,10 @@ public class CaseService {
 				//TODO set DB flag as well.
 			caseMaster.setCaseStatusMaster((CaseStatusMaster)masterDataRepository.getById(CaseStatusMaster.class, new Integer(2))); 
 			//TODO replace with status enum or something like that. Here 2 means pending in db.
-			caseMaster.setCaseType((CaseType) masterDataRepository.getCaseType(bean.getCaseTypes().get(0)));
-			caseMaster.setHelpCategoryType((HelpCategoryType)masterDataRepository.getHelpCategoryType(bean.getHelpTypes().get(0)));
+			if(bean.getCaseTypes().size()>0)
+				caseMaster.setCaseType((CaseType) masterDataRepository.getCaseType(bean.getCaseTypes().get(0)));
+			if(bean.getHelpMasterTypes().size()>0)
+				caseMaster.setHelpCategoryType((HelpCategoryType)masterDataRepository.getHelpCategoryType(bean.getHelpTypes().get(0)));
 			caseMaster.setContactNumber1(bean.getContact1());
 			caseMaster.setContactNumber2(bean.getContact2());
 			caseMaster.setEmailId(bean.getEmailId());
