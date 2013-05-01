@@ -151,8 +151,28 @@ public class BackOfficeRepository {
 		entityManager.persist(caseStatusMaster);
 	}
 
+	public void update(CaseStatusMaster caseStatusMaster)
+	{
+		CaseStatusMaster caseStatusMaster1=entityManager.find(CaseStatusMaster.class,caseStatusMaster.getId());
+		if(caseStatusMaster.getCaseStatusName() != null)
+		{
+			caseStatusMaster1.setCaseStatusName(caseStatusMaster.getCaseStatusName());
+		}else
+		{
+			caseStatusMaster1.setCaseStatusDescription(caseStatusMaster.getCaseStatusDescription());
+		}
+		entityManager.merge(caseStatusMaster1);
+		entityManager.flush();
+	}
+	public void delete(CaseStatusMaster caseStatusMaster) {
+		// String query = "DELETE FROM CASE_TYPE where name = {:name}";
+		// entityManager.createNativeQuery(query).setParameter(1,
+		// caseType.getName()).executeUpdate();
+		caseStatusMaster = entityManager.find(CaseStatusMaster.class, caseStatusMaster.getId());
+		entityManager.remove(caseStatusMaster);
+		entityManager.flush();
+	}
 	
-
 	
 
 	public ModuleMaster getModuleMaster(Integer id) {

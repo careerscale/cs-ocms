@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.OrgType;
@@ -339,6 +340,8 @@ public class BackOfficeController {
 		return "backoffice/orgtype";
 
 	}
+		
+	
 	
 
 	@RequestMapping(value = "/backoffice/addOrgType", method = RequestMethod.GET)
@@ -354,9 +357,8 @@ public class BackOfficeController {
 					"Unable do add the case."));
 
 		}
-		log.debug("Within GET method for /backoffice/addOrgType");
+		log.debug("Within GET method for /backoffice/addOrgType"); 
 	}
-
 	@RequestMapping(value = "/backoffice/addOrgType", method = RequestMethod.POST)
 	public String addOrgType(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
@@ -435,6 +437,11 @@ public class BackOfficeController {
 			return bean.getDescription();
 		}
 	}
+			
+		
+		
+		
+
 	@RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)
 	public String getRoleType(
 			@ModelAttribute(value = "botypeList") ArrayList<BOBean> lstBean,
@@ -465,7 +472,7 @@ public class BackOfficeController {
 		return "backoffice/rolemaster";
 
 	}
-	
+	@RequestMapping(value = "/backoffice/updateRoleMaster", method = RequestMethod.POST)
 	public @ResponseBody
 	String updateRoleType(@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
@@ -560,10 +567,130 @@ public class BackOfficeController {
 		log.debug("Within GET method for /backoffice/addRoleType");
 
 	}
+	@RequestMapping(value="/backoffice/casestatus",method = RequestMethod.GET)
+	public String getCaseStatus( @ModelAttribute(value="botypeList") ArrayList<BOBean> lstBean, 
+			BindingResult errors,HttpServletRequest request, HttpServletResponse response)
+	{
+		log.debug("Within GET method for /backoffice/casestatus");
+		List<CaseStatusMaster> caseStatusMasterList=null;
+		try{
+			caseStatusMasterList=masterDataService.getCaseStatusList();
+		}catch (ApplicationException ae) {
+			log.error(ae);
+		}
+		BOBean boBean=null;
+		Iterator<CaseStatusMaster> it=caseStatusMasterList.iterator();
+		Integer intName=null;
+		CaseStatusMaster caseStatusMaster=null;
+		while(it.hasNext())
+		{
+			caseStatusMaster=(CaseStatusMaster)it.next();
+			boBean=new BOBean();
+			boBean.setName(caseStatusMaster.getCaseStatusName());
+			boBean.setDescription(caseStatusMaster.getCaseStatusDescription());
+			boBean.setId(caseStatusMaster.getId());
+			lstBean.add(boBean);
+		}
+		return "backoffice/casestatus";
+		}
+
+	
+	@RequestMapping(value="/backoffice/addCaseStatus", method=RequestMethod.GET)
+	public void caseStatus(@ModelAttribute(value="botype") BOBean bean,
+			BindingResult errors,HttpServletRequest request,HttpServletResponse response)
+	{
+		request.getParameterNames();
+		try{
+			backOfficeService.addCaseStatus(bean);
+		}catch(ApplicationException ae)
+		{
+			errors.addError(new ObjectError("caseStatusError","unable to add status" ));
+		}
+		log.debug("Within GET method for /backoffice/addCaseStatus");
+	}
+	
+	
+	@RequestMapping(value = "/backoffice/addCaseStatus", method = RequestMethod.POST)
+	public String addCaseStatus(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		// TODO Validations on server side
+
+		try {
+			backOfficeService.addCaseStatus(bean);
+
+		} catch (ApplicationException ae) {
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("caseTypeError",
+					"Unable do add the case."));
+			return "backoffice/casestatus";
+		}
+		return "backoffice/success"; // we need to return next page.
+	}
+	@RequestMapping(value="/backoffice/updateCaseStatus",method=RequestMethod.POST )
+	public @ResponseBody
+	String updateCaseStatus(@ModelAttribute(value="botype")BOBean bean, BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response){
+		String id=request.getParameter("id");
+		boolean boolName=false;
+		String value=request.getParameter("value");
+		String clname=request.getParameter("columnName");
+		try{
+			if(value != null && id != null && id.length()>0)
+			{
+				bean = new BOBean();
+				bean.setId(Integer.parseInt(id));
+				if(clname.equalsIgnoreCase("Case Status Nmae"))
+				{
+					bean.setName(value);
+					boolName=true;
+				}else
+					bean.setDescription(value);
+			}
+			backOfficeService.updateCaseStatus(bean);
+		}catch (ApplicationException ae) {
+			errors.addError(new ObjectError("caseStatusError",
+					"Unable do add the organization."));
+
+		}
+		log.debug("Within GET method for /backoffice/updateCaseStatus");
+		if (boolName) {
+			return bean.getName();
+		} else {
+			return bean.getDescription();
+		}
+	}
+
+	@RequestMapping(value = "/backoffice/delCaseStatus", method = RequestMethod.GET)
+	public void deleteCaseStatus(@ModelAttribute(value = "botype") BOBean bean,
+			BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) {
+		String id = request.getParameter("id");
+
+		try {
+			if (bean.getName() == null && id != null && id.length() > 0) {
+				bean = new BOBean();
+				bean.setId(Integer.parseInt(id));
+			}
+			backOfficeService.deleteCaseStatus(bean);
+
+		} catch (ApplicationException ae) {
+			errors.addError(new ObjectError("casestatus",
+					"Unable do add the organization."));
+
+		}
+		log.debug("Within GET method for /backoffice/delCaseStatus");
+
+	}
+	
 
 	// .....for case satatus.....
+	
 
-	@RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/backoffice/casestatus", method = RequestMethod.GET)
 	public String caseStatusMasterIndex(
 			@ModelAttribute(value = "botype") BOBean bean,
 			BindingResult errors, HttpServletRequest request,
@@ -593,7 +720,7 @@ public class BackOfficeController {
 			return "backoffice/casestatus";
 		}
 		return "backoffice/success"; // we need to return next page.
-	}
+	}*/
 
 	// ........................>>>for role master<<......................
 	/*@RequestMapping(value = "/backoffice/rolemaster", method = RequestMethod.GET)

@@ -4,11 +4,16 @@ package in.careerscale.apps.ocms.dao.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,8 +25,9 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "case_status_master", catalog = "ocms", uniqueConstraints = @UniqueConstraint(columnNames = "case_status_name"))
 public class CaseStatusMaster implements java.io.Serializable {
-
-	private Integer id;
+	
+    private CaseStatusMaster caseStatusMaster;
+    private Integer id;
 	private String caseStatusName;
 	private String caseStatusDescription;
 	private Set<CaseMaster> caseMasters = new HashSet<CaseMaster>(0);
@@ -39,6 +45,14 @@ public class CaseStatusMaster implements java.io.Serializable {
 		this.caseStatusName = caseStatusName;
 		this.caseStatusDescription = caseStatusDescription;
 	}
+	
+	public CaseStatusMaster(Integer id,String caseStatusName, String caseStatusDescription) {
+		super();
+		this.id=id;
+		this.caseStatusName = caseStatusName;
+		this.caseStatusDescription = caseStatusDescription;
+	}
+	
 
 	public CaseStatusMaster(String caseStatusName,
 			String caseStatusDescription, Set<CaseMaster> caseMasters) {
@@ -74,6 +88,15 @@ public class CaseStatusMaster implements java.io.Serializable {
 
 	public void setCaseStatusDescription(String caseStatusDescription) {
 		this.caseStatusDescription = caseStatusDescription;
+	}
+	
+	
+	public CaseStatusMaster getCaseStatusMaster() {
+		return caseStatusMaster;
+	}
+
+	public void setCaseStatusMaster(CaseStatusMaster caseStatusMaster) {
+		this.caseStatusMaster = caseStatusMaster;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseStatusMaster")
