@@ -239,19 +239,43 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `document_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `document_type` ;
+
+CREATE  TABLE IF NOT EXISTS `document_type` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `case_type_id` INT NULL ,
+  `supported_formats` VARCHAR(150) NULL ,
+  `is_mandatory` BIT NULL ,
+  `max_size` INT NULL ,
+  `name` VARCHAR(100) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_document_type_case_type_id_idx` (`case_type_id` ASC) ,
+  CONSTRAINT `fk_document_type_case_type_id`
+    FOREIGN KEY (`case_type_id` )
+    REFERENCES `case_type` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `case_artifact`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `case_artifact` ;
 
 CREATE  TABLE IF NOT EXISTS `case_artifact` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `artifact_type` VARCHAR(25) NOT NULL ,
   `artifact` BLOB NOT NULL ,
   `case_id` INT NOT NULL ,
   `added_by` INT NULL ,
+  `file_extension` VARCHAR(45) NULL ,
+  `document_type` INT NULL ,
   INDEX `fk_case_artifacts_case_id_idx` (`case_id` ASC) ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_case_artifact_user_id_idx` (`added_by` ASC) ,
+  INDEX `fk_case_artifact_document_type_idx` (`document_type` ASC) ,
   CONSTRAINT `fk_case_artifacts_case_id`
     FOREIGN KEY (`case_id` )
     REFERENCES `case_master` (`id` )
@@ -260,6 +284,11 @@ CREATE  TABLE IF NOT EXISTS `case_artifact` (
   CONSTRAINT `fk_case_artifact_user_id`
     FOREIGN KEY (`added_by` )
     REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_case_artifact_document_type`
+    FOREIGN KEY (`document_type` )
+    REFERENCES `document_type` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -710,6 +739,25 @@ CREATE  TABLE IF NOT EXISTS `notification` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `document_options`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `document_options` ;
+
+CREATE  TABLE IF NOT EXISTS `document_options` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(100) NULL ,
+  `document_type_id` INT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `document_options_doc_type_id_idx` (`document_type_id` ASC) ,
+  CONSTRAINT `document_options_doc_type_id`
+    FOREIGN KEY (`document_type_id` )
+    REFERENCES `document_type` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 USE `ocms` ;
 
 
@@ -848,36 +896,5 @@ INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secre
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (2, 'Facebook', 'Facebook', '547688988597448', '9a07fdf996236b9c4e7a010549d638d3', 'http://careerscale.in:9090/facebook-callback', NULL);
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (3, 'Google', 'Google', '179271485873.apps.googleusercontent.com', 'ghGOdAEKfCWlz_ClgbYLTLEp', 'http://localhost:9090/google-callback', 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile');
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (4, 'Twitter', 'Twitter', 'FDyGFjNABJKZlPo80TmcA', '0JS0T1PcgFVDQlKhaM6LNwhInzhjmrimgq0k88QgUE', 'http://localhost:9090/twitter-callback', NULL);
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `notification_template_status`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `ocms`;
-INSERT INTO `notification_template_status` (`id`, `name`) VALUES (1, 'Active');
-INSERT INTO `notification_template_status` (`id`, `name`) VALUES (2, 'Pending');
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `notification_template`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `ocms`;
-INSERT INTO `notification_template` (`id`, `name`, `status_id`) VALUES (1, 'NewCase', 1);
-
-COMMIT;
-
--- -----------------------------------------------------
--- Data for table `notification_status`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `ocms`;
-INSERT INTO `notification_status` (`id`, `name`) VALUES (1, 'Pending');
-INSERT INTO `notification_status` (`id`, `name`) VALUES (2, 'Processing');
-INSERT INTO `notification_status` (`id`, `name`) VALUES (3, 'Processed');
-INSERT INTO `notification_status` (`id`, `name`) VALUES (4, 'Failed');
 
 COMMIT;
