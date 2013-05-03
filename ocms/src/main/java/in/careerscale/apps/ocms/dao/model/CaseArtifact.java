@@ -23,6 +23,7 @@ public class CaseArtifact implements java.io.Serializable {
 	private LoginMaster loginMaster;
 	private CaseMaster caseMaster;
 	private String artifactType;
+	private Document document;
 	private byte[] artifact;
 
 	public CaseArtifact() {
@@ -90,6 +91,15 @@ public class CaseArtifact implements java.io.Serializable {
 
 	public void setArtifact(byte[] artifact) {
 		this.artifact = artifact;
+	}
+	 @ManyToOne(fetch=FetchType.LAZY)
+	    @JoinColumn(name="documet_type", nullable=true)
+	public Document getDocument() {
+		return document;
+	}
+
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 }
