@@ -23,7 +23,7 @@ public class CaseArtifact implements java.io.Serializable {
 	private LoginMaster loginMaster;
 	private CaseMaster caseMaster;
 	private String artifactType;
-	private Document document;
+	private DocumentType documentType;
 	private byte[] artifact;
 
 	public CaseArtifact() {
@@ -94,12 +94,12 @@ public class CaseArtifact implements java.io.Serializable {
 	}
 	 @ManyToOne(fetch=FetchType.LAZY)
 	    @JoinColumn(name="documet_type", nullable=true)
-	public Document getDocument() {
-		return document;
+	public DocumentType getDocumentType() {
+		return documentType;
 	}
 
-	public void setDocument(Document document) {
-		this.document = document;
+	public void setDocumentType(DocumentType documentType) {
+		this.documentType = documentType;
 	}
 
 }
