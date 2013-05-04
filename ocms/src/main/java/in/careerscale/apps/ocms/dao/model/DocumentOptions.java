@@ -17,7 +17,7 @@ import sun.misc.JavaAWTAccess;
 public class DocumentOptions implements java.io.Serializable {
 	private Integer id;
 	private String name;
-	private Document documentType;
+	private DocumentType documentType;
 	
 	public DocumentOptions()
 	{
@@ -32,7 +32,7 @@ public class DocumentOptions implements java.io.Serializable {
 	{
 		this.name=name;
 	}
-	public DocumentOptions(String name,Document documentType)
+	public DocumentOptions(String name,DocumentType documentType)
 	{
 		this.name=name;
 		this.documentType=documentType;
@@ -55,10 +55,10 @@ public class DocumentOptions implements java.io.Serializable {
 	}
 	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="document_type", nullable=true)
-	public Document getDocumentType() {
+	public DocumentType getDocumentType() {
 		return documentType;
 	}
-	public void setDocumentType(Document documentType) {
+	public void setDocumentType(DocumentType documentType) {
 		this.documentType = documentType;
 	}
 }

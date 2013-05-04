@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="document_type",catalog="ocms")
-public class Document implements java.io.Serializable{
+public class DocumentType implements java.io.Serializable{
 	
 	private Integer id;
 	private String name;
@@ -29,10 +29,10 @@ public class Document implements java.io.Serializable{
 	private Set<CaseArtifact> caseArtifact=new HashSet<CaseArtifact>(0);
 	private Set<DocumentOptions> documentOptions=new HashSet<DocumentOptions>(0);
 	
-	public Document()
+	public DocumentType()
 	{}
 	
-	public Document(String name,String supportedFormat,CaseType caseType,boolean mandatory,Integer maxSize)
+	public DocumentType(String name,String supportedFormat,CaseType caseType,boolean mandatory,Integer maxSize)
 	{
 		this.caseType=caseType;
 		this.mandatory=true;
@@ -40,7 +40,7 @@ public class Document implements java.io.Serializable{
 		this.name=name;
 		this.supportedFormat=supportedFormat;
 	}
-	public Document(String name,String supportedFormat,CaseType caseType,boolean mandatory,Integer maxSize,Set<CaseArtifact> caseArtifact)
+	public DocumentType(String name,String supportedFormat,CaseType caseType,boolean mandatory,Integer maxSize,Set<CaseArtifact> caseArtifact)
 	{
 		this.caseType=caseType;
 		this.mandatory=true;
@@ -50,7 +50,7 @@ public class Document implements java.io.Serializable{
 		this.caseArtifact=caseArtifact;
 	}
 	
-	public Document(String name,String supportedFormat,CaseType caseType,boolean mandatory,Integer maxSize,Set<CaseArtifact> caseArtifact,Set<DocumentOptions> documentOptions)
+	public DocumentType(String name,String supportedFormat,CaseType caseType,boolean mandatory,Integer maxSize,Set<CaseArtifact> caseArtifact,Set<DocumentOptions> documentOptions)
 	{
 		this.caseType=caseType;
 		this.mandatory=true;
@@ -116,7 +116,7 @@ public class Document implements java.io.Serializable{
 		this.maxSize = maxSize;
 	}
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="document")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="documentType")
 	public Set<CaseArtifact> getCaseArtifact() {
 		return caseArtifact;
 	}
@@ -124,7 +124,7 @@ public class Document implements java.io.Serializable{
 	public void setCaseArtifact(Set<CaseArtifact> caseArtifact) {
 		this.caseArtifact = caseArtifact;
 	}
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="documentTypes")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="documentType")
 	public Set<DocumentOptions> getDocumentOptions() {
 		return documentOptions;
 	}
