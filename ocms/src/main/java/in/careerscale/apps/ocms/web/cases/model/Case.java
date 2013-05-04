@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 @SuppressWarnings("serial")
 public class Case  implements Serializable 
 {
+	private int id; //used only for doc upload.
 	private String personName;
 	private String emailId;
 	private String caseDescription;
@@ -282,6 +283,15 @@ public class Case  implements Serializable
 	public List<MasterType> getCountryMasterTypes() {
 		return countryMasterTypes;
 	}
+	
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String toString() {
 		return new ToStringBuilder(this).
 			      // append("id", id).
@@ -296,6 +306,7 @@ public class Case  implements Serializable
 	private String trim(String input){		
 		 return input != null ?input.replaceAll("^\"|\"$", ""): input;
 	 }
+
 	
 	
 
