@@ -36,6 +36,10 @@ public class Case  implements Serializable
 	private List<MasterType> caseMasterTypes= new ArrayList<MasterType>();
 	private List<MasterType> helpMasterTypes = new ArrayList<MasterType>();
 	private List<MasterType> caseStatusTypes=new ArrayList<MasterType>();
+	private List<MasterType> countryMasterTypes=new ArrayList<MasterType>();
+	private String countryId;
+	private String stateId;
+	private String cityId;
 	
 	
 	public Case(){
@@ -250,6 +254,34 @@ public class Case  implements Serializable
 		this.caseStatusTypes = caseStatusTypes;
 	}
 	
+	public void setCountryMasterTypes(List<MasterType> countries) {
+		this.countryMasterTypes = countries;
+		
+	}
+	
+	
+	
+	public String getCountryId() {
+		return countryId;
+	}
+	public void setCountryId(String countryId) {
+		this.countryId = countryId;
+	}
+	public String getStateId() {
+		return stateId;
+	}
+	public void setStateId(String stateId) {
+		this.stateId = stateId;
+	}
+	public String getCityId() {
+		return cityId;
+	}
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
+	}
+	public List<MasterType> getCountryMasterTypes() {
+		return countryMasterTypes;
+	}
 	public String toString() {
 		return new ToStringBuilder(this).
 			      // append("id", id).
@@ -264,6 +296,7 @@ public class Case  implements Serializable
 	private String trim(String input){		
 		 return input != null ?input.replaceAll("^\"|\"$", ""): input;
 	 }
+	
 	
 
 }

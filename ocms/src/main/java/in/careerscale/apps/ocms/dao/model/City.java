@@ -52,7 +52,7 @@ public class City implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_state_id", nullable = false)
+	@JoinColumn(name = "state_id", nullable = false)
 	public State getState() {
 		return this.state;
 	}

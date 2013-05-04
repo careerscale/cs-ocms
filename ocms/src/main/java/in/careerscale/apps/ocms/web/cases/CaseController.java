@@ -68,6 +68,7 @@ public class CaseController implements Validator  {
 		try {
 			bean.setCaseMasterTypes(masterDataService.getCaseTypes1());
 			bean.setHelpMasterTypes(masterDataService.getHelpTypes());
+			bean.setCountryMasterTypes(masterDataService.getCountries());
 		} catch (ApplicationException e) {
 			log.error("error while retrieving master data", e);
 		}

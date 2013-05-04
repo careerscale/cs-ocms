@@ -48,14 +48,58 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$.get("/master/casetypes", function(data, status) {
-			$.each(data, function(key, val) {
-				//alert('key and values are ' + key + '  ' + val);
-			});
-		});
+	$(document).ready(
+			function() {
+				$.get("/master/states", function(data, status) {
+					$.each(data, function(key, val) {
+						//alert('key and values are ' + key + '  ' + val);
+					});
+				});
 
-	});
+				$('#countryId').change(
+						function() {
+                           
+							$.get("/master/states?countryId="
+									+ $('#countryId').val(), function(data,
+									status) {
+
+								var html = '';
+
+								jQuery('#dropdown').append(html);
+								$.each(data, function(key, value) {
+									html += '<option value="'+key+'">'
+											+ value.name + '</option>';
+								}
+
+								);
+								
+								$('#stateId').empty().append(html);
+							});
+						});
+
+				$('#stateId').change(
+						function() {
+							alert($('#stateId').val());
+							$.get("/master/cities?stateId="
+									+ $('#stateId').val(), function(data,
+									status) {
+
+								var html = '';
+
+								jQuery('#dropdown').append(html);
+								$.each(data, function(key, value) {
+
+									html += '<option value="'+key+'">'
+											+ value.name + '</option>';
+								}
+
+								);
+
+								$('#cityId').empty().append(html);
+							});
+						});
+
+			});
 </script>
 
 <div id="page-container" class="resize">
@@ -101,15 +145,16 @@
 								class="required" tabindex="1" /></td>
 					</tr>
 					<tr>
-					 <td class="label"><label for ="emailId">Email Address</label></td>
-					 <td class="field"><form:input path="emailId" type="email" tabindex="2"/></td>
+						<td class="label"><label for="emailId">Email Address</label></td>
+						<td class="field"><form:input path="emailId" type="email"
+								tabindex="2" /></td>
 					</tr>
 					<tr>
 						<td class="label"><label for="caseDescription">Case
 								Details(should be multi line):</label></td>
 
 						<td class="field"><form:input path="caseDescription"
-								type="textarea" class="required"  value="" tabindex="2" /></td>
+								type="textarea" class="required" value="" tabindex="2" /></td>
 					</tr>
 					<tr>
 						<td class="label"><label for="firstName">Concerned
@@ -126,15 +171,15 @@
 					</tr>
 
 					<tr>
-						<td class="label"><label for="contact1">Contact Number 1
-								</label></td>
+						<td class="label"><label for="contact1">Contact
+								Number 1 </label></td>
 						<td class="field"><form:input path="contact1" type="text"
 								class="required" tabindex="7" maxlength="40" /></td>
 					</tr>
-					
-										<tr>
-						<td class="label"><label for="contact2">Contact Number 2
-								</label></td>
+
+					<tr>
+						<td class="label"><label for="contact2">Contact
+								Number 2 </label></td>
 						<td class="field"><form:input path="contact2" type="text"
 								class="required" tabindex="8" maxlength="40" /></td>
 					</tr>
@@ -161,6 +206,34 @@
 									itemValue="id" itemLabel="name" />
 							</form:select></td>
 					</tr>
+
+					<tr>
+						<td class="label"><label for="countryId"
+							title='Country Selection'>Country</label></td>
+						<td class="field"><form:select path="countryId"
+								multiple="false">
+								<form:options items="${caseDetails.countryMasterTypes}"
+									itemValue="id" itemLabel="name" />
+							</form:select></td>
+					</tr>
+
+					<tr>
+						<td class="label"><label for="stateId"
+							title='State Selection'>State</label></td>
+						<td class="field"><form:select path="stateId"
+								multiple="false">
+
+							</form:select></td>
+					</tr>
+
+
+					<tr>
+						<td class="label"><label for="cityId" title='City Selection'>City</label></td>
+						<td class="field"><form:select path="cityId" multiple="false">
+							</form:select></td>
+					</tr>
+
+
 					<tr>
 						<td></td>
 						<td>

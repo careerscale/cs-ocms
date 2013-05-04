@@ -4,9 +4,12 @@ import java.util.List;
 
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.City;
+import in.careerscale.apps.ocms.dao.model.Country;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.OrgType;
 import in.careerscale.apps.ocms.dao.model.RoleMaster;
+import in.careerscale.apps.ocms.dao.model.State;
 
 import javax.persistence.*;
 
@@ -98,6 +101,21 @@ public class MasterDataRepository {
 	
 	public Object getById(Class classObject, Object id){
 		return entityManager.find(classObject, id);
+	}
+
+	public List<Country> getCountries() {
+		Query query=entityManager.createQuery("select c from Country c");
+		return query.getResultList();
+	}
+	
+	public List<State> getStates(Integer countryId) {
+		Query query=entityManager.createQuery("select s from State s where s.country.id = " +countryId);
+		return query.getResultList();
+	}
+	
+	public List<City> getCities(Integer stateId) {
+		Query query=entityManager.createQuery("select c from City c where c.state.id="+ stateId);
+		return query.getResultList();
 	}
 
 	
