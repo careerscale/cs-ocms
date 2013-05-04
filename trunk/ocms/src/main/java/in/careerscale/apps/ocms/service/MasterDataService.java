@@ -8,9 +8,12 @@ import java.util.Map;
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.City;
+import in.careerscale.apps.ocms.dao.model.Country;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.OrgType;
 import in.careerscale.apps.ocms.dao.model.RoleMaster;
+import in.careerscale.apps.ocms.dao.model.State;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.service.model.MasterType;
@@ -311,4 +314,52 @@ public List<MasterType> getCaseStatus1() throws ApplicationException{
 	   
 	   return caseStatus;
 }
+
+	public List<MasterType> getCountries() throws ApplicationException {
+		List<MasterType> countries = new ArrayList<MasterType>();
+		try {
+			List<Country> countriesList = repository.getCountries();
+
+			for (Country country : countriesList) {
+				countries.add(new MasterType(country.getId(), country.getName()));
+
+			}
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+
+		return countries;
+	}
+	
+	public List<MasterType> getStates(Integer countryId) throws ApplicationException {
+		List<MasterType> states = new ArrayList<MasterType>();
+		try {
+			List<State> statesList = repository.getStates(countryId);
+
+			for (State state : statesList) {
+				states.add(new MasterType(state.getId(), state.getName()));
+
+			}
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+
+		return states;
+	}
+	
+	public List<MasterType> getCities(Integer stateId) throws ApplicationException {
+		List<MasterType> cities = new ArrayList<MasterType>();
+		try {
+			List<City> citiesList = repository.getCities(stateId);
+
+			for (City city : citiesList) {
+				cities.add(new MasterType(city.getId(), city.getCityName()));
+
+			}
+		} catch (PersistenceException pe) {
+			throw new ApplicationException(pe.getMessage());
+		}
+
+		return cities;
+	}	
 }

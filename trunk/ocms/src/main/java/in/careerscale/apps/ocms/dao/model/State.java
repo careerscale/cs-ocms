@@ -53,7 +53,7 @@ public class State implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fk_country_id", nullable = false)
+	@JoinColumn(name = "country_id", nullable = false)
 	public Country getCountry() {
 		return this.country;
 	}
