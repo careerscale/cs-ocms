@@ -1,16 +1,13 @@
 package in.careerscale.apps.ocms.web.cases;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import in.careerscale.apps.ocms.service.CaseService;
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
-import in.careerscale.apps.ocms.service.model.MasterType;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
 import in.careerscale.apps.ocms.web.cases.model.DocumentType;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @Secured("ROLE_USER")
-public class CaseController implements Validator {
+public class CaseController  {
 
 	Log log = LogFactory.getLog(CaseController.class);
 
@@ -111,15 +106,4 @@ public class CaseController implements Validator {
 
 	}
 	
-	@Override
-	public boolean supports(Class<?> clazz) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void validate(Object target, Errors errors) {
-		// TODO Auto-generated method stub
-
-	}
 }
