@@ -3,9 +3,11 @@ package in.careerscale.apps.ocms.service;
 import in.careerscale.apps.ocms.dao.CaseRepository;
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.NotificationRepository;
+import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.City;
 import in.careerscale.apps.ocms.dao.model.DocumentType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
@@ -13,7 +15,9 @@ import in.careerscale.apps.ocms.dao.model.Notification;
 import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
 import in.careerscale.apps.ocms.dao.model.NotificationStatus;
 import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
+import in.careerscale.apps.ocms.dao.model.UserNetwork;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.service.model.RegistrationResult;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 
 import java.util.ArrayList;
@@ -61,6 +65,7 @@ public class CaseService {
 	public CaseMaster registerCase(Case bean) throws ApplicationException {
 
 		CaseMaster caseMaster;
+	
 		try {
 
 			caseMaster = new CaseMaster(bean.getCreatedDate(),
@@ -96,6 +101,17 @@ public class CaseService {
 
 			caseMaster.setLoginMasterByCreatedBy(loggedInUser);
 			caseMaster.setLoginMasterByUpdatedBy(loggedInUser);
+			
+			
+			
+			//Integer case1=bean.getCityId();
+			City city=(City) caseRepository.getById(City.class, 1);
+			/*Case case1=new Case();
+			Address address=new Address(city,"hhhhh",case1.getAddressLine2(),case1.getZipcode());*/
+			Address address=new Address(city,bean.getAddressLine1(),bean.getAddressLine2(),bean.getZipcode());
+			caseRepository.save(address);
+			caseMaster.setAddress((Address) caseRepository.getById(Address.class, 1));
+			//caseMaster.setAddress(address);
 
 			caseRepository.registerCase(caseMaster);
 			bean.setId(caseMaster.getId());
@@ -112,6 +128,8 @@ public class CaseService {
 					recipient, status, template);
 			// notification.setCreatedOn();
 			notificationRepository.save(notification);
+			
+			
 			
 
 		} catch (PersistenceException pe) {
