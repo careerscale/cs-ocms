@@ -21,6 +21,7 @@ import javax.persistence.Table;
 public class City implements java.io.Serializable {
 
 	private int id;
+	private City city;
 	private State state;
 	private String cityName;
 	private Set<Address> addresses = new HashSet<Address>(0);
