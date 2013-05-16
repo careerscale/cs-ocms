@@ -27,6 +27,8 @@ public class CaseMaster implements java.io.Serializable {
 
 	private Integer id;
 	private CaseMaster caseMaster;
+	
+
 	private Address address;
 	private LoginMaster loginMasterByCreatedBy;
 	private CaseStatusMaster caseStatusMaster;
@@ -154,6 +156,23 @@ public class CaseMaster implements java.io.Serializable {
 		this.contactNumber1=contact1;
 		this.contactNumber2= contact2;
 		this.source=caseSource;
+		
+		
+	}
+	public CaseMaster(Address address,Date createdDate, Date updatedDate, String personName2,
+			String emialId,Date dateOfBirth2, String caseDescription2, String contact1,
+			String contact2, String caseSource) {
+		this.address=address;
+		this.emailId=emialId;
+		this.createdOn =createdDate;
+		this.updatedOn=updatedDate;
+		this.personName=personName2;
+		this.dateOfBirth=dateOfBirth2;
+		this.caseDescription= caseDescription2;
+		this.contactNumber1=contact1;
+		this.contactNumber2= contact2;
+		this.source=caseSource;
+		
 		
 	}
 
@@ -348,6 +367,7 @@ public class CaseMaster implements java.io.Serializable {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
 
 
 }
