@@ -37,9 +37,7 @@
 						${entry.maxSize} <br />
 
 					</h3>
-					<%=request.getAttribute("caseTypeId")%>
-
-					<%=request.getAttribute("caseId")%>
+				
 
 				</div>
 
@@ -58,9 +56,10 @@
 							value="${caseDocuments[i].documentTypeId}" />
 
 						<tr>
-							<td class="label"><label for="${caseDocuments[i].file}">${entry.name}</label></td>
+						   <% String pathId="caseDocuments["+ i+ "].file"; %>
+							<td class="label"><label for=<%=pathId %>>${entry.name}</label></td>
 							<td class="field"><form:input
-									path="${caseDocuments[i].file}" type="file" /></td>
+									path="<%=pathId %>" type="file" /></td>
 						</tr>
 
 						<%

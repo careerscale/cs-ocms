@@ -102,7 +102,7 @@ public class CaseController  {
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		//TODO implement here
-		return "cases/registeredcases.jsp";
+		return "cases/registeredcases";
 
 	}
 	
