@@ -66,6 +66,8 @@ public class MasterDataRepository {
 	{
 		entityManager.persist(caseStatusMaster);
 	}
+   
+
 
 	
 	@SuppressWarnings("unchecked")
