@@ -48,57 +48,100 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
-				$.get("/master/states", function(data, status) {
-					$.each(data, function(key, val) {
-						
-						//alert('key and values are ' + key + '  ' + val);
+	$(document)
+			.ready(
+					function() {
+						$.get("/master/states", function(data, status) {
+							$.each(data, function(key, val) {
+
+								//alert('key and values are ' + key + '  ' + val);
+							});
+						});
+
+						$('select#countryId')
+								.change(
+										function() {
+
+											$
+													.get(
+															"/master/states?countryId="
+																	+ $(
+																			'#countryId')
+																			.val(),
+															function(data,
+																	status) {
+
+																var html = '<option value="">Select your State</option>';
+
+																jQuery(
+																		'#dropdown')
+																		.append(
+																				html);
+																$
+																		.each(
+																				data,
+																				function(
+																						id,
+																						value) {
+																					html += '<option value="'+value.id+'">'
+																							+ value.name
+																							+ '</option>';
+
+																				}
+
+																		);
+
+																$(
+																		'select#stateId')
+																		.empty()
+																		.append(
+																				html);
+															});
+										});
+
+						$('select#stateId')
+								.change(
+										function() {
+											
+											$
+													.get(
+															"/master/cities?stateId="
+																	+ $(
+																			'#stateId')
+																			.val(),
+															function(data,
+																	status) {
+
+																var html = '<option value="">Select your City</option>';
+
+																jQuery(
+																		'#dropdown')
+																		.append(
+																				html);
+																$
+																		.each(
+																				data,
+																				function(
+																						key,
+																						value) {
+
+																					html += '<option value="'+value.id+'">'
+																							+ value.name
+																							+ '</option>';
+
+																				}
+
+																		);
+
+																$(
+																		'select#cityId')
+																		.empty()
+																		.append(
+																				html);
+															});
+										});
+
 					});
-				});
-
-				$('select#countryId').change(
-						function() {
-                           
-							$.get("/master/states?countryId="
-									+ $('#countryId').val(), function(data,status) {
-
-								var html = '<option value="">Select your State</option>';
-
-								jQuery('#dropdown').append(html);
-								$.each(data, function(key, value) {
-									html += '<option value="'+key+'">'
-											+ value.name + '</option>';
-								}
-
-								);
-								
-								$('select#stateId').empty().append(html);
-							});
-						});
-
-				$('select#stateId').change(
-						function() {
-							//alert($('#stateId').val());
-							$.get("/master/cities?stateId="
-									+ $('#stateId').val(), function(data,
-									status) {
-
-								var html = '<option value="">Select your City</option>';
-
-								jQuery('#dropdown').append(html);
-								$.each(data, function(key, value) {
-
-									html += '<option value="'+key+'">'
-											+ value.name + '</option>';
-								}
-
-								);
-
-								$('select#cityId').empty().append(html);
-							});
-						});
-
-			});
 </script>
 
 <div id="page-container" class="resize">
@@ -110,11 +153,9 @@
 		<!-- start main content  -->
 		<div class="main-content resize">
 
-			<div class="action-container" style="display: none;"></div>
-
 
 			<h1>Add Cases</h1>
-			<p></p>
+			
 			<br clear="all" />
 
 			<div id="error">
@@ -185,10 +226,10 @@
 
 
 					<tr>
-						<td class="label"><label for="caseTypes"
+						<td class="label"><label for="caseType"
 							title='Please select all type of cases that you want to informed about'>Case
 								Types </label></td>
-						<td class="field"><form:select path="caseTypes"
+						<td class="field"><form:select path="caseType"
 								multiple="false">
 								<form:options items="${caseDetails.caseMasterTypes}"
 									itemValue="id" itemLabel="name" />
@@ -196,10 +237,10 @@
 					</tr>
 
 					<tr>
-						<td class="label"><label for="helpTypes"
-							title='Please select how many ways you want to help others'>Help
+						<td class="label"><label for="helpType"
+							title='Please select corresponding help type needed.'>Help
 								Category Types </label></td>
-						<td class="field"><form:select path="helpTypes"
+						<td class="field"><form:select path="helpType"
 								multiple="false">
 								<form:options items="${caseDetails.helpMasterTypes}"
 									itemValue="id" itemLabel="name" />
@@ -233,23 +274,22 @@
 					</tr>
 					<tr>
 						<td class="label"><label for="addressLine1">AddressLine1
-							 </label></td>
+						</label></td>
 						<td class="field"><form:input path="addressLine1" type="text"
 								class="required" tabindex="9" maxlength="40" /></td>
 					</tr>
 					<tr>
 						<td class="label"><label for="addressLine2">AddressLine2
-							 </label></td>
+						</label></td>
 						<td class="field"><form:input path="addressLine2" type="text"
 								class="required" tabindex="10" maxlength="40" /></td>
 					</tr>
 					<tr>
-						<td class="label"><label for="zipcode">ZipCode
-							 </label></td>
+						<td class="label"><label for="zipcode">ZipCode </label></td>
 						<td class="field"><form:input path="zipcode" type="text"
 								class="required" tabindex="11" maxlength="40" /></td>
 					</tr>
-					
+
 
 
 					<tr>

@@ -152,7 +152,8 @@ public class MasterDataController {
 	public @ResponseBody
 	List<MasterType> getCities(HttpServletRequest request,
 			HttpServletResponse response) {
-		log.debug("into getStates");
+
+		log.debug("into getCities");
 
 		List<MasterType> cities = new ArrayList<MasterType>();
 		
