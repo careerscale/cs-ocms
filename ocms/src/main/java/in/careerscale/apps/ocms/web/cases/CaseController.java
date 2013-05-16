@@ -61,7 +61,7 @@ public class CaseController  {
 
 		}
 	
-		Integer caseTypeId = bean.getCaseTypes().get(0);
+		Integer caseTypeId = bean.getCaseType();
 		ModelAndView result =new ModelAndView("cases/uploaddocs");
 		result.addObject("docTypeList",caseService.getDocumentTypes(caseTypeId));
 		result.addObject("caseTypeId", caseTypeId);

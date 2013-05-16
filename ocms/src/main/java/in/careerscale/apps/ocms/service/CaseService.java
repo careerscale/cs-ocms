@@ -15,9 +15,7 @@ import in.careerscale.apps.ocms.dao.model.Notification;
 import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
 import in.careerscale.apps.ocms.dao.model.NotificationStatus;
 import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
-import in.careerscale.apps.ocms.dao.model.UserNetwork;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
-import in.careerscale.apps.ocms.service.model.RegistrationResult;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 
 import java.util.ArrayList;
@@ -35,7 +33,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service("caseService")
-public class CaseService {
+public class CaseService
+{
 
 	Log log = LogFactory.getLog(CaseService.class);
 
@@ -48,44 +47,42 @@ public class CaseService {
 	@Autowired
 	private NotificationRepository notificationRepository;
 
-	public void setCaseRepository(CaseRepository caseRepository) {
+	public void setCaseRepository(CaseRepository caseRepository)
+	{
 		this.caseRepository = caseRepository;
 	}
 
-	public void setMasterDataRepository(
-			MasterDataRepository masterDataRepository) {
+	public void setMasterDataRepository(MasterDataRepository masterDataRepository)
+	{
 		this.masterDataRepository = masterDataRepository;
 	}
 
-	public void setNotificationRepository(
-			NotificationRepository notificationRepository) {
+	public void setNotificationRepository(NotificationRepository notificationRepository)
+	{
 		this.notificationRepository = notificationRepository;
 	}
 
-	public CaseMaster registerCase(Case bean) throws ApplicationException {
+	public CaseMaster registerCase(Case bean) throws ApplicationException
+	{
 
 		CaseMaster caseMaster;
-	
-		try {
 
-			caseMaster = new CaseMaster(bean.getCreatedDate(),
-					bean.getUpdatedDate(), bean.getPersonName(),
-					bean.getEmailId(), bean.getDateOfBirth(),
-					bean.getCaseDescription(), bean.getContact1(),
+		try
+		{
+
+			caseMaster = new CaseMaster(bean.getCreatedDate(), bean.getUpdatedDate(), bean.getPersonName(),
+					bean.getEmailId(), bean.getDateOfBirth(), bean.getCaseDescription(), bean.getContact1(),
 					bean.getContact2(), bean.getCaseSource());
 			// TODO set DB flag as well.
-			caseMaster
-					.setCaseStatusMaster((CaseStatusMaster) masterDataRepository
-							.getById(CaseStatusMaster.class, new Integer(2)));
+			caseMaster.setCaseStatusMaster((CaseStatusMaster) masterDataRepository.getById(CaseStatusMaster.class,
+					new Integer(2)));
 			// TODO replace with status enum or something like that. Here 2
 			// means pending in db.
-			if (bean.getCaseTypes().size() > 0)
-				caseMaster.setCaseType((CaseType) masterDataRepository
-						.getCaseType(bean.getCaseTypes().get(0)));
-			if (bean.getHelpTypes().size() > 0)
-				caseMaster
-						.setHelpCategoryType((HelpCategoryType) masterDataRepository
-								.getHelpCategoryType(bean.getHelpTypes().get(0)));
+			if (bean.getCaseType() > 0)
+				caseMaster.setCaseType((CaseType) masterDataRepository.getCaseType(bean.getCaseType()));
+			if (bean.getHelpType() > 0)
+				caseMaster.setHelpCategoryType((HelpCategoryType) masterDataRepository.getHelpCategoryType(bean
+						.getHelpType()));
 			caseMaster.setContactNumber1(bean.getContact1());
 			caseMaster.setContactNumber2(bean.getContact2());
 			caseMaster.setEmailId(bean.getEmailId());
@@ -96,58 +93,52 @@ public class CaseService {
 			Authentication authentication = context.getAuthentication();
 			ExtendedUser user = (ExtendedUser) authentication.getPrincipal();
 			Integer userId = user.getId();
-			LoginMaster loggedInUser = (LoginMaster) masterDataRepository
-					.getById(LoginMaster.class, userId);
+			LoginMaster loggedInUser = (LoginMaster) masterDataRepository.getById(LoginMaster.class, userId);
 
 			caseMaster.setLoginMasterByCreatedBy(loggedInUser);
 			caseMaster.setLoginMasterByUpdatedBy(loggedInUser);
-			
-			
-			
-			//Integer case1=bean.getCityId();
-			City city=(City) caseRepository.getById(City.class, 1);
-			/*Case case1=new Case();
-			Address address=new Address(city,"hhhhh",case1.getAddressLine2(),case1.getZipcode());*/
-			Address address=new Address(city,bean.getAddressLine1(),bean.getAddressLine2(),bean.getZipcode());
+
+			City city = (City) caseRepository.getById(City.class, bean.getCityId());
+
+			Address address = new Address(city, bean.getAddressLine1(), bean.getAddressLine2(), bean.getZipcode());
 			caseRepository.save(address);
-			caseMaster.setAddress((Address) caseRepository.getById(Address.class, 1));
-			//caseMaster.setAddress(address);
+			caseMaster.setAddress(address);
 
 			caseRepository.registerCase(caseMaster);
 			bean.setId(caseMaster.getId());
-			
 
 			NotificationRecipient recipient = null;
 			NotificationStatus status = (NotificationStatus) notificationRepository
 					.getById(NotificationStatus.class, 1);
-			NotificationTemplate template = (NotificationTemplate) notificationRepository
-					.getById(NotificationTemplate.class, 1);
-			Notification notification = new Notification("this is recipient",
-					Calendar.getInstance().getTime(), Calendar.getInstance()
-							.getTime(), loggedInUser, loggedInUser, caseMaster,
-					recipient, status, template);
-			// notification.setCreatedOn();
+			NotificationTemplate template = (NotificationTemplate) notificationRepository.getById(
+					NotificationTemplate.class, 1);
+			Notification notification = new Notification("this is recipient", Calendar.getInstance().getTime(),
+					Calendar.getInstance().getTime(), loggedInUser, loggedInUser, caseMaster, recipient, status,
+					template);
 			notificationRepository.save(notification);
-			
-			
-			
 
-		} catch (PersistenceException pe) {
+		}
+		catch (PersistenceException pe)
+		{
 			throw new ApplicationException(pe.getMessage());
 		}
 		return caseMaster;
 
 	}
-	
-	public List<in.careerscale.apps.ocms.web.cases.model.DocumentType> getDocumentTypes(Integer caseTypeId){
+
+	public List<in.careerscale.apps.ocms.web.cases.model.DocumentType> getDocumentTypes(Integer caseTypeId)
+	{
 		List<in.careerscale.apps.ocms.web.cases.model.DocumentType> docTypeList = new ArrayList<in.careerscale.apps.ocms.web.cases.model.DocumentType>();
-		List<DocumentType> dbDocTypes =caseRepository.getDocumentTypes(caseTypeId);
-		for (DocumentType documentType : dbDocTypes) {
-			docTypeList.add(new in.careerscale.apps.ocms.web.cases.model.DocumentType(documentType.getId(), documentType.getName(),documentType.getSupportedFormat(),documentType.isMandatory(), documentType.getMaxSize()));
+		List<DocumentType> dbDocTypes = caseRepository.getDocumentTypes(caseTypeId);
+		for (DocumentType documentType : dbDocTypes)
+		{
+			docTypeList.add(new in.careerscale.apps.ocms.web.cases.model.DocumentType(documentType.getId(),
+					documentType.getName(), documentType.getSupportedFormat(), documentType.isMandatory(), documentType
+							.getMaxSize()));
 		}
-		
+
 		return docTypeList;
-		
+
 	}
 
 }

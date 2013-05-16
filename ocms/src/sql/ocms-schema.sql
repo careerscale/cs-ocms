@@ -98,13 +98,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `state` ;
 
 CREATE  TABLE IF NOT EXISTS `state` (
-  `id` INT(15) NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(45) NOT NULL ,
-  `fk_country_id` INT(15) NOT NULL DEFAULT 0 ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(100) NOT NULL ,
+  `country_id` INT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_state_countries1_idx` (`fk_country_id` ASC) ,
+  INDEX `fk_state_countries1_idx` (`country_id` ASC) ,
   CONSTRAINT `fk_state_countries1`
-    FOREIGN KEY (`fk_country_id` )
+    FOREIGN KEY (`country_id` )
     REFERENCES `country` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -117,13 +117,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `city` ;
 
 CREATE  TABLE IF NOT EXISTS `city` (
-  `id` INT(15) NOT NULL ,
-  `city_name` VARCHAR(45) NOT NULL ,
-  `fk_state_id` INT(15) NOT NULL DEFAULT 0 ,
+  `id` INT NOT NULL ,
+  `city_name` VARCHAR(100) NOT NULL ,
+  `state_id` INT NOT NULL DEFAULT 0 ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_cities_state1_idx` (`fk_state_id` ASC) ,
+  INDEX `fk_cities_state1_idx` (`state_id` ASC) ,
   CONSTRAINT `fk_cities_state1`
-    FOREIGN KEY (`fk_state_id` )
+    FOREIGN KEY (`state_id` )
     REFERENCES `state` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -136,11 +136,11 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `address` ;
 
 CREATE  TABLE IF NOT EXISTS `address` (
-  `id` INT NOT NULL ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `address_line1` VARCHAR(150) NOT NULL ,
   `address_line2` VARCHAR(45) NULL ,
-  `city_id` INT NOT NULL DEFAULT 0 ,
-  `zip code` INT NOT NULL ,
+  `city_id` INT NOT NULL ,
+  `zipcode` VARCHAR(20) NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_address_cities1_idx` (`city_id` ASC) ,
   CONSTRAINT `fk_address_city_id`
@@ -805,14 +805,56 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (1, 'Medical', 'Medical cases', NULL);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (2, 'Education', 'Education cases', NULL);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (3, 'Amenities', 'Amenities/facilities needed', NULL);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (4, 'Calamities', 'Natural calamitiies like floods or fire etc', NULL);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (5, 'Heart Operation', 'Medical/Heart specific', 1);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (6, 'Kidney', 'Medical/kidney specific', 1);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (7, 'Education Loan', 'Education/loan', 2);
-INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (8, 'Guidance', 'Education/guidance', 2);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (1, 'Generic case', 'Generic case', NULL);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (2, 'Medical case', 'Medical cases', 1);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (3, 'Education Case', 'Education Cases', 1);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (4, 'Amenities', 'Amenities/Facilities', 1);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (5, 'Heart Operation', 'Medical/Heart specific', 2);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (6, 'Kidney', 'Medical/kidney specific', 2);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (7, 'Education Loan', 'Education/loan', 3);
+INSERT INTO `case_type` (`id`, `name`, `description`, `parent_type_id`) VALUES (8, 'Guidance', 'Education/guidance', 3);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `country`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `country` (`id`, `name`) VALUES (1, 'India');
+INSERT INTO `country` (`id`, `name`) VALUES (2, 'United States Of America');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `state`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `state` (`id`, `name`, `country_id`) VALUES (1, 'Andhra Pradesh', 1);
+INSERT INTO `state` (`id`, `name`, `country_id`) VALUES (2, 'Arunachal Pradesh', 1);
+INSERT INTO `state` (`id`, `name`, `country_id`) VALUES (3, 'Bihar', 1);
+INSERT INTO `state` (`id`, `name`, `country_id`) VALUES (4, 'Karnataka', 1);
+INSERT INTO `state` (`id`, `name`, `country_id`) VALUES (5, 'Tamil Nadu', 1);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `city`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (1, 'Hyderabad', 1);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (2, 'Vijayawada', 1);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (3, 'Tirupathi', 1);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (4, 'Vizag', 1);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (5, 'Warangal', 1);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (6, 'Chennai', 5);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (7, 'Madurai', 5);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (8, 'Trichy', 5);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (9, 'Bangalore', 4);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (10, 'Suratkal', 4);
+INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (11, 'Mysore', 4);
 
 COMMIT;
 
@@ -833,6 +875,16 @@ START TRANSACTION;
 USE `ocms`;
 INSERT INTO `case_user` (`case_id`, `user_id`, `is_org`) VALUES (1, 1, 0);
 INSERT INTO `case_user` (`case_id`, `user_id`, `is_org`) VALUES (2, 1, 0);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `document_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `document_type` (`id`, `case_type_id`, `supported_formats`, `is_mandatory`, `max_size`, `name`) VALUES (1, 1, 'pdf,jpg,gif', 1, 2, 'ID Proof');
+INSERT INTO `document_type` (`id`, `case_type_id`, `supported_formats`, `is_mandatory`, `max_size`, `name`) VALUES (2, 1, 'pdf,jpg,gif', 1, 2, 'Address Proof');
 
 COMMIT;
 
@@ -896,5 +948,20 @@ INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secre
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (2, 'Facebook', 'Facebook', '547688988597448', '9a07fdf996236b9c4e7a010549d638d3', 'http://careerscale.in:9090/facebook-callback', NULL);
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (3, 'Google', 'Google', '179271485873.apps.googleusercontent.com', 'ghGOdAEKfCWlz_ClgbYLTLEp', 'http://localhost:9090/google-callback', 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile');
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (4, 'Twitter', 'Twitter', 'FDyGFjNABJKZlPo80TmcA', '0JS0T1PcgFVDQlKhaM6LNwhInzhjmrimgq0k88QgUE', 'http://localhost:9090/twitter-callback', NULL);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `document_options`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (1, 'Passport', 1);
+INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (2, 'Voter ID', 1);
+INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (3, 'Driving License', 1);
+INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (4, 'Ration Card', 2);
+INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (5, 'Passport', 2);
+INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (6, 'Electricity Bill', 2);
+INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (7, 'Aadhar ID/UID', 2);
 
 COMMIT;

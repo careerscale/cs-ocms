@@ -4,9 +4,12 @@ package in.careerscale.apps.ocms.dao.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,41 +21,48 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "address", catalog = "ocms")
-public class Address implements java.io.Serializable {
+public class Address implements java.io.Serializable
+{
 
-	private Address address;
 	private int id;
 	private City city;
 	private String addressLine1;
 	private String addressLine2;
-	private int zipCode;
+	private String zipCode;
 	private Set<CaseMaster> caseMasters = new HashSet<CaseMaster>(0);
 
-	public Address() {
+	public Address()
+	{
 	}
 
-	public Address(int id, City city, String addressLine1, int zipCode) {
+	public Address(int id, City city, String addressLine1, String zipCode)
+	{
 		this.id = id;
 		this.city = city;
 		this.addressLine1 = addressLine1;
 		this.zipCode = zipCode;
 	}
-	public Address( City city, String addressLine1,String addressLine2, int zipCode) {
-		
+
+	public Address(City city, String addressLine1, String addressLine2, String zipCode)
+	{
+
 		this.city = city;
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.zipCode = zipCode;
 	}
-public Address(  String addressLine1,String addressLine2, int zipCode) {
-		
+
+	public Address(String addressLine1, String addressLine2, String zipCode)
+	{
+
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
 		this.zipCode = zipCode;
 	}
 
-	public Address(int id, City city, String addressLine1, String addressLine2,
-			int zipCode, Set<CaseMaster> caseMasters) {
+	public Address(int id, City city, String addressLine1, String addressLine2, String zipCode,
+			Set<CaseMaster> caseMasters)
+	{
 		this.id = id;
 		this.city = city;
 		this.addressLine1 = addressLine1;
@@ -63,57 +73,70 @@ public Address(  String addressLine1,String addressLine2, int zipCode) {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	public int getId() {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public int getId()
+	{
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(int id)
+	{
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "city_id", nullable = false)
-	public City getCity() {
+	public City getCity()
+	{
 		return this.city;
 	}
 
-	public void setCity(City city) {
+	public void setCity(City city)
+	{
 		this.city = city;
 	}
 
 	@Column(name = "address_line1", nullable = false, length = 150)
-	public String getAddressLine1() {
+	public String getAddressLine1()
+	{
 		return this.addressLine1;
 	}
 
-	public void setAddressLine1(String addressLine1) {
+	public void setAddressLine1(String addressLine1)
+	{
 		this.addressLine1 = addressLine1;
 	}
 
 	@Column(name = "address_line2", length = 45)
-	public String getAddressLine2() {
+	public String getAddressLine2()
+	{
 		return this.addressLine2;
 	}
 
-	public void setAddressLine2(String addressLine2) {
+	public void setAddressLine2(String addressLine2)
+	{
 		this.addressLine2 = addressLine2;
 	}
 
-	@Column(name = "zip_code", nullable = false)
-	public int getZipCode() {
+	@Column(name = "zip_code", nullable = true)
+	public String getZipCode()
+	{
 		return this.zipCode;
 	}
 
-	public void setZipCode(int zipCode) {
+	public void setZipCode(String zipCode)
+	{
 		this.zipCode = zipCode;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
-	public Set<CaseMaster> getCaseMasters() {
+	public Set<CaseMaster> getCaseMasters()
+	{
 		return this.caseMasters;
 	}
 
-	public void setCaseMasters(Set<CaseMaster> caseMasters) {
+	public void setCaseMasters(Set<CaseMaster> caseMasters)
+	{
 		this.caseMasters = caseMasters;
 	}
 

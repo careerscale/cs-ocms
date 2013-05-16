@@ -1,22 +1,19 @@
 package in.careerscale.apps.ocms.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.City;
 import in.careerscale.apps.ocms.dao.model.Country;
 import in.careerscale.apps.ocms.dao.model.DocumentType;
-import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
-import in.careerscale.apps.ocms.dao.model.LoginMaster;
-import in.careerscale.apps.ocms.dao.model.Notification;
-import in.careerscale.apps.ocms.dao.model.NotificationStatus;
-import in.careerscale.apps.ocms.dao.model.SocialNetwork;
 import in.careerscale.apps.ocms.dao.model.State;
 
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,14 +28,17 @@ public class CaseRepository {
         @Transactional
         public void registerCase(CaseMaster casemaster) {
                 entityManager.persist(casemaster);
+		entityManager.flush();
              }
        
         public void save(Address address) {
     		entityManager.persist(address);
+		entityManager.flush();
     	}
         public void save(City city)
         {
         	entityManager.persist(city);
+		entityManager.flush();
         }
         public City getCity(Integer id) {
     		return entityManager.find(City.class, id);
