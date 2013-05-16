@@ -1,6 +1,5 @@
 package in.careerscale.apps.ocms.web.cases.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -59,8 +58,13 @@ public class CaseArtifacts {
 
 	public void setMasterTypes(List<DocumentType> masterTypes) {
 		this.masterTypes = masterTypes;
-		//TODO is this size sufficient? how about if a user want to upload multiple documents under a single category?
-		this.caseDocuments = new ArrayList<Document>(masterTypes.size());
+		/*
+		 * 
+		 * //TODO is this size sufficient? how about if a user want to upload multiple documents under a single
+		 * category? int documentsSize = masterTypes.size(); this.caseDocuments = new
+		 * ArrayList<Document>(documentsSize); for (int counter = 0; counter < documentsSize; counter++) {
+		 * this.caseDocuments.add(new Document()); }
+		 */
 	}
 	
 	
