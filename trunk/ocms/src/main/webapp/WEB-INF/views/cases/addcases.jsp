@@ -48,22 +48,21 @@
 
 
 <script type="text/javascript">
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
 				$.get("/master/states", function(data, status) {
 					$.each(data, function(key, val) {
+						
 						//alert('key and values are ' + key + '  ' + val);
 					});
 				});
 
-				$('#countryId').change(
+				$('select#countryId').change(
 						function() {
                            
 							$.get("/master/states?countryId="
-									+ $('#countryId').val(), function(data,
-									status) {
+									+ $('#countryId').val(), function(data,status) {
 
-								var html = '';
+								var html = '<option value="">Select your State</option>';
 
 								jQuery('#dropdown').append(html);
 								$.each(data, function(key, value) {
@@ -73,18 +72,18 @@
 
 								);
 								
-								$('#stateId').empty().append(html);
+								$('select#stateId').empty().append(html);
 							});
 						});
 
-				$('#stateId').change(
+				$('select#stateId').change(
 						function() {
-							alert($('#stateId').val());
+							//alert($('#stateId').val());
 							$.get("/master/cities?stateId="
 									+ $('#stateId').val(), function(data,
 									status) {
 
-								var html = '';
+								var html = '<option value="">Select your City</option>';
 
 								jQuery('#dropdown').append(html);
 								$.each(data, function(key, value) {
@@ -95,7 +94,7 @@
 
 								);
 
-								$('#cityId').empty().append(html);
+								$('select#cityId').empty().append(html);
 							});
 						});
 
@@ -232,6 +231,25 @@
 						<td class="field"><form:select path="cityId" multiple="false">
 							</form:select></td>
 					</tr>
+					<tr>
+						<td class="label"><label for="addressLine1">AddressLine1
+							 </label></td>
+						<td class="field"><form:input path="addressLine1" type="text"
+								class="required" tabindex="9" maxlength="40" /></td>
+					</tr>
+					<tr>
+						<td class="label"><label for="addressLine2">AddressLine2
+							 </label></td>
+						<td class="field"><form:input path="addressLine2" type="text"
+								class="required" tabindex="10" maxlength="40" /></td>
+					</tr>
+					<tr>
+						<td class="label"><label for="zipcode">ZipCode
+							 </label></td>
+						<td class="field"><form:input path="zipcode" type="text"
+								class="required" tabindex="11" maxlength="40" /></td>
+					</tr>
+					
 
 
 					<tr>
