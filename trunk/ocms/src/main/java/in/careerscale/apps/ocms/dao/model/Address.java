@@ -20,6 +20,7 @@ import javax.persistence.Table;
 @Table(name = "address", catalog = "ocms")
 public class Address implements java.io.Serializable {
 
+	private Address address;
 	private int id;
 	private City city;
 	private String addressLine1;
@@ -34,6 +35,19 @@ public class Address implements java.io.Serializable {
 		this.id = id;
 		this.city = city;
 		this.addressLine1 = addressLine1;
+		this.zipCode = zipCode;
+	}
+	public Address( City city, String addressLine1,String addressLine2, int zipCode) {
+		
+		this.city = city;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.zipCode = zipCode;
+	}
+public Address(  String addressLine1,String addressLine2, int zipCode) {
+		
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
 		this.zipCode = zipCode;
 	}
 
@@ -85,7 +99,7 @@ public class Address implements java.io.Serializable {
 		this.addressLine2 = addressLine2;
 	}
 
-	@Column(name = "zip code", nullable = false)
+	@Column(name = "zip_code", nullable = false)
 	public int getZipCode() {
 		return this.zipCode;
 	}
