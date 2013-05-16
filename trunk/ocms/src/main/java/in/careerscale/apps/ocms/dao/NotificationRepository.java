@@ -3,16 +3,10 @@ package in.careerscale.apps.ocms.dao;
 import java.util.List;
 
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
-import in.careerscale.apps.ocms.dao.model.CaseType;
-import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
-import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.Notification;
 import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
 import in.careerscale.apps.ocms.dao.model.NotificationStatus;
 import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
-import in.careerscale.apps.ocms.dao.model.OrgType;
-import in.careerscale.apps.ocms.dao.model.RoleMaster;
-
 import javax.persistence.*;
 
 import org.springframework.stereotype.Repository;
