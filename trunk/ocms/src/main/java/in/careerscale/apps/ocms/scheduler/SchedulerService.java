@@ -4,10 +4,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class SchedulerService {
 	Log log = LogFactory.getLog(SchedulerService.class);
 	@Autowired
@@ -24,7 +22,7 @@ public class SchedulerService {
 	 */
 	// @Scheduled(fixedDelay=5000)
 	// @Scheduled(fixedRate=5000)
-	@Scheduled(cron = "*/30 * * * * ?")
+	// @Scheduled(cron = "*/30 * * * * ?")
 	public void doSchedule() {
 		log.info("Start schedule");
 		log.debug("Delegate to worker ");

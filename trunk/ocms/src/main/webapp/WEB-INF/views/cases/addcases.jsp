@@ -262,7 +262,8 @@
 							title='State Selection'>State</label></td>
 						<td class="field"><form:select path="stateId"
 								multiple="false">
-
+							<form:options items="${caseDetails.stateMasterTypes}"
+									itemValue="id" itemLabel="name" />
 							</form:select></td>
 					</tr>
 
@@ -270,6 +271,8 @@
 					<tr>
 						<td class="label"><label for="cityId" title='City Selection'>City</label></td>
 						<td class="field"><form:select path="cityId" multiple="false">
+							<form:options items="${caseDetails.cityMasterTypes}"
+									itemValue="id" itemLabel="name" />
 							</form:select></td>
 					</tr>
 					<tr>

@@ -81,7 +81,7 @@
 													<div class="formCaption">Enter userId</div>
 													<div class="formTxt">
 														<input id="username" name="j_username" class="formtxtbox"
-															type="text" tabindex="1" />
+															type="text" tabindex="1" value="hari@harinath.in" />
 
 													</div>
 												</div>
@@ -89,7 +89,7 @@
 													<div class="formCaption">Enter password</div>
 													<div class="formTxt">
 														<input id="password" class="formtxtbox" name="j_password"
-															type="password" tabindex="2" />
+															type="password" tabindex="2" value="test123" />
 													</div>
 												</div>
 												<div class="formBox">

@@ -1,6 +1,7 @@
 package in.careerscale.apps.ocms.dao;
 
 import in.careerscale.apps.ocms.dao.model.Address;
+import in.careerscale.apps.ocms.dao.model.CaseArtifact;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.City;
@@ -108,6 +109,13 @@ public class CaseRepository {
         public Object getById(Class classObject, Object id){
     		return entityManager.find(classObject, id);
     	}
+
+	public void save(CaseArtifact artifact)
+	{
+		entityManager.persist(artifact);
+		entityManager.flush();
+
+	}
 
 }
 
