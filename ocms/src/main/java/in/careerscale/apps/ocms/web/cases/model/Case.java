@@ -40,7 +40,8 @@ public class Case implements Serializable
 	private List<MasterType> helpMasterTypes = new ArrayList<MasterType>();
 	private List<MasterType> caseStatusTypes = new ArrayList<MasterType>();
 	private List<MasterType> countryMasterTypes = new ArrayList<MasterType>();
-
+	private List<MasterType> stateMasterTypes = new ArrayList<MasterType>();
+	private List<MasterType> cityMasterTypes = new ArrayList<MasterType>();
 	public Case()
 	{
 
@@ -277,6 +278,26 @@ public class Case implements Serializable
 	public List<MasterType> getCountryMasterTypes()
 	{
 		return countryMasterTypes;
+	}
+
+	public List<MasterType> getStateMasterTypes()
+	{
+		return stateMasterTypes;
+	}
+
+	public void setStateMasterTypes(List<MasterType> stateMasterTypes)
+	{
+		this.stateMasterTypes = stateMasterTypes;
+	}
+
+	public List<MasterType> getCityMasterTypes()
+	{
+		return cityMasterTypes;
+	}
+
+	public void setCityMasterTypes(List<MasterType> cityMasterTypes)
+	{
+		this.cityMasterTypes = cityMasterTypes;
 	}
 
 	public String getAddressLine1()

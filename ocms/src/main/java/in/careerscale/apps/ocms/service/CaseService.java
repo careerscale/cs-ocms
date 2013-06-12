@@ -4,6 +4,7 @@ import in.careerscale.apps.ocms.dao.CaseRepository;
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.NotificationRepository;
 import in.careerscale.apps.ocms.dao.model.Address;
+import in.careerscale.apps.ocms.dao.model.CaseArtifact;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
@@ -17,7 +18,10 @@ import in.careerscale.apps.ocms.dao.model.NotificationStatus;
 import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
+import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
+import in.careerscale.apps.ocms.web.cases.model.Document;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -89,11 +93,8 @@ public class CaseService
 			caseMaster.setCreatedOn(Calendar.getInstance().getTime());
 			caseMaster.setUpdatedOn(Calendar.getInstance().getTime());
 
-			SecurityContext context = SecurityContextHolder.getContext();
-			Authentication authentication = context.getAuthentication();
-			ExtendedUser user = (ExtendedUser) authentication.getPrincipal();
-			Integer userId = user.getId();
-			LoginMaster loggedInUser = (LoginMaster) masterDataRepository.getById(LoginMaster.class, userId);
+
+			LoginMaster loggedInUser = getLoggedInUser();
 
 			caseMaster.setLoginMasterByCreatedBy(loggedInUser);
 			caseMaster.setLoginMasterByUpdatedBy(loggedInUser);
@@ -126,6 +127,15 @@ public class CaseService
 
 	}
 
+	private LoginMaster getLoggedInUser()
+	{
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		ExtendedUser user = (ExtendedUser) authentication.getPrincipal();
+
+		return (LoginMaster) masterDataRepository.getById(LoginMaster.class, user.getId());
+	}
+
 	public List<in.careerscale.apps.ocms.web.cases.model.DocumentType> getDocumentTypes(Integer caseTypeId)
 	{
 		List<in.careerscale.apps.ocms.web.cases.model.DocumentType> docTypeList = new ArrayList<in.careerscale.apps.ocms.web.cases.model.DocumentType>();
@@ -138,6 +148,31 @@ public class CaseService
 		}
 
 		return docTypeList;
+
+	}
+
+	public void saveCaseAtrifacts(CaseArtifacts bean)
+	{
+		List<Document> documents = bean.getCaseDocuments();
+		LoginMaster loginMaster = getLoggedInUser();
+		for (Document document : documents)
+		{
+			try
+			{
+				CaseArtifact artifact = new CaseArtifact();
+				artifact.setArtifactType("test");
+				artifact.setArtifact(document.getFile().getBytes());
+				artifact.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, bean.getCaseId()));
+				artifact.setLoginMaster(loginMaster);
+				caseRepository.save(artifact);
+			}
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
 
 	}
 

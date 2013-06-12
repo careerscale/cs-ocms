@@ -2,13 +2,15 @@ package in.careerscale.apps.ocms.dao.model;
 
 // Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,7 +28,7 @@ public class RoleMaster implements java.io.Serializable {
 	private Integer id;
 	private String roleName;
 	private String description;
-	private RoleMaster roleMaster;
+
 	
 
 	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
@@ -69,13 +71,7 @@ public class RoleMaster implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public RoleMaster getRoleMaster() {
-		return roleMaster;
-	}
 
-	public void setRoleMaster(RoleMaster roleMaster) {
-		this.roleMaster = roleMaster;
-	}
 
 	@Column(name = "role_name", unique = true, nullable = false, length = 45)
 	public String getRoleName() {

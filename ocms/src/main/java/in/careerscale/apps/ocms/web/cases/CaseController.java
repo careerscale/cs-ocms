@@ -77,6 +77,9 @@ public class CaseController  {
 			bean.setCaseMasterTypes(masterDataService.getCaseTypes1());
 			bean.setHelpMasterTypes(masterDataService.getHelpTypes());
 			bean.setCountryMasterTypes(masterDataService.getCountries());
+			if (bean.getCountryId() == null)
+				bean.setStateMasterTypes(masterDataService.getStates(bean.getCountryMasterTypes().get(0).getId()));
+
 		} catch (ApplicationException e) {
 			log.error("error while retrieving master data", e);
 		}
@@ -101,7 +104,8 @@ public class CaseController  {
 	public String uploadDocuments(@ModelAttribute(value = "caseArtifacts") CaseArtifacts bean,
 			BindingResult errors, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		//TODO implement here
+		// TODO implement validations here
+		caseService.saveCaseAtrifacts(bean);
 		return "cases/registeredcases";
 
 	}

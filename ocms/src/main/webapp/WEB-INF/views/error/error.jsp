@@ -8,6 +8,13 @@
 <div id="page-container" class="resize">
 
 	<div id="page-content-inner" class="resize">
+	
+	<h2>Error Ocurred</h2>
+		<p>Some error has occurred. please mail us at info@careerscale.in if this is a show stopper for you. we are continuously working to improve our application.
+		 or click <a href ="/addcase">Add Case</a> to continue.
+		</p>
+
+		<p>
 	<h2>OCMS</h2>
 		<p>OCMS has been an idea that has been there for a long time. It is
 			essentially about how to connect and integrate the needy and the
@@ -26,7 +33,7 @@
         The team at <a href="http://careerscale.in">CareerScale</a> that is responsible for OCMS is
         <ul>
         <li>Harinath Mallepally </li>
-        <li>Mahender Singh </li>      
+        <li>Mahender Singh </li>
         <li>Prasanthi </li>
         </ul>
         

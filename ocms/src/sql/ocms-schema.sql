@@ -267,7 +267,7 @@ DROP TABLE IF EXISTS `case_artifact` ;
 
 CREATE  TABLE IF NOT EXISTS `case_artifact` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `artifact` BLOB NOT NULL ,
+  `artifact` MEDIUMBLOB NOT NULL ,
   `case_id` INT NOT NULL ,
   `added_by` INT NULL ,
   `file_extension` VARCHAR(45) NULL ,
@@ -605,6 +605,7 @@ CREATE  TABLE IF NOT EXISTS `user_network` (
   `network_id` INT NOT NULL ,
   `user_network_id` VARCHAR(100) NOT NULL ,
   `last_access_date` DATE NULL ,
+  `user_access_token` VARCHAR(100) NULL ,
   PRIMARY KEY (`user_network_id`) ,
   INDEX `user_network_user_id_idx` (`user_id` ASC) ,
   INDEX `user_network_social_id_idx` (`network_id` ASC) ,
