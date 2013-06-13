@@ -53,7 +53,7 @@ img {
 	width: 98%;
 	min-height:650px;
 	margin: 0px auto;
-	margin-top: 10px; /* pad from top menu to actions buts*/
+	margin-top: -20px; /* pad from top menu to actions buts*/
 	margin-bottom: 0px;
 	padding-top: 8px;
 	padding-bottom: 0px;
@@ -89,14 +89,15 @@ img {
 }
 
 
-#page-content-inner #col-left {
-	width: 20%;
-	height:60px;
-	margin-top:-16px;
+ #page-content-inner #col-left {
+	width: 210px;
+	height:0px;
+	margin-top:20px;
+	
 	
 	float: left;
-	background-color: #F4F1E9;
-}
+	
+} 
 
 
 
@@ -445,8 +446,8 @@ div.action-bottom a span.shadow {
 .col-left-header-tab {
 	position: relative; /* ie6 fix */
 	background: url(/resources/images/tab_green.gif) 0 0 no-repeat;
-	height: 30px;
-	width: 150px;
+	height: 10px;
+	width: 120px;
 	text-align: center;
 	color: #ffffff;
 	font: 20px 'trebuchet ms';
