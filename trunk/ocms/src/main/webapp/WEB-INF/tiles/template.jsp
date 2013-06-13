@@ -31,6 +31,8 @@
 
 <script src="/resources/scripts/jquery/jquery.maskedinput.js"></script>
 <script src="/resources/scripts/application/register.js"></script>
+<script src="/resources/scripts/application/register.js"></script>
+<script src="/resources/scripts/jquery/nav.js"></script>
 
 <!-- 
 
@@ -51,6 +53,7 @@
  -->
 
 <link rel="stylesheet" media="screen" href="/resources/css/stylesheet.css" />
+<link rel="stylesheet" media="screen" href="/resources/css/styles1.css" />
 <link rel="stylesheet" media="only screen and (min-width: 768px)" href="/resources/css/medium/stylesheet.css" />
 <link rel="stylesheet" media="only screen and (min-width: 320px)" href="/resources/css/small/stylesheet.css" />
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
