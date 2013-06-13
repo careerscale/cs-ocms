@@ -320,8 +320,8 @@
 
 		<!-- end col-main -->
 
-		<!-- start left col -->
-		<div id="col-left" class="nav-left-back empty resize"
+	<!-- 	<!-- <!-- start left col -->
+		<!-- <div id="col-left" class="nav-left-back empty resize"
 			style="position: absolute; min-height: 400px;">
 			<div class="col-left-header-tab" style="position: absolute;">Signup</div>
 			<div class="nav-left"></div>
@@ -343,8 +343,67 @@
 
 
 			<br clear="all" />
-		</div>
-		<!-- end left col -->
+		</div> -->
+		<div id="col-left" class="nav-left-back empty resize" >
+    
+    
+    <nav>
+      <ul id="nav">
+        <li><a href="#">Animation</a>
+          <ul>
+            <li><a href="http:/www.google.com/search?q=design+cartoons+animation">Cartoons</a></li>
+            <li><a href="http:/www.google.com/search?q=design+comic+strips+inspiration">Comic Strips</a></li>
+            <li><a href="http:/www.google.com/search?q=how+to+clip+video+footage">Video Clips</a></li>
+            <li><a href="http:/www.google.com/search?q=design+create+animated+gifs">Web GIFs</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Graphic Design</a>
+          <ul>
+            <li><a href="http:/www.google.com/search?q=photoshop+tutorials+graphics+design">Adobe Photoshop</a></li>
+            <li><a href="http:/www.google.com/search?q=digital+branding+graphics+logos">Branding &amp; Logos</a></li>
+            <li><a href="http:/www.google.com/search?q=graphics+design+marketing">Digital Marketing</a></li>
+            <li><a href="http:/www.google.com/search?q=graphic+design+illustrations">Illustrations</a></li>
+            <li><a href="http:/www.google.com/search?q=infographics+inspiration">Infographics</a></li>
+            <li><a href="http:/www.google.com/search?q=product+design+inspiration">Product Design</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Digital Photography</a>
+          <ul>
+            <li><a href="http:/www.google.com/search?q=cityscape+photography">Cityscapes</a></li>
+            <li><a href="http:/www.google.com/search?q=water+ocean+photography">Oceans</a></li>
+            <li><a href="http:/www.google.com/search?q=wide+angle+lens+photography">Wide-Angle Lens</a></li>
+            <li><a href="http:/www.google.com/search?q=wildlife+photography">Wildlife</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Print &amp; Identity</a>
+          <ul>
+            <li><a href="http:/www.google.com/search?q=branding+identity+print+design">Branding</a></li>
+            <li><a href="http:/www.google.com/search?q=business+cards+design">Business Cards</a></li>
+            <li><a href="http:/www.google.com/search?q=print+design+letterpress">Letterpress</a></li>
+            <li><a href="http:/www.google.com/search?q=print+poster+artwork">Poster Art</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Programming</a>
+          <ul>
+            <li><a href="http:/www.google.com/search?q=learn+css3+web+development">CSS3</a></li>
+            <li><a href="http:/www.google.com/search?q=learn+html5+web+development">HTML5</a></li>
+            <li><a href="http:/www.google.com/search?q=javascript+jquery+tutorials">JavaScript &amp; jQuery</a></li>
+            <li><a href="http:/www.google.com/search?q=web+development+mysql">MySQL Databases</a></li>
+            <li><a href="http:/www.google.com/search?q=wordpress+programming">Wordpress CMS</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Web Design</a>
+          <ul>
+            <li><a href="http:/www.google.com/search?q=web+design+icons">Icons</a></li>
+            <li><a href="http:/www.google.com/search?q=web+design+tutorials">Tutorials</a></li>
+            <li><a href="http:/www.google.com/search?q=web+design+user+interface">User Interfaces</a></li>
+            <li><a href="http:/www.google.com/search?q=web+design">Website Layouts</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+		
 
 	</div>
 </div>
