@@ -4,9 +4,7 @@
 <h1>
     <spring:message code="backoffice.modulemaster.title" />
 </h1>
-
-<div id="page-container" class="resize">
-    <div id="page-content-inner" class="resize">
+<div class="row full-width">
         <br clear="all" />
         <div>
 
@@ -26,7 +24,7 @@
                 modelAttribute="botype">
 
                 <div class="error" style="display: none;">
-                    <img src="resources/images/warning.gif" alt="Warning!" width="24"
+                    <img src="/resources/images/warning.gif" alt="Warning!" width="24"
                         height="24" style="float: left; margin: -5px 10px 0px 0px;" /> <span></span>.<br
                         clear="all" />
                 </div>
@@ -66,4 +64,3 @@
         </div>
 
     </div>
-</div>

@@ -28,31 +28,15 @@
 
 <link rel="shortcut icon" href="/favicon.ico" />
 
-<script src="resources/scripts/jquery/jquery-1.8.3.min.js"
-	type="text/javascript"></script>
-<script src="resources/scripts/jquery/jquery.validate.min.js"
-	type="text/javascript"></script>
-
-<script type="text/javascript"
-	src="resources/scripts/jquery/jquery.maskedinput.js"></script>
-<script type="text/javascript"
-	src="resources/scripts/application/register.js"></script>
-
-<link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/stylesheet.css" />
-
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="datePattern">
 	<fmt:message key="date.format" />
 </c:set>
 
-<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet"
-	type="text/css" />
 </head>
 <body>
 	<!-- start page wrapper -->
-	<div id="letterbox">
-
+	<div class="large-12 columns">
 		Something went wrong. Don't worry we are working n it. Please bear with us for some time.
 		<!-- end page wrapper -->
 	</div>
