@@ -265,7 +265,7 @@
 							</form:select>
 						</div>
 					</div>
-					<div class="row full-width"></div>
+					<br/>
 
 					<div class="row">
 						<div class="large-6 columns">
@@ -280,7 +280,7 @@
 							</form:select>
 						</div>
 					</div>
-					<div class="row full-width"></div>
+					<br/>
 					<div class="row">
 						<div class="large-6 columns">
 							<label for="countryId" title='Country Selection'>Country</label>
@@ -292,7 +292,7 @@
 							</form:select>
 						</div>
 					</div>
-					<div class="row full-width"></div>
+					<br/>
 
 					<div class="row">
 						<div class="large-6 columns">
@@ -305,7 +305,7 @@
 							</form:select>
 						</div>
 					</div>
-					<div class="row full-width"></div>
+				<br/>
 
 					<div class="row">
 						<div class="large-6 columns">
@@ -318,7 +318,7 @@
 							</form:select>
 						</div>
 					</div>
-					<div class="row full-width"></div>
+					<br/>
 
 					<div class="row">
 						<div class="large-6 columns">
