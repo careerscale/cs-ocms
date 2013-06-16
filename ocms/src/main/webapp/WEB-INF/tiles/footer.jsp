@@ -1,11 +1,17 @@
-	<div id="footer-container" align="center">
-			<div class="footer">
-				<ul>
-					<li><a href="/">Home</a></li>
-					<li class="line-off"><a href="http://www.careerscale.in">Powered by CareerScale</a></li>
-				</ul>
-			</div>
-			<div class="footerAddress">  CareerScale IT Consulting LLP, 2-1-7/2/88, Venkateswara Enclave, Upperpally, Hyderabad 500048, AP INDIA</div>
+	<div class="row full-width">
+		<hr />
+		<div class="large-6 columns">
+			<p>Site content &copy; 2013 Careerscale IT Consulting LLP</p>
 		</div>
+		<div class="large-6 columns">
+			<ul class="inline-list right">
+				<li><a href="http://careerscale.in">Home</a></li>
+				<li><a href="http://careerscale.in/training">Training</a></li>
+				<li><a href="http://careerscale.in/product-development/">Product
+						development</a></li>
+
+			</ul>
+		</div>
+	</div>
 
 	
