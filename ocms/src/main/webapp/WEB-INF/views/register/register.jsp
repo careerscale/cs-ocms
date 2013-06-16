@@ -56,13 +56,12 @@
 		});
 
 	});
-
-	</script>
+</script>
 
 <script>
-$(document).ready(function() {
-$("#registerForm").validate();
-})
+	$(document).ready(function() {
+		$("#registerForm").validate();
+	})
 </script>
 
 <div class="row full-width">
@@ -82,14 +81,11 @@ $("#registerForm").validate();
 	</div>
 
 	<div class="row">
-		<div class="small-2 columns">Horizontal nav. menu should go here</div>
+		<div class="large-6 columns">Horizontal nav. menu should go here</div>
 
 		<div class="large-8 columns">
 			<form:form method="post" action="register" id="registerForm"
 				modelAttribute="user">
-				<!-- <form id="signUpForm" type="actionForm" commandName="user" action="register"
-								method="post">
- -->
 
 				<fieldset>
 					<div class="row full-width">
@@ -101,7 +97,7 @@ $("#registerForm").validate();
 					</div>
 
 					<div class="row">
-						<div class="small-2  columns">
+						<div class="large-2  columns">
 							<label for="emailId">Email Id:</label>
 						</div>
 						<div class="large-6 columns">
@@ -111,7 +107,7 @@ $("#registerForm").validate();
 					</div>
 
 					<div class="row">
-						<div class="small-2  columns">
+						<div class="large-2  columns">
 							<label for="password">Password:</label>
 						</div>
 						<div class="large-6 columns">
@@ -122,20 +118,21 @@ $("#registerForm").validate();
 
 
 					<div class="row">
-						<div class="small-2  columns">
+						<div class="large-2  columns">
 							<label for="confirmPassword">Retype Password:</label>
 						</div>
 						<div class="large-6 columns">
-							<div class="formError"></div><input id="confirmPassword" class="required" equalTo="#password"
+							<div class="formError"></div>
+							<input id="confirmPassword" class="required" equalTo="#password"
 								maxlength="40" name="password2" size="20" type="password"
 								tabindex="3" value="test123" />
 						</div>
-						
+
 					</div>
 
 
 					<div class="row">
-						<div class="small-2  columns">
+						<div class="large-2  columns">
 							<label for="firstName">First Name:</label>
 						</div>
 						<div class="large-6 columns">
@@ -146,7 +143,7 @@ $("#registerForm").validate();
 
 
 					<div class="row">
-						<div class="small-2  columns">
+						<div class="large-2  columns">
 							<label for="lastName">Last Name:</label>
 						</div>
 						<div class="large-6 columns">
@@ -157,7 +154,7 @@ $("#registerForm").validate();
 
 
 					<div class="row">
-						<div class="small-2  columns">
+						<div class="large-2  columns">
 							<label for="dateOfBirth">Birth Date:</label>
 						</div>
 						<div class="large-6 columns">
@@ -167,7 +164,7 @@ $("#registerForm").validate();
 					</div>
 
 					<div class="row">
-						<div class="small-2  columns">
+						<div class="large-2  columns">
 							<label for="caseTypes"
 								title='Please select all type of cases that you want to informed about'>Case
 								Types </label>
@@ -179,12 +176,14 @@ $("#registerForm").validate();
 							</form:select>
 						</div>
 					</div>
+					<br/>
 					<div class="row">
-						<div class="small-2  columns">
+						<div class="large-2  columns">
 							<label for="helpTypes"
 								title='Please select how many ways you want to help others'>Help
 								Category Types </label>
 						</div>
+					
 						<div class="large-6 columns">
 							<form:select path="helpTypes" multiple="true">
 								<form:options items="${user.helpMasterTypes}" itemValue="id"
@@ -192,8 +191,9 @@ $("#registerForm").validate();
 							</form:select>
 						</div>
 					</div>
+				
 					<div class="row">
-						<div class="small-2  columns"></div>
+						<div class="large-2  columns"></div>
 						<div class="large-6 columns">
 							<div class="buttonSubmit">
 								<span></span> <input class="formButton" type="submit"
@@ -202,7 +202,7 @@ $("#registerForm").validate();
 						</div>
 					</div>
 					<div class="row">
-						<div class="small-2  columns"></div>
+						<div class="large-2  columns"></div>
 						<div class="large-6 columns"></div>
 					</div>
 
