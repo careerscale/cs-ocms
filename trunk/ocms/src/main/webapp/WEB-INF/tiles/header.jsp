@@ -44,7 +44,7 @@
 						<li class="divider"></li>
 						<li class="active"><a href="/">Home</a></li>
 						<li class="divider"></li>
-						<li><a href="about">About us</a></li>
+						<li><a href="/about">About us</a></li>
 						<li class="divider"></li>
 						<li class="has-dropdown"><a href="/cases">Cases</a>
 							<ul class="dropdown">
