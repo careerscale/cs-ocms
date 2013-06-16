@@ -17,7 +17,7 @@
 
 @import "/resources/media/css/demo_table.css";
 
-@import "http://www.datatables.net/media/css/site_jui.ccss";
+@import "css/datatable/site_jui.ccss";
 
 @import "/resources/media/css/demo_table_jui.css";
 

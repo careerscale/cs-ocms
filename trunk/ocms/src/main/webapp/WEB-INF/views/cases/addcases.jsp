@@ -102,7 +102,7 @@
 						$('select#stateId')
 								.change(
 										function() {
-											
+
 											$
 													.get(
 															"/master/cities?stateId="
@@ -144,269 +144,240 @@
 					});
 </script>
 
-<div id="page-container" class="resize">
-	<div id="page-content-inner" class="resize">
-
-		<!-- start col-main -->
-
-
-		<!-- start main content  -->
-		<div class="main-content resize">
+<script>
+	$(document).ready(function() {
+		$("#addCaseForm").validate();
+	})
+</script>
 
 
-			<h1>Add Cases</h1>
-			
-			<br clear="all" />
+<div class="row full-width">
 
-			<div id="error">
-				<spring:hasBindErrors name="caseDetails">
-					<font color="red"> <c:forEach items="${errors.allErrors}"
-							var="error">
-							<spring:message code="${error.code}"
-								text="${error.defaultMessage}" />
-							<br />
-						</c:forEach>
-					</font>
-				</spring:hasBindErrors>
-			</div>
-			<form:form method="post" action="addcase" id="signUpForm"
+
+	<br clear="all" />
+
+	<div id="error">
+		<spring:hasBindErrors name="caseDetails">
+			<font color="red"> <c:forEach items="${errors.allErrors}"
+					var="error">
+					<spring:message code="${error.code}" text="${error.defaultMessage}" />
+					<br />
+				</c:forEach>
+			</font>
+		</spring:hasBindErrors>
+	</div>
+
+	<div class="row">
+		<div class="small-2 columns">If needed left side navigation
+			here..</div>
+
+		<div class="large-8 columns">
+			<form:form method="post" action="addcase" id="addCaseForm"
 				modelAttribute="caseDetails">
 				<div class="error" style="display: none;">
 					<img src="resources/images/warning.gif" alt="Warning!" width="24"
 						height="24" style="float: left; margin: -5px 10px 0px 0px;" /> <span></span>.<br
 						clear="all" />
 				</div>
+				<fieldset>
+
+					<div class="row">
+						<div class="small-2  columns">
+							<label for="emailId">User Name:</label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="personName" type="text" class="required"
+								tabindex="1" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="small-2 columns">
+							<label for="emailId">Email Address</label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="emailId" type="email" tabindex="2" />
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="small-2 columns">
+							<label for="caseDescription">Case Details</label>
+						</div>
+						<div class="large-6 columns">
+							<form:textarea path="caseDescription" class="required"
+								type="text" tabindex="3" rows="5" />
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="small-2 columns">
+							<label for="firstName">Concerned Source:</label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="caseSource" type="text" class="required"
+								tabindex="4" maxlength="40" />
+						</div>
+					</div>
 
 
-				<table width="90%">
-					<tr>
-						<td class="label"><label for="emailId">User Name:</label></td>
-						<td class="field"><form:input path="personName" type="text"
-								class="required" tabindex="1" /></td>
-					</tr>
-					<tr>
-						<td class="label"><label for="emailId">Email Address</label></td>
-						<td class="field"><form:input path="emailId" type="email"
-								tabindex="2" /></td>
-					</tr>
-					<tr>
-						<td class="label"><label for="caseDescription">Case
-								Details(should be multi line):</label></td>
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="dateOfBirth">Birth Date:</label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="dateOfBirth" type="text" class="required date"
+								tabindex="6" maxlength="15" size="15" value="1980-01-01" />
+						</div>
+					</div>
+					<div class="row full-width"></div>
+					<div class="row">
+						<div class="small-2 columns">
+							<label for="contact1">Contact Number 1 </label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="contact1" type="text" class="required"
+								tabindex="7" maxlength="40" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="small-2 columns">
+							<label for="contact2">Contact Number 2 </label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="contact2" type="text" class="required"
+								tabindex="8" maxlength="40" />
+						</div>
+					</div>
 
-						<td class="field"><form:input path="caseDescription"
-								type="textarea" class="required" value="" tabindex="2" /></td>
-					</tr>
-					<tr>
-						<td class="label"><label for="firstName">Concerned
-								Source:</label></td>
-						<td class="field"><form:input path="caseSource" type="text"
-								class="required" tabindex="4" maxlength="40" /></td>
-					</tr>
-					<tr>
-						<td class="label"><label for="dateOfBirth">Birth
-								Date:</label></td>
-						<td class="field"><form:input path="dateOfBirth" type="text"
-								class="required date" tabindex="6" maxlength="15"
-								value="1980-01-01" />
-					</tr>
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="caseType"
+								title='Please select all type of cases that you want to informed about'>Case
+								Types </label>
 
-					<tr>
-						<td class="label"><label for="contact1">Contact
-								Number 1 </label></td>
-						<td class="field"><form:input path="contact1" type="text"
-								class="required" tabindex="7" maxlength="40" /></td>
-					</tr>
-
-					<tr>
-						<td class="label"><label for="contact2">Contact
-								Number 2 </label></td>
-						<td class="field"><form:input path="contact2" type="text"
-								class="required" tabindex="8" maxlength="40" /></td>
-					</tr>
-
-
-					<tr>
-						<td class="label"><label for="caseType"
-							title='Please select all type of cases that you want to informed about'>Case
-								Types </label></td>
-						<td class="field"><form:select path="caseType"
-								multiple="false">
+						</div>
+						<div class="large-6 columns">
+							<form:select path="caseType" multiple="false">
 								<form:options items="${caseDetails.caseMasterTypes}"
 									itemValue="id" itemLabel="name" />
-							</form:select></td>
-					</tr>
+							</form:select>
+						</div>
+					</div>
+					<div class="row full-width"></div>
 
-					<tr>
-						<td class="label"><label for="helpType"
-							title='Please select corresponding help type needed.'>Help
-								Category Types </label></td>
-						<td class="field"><form:select path="helpType"
-								multiple="false">
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="helpType"
+								title='Please select corresponding help type needed.'>Help
+								Category Types </label>
+						</div>
+						<div class="large-6 columns">
+							<form:select path="helpType" multiple="false">
 								<form:options items="${caseDetails.helpMasterTypes}"
 									itemValue="id" itemLabel="name" />
-							</form:select></td>
-					</tr>
-
-					<tr>
-						<td class="label"><label for="countryId"
-							title='Country Selection'>Country</label></td>
-						<td class="field"><form:select path="countryId"
-								multiple="false">
+							</form:select>
+						</div>
+					</div>
+					<div class="row full-width"></div>
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="countryId" title='Country Selection'>Country</label>
+						</div>
+						<div class="large-6 columns">
+							<form:select path="countryId" multiple="false">
 								<form:options items="${caseDetails.countryMasterTypes}"
 									itemValue="id" itemLabel="name" />
-							</form:select></td>
-					</tr>
+							</form:select>
+						</div>
+					</div>
+					<div class="row full-width"></div>
 
-					<tr>
-						<td class="label"><label for="stateId"
-							title='State Selection'>State</label></td>
-						<td class="field"><form:select path="stateId"
-								multiple="false">
-							<form:options items="${caseDetails.stateMasterTypes}"
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="stateId" title='State Selection'>State</label>
+						</div>
+						<div class="large-6 columns">
+							<form:select path="stateId" multiple="false">
+								<form:options items="${caseDetails.stateMasterTypes}"
 									itemValue="id" itemLabel="name" />
-							</form:select></td>
-					</tr>
+							</form:select>
+						</div>
+					</div>
+					<div class="row full-width"></div>
 
-
-					<tr>
-						<td class="label"><label for="cityId" title='City Selection'>City</label></td>
-						<td class="field"><form:select path="cityId" multiple="false">
-							<form:options items="${caseDetails.cityMasterTypes}"
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="cityId" title='City Selection'>City</label>
+						</div>
+						<div class="large-6 columns">
+							<form:select path="cityId" multiple="false">
+								<form:options items="${caseDetails.cityMasterTypes}"
 									itemValue="id" itemLabel="name" />
-							</form:select></td>
-					</tr>
-					<tr>
-						<td class="label"><label for="addressLine1">AddressLine1
-						</label></td>
-						<td class="field"><form:input path="addressLine1" type="text"
-								class="required" tabindex="9" maxlength="40" /></td>
-					</tr>
-					<tr>
-						<td class="label"><label for="addressLine2">AddressLine2
-						</label></td>
-						<td class="field"><form:input path="addressLine2" type="text"
-								class="required" tabindex="10" maxlength="40" /></td>
-					</tr>
-					<tr>
-						<td class="label"><label for="zipcode">ZipCode </label></td>
-						<td class="field"><form:input path="zipcode" type="text"
-								class="required" tabindex="11" maxlength="40" /></td>
-					</tr>
+							</form:select>
+						</div>
+					</div>
+					<div class="row full-width"></div>
+
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="addressLine1">AddressLine1 </label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="addressLine1" type="text" class="required"
+								tabindex="9" maxlength="40" />
+						</div>
+					</div>
 
 
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="addressLine2">AddressLine2 </label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="addressLine2" type="text" class="required"
+								tabindex="10" maxlength="40" />
+						</div>
+					</div>
 
-					<tr>
-						<td></td>
-						<td>
+
+					<div class="row">
+						<div class="large-6 columns">
+							<label for="zipcode">ZipCode </label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="zipcode" type="text" class="required"
+								tabindex="11" maxlength="40" />
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="large-8 columns">
 							<div class="buttonSubmit">
-								<span></span> <input class="formButton" type="submit"
-									value="Register case" style="width: 140px" tabindex="14" />
+								<input class="formButton" type="submit" value="Register case"
+									style="width: 140px" tabindex="14" />
 							</div>
+						</div>
+					</div>
 
-						</td>
+				</fieldset>
 
-					</tr>
-				</table>
-				<br />
-				<br />
 			</form:form>
-			<!-- </form> -->
-			<br clear="all" />
-
-
 		</div>
-		<!-- end main content  -->
-		<br />
+		<!-- </form> -->
+		<br clear="all" />
 
-		<!-- end col-main -->
-
-	<!-- 	<!-- <!-- start left col -->
-		<!-- <div id="col-left" class="nav-left-back empty resize"
-			style="position: absolute; min-height: 400px;">
-			<div class="col-left-header-tab" style="position: absolute;">Signup</div>
-			<div class="nav-left"></div>
-
-
-			<div class="left-nav-callout png"
-				style="top: 15px; margin-bottom: 100px;">
-				<img src="resources/images/left-nav-callout-long.png" class="png"
-					alt="" />
-				<h6>Sign Up Process</h6>
-				<a
-					style="background-image: url(resources/images/step1-24.gif); font-weight: normal; text-decoration: none; cursor: default;">Provide
-					your basic information.</a> <a
-					style="background-image: url(resources/images/step2-24.gif); font-weight: normal; text-decoration: none; cursor: default;">Chose
-					the type of cases you are interested in.</a> <a
-					style="background-image: url(resources/images/step3-24.gif); font-weight: normal; text-decoration: none; cursor: default;">Complete
-					registration, validate your email/phone to get updates.</a>
-			</div>
-
-
-			<br clear="all" />
-		</div> -->
-		<div id="col-left" class="nav-left-back empty resize" >
-    
-    
-    <nav>
-      <ul id="nav">
-        <li><a href="#">Animation</a>
-          <ul>
-            <li><a href="http:/www.google.com/search?q=design+cartoons+animation">Cartoons</a></li>
-            <li><a href="http:/www.google.com/search?q=design+comic+strips+inspiration">Comic Strips</a></li>
-            <li><a href="http:/www.google.com/search?q=how+to+clip+video+footage">Video Clips</a></li>
-            <li><a href="http:/www.google.com/search?q=design+create+animated+gifs">Web GIFs</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Graphic Design</a>
-          <ul>
-            <li><a href="http:/www.google.com/search?q=photoshop+tutorials+graphics+design">Adobe Photoshop</a></li>
-            <li><a href="http:/www.google.com/search?q=digital+branding+graphics+logos">Branding &amp; Logos</a></li>
-            <li><a href="http:/www.google.com/search?q=graphics+design+marketing">Digital Marketing</a></li>
-            <li><a href="http:/www.google.com/search?q=graphic+design+illustrations">Illustrations</a></li>
-            <li><a href="http:/www.google.com/search?q=infographics+inspiration">Infographics</a></li>
-            <li><a href="http:/www.google.com/search?q=product+design+inspiration">Product Design</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Digital Photography</a>
-          <ul>
-            <li><a href="http:/www.google.com/search?q=cityscape+photography">Cityscapes</a></li>
-            <li><a href="http:/www.google.com/search?q=water+ocean+photography">Oceans</a></li>
-            <li><a href="http:/www.google.com/search?q=wide+angle+lens+photography">Wide-Angle Lens</a></li>
-            <li><a href="http:/www.google.com/search?q=wildlife+photography">Wildlife</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Print &amp; Identity</a>
-          <ul>
-            <li><a href="http:/www.google.com/search?q=branding+identity+print+design">Branding</a></li>
-            <li><a href="http:/www.google.com/search?q=business+cards+design">Business Cards</a></li>
-            <li><a href="http:/www.google.com/search?q=print+design+letterpress">Letterpress</a></li>
-            <li><a href="http:/www.google.com/search?q=print+poster+artwork">Poster Art</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Programming</a>
-          <ul>
-            <li><a href="http:/www.google.com/search?q=learn+css3+web+development">CSS3</a></li>
-            <li><a href="http:/www.google.com/search?q=learn+html5+web+development">HTML5</a></li>
-            <li><a href="http:/www.google.com/search?q=javascript+jquery+tutorials">JavaScript &amp; jQuery</a></li>
-            <li><a href="http:/www.google.com/search?q=web+development+mysql">MySQL Databases</a></li>
-            <li><a href="http:/www.google.com/search?q=wordpress+programming">Wordpress CMS</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Web Design</a>
-          <ul>
-            <li><a href="http:/www.google.com/search?q=web+design+icons">Icons</a></li>
-            <li><a href="http:/www.google.com/search?q=web+design+tutorials">Tutorials</a></li>
-            <li><a href="http:/www.google.com/search?q=web+design+user+interface">User Interfaces</a></li>
-            <li><a href="http:/www.google.com/search?q=web+design">Website Layouts</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </div>
-		
 
 	</div>
+
 </div>
-<!-- end page container 2 divs-->
+
+<!-- end main content  -->
+<br />
+<div id="col-left" class="nav-left-back empty resize"></div>
+
+
 
 

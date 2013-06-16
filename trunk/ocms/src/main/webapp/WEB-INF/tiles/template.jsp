@@ -10,10 +10,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
+
+
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Welcome to OCMS | The Online Case Management System</title>
+
+
+<link rel="stylesheet" href="foundation/css/foundation.css" />
+<link rel="stylesheet"
+	href="http://foundation.zurb.com/docs/assets/normalize.css" />
+
+<script src="foundation/js/vendor/custom.modernizr.js"></script>
 <meta name="title" content="Register @OCMS | CareerScale " />
 <meta name="robots" content="index, follow" />
 <meta name="description"
@@ -21,54 +38,37 @@
 <meta name="keywords" content="OCMS, TMAD" />
 <meta name="language" content="en" />
 
-<title><tiles:getAsString name="pageTitle" defaultValue="OCMS | The Online Case Management System by Careerscale" /></title>
+<title><tiles:getAsString name="pageTitle"
+		defaultValue="OCMS | The Online Case Management System by Careerscale" /></title>
 
 <link rel="shortcut icon" href="/favicon.ico" />
 
 <script src="/resources/scripts/jquery/jquery-1.8.3.min.js"></script>
 <script src="/resources/scripts/jquery/jquery.validate.min.js"></script>
 <script src="/resources/scripts/jquery/jquery-ui-1.8.17.custom.min.js"></script>
-
 <script src="/resources/scripts/jquery/jquery.maskedinput.js"></script>
-<script src="/resources/scripts/application/register.js"></script>
-<script src="/resources/scripts/application/register.js"></script>
-<script src="/resources/scripts/jquery/nav.js"></script>
 
-<!-- 
-
-/* iPhone, etc portrait ---- */
-@media only screen and (min-width: 320px)
-
-/* iPhone, etc landscape ---- */
-@media only screen and (min-width: 480px)
-
-
-/* iPad, tablets etc portrait ---- */
-@media only screen and (min-width: 768px)
-
-/* Laptops, Desktops, etc ---- */
-@media only screen and (min-width: 1024px)
-
-
- -->
-
-<link rel="stylesheet" media="screen" href="/resources/css/stylesheet.css" />
-<link rel="stylesheet" media="screen" href="/resources/css/styles1.css" />
-<link rel="stylesheet" media="only screen and (min-width: 768px)" href="/resources/css/medium/stylesheet.css" />
-<link rel="stylesheet" media="only screen and (min-width: 320px)" href="/resources/css/small/stylesheet.css" />
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <c:set var="datePattern">
 	<fmt:message key="date.format" />
 </c:set>
 
-<link href="<c:url value="/resources/css/stylesheet.css"/>" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/resources/css/redmond/jquery-ui-1.8.16.custom.css" />
-	
-	
+<link href="<c:url value="/resources/css/stylesheet.css"/>"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/redmond/jquery-ui-1.8.16.custom.css" />
+
+<link rel="stylesheet" href="/foundation/css/foundation.css" />
+<link rel="stylesheet"
+	href="/foundation/css/normalize.css" />
+
+<script src="/foundation/js/vendor/custom.modernizr.js"></script>
+
 </head>
+
 <body>
 	<!-- start page wrapper -->
-	<div id="letterbox">
+	<div class="row">
 
 		<tiles:insertAttribute name="header" defaultValue="" />
 		<!-- Page content -->
@@ -78,5 +78,53 @@
 
 		<!-- end page wrapper -->
 	</div>
+
+
+	<script>
+		document.write('<script src='
+				+ ('__proto__' in {} ? '/foundation/js/vendor/zepto' : '/foundation/js/vendor/jquery')
+				+ '.js><\/script>')
+	</script>
+
+	<script src="/foundation/js/foundation.min.js"></script>
+	
+	  <script src="/foundation/js/foundation/foundation.forms.js"></script>
+	<!--
+  
+  <script src="js/foundation/foundation.js"></script>
+  
+  <script src="js/foundation/foundation.dropdown.js"></script>
+  
+  <script src="js/foundation/foundation.placeholder.js"></script>
+  
+
+  
+  <script src="js/foundation/foundation.alerts.js"></script>
+  
+  <script src="js/foundation/foundation.magellan.js"></script>
+  
+  <script src="js/foundation/foundation.reveal.js"></script>
+  
+  <script src="js/foundation/foundation.tooltips.js"></script>
+  
+  <script src="js/foundation/foundation.clearing.js"></script>
+  
+  <script src="js/foundation/foundation.cookie.js"></script>
+  
+  <script src="js/foundation/foundation.joyride.js"></script>
+  
+  <script src="js/foundation/foundation.orbit.js"></script>
+  
+  <script src="js/foundation/foundation.section.js"></script>
+  
+  <script src="js/foundation/foundation.topbar.js"></script>
+  
+  -->
+
+	<script>
+		$(document).foundation();
+		// $("#navigation").load("nav.html"); // Load the contents of nav.html
+	</script>
+
 </body>
 </html>
