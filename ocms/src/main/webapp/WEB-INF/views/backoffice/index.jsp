@@ -3,11 +3,8 @@
 
 <h1><s:message code="backoffice.index.title" /></h1>
 
-<div id="page-container" class="resize">
 
-	<div id="page-content-inner" class="resize">
-<p>
-	
+	<div class="row full-width">
 	<ul>
 	<li><a href="backoffice/casetype"><s:message code="view.backoffice.casetype.casetype.label" /></a> </li>
 	<li><a href="backoffice/helptype"><s:message code="view.backoffice.helptype.helptype.label" /></a> </li>
@@ -17,8 +14,4 @@
 	<li><a href="backoffice/modulemaster"><s:message code="view.backoffice.modulemaster.modulemaster.label" /></a> </li>
 	<li><a href="backoffice/emailtemplate"><s:message code="view.backoffice.emailtemplate.emailtemplate.label" /></a> </li>
 	</ul>
-	
-</p>
-
-</div>
-</div>
+	</div>
