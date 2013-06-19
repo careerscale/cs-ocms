@@ -41,6 +41,9 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 			access="permitAll" />
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
+			
+			<security:intercept-url pattern="/foundation/**"
+			access="permitAll" />
 
 
 		<!-- This is an example of role enablement, when needed <security:intercept-url 
