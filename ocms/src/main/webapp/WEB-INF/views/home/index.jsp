@@ -85,11 +85,8 @@
 
 	<div class="large-4 columns">
 		<img src="/resources/images/home/another_image">
-		<h4>This is a content section.</h4>
-		<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation
-			eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore
-			aliqua non est magna in labore pig pork biltong. Eiusmod swine spare
-			ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
+		<h4>SAAS model for NGOs</h4>
+		<p>A single application that helps manage all your NGO activities in a single place with super duper multi tenancy built in. OCMS is conceived and developed by key members of a leading NGO from India.</p>
 	</div>
 
 	<div class="large-4 columns">
@@ -116,15 +113,15 @@
 				</form>
 		</sec:authorize>
 		<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
+		<br/> <br/>
 				Hello <sec:authentication property="principal.displayName" />
+				Welcome to OCMS, use the top navigation to access your account and manage the cases.
+				<br/>
 			<a href="logout">Logout</a>
 		</sec:authorize>
 	
 	</div>
-	<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation
-		eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore
-		aliqua non est magna in labore pig pork biltong. Eiusmod swine spare
-		ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
+	
 </div>
 
 
