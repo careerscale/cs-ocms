@@ -30,7 +30,6 @@
 <link rel="stylesheet"
 	href="http://foundation.zurb.com/docs/assets/normalize.css" />
 
-<script src="foundation/js/vendor/custom.modernizr.js"></script>
 <meta name="title" content="Register @OCMS | CareerScale " />
 <meta name="robots" content="index, follow" />
 <meta name="description"
@@ -53,16 +52,20 @@
 	<fmt:message key="date.format" />
 </c:set>
 
-<link href="<c:url value="/resources/css/stylesheet.css"/>"
-	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/redmond/jquery-ui-1.8.16.custom.css" />
 
-<link rel="stylesheet" href="/foundation/css/foundation.css" />
-<link rel="stylesheet"
-	href="/foundation/css/normalize.css" />
+<!-- <link rel="stylesheet" href="/foundation/css/foundation.css" />
+<link rel="stylesheet" href="/foundation/css/normalize.css" />
+  -->
 
-<script src="/foundation/js/vendor/custom.modernizr.js"></script>
+
+ 
+ <!--   -->
+ <link rel="stylesheet" href="http://foundation.zurb.com/page-templates4/css/normalize.css">
+  <link rel="stylesheet" href="http://foundation.zurb.com/page-templates4/css/foundation.css">
+
+<script src="/foundation/js/custom.modernizr.js"></script>
 
 </head>
 
@@ -82,47 +85,54 @@
 
 	<script>
 		document.write('<script src='
-				+ ('__proto__' in {} ? '/foundation/js/vendor/zepto' : '/foundation/js/vendor/jquery')
-				+ '.js><\/script>')
+				+ ('__proto__' in {} ? '/foundation/js/vendor/zepto'
+						: '/foundation/js/vendor/jquery') + '.js><\/script>')
 	</script>
 
 	<script src="/foundation/js/foundation.min.js"></script>
-	
-	  <script src="/foundation/js/foundation/foundation.forms.js"></script>
-	<!--
-  
-  <script src="js/foundation/foundation.js"></script>
-  
-  <script src="js/foundation/foundation.dropdown.js"></script>
-  
-  <script src="js/foundation/foundation.placeholder.js"></script>
-  
 
+	<script src="/foundation/js/foundation/foundation.forms.js"></script>
+
+
+	<script src="/foundation/js/foundation/foundation.js"></script>
+
+
+	<script src="/foundation/js/foundation/foundation.orbit.js"></script>
+
+
+
+
+	<!-- 
   
-  <script src="js/foundation/foundation.alerts.js"></script>
+    
+  <script src="/foundation/js/foundation/foundation.dropdown.js"></script>
   
-  <script src="js/foundation/foundation.magellan.js"></script>
+  <script src="/foundation/js/foundation/foundation.placeholder.js"></script>
   
-  <script src="js/foundation/foundation.reveal.js"></script>
+  <script src="/foundation/js/foundation/foundation.alerts.js"></script>
   
-  <script src="js/foundation/foundation.tooltips.js"></script>
+  <script src="/foundation/js/foundation/foundation.magellan.js"></script>
   
-  <script src="js/foundation/foundation.clearing.js"></script>
+  <script src="/foundation/js/foundation/foundation.reveal.js"></script>
   
-  <script src="js/foundation/foundation.cookie.js"></script>
+  <script src="/foundation/js/foundation/foundation.tooltips.js"></script>
   
-  <script src="js/foundation/foundation.joyride.js"></script>
+  <script src="/foundation/js/foundation/foundation.clearing.js"></script>
   
-  <script src="js/foundation/foundation.orbit.js"></script>
+  <script src="/foundation/js/foundation/foundation.cookie.js"></script>
   
-  <script src="js/foundation/foundation.section.js"></script>
+  <script src="/foundation/js/foundation/foundation.joyride.js"></script>
   
-  <script src="js/foundation/foundation.topbar.js"></script>
+  <script src="/foundation/js/foundation/foundation.section.js"></script>
   
-  -->
+  <script src="/foundation/js/foundation/foundation.topbar.js"></script>
+  
+ -->
 
 	<script>
-		$(document).foundation();
+		$(document).ready(function() {
+			$(document).foundation();
+		});
 		// $("#navigation").load("nav.html"); // Load the contents of nav.html
 	</script>
 
