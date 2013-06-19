@@ -13,7 +13,7 @@
 	
 	<definition name="home"  template="/WEB-INF/tiles/template.jsp">	
 		<put-attribute name="header" value="/WEB-INF/tiles/header1.jsp"/>	
-		<put-attribute name="footer" value="/WEB-INF/tiles/footer1.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp"/>
 	</definition>
 	
 </tiles-definitions>

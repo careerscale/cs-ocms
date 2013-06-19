@@ -1,3 +1,4 @@
+<!-- Footer -->
 	<div class="row full-width">
 		<hr />
 		<div class="large-6 columns">
@@ -13,5 +14,6 @@
 			</ul>
 		</div>
 	</div>
-
+  
+  <!-- End Footer -->
 	
