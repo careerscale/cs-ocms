@@ -26,9 +26,6 @@
 <title>Welcome to OCMS | The Online Case Management System</title>
 
 
-<link rel="stylesheet" href="foundation/css/foundation.css" />
-<link rel="stylesheet"
-	href="http://foundation.zurb.com/docs/assets/normalize.css" />
 
 <meta name="title" content="Register @OCMS | CareerScale " />
 <meta name="robots" content="index, follow" />
@@ -61,10 +58,14 @@
 
 
  
- <!--   -->
+ <!--   
  <link rel="stylesheet" href="http://foundation.zurb.com/page-templates4/css/normalize.css">
-  <link rel="stylesheet" href="http://foundation.zurb.com/page-templates4/css/foundation.css">
+ <link rel="stylesheet" href="http://foundation.zurb.com/page-templates4/css/foundation.css">
 
+-->
+
+<link rel="stylesheet" href="/foundation/css/foundation.css" />
+<link rel="stylesheet" href="/foundation/css/normalize.css" />
 <script src="/foundation/js/custom.modernizr.js"></script>
 
 </head>

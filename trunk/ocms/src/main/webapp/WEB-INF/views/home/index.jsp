@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="large-3 columns">
 		<h1>
-			<img src="/resources/images/home/logo">
+			<img src="/resources/images/ocms_logo.png">
 		</h1>
 	</div>
 	<div class="large-9 columns">
@@ -78,7 +78,13 @@
 
 <div class="row">
 	<div class="large-4 columns">
-		<img src="/resources/images/home/400x300&text=[img]">
+		<img src="/resources/images/home/another_image"> <!-- 400x300 image -->
+		<h4>Reaching the needy</h4>
+		<p>The essence of OCMS is to reach the genuine needy (yes our process pays high attention for verification process). There are so many people in disperate condition needing help, bright but poor students unable to pay fee, poor people unable to pay for their medical expenses etc. We are not gods but tryig our level best to connect the needy with the kind hearted people and organizations and making sure we provide help in time.</p>
+	</div>
+
+	<div class="large-4 columns">
+		<img src="/resources/images/home/another_image">
 		<h4>This is a content section.</h4>
 		<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation
 			eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore
@@ -87,16 +93,7 @@
 	</div>
 
 	<div class="large-4 columns">
-		<img src="/resources/images/home/400x300&text=[img]">
-		<h4>This is a content section.</h4>
-		<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation
-			eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore
-			aliqua non est magna in labore pig pork biltong. Eiusmod swine spare
-			ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
-	</div>
-
-	<div class="large-4 columns">
-		<img src="/resources/images/home/400x300&text=[img]">
+		<img src="/resources/images/home/another_image">
 		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
 			<h3>Login to OCMS</h3>
 			<div class="row">Login</div>
