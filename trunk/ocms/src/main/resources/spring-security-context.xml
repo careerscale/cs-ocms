@@ -41,8 +41,11 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 			access="permitAll" />
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
-			
-			<security:intercept-url pattern="/foundation/**"
+
+		<security:intercept-url pattern="/foundation/**"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/favicon.ico"
 			access="permitAll" />
 
 
@@ -119,7 +122,8 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 		<constructor-arg value="${app.config.oauth.facebook.apisecret}" />
 		<constructor-arg value="${app.config.oauth.facebook.callback}" />
 		<constructor-arg value="org.scribe.builder.api.FacebookApi" />
-		<constructor-arg value="email, user_about_me, user_birthday, user_hometown, user_website, offline_access, read_stream, publish_stream, read_friendlists" />
+		<constructor-arg
+			value="email, user_about_me, user_birthday, user_hometown, user_website, offline_access, read_stream, publish_stream, read_friendlists" />
 	</bean>
 
 	<bean id="facebookServiceProvider"
@@ -178,9 +182,10 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 	<task:scheduler id="taskScheduler" pool-size="2" />
 
 
-<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    <property name="maxUploadSize" value="8388608"/> <!-- 8 megs --> 
-</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="8388608" /> <!-- 8 megs -->
+	</bean>
 
 
 
