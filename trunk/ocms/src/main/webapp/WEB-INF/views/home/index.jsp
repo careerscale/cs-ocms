@@ -114,17 +114,18 @@
 						href="/forgotpassword" class="button">Forgot password? </a>
 				</div>
 				<div class="row">
-					<label>No account yet?</label> <a href="/register">Register</a>
+					<label>No account yet?</label> <a href="/register" class="button round">Register</a>
 				</div>
+				
 				<div class="row">
 					<label>Login with</label>
 				</div>
 				<div class="row">
-					<a href="/login-facebook">Facebook</a> <a href="/login-google">Google</a>
+					<a href="/login-facebook" class="button round">Facebook</a> <a href="/login-google" class="button round">Google</a>
 				</div>
 
 				<div class="row">
-					<a href="/login-linkedin">LinkedIn</a> <a href="/login-twitter">Twitter</a>
+					<a href="/login-linkedin" class="button round">LinkedIn</a> <a href="/login-twitter" class="button round">Twitter</a>
 				</div>
 			</form>
 		</sec:authorize>
