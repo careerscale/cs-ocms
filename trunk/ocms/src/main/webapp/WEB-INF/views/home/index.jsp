@@ -110,10 +110,21 @@
 				</div>
 
 				<div class="row">
-					<input type="submit" class="button round" value="Login" />
+					<input type="submit" class="button round" value="Login" /> <a
+						href="/forgotpassword" class="button">Forgot password? </a>
 				</div>
 				<div class="row">
 					<label>No account yet?</label> <a href="/register">Register</a>
+				</div>
+				<div class="row">
+					<label>Login with</label>
+				</div>
+				<div class="row">
+					<a href="/login-facebook">Facebook</a> <a href="/login-google">Google</a>
+				</div>
+
+				<div class="row">
+					<a href="/login-linkedin">LinkedIn</a> <a href="/login-twitter">Twitter</a>
 				</div>
 			</form>
 		</sec:authorize>
