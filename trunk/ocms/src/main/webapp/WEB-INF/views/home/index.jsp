@@ -108,7 +108,10 @@
 				</div>
 
 				<div class="row">
-					<input type="submit" value="Login" />
+					<input type="submit" class="button round"  value="Login" />
+				</div>
+				<div class="row">
+					<label>No account yet?</label> <a href="/register">Register</a>
 				</div>
 				</form>
 		</sec:authorize>

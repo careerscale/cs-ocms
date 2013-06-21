@@ -2,18 +2,16 @@
 	uri="http://www.springframework.org/security/tags"%>
 
 <body>
-	<div class="row">
-		<div class="large-8 columns"></div>
-		<div class="large-4 columns">
-			<a href="#"><span></span> <sec:authorize
+	<div class="row right">
+		
+			 <sec:authorize
 					ifAnyGranted="ROLE_ANONYMOUS">
-					<a href="login">Login</a>
-
+					<a href="login">Login</a> <label>No account yet?</label> <a href="/register">Register</a>
 				</sec:authorize> <sec:authorize ifNotGranted="ROLE_ANONYMOUS">
 				Hello <sec:authentication property="principal.displayName" />
 					<a href="logout">Logout</a>
 				</sec:authorize> </a>
-		</div>
+		
 	</div>
 	<div class="row">
 		<div class="large-3 columns">
