@@ -27,7 +27,7 @@
 			<div class="action-container" style="display: none;"></div>
 
 
-			<h1>Forgot your password?</h1>
+			<h3>We found your password</h3>
 			<p>Your password has been emailed to your registered email
 				address.</p>
 			<br clear="all" />

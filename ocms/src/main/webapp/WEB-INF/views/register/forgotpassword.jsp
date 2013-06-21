@@ -36,9 +36,7 @@
 			<div class="main-content resize">
 
 				<div class="action-container" style="display: none;"></div>
-
-                
-				<h1>Forgot your password?</h1>
+    
 				<p>Please provide your registered email address and submit form. your password will be emailed to your registered email address.</p>
 				<br clear="all" />
 		
@@ -73,9 +71,9 @@
 							<tr>
 								<td></td>
 								<td>
-									<div class="buttonSubmit">
-										<span></span> <input class="formButton" type="submit"
-											value="Resend my password" style="width: 140px" tabindex="14" />
+									<div class="row">
+										<span></span> <input class="button round" type="submit"
+											value="Resend my password" />
 									</div>
 
 								</td>
