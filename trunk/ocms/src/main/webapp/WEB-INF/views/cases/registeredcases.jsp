@@ -26,7 +26,7 @@
 				<div class="action-container" style="display: none;"></div>
 
 
-				<h2>Case is successfully registered with OCMS.</h2>
+				<h3>Case is successfully registered with OCMS.</h3>
 				<p>
 					Please note that we verify each case reported on OCMS and then
 					publish to the community for assistance. It would take few days

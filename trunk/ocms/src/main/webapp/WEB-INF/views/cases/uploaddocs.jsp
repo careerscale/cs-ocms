@@ -26,7 +26,7 @@
 				<div class="action-container" style="display: none;"></div>
 
 
-				<h2>Case is added to OCMS.</h2>
+				<h3>Case is added to OCMS.</h3>
 
 				<div>
 					<h3>

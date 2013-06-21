@@ -26,7 +26,7 @@
 				<div class="action-container" style="display: none;"></div>
 
 
-				<h2>Thank you for registering with OCMS.</h2>
+				<h3>Thank you for registering with OCMS.</h3>
 				<p>Please <a href="/user">Login</a> with your email id and password to continue with this site</p>
 				<br clear="all" />
 				<div>
