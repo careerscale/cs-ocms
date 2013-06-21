@@ -81,7 +81,7 @@
 	</div>
 
 	<div class="row">
-		<div class="large-6 columns">Horizontal nav. menu should go here</div>
+		<div class="large-4 columns">Horizontal nav. menu should go here</div>
 
 		<div class="large-8 columns">
 			<form:form method="post" action="register" id="registerForm"
@@ -97,29 +97,32 @@
 					</div>
 
 					<div class="row">
-						<div class="large-2  columns">
-							<label for="emailId">Email Id:</label>
+						<div class="large-6  columns">
+							<label for="emailId" class="right inline">Email Id:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="emailId" type="email" class="required email"
-								value="user@careerscale.in" tabindex="1" />
+								placeholder="Inline Text Input" value="user@careerscale.in"
+								tabindex="1" />
 						</div>
 					</div>
 
 					<div class="row">
-						<div class="large-2  columns">
-							<label for="password">Password:</label>
+						<div class="large-6  columns">
+							<label for="password" class="right inline">Password:</label>
 						</div>
 						<div class="large-6 columns">
-							<form:input path="password" type="password" class="password"
-								value="test123" tabindex="2" maxlength="40" />
+							<form:input path="password" type="password"
+								class="required password" value="test123" tabindex="2"
+								maxlength="40" />
 						</div>
 					</div>
 
 
 					<div class="row">
-						<div class="large-2  columns">
-							<label for="confirmPassword">Retype Password:</label>
+						<div class="large-6  columns">
+							<label for="confirmPassword" class="right inline">Retype
+								Password:</label>
 						</div>
 						<div class="large-6 columns">
 							<div class="formError"></div>
@@ -132,19 +135,20 @@
 
 
 					<div class="row">
-						<div class="large-2  columns">
-							<label for="firstName">First Name:</label>
+						<div class="large-6  columns">
+							<label for="firstName" class="right inline">First Name:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="firstName" type="text" class="required"
-								value="FirstName" tabindex="4" maxlength="40" />
+								value="FirstName" tabindex="4" maxlength="40"
+								placeholder="Inline Text Input" />
 						</div>
 					</div>
 
 
 					<div class="row">
-						<div class="large-2  columns">
-							<label for="lastName">Last Name:</label>
+						<div class="large-6  columns">
+							<label for="lastName" class="right inline">Last Name:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="lastName" type="text" class="required"
@@ -154,8 +158,8 @@
 
 
 					<div class="row">
-						<div class="large-2  columns">
-							<label for="dateOfBirth">Birth Date:</label>
+						<div class="large-6  columns">
+							<label for="dateOfBirth" class="right inline">Birth Date:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="dateOfBirth" type="text" class="required date"
@@ -164,45 +168,52 @@
 					</div>
 
 					<div class="row">
-						<div class="large-2  columns">
+						<div class="large-6  columns">
 							<label for="caseTypes"
-								title='Please select all type of cases that you want to informed about'>Case
-								Types </label>
+								title='Please select all type of cases that you want to informed about'
+								class="right inline">Case Types </label>
 						</div>
 						<div class="large-6 columns">
-							<form:select path="caseTypes" multiple="true">
+							<form:select path="caseTypes" multiple="true"
+								class="right inline" tabindex="7">
 								<form:options items="${user.caseMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select>
 						</div>
 					</div>
-					<br/>
+					<br />
 					<div class="row">
-						<div class="large-2  columns">
+						<div class="large-6  columns">
 							<label for="helpTypes"
-								title='Please select how many ways you want to help others'>Help
-								Category Types </label>
+								title='Please select how many ways you want to help others'
+								class="right inline">Help Category Types </label>
 						</div>
-					
+
 						<div class="large-6 columns">
-							<form:select path="helpTypes" multiple="true">
+							<form:select path="helpTypes" multiple="true" tabindex="8">
 								<form:options items="${user.helpMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select>
 						</div>
 					</div>
-				
+					
 					<div class="row">
-						<div class="large-2  columns"></div>
+						<div class="large-6  columns"></div>
+						<div class="large-6 columns"></div>
+					</div>
+
+					<div class="row">
+
+						<div class="large-6 columns"></div>
 						<div class="large-6 columns">
-							<div class="buttonSubmit">
-								<span></span> <input class="formButton" type="submit"
-									value="Signup" style="width: 140px" tabindex="14" />
-							</div>
+							<input class="button round" type="submit" value="Signup"
+								class="right inline" tabindex="9" /> <input
+								class="button round" type="reset" value="Reset"
+								class="right inline" tabindex="10" />
 						</div>
 					</div>
 					<div class="row">
-						<div class="large-2  columns"></div>
+						<div class="large-6  columns"></div>
 						<div class="large-6 columns"></div>
 					</div>
 
@@ -217,12 +228,9 @@
 
 
 		</div>
-		<!-- end main content  -->
+		<!-- end form content  -->
 		<br />
 
-		<!-- end col-main -->
-
-		<div id="col-left"></div>
 
 	</div>
 </div>

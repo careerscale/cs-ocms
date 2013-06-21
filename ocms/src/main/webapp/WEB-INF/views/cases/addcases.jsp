@@ -168,7 +168,7 @@
 	</div>
 
 	<div class="row">
-		<div class="small-2 columns">If needed left side navigation
+		<div class="large-4 columns">If needed left side navigation
 			here..</div>
 
 		<div class="large-8 columns">
@@ -182,8 +182,8 @@
 				<fieldset>
 
 					<div class="row">
-						<div class="small-2  columns">
-							<label for="emailId">User Name:</label>
+						<div class="large-6  columns">
+							<label for="emailId" class="right inline">User Name:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="personName" type="text" class="required"
@@ -192,8 +192,8 @@
 					</div>
 
 					<div class="row">
-						<div class="small-2 columns">
-							<label for="emailId">Email Address</label>
+						<div class="large-6 columns">
+							<label for="emailId" class="right inline">Email Address</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="emailId" type="email" tabindex="2" />
@@ -201,8 +201,8 @@
 					</div>
 
 					<div class="row">
-						<div class="small-2 columns">
-							<label for="caseDescription">Case Details</label>
+						<div class="large-6 columns">
+							<label for="caseDescription" class="right inline">Case Details</label>
 						</div>
 						<div class="large-6 columns">
 							<form:textarea path="caseDescription" class="required"
@@ -212,8 +212,8 @@
 					</div>
 
 					<div class="row">
-						<div class="small-2 columns">
-							<label for="firstName">Concerned Source:</label>
+						<div class="large-6 columns">
+							<label for="firstName" class="right inline">Concerned Source:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="caseSource" type="text" class="required"
@@ -224,7 +224,7 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="dateOfBirth">Birth Date:</label>
+							<label for="dateOfBirth" class="right inline">Birth Date:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="dateOfBirth" type="text" class="required date"
@@ -233,8 +233,8 @@
 					</div>
 					<div class="row full-width"></div>
 					<div class="row">
-						<div class="small-2 columns">
-							<label for="contact1">Contact Number 1 </label>
+						<div class="large-6 columns">
+							<label for="contact1" class="right inline">Contact Number 1 </label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="contact1" type="text" class="required"
@@ -242,8 +242,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="small-2 columns">
-							<label for="contact2">Contact Number 2 </label>
+						<div class="large-6 columns">
+							<label for="contact2" class="right inline">Contact Number 2 </label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="contact2" type="text" class="required"
@@ -254,7 +254,7 @@
 					<div class="row">
 						<div class="large-6 columns">
 							<label for="caseType"
-								title='Please select all type of cases that you want to informed about'>Case
+								title='Please select all type of cases that you want to informed about' class="right inline">Case
 								Types </label>
 
 						</div>
@@ -270,7 +270,7 @@
 					<div class="row">
 						<div class="large-6 columns">
 							<label for="helpType"
-								title='Please select corresponding help type needed.'>Help
+								title='Please select corresponding help type needed.' class="right inline">Help
 								Category Types </label>
 						</div>
 						<div class="large-6 columns">
@@ -283,7 +283,7 @@
 					<br/>
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="countryId" title='Country Selection'>Country</label>
+							<label for="countryId" title='Country Selection' class="right inline" >Country</label>
 						</div>
 						<div class="large-6 columns">
 							<form:select path="countryId" multiple="false">
@@ -296,7 +296,7 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="stateId" title='State Selection'>State</label>
+							<label for="stateId" title='State Selection' class="right inline">State</label>
 						</div>
 						<div class="large-6 columns">
 							<form:select path="stateId" multiple="false">
@@ -309,7 +309,7 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="cityId" title='City Selection'>City</label>
+							<label for="cityId" title='City Selection' class="right inline">City</label>
 						</div>
 						<div class="large-6 columns">
 							<form:select path="cityId" multiple="false">
@@ -322,7 +322,7 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="addressLine1">AddressLine1 </label>
+							<label for="addressLine1" class="right inline">AddressLine1 </label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="addressLine1" type="text" class="required"
@@ -333,7 +333,7 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="addressLine2">AddressLine2 </label>
+							<label for="addressLine2" class="right inline">AddressLine2 </label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="addressLine2" type="text" class="required"
@@ -344,7 +344,7 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="zipcode">ZipCode </label>
+							<label for="zipcode" class="right inline">ZipCode </label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="zipcode" type="text" class="required"
@@ -353,11 +353,17 @@
 					</div>
 
 
-					<div class="row">
-						<div class="large-8 columns">
-							<div class="buttonSubmit">
-								<input class="formButton" type="submit" value="Register case"
-									style="width: 140px" tabindex="14" />
+					<div class="row" class="right inline" >
+					
+							<div  class="large-6 columns" >
+							</div>
+						<div  class="large-6 columns">
+							<div class="right inline" >
+								<input class="right inline button round" type="reset" value="Reset form"
+									style="width: 140px" tabindex="14"  />
+							
+								<input class="button round inline right" type="submit" value="Register case"
+									style="width: 140px" tabindex="14"  />
 							</div>
 						</div>
 					</div>
