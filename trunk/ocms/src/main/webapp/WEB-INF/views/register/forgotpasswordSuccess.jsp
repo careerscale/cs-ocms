@@ -14,29 +14,12 @@
 <h1>
 	<spring:message code="register.forgotpassword.title" />
 </h1>
+<div class="row full-width">
 
-<div id="page-container" class="resize">
-	<div id="page-content-inner" class="resize">
+	<h3>We found your password</h3>
+	<p>Your password has been emailed to your registered email address.</p>
+	<br clear="all" />
+	<!-- end main content  -->
+	<br />
 
-		<!-- start col-main -->
-
-
-		<!-- start main content  -->
-		<div class="main-content resize">
-
-			<div class="action-container" style="display: none;"></div>
-
-
-			<h3>We found your password</h3>
-			<p>Your password has been emailed to your registered email
-				address.</p>
-			<br clear="all" />
-			<!-- end main content  -->
-			<br />
-
-			<!-- end col-main -->
-
-		</div>
-	</div>
-	<!-- end page container 2 divs-->
 </div>
