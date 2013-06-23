@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+<table name="employee" class="in.careerscale.apps.rms.model.Employee"></table>
+<table name="job_applications" class="in.careerscale.apps.rms.model.JobApplication"></table>
+<table name="job_posting" class="in.careerscale.apps.rms.model.JobPosting"></table>
+<table name="vendor" class="in.careerscale.apps.rms.model.Vendor"></table>
+
+</hibernate-reverse-engineering>

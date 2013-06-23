@@ -1,0 +1,195 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security-3.1.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd ">
+
+
+	<!-- Dont try to place place holder configurers in xml. If you are addding 
+		a new file, add it to RootConfig.java -->
+
+	<!-- <util:properties id="applicationConfig" location="classpath:application.properties"/> 
+		<context:property-placeholder properties-ref="applicationConfig"/> -->
+	<!-- <context:property-placeholder location="classpath:application.properties" 
+		/> -->
+
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+		<property name="locations"> <list> <value>WEB-INF/classes/application.properties</value> 
+		<value>classpath:application.properties</value> </list> </property> <property 
+		name="ignoreResourceNotFound" value="false"/> </bean> -->
+
+	<security:http auto-config="true" disable-url-rewriting="true"
+		use-expressions="true">
+		<security:logout logout-url="/logout" />
+		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/about"
+			access="permitAll" />
+		<security:intercept-url pattern="/forgotpassword"
+			access="permitAll" />
+		<security:intercept-url pattern="/register"
+			access="permitAll" />
+		<security:intercept-url pattern="/oauth"
+			access="permitAll" />
+		<security:intercept-url pattern="/login"
+			access="permitAll" />
+		<security:intercept-url pattern="/resources/**"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/foundation/**"
+			access="permitAll" />
+
+
+		<security:intercept-url pattern="/favicon.ico"
+			access="permitAll" />
+
+
+		<!-- This is an example of role enablement, when needed <security:intercept-url 
+			pattern="/**" access=" hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" /> -->
+
+
+		<security:intercept-url pattern="/j_spring_security_check"
+			access="permitAll" />
+
+
+
+		<!-- <Open ID integration URLS need to be skipped as well -->
+
+		<security:intercept-url pattern="/google-callback"
+			access="permitAll" />
+		<security:intercept-url pattern="/login-google"
+			access="permitAll" />
+		<security:intercept-url pattern="/login-facebook"
+			access="permitAll" />
+		<security:intercept-url pattern="/facebook-callback"
+			access="permitAll" />
+		<security:intercept-url pattern="/login-linkedin"
+			access="permitAll" />
+		<security:intercept-url pattern="/linkedin-callback"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/login-twitter"
+			access="permitAll" />
+		<security:intercept-url pattern="/twitter-callback"
+			access="permitAll" />
+
+
+
+
+		<security:form-login login-page="/login"
+			login-processing-url="/j_spring_security_check" default-target-url="/user"
+			always-use-default-target="false" />
+
+		<security:http-basic />
+
+		<security:intercept-url pattern="/**"
+			access="isAuthenticated()" />
+
+	</security:http>
+
+	<security:authentication-manager
+		erase-credentials="true">
+		<security:authentication-provider
+			user-service-ref="userService" />
+		<security:authentication-provider
+			user-service-ref="socialService" />
+
+	</security:authentication-manager>
+
+	<!-- oauth -->
+	<!-- -->
+	<bean id="linkedInServiceConfig"
+		class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig">
+		<constructor-arg value="${app.config.oauth.linkedin.apikey}" />
+		<constructor-arg value="${app.config.oauth.linkedin.apisecret}" />
+		<constructor-arg value="${app.config.oauth.linkedin.callback}" />
+		<constructor-arg value="org.scribe.builder.api.LinkedInApi" />
+	</bean>
+
+	<bean id="linkedInServiceProvider"
+		class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider">
+		<constructor-arg name="config" ref="linkedInServiceConfig" />
+	</bean>
+
+	<bean id="facebookServiceConfig"
+		class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig">
+		<constructor-arg value="${app.config.oauth.facebook.apikey}" />
+		<constructor-arg value="${app.config.oauth.facebook.apisecret}" />
+		<constructor-arg value="${app.config.oauth.facebook.callback}" />
+		<constructor-arg value="org.scribe.builder.api.FacebookApi" />
+		<constructor-arg
+			value="email, user_about_me, user_birthday, user_hometown, user_website, offline_access, read_stream, publish_stream, read_friendlists" />
+	</bean>
+
+	<bean id="facebookServiceProvider"
+		class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider">
+		<constructor-arg name="config" ref="facebookServiceConfig" />
+	</bean>
+
+	<bean id="twitterServiceConfig"
+		class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig">
+		<constructor-arg value="${app.config.oauth.twitter.apikey}" />
+		<constructor-arg value="${app.config.oauth.twitter.apisecret}" />
+		<constructor-arg value="${app.config.oauth.twitter.callback}" />
+		<constructor-arg value="org.scribe.builder.api.TwitterApi" />
+	</bean>
+
+	<bean id="twitterServiceProvider"
+		class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider">
+		<constructor-arg name="config" ref="twitterServiceConfig" />
+	</bean>
+
+
+	<bean id="gmailServiceConfig"
+		class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceConfig">
+		<constructor-arg value="${app.config.oauth.gmail.apikey}" />
+		<constructor-arg value="${app.config.oauth.gmail.apisecret}" />
+		<constructor-arg value="${app.config.oauth.gmail.callback}" />
+		<constructor-arg value="org.scribe.builder.api.GoogleApi" />
+		<constructor-arg
+			value="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile" />
+	</bean>
+
+	<bean id="gmailServiceProvider"
+		class="in.careerscale.apps.ocms.integration.oauth.OAuthServiceProvider">
+		<constructor-arg name="config" ref="gmailServiceConfig" />
+
+	</bean>
+
+	<bean id="emailService" class="in.careerscale.apps.ocms.mail.EmailSender">
+		<constructor-arg value="${emailserver.server}" />
+		<constructor-arg value="${emailserver.sslPort}" type="int" />
+		<constructor-arg value="${emailserver.smtpPort}" type="int" />
+		<constructor-arg value="${emailserver.userName}" />
+		<constructor-arg value="${emailserver.password}" />
+		<constructor-arg value="${emailserver.from}" />
+		<!-- String host, int sslPort, int smtpPort, String userName, String password, 
+			String from -->
+
+	</bean>
+
+	<!-- end of oauth -->
+
+
+
+	<!-- scheduling -->
+	<task:annotation-driven scheduler="taskScheduler" />
+	<task:scheduler id="taskScheduler" pool-size="2" />
+
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="8388608" /> <!-- 8 megs -->
+	</bean>
+
+
+
+
+
+</beans>
