@@ -24,7 +24,8 @@ public class UserRepository {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
+	/**
 	@Transactional
 	public void save(LoginMaster user) {
 		entityManager.persist(user);
@@ -77,6 +78,6 @@ public class UserRepository {
 		entityManager.persist(userNetwork);
 		entityManager.flush();
 	}
-
+**/
 	
 }
