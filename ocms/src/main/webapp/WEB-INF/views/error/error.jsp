@@ -5,10 +5,9 @@
 	<s:message code="home.about.title" />
 </h1>
 
-<div id="page-container" class="resize">
 
-	<div id="page-content-inner" class="resize">
-	
+<div class="row">			
+
 	<h2>Error Ocurred</h2>
 		<p>Some error has occurred. please mail us at info@careerscale.in if this is a show stopper for you. we are continuously working to improve our application.
 		 or click <a href ="/addcase">Add Case</a> to continue.
