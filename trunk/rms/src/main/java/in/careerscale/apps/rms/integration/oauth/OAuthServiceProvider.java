@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.integration.oauth;
+package in.careerscale.apps.rms.integration.oauth;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

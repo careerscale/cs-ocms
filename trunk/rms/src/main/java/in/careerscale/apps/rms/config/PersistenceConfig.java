@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.config;
+package in.careerscale.apps.rms.config;
 
 import java.util.Properties;
 

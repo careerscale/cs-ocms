@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.config;
+package in.careerscale.apps.rms.config;
 
 import org.springframework.context.annotation.*;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -6,7 +6,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 @Configuration
-@ComponentScan(basePackages = { "in.careerscale.apps.ocms" })
+@ComponentScan(basePackages = { "in.careerscale.apps.rms" })
 public class RootConfig {
 	
 	@Bean
