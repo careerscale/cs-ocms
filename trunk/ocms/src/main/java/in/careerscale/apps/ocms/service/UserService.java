@@ -46,6 +46,8 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private MasterDataRepository masterDataRepository;
+	
+	private static final String DUMMY_PASSWORD = "password";
 
 
 	
@@ -80,6 +82,14 @@ public class UserService implements UserDetailsService {
 			roleSet.add(grantedAuthority);
 		}
 
+		/**
+		 * Password will be null for social users. so setting this value to null, since spring security was throwing
+		 * error. not sure if this fixes the actual issue or not.
+		 */
+		if (user.getPassword() == null)
+		{
+			user.setPassword(DUMMY_PASSWORD);
+		}
 		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), roleSet);
 		//return new org.springframework.security.core.userdetails.User(user.getFirstName(), user.getPassword(), roleSet);
 		return new ExtendedUser(userDetails,user.getFirstName(), roleSet.toString() , user.getId() );

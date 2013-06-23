@@ -11,7 +11,7 @@
 <div id="page-container" class="resize">
 
 	<div id="page-content-inner" class="resize">
-<h3>Hello <security:authentication property="principal.username" />!</h3>
+<h3>Hello <security:authentication property="principal.displayName" />!</h3>
 	<p>
 	Click <a href='<s:url value="/"></s:url>'>here</a> to navigate to home page.	
 	Click <a href='<s:url value="/logout"></s:url>'>here</a> to logout.	
