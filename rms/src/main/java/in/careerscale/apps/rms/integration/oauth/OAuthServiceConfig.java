@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.integration.oauth;
+package in.careerscale.apps.rms.integration.oauth;
 
 import org.scribe.builder.api.Api;
 

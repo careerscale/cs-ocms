@@ -6,11 +6,7 @@ package in.careerscale.apps.rms.dao;
 
 import java.util.List;
 
-import in.careerscale.apps.ocms.dao.model.CaseType;
-import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
-import in.careerscale.apps.ocms.dao.model.LoginMaster;
-import in.careerscale.apps.ocms.dao.model.SocialNetwork;
-import in.careerscale.apps.ocms.dao.model.UserNetwork;
+
 
 
 import javax.persistence.*;

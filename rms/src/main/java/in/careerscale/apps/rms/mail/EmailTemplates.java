@@ -1,4 +1,4 @@
-package in.careerscale.apps.ocms.mail;
+package in.careerscale.apps.rms.mail;
 
 import java.util.Map;
 
