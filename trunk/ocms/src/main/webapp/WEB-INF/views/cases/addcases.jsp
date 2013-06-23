@@ -14,13 +14,28 @@
 <h1>
 	<spring:message code="cases.addcase.title" />
 </h1>
+
+<style>
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], textarea {
+    margin: 0;
+}
+
+label {
+	    margin-bottom: 0.8em;
+}
+
+img {
+    margin-left: 18em;
+    margin-top: -3.2em;
+}
+
+</style>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#dateOfBirth").datepicker({
 			showOn : "button",
 			buttonImage : "resources/images/ico_calendar.gif",
 			buttonImageOnly : true,
-			appendText : ' yyyy-mm-dd ',
 			buttonText : 'Date selector 1',
 			align : "middle",
 			changeMonth : true,
