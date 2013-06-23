@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD 
+	Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd"> -->
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="*/*" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	<definition name="*" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp"></put-attribute>
+	</definition>
+
+	<definition name="home/index" extends="home">		
+		<put-attribute name="body" value="/WEB-INF/views/home/index.jsp"></put-attribute>
+	</definition>
+
+	<!-- <definition name="login" extends="default"> <put-attribute name="body" 
+		value="/WEB-INF/views/default/login.jsp"></put-attribute> </definition> <definition 
+		name="register" extends="default"> <put-attribute name="body" value="/WEB-INF/views/{1}.jsp"></put-attribute> 
+		</definition> <definition name="registered" extends="default"> <put-attribute 
+		name="body" value="/WEB-INF/views/{1}.jsp"></put-attribute> </definition> -->
+
+
+
+</tiles-definitions>
