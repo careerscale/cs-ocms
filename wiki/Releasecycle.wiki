@@ -23,7 +23,61 @@ The production URL for OCMS is: http://ocms-careerscale.rhcloud.com/login
   * Demo hosting with free/cheaper solutions 
   * Testing frameworks/Guidelines for automation - Pankaj
 
-Status: On time
+Status: released.
+
+We have slipped on timelines for remaining releases, and actually released another version on June 22nd with optimiized User interface.
+
+
+TODO for today:
+Write proper and simple use cases with detailed requirements. 
+mention the attributes, table names, if any master data need to be changed etc.                              
+
+
+
+Menu
+
+==*Home page*==
+1. Show only About us, About OCMS,Register, Login links in the top menu in home page.
+2. Login link should go to clean simple login page such as.
+
+Role based access:
+ Once we login,all menu options are shown to the user. Actually it should be based on the role.
+Let us say back office menu items should be shown only to ADMIN.
+
+
+
+==*Landing page:*==
+Menu(should be covered as discussed in Menu above) for logged in user, Profile, Add a case, View cases, search
+
+Landing page should show multiple boxes/blocks.
+
+0. Based on the role (if MODERATOR or ADMIN), I must see all pending cases that need approvals. 
+1. the cases that I am directly involved, my added cases, involved cases.
+2. My interested cases (based on the help type and case type.
+we have to show these 2 blocks in interesting layout.
+ATTENTION:  we can use the same grids that we are using but with no edit buttons.  We should have links to case details page. 
+
+==*Case details page:*==
+If I am (logged in user) the creator of the case or I belong to the role of ADMIN or MODERATOR, I should be able to ed
+the case details as well. 
+Otherwise,I  must be able to read the the case details and add my comments or artifacts to the case. 
+All the attachments to the case should be viewable from the case details page in a proper format.
+
+
+
+==*Case approval:*==
+Logged in user (if is a MODERATOR) will see the cases to be approved in the landing page. He can approve or reject or ask for specific clarification.
+Only if the majority of the MODERATORs approve the case will go to NEW state And visible for regular users.
+
+==*Notifications:*==
+Mails should be sent to all events that happen in the system.
+very few notifications are there at present.
+
+testing framework for UT and then to FT (selenium).
+
+
+
+
 
 = Iteration 2 /Release 2 =
 
