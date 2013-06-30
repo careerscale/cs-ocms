@@ -19,7 +19,7 @@
 		</div>
 		<div class="large-8 columns">
 			<h2>Online Case Management System</h2>
-			<h3>Connecting the needy and the donors</h3>
+			<p>Connecting the needy and the donors</p>
 		</div>
 	</div>
 	<div class="row">
@@ -57,7 +57,12 @@
 					<!-- Right Nav Section -->
 					<ul class="right">
 						<li class="divider hide-for-small"></li>
-						<li class="has-dropdown"><a href="/backoffice">Backoffice</a>
+						<li><a href="/backoffice/profile">Profile</a></li>
+						
+						<sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
+						<li><a href="/backoffice">Backoffice</a>
+						</li>
+						</sec:authorize>
 							<ul class="dropdown">
 								<li><a href="/backoffice/casetype">Case Type Management</a></li>
 								<li><a href="/backoffice/helptype">Help Type Management</a></li>

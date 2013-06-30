@@ -10,10 +10,17 @@
 	<div class="large-9 columns">
 		<ul class="right button-group">
 			<li><a href="/about" class="button">About Us</a></li>
-			<li><a href="/addcase" class="button">Add Case</a></li>
-			<li><a href="/backoffice" class="button">Back Office</a></li>
-			<li><a href="http://careerscale.in" class="button">About
-					Careerscale</a></li>
+			<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
+			<li><a href="/user" class="button">OCMS User Menu</a></li>
+			</sec:authorize>
+		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
+				<li><a href="/register" class="button">Register</a></li>
+			<li><a href="/login" class="button">Login</a></li>
+			</sec:authorize>
+		
+			<li><a href="https://code.google.com/p/cs-ocms/" class="button">About
+					OCMS</a></li>
+					
 		</ul>
 	</div>
 </div>

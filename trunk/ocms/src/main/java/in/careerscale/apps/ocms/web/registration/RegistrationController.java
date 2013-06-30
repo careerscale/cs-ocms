@@ -1,12 +1,12 @@
 package in.careerscale.apps.ocms.web.registration;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.UserService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.registration.model.User;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +56,7 @@ public class RegistrationController implements Validator {
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 		log.debug("within login GET method call");
 
-		return "home/index";
+		return "register/login";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
