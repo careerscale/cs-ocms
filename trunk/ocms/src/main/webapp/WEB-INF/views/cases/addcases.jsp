@@ -14,6 +14,10 @@
 <h1>
 	<spring:message code="cases.addcase.title" />
 </h1>
+<script src="/resources/scripts/application/ajax.js">
+
+</script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#dateOfBirth").datepicker({
@@ -44,107 +48,8 @@
 		});
 
 	});
-</script>
 
-
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$.get("/master/states", function(data, status) {
-							$.each(data, function(key, val) {
-
-								//alert('key and values are ' + key + '  ' + val);
-							});
-						});
-
-						$('select#countryId')
-								.change(
-										function() {
-
-											$
-													.get(
-															"/master/states?countryId="
-																	+ $(
-																			'#countryId')
-																			.val(),
-															function(data,
-																	status) {
-
-																var html = '<option value="">Select your State</option>';
-
-																jQuery(
-																		'#dropdown')
-																		.append(
-																				html);
-																$
-																		.each(
-																				data,
-																				function(
-																						id,
-																						value) {
-																					html += '<option value="'+value.id+'">'
-																							+ value.name
-																							+ '</option>';
-
-																				}
-
-																		);
-
-																$(
-																		'select#stateId')
-																		.empty()
-																		.append(
-																				html);
-															});
-										});
-
-						$('select#stateId')
-								.change(
-										function() {
-
-											$
-													.get(
-															"/master/cities?stateId="
-																	+ $(
-																			'#stateId')
-																			.val(),
-															function(data,
-																	status) {
-
-																var html = '<option value="">Select your City</option>';
-
-																jQuery(
-																		'#dropdown')
-																		.append(
-																				html);
-																$
-																		.each(
-																				data,
-																				function(
-																						key,
-																						value) {
-
-																					html += '<option value="'+value.id+'">'
-																							+ value.name
-																							+ '</option>';
-
-																				}
-
-																		);
-
-																$(
-																		'select#cityId')
-																		.empty()
-																		.append(
-																				html);
-															});
-										});
-
-					});
-</script>
-
-<script>
+	
 	$(document).ready(function() {
 		$("#addCaseForm").validate();
 	})
@@ -156,16 +61,7 @@
 
 	<br clear="all" />
 
-	<div id="error">
-		<spring:hasBindErrors name="caseDetails">
-			<font color="red"> <c:forEach items="${errors.allErrors}"
-					var="error">
-					<spring:message code="${error.code}" text="${error.defaultMessage}" />
-					<br />
-				</c:forEach>
-			</font>
-		</spring:hasBindErrors>
-	</div>
+
 
 	<div class="row">
 		<div class="large-4 columns">If needed left side navigation
@@ -174,13 +70,36 @@
 		<div class="large-8 columns">
 			<form:form method="post" action="addcase" id="addCaseForm"
 				modelAttribute="caseDetails">
-				<div class="error" style="display: none;">
-					<img src="resources/images/warning.gif" alt="Warning!" width="24"
-						height="24" style="float: left; margin: -5px 10px 0px 0px;" /> <span></span>.<br
-						clear="all" />
-				</div>
+
+
 				<fieldset>
 
+					<div class="row">
+
+						<div class="small-1  columns"></div>
+						<div class="large-11  columns">
+
+							<spring:hasBindErrors name="caseDetails">
+
+								<font color="red"> <c:forEach items="${errors.allErrors}"
+										var="error">
+										<img src="resources/images/warning.gif" alt="Warning!"
+											width="24" height="24"
+											style="float: left; margin: -5px 10px 0px 0px;" />
+										<spring:message code="${error.code}"
+											text="${error.defaultMessage}" />
+										<br />
+
+									</c:forEach>
+								</font>
+
+							</spring:hasBindErrors>
+
+						</div>
+
+					</div>
+
+					<br />
 					<div class="row">
 						<div class="large-6  columns">
 							<label for="emailId" class="right inline">User Name:</label>
@@ -202,7 +121,8 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="caseDescription" class="right inline">Case Details</label>
+							<label for="caseDescription" class="right inline">Case
+								Details</label>
 						</div>
 						<div class="large-6 columns">
 							<form:textarea path="caseDescription" class="required"
@@ -213,7 +133,8 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="firstName" class="right inline">Concerned Source:</label>
+							<label for="firstName" class="right inline">Concerned
+								Source:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="caseSource" type="text" class="required"
@@ -234,7 +155,8 @@
 					<div class="row full-width"></div>
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="contact1" class="right inline">Contact Number 1 </label>
+							<label for="contact1" class="right inline">Contact Number
+								1 </label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="contact1" type="text" class="required"
@@ -243,7 +165,8 @@
 					</div>
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="contact2" class="right inline">Contact Number 2 </label>
+							<label for="contact2" class="right inline">Contact Number
+								2 </label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="contact2" type="text" class="required"
@@ -254,8 +177,8 @@
 					<div class="row">
 						<div class="large-6 columns">
 							<label for="caseType"
-								title='Please select all type of cases that you want to informed about' class="right inline">Case
-								Types </label>
+								title='Please select all type of cases that you want to informed about'
+								class="right inline">Case Types </label>
 
 						</div>
 						<div class="large-6 columns">
@@ -265,13 +188,13 @@
 							</form:select>
 						</div>
 					</div>
-					<br/>
+					<br />
 
 					<div class="row">
 						<div class="large-6 columns">
 							<label for="helpType"
-								title='Please select corresponding help type needed.' class="right inline">Help
-								Category Types </label>
+								title='Please select corresponding help type needed.'
+								class="right inline">Help Category Types </label>
 						</div>
 						<div class="large-6 columns">
 							<form:select path="helpType" multiple="false">
@@ -280,10 +203,11 @@
 							</form:select>
 						</div>
 					</div>
-					<br/>
+					<br />
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="countryId" title='Country Selection' class="right inline" >Country</label>
+							<label for="countryId" title='Country Selection'
+								class="right inline">Country</label>
 						</div>
 						<div class="large-6 columns">
 							<form:select path="countryId" multiple="false">
@@ -292,7 +216,7 @@
 							</form:select>
 						</div>
 					</div>
-					<br/>
+					<br />
 
 					<div class="row">
 						<div class="large-6 columns">
@@ -305,7 +229,7 @@
 							</form:select>
 						</div>
 					</div>
-				<br/>
+					<br />
 
 					<div class="row">
 						<div class="large-6 columns">
@@ -318,11 +242,12 @@
 							</form:select>
 						</div>
 					</div>
-					<br/>
+					<br />
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="addressLine1" class="right inline">AddressLine1 </label>
+							<label for="addressLine1" class="right inline">AddressLine1
+							</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="addressLine1" type="text" class="required"
@@ -333,7 +258,8 @@
 
 					<div class="row">
 						<div class="large-6 columns">
-							<label for="addressLine2" class="right inline">AddressLine2 </label>
+							<label for="addressLine2" class="right inline">AddressLine2
+							</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="addressLine2" type="text" class="required"
@@ -353,17 +279,15 @@
 					</div>
 
 
-					<div class="row" class="right inline" >
-					
-							<div  class="large-6 columns" >
-							</div>
-						<div  class="large-6 columns">
-							<div class="right inline" >
-								<input class="right inline button round" type="reset" value="Reset form"
-									style="width: 140px" tabindex="14"  />
-							
-								<input class="button round inline right" type="submit" value="Register case"
-									style="width: 140px" tabindex="14"  />
+					<div class="row" class="right inline">
+
+						<div class="large-6 columns"></div>
+						<div class="large-6 columns">
+							<div class="right inline">
+								<input class="right inline button round" type="reset"
+									value="Reset form" style="width: 140px" tabindex="14" /> <input
+									class="button round inline right" type="submit"
+									value="Register case" style="width: 140px" tabindex="14" />
 							</div>
 						</div>
 					</div>
