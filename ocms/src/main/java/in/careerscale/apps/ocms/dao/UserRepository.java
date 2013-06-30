@@ -4,16 +4,19 @@ package in.careerscale.apps.ocms.dao;
 
 
 
-import java.util.List;
-
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.SocialNetwork;
 import in.careerscale.apps.ocms.dao.model.UserNetwork;
+import in.careerscale.apps.ocms.dao.model.UserProfile;
 
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,5 +81,10 @@ public class UserRepository {
 		entityManager.flush();
 	}
 
+	public UserProfile getUserProfile(Integer id)
+	{
+		UserProfile profile = entityManager.find(UserProfile.class, id);
+		return profile;
+	}
 	
 }

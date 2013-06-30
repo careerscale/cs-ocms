@@ -69,32 +69,43 @@
 
 	<br clear="all" />
 
-	<div id="error">
-		<spring:hasBindErrors name="caseDetails">
-			<font color="red"> <c:forEach items="${errors.allErrors}"
-					var="error">
-					<spring:message code="${error.code}" text="${error.defaultMessage}" />
-					<br />
-				</c:forEach>
-			</font>
-		</spring:hasBindErrors>
-	</div>
+
 
 	<div class="row">
 		<div class="large-4 columns">Horizontal nav. menu should go here</div>
 
 		<div class="large-8 columns">
+
 			<form:form method="post" action="register" id="registerForm"
 				modelAttribute="user">
 
 				<fieldset>
-					<div class="row full-width">
-						<div class="error" style="display: none;">
-							<img src="resources/images/warning.gif" alt="Warning!" width="24"
-								height="24" style="float: left; margin: -5px 10px 0px 0px;" />
-							<span></span>.<br clear="all" />
+					<div class="row">
+
+						<div class="small-1  columns"></div>
+						<div class="large-11  columns">
+
+							<spring:hasBindErrors name="user">
+
+								<font color="red"> <c:forEach items="${errors.allErrors}"
+										var="error">
+										<img src="resources/images/warning.gif" alt="Warning!"
+											width="24" height="24"
+											style="float: left; margin: -5px 10px 0px 0px;" />
+										<spring:message code="${error.code}"
+											text="${error.defaultMessage}" />
+										<br />
+
+									</c:forEach>
+								</font>
+
+							</spring:hasBindErrors>
+
 						</div>
+
 					</div>
+
+					<br />
 
 					<div class="row">
 						<div class="large-6  columns">
@@ -196,7 +207,7 @@
 							</form:select>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="large-6  columns"></div>
 						<div class="large-6 columns"></div>

@@ -27,7 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @Secured("ROLE_USER")
-public class CaseController  {
+public class CaseController
+{
 
 	Log log = LogFactory.getLog(CaseController.class);
 
@@ -38,21 +39,24 @@ public class CaseController  {
 	private MasterDataService masterDataService;
 
 	@RequestMapping(value = "/addcase", method = RequestMethod.GET)
-	public String index(@ModelAttribute(value = "caseDetails") Case bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public String index(@ModelAttribute(value = "caseDetails") Case bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
 		setMasterData(bean);
 		return "cases/addcases";
 
 	}
 
 	@RequestMapping(value = "/addcase", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute(value = "caseDetails") Case bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		try {
-		    caseService.registerCase(bean);
-		} catch (ApplicationException ae) {
+	public ModelAndView register(@ModelAttribute(value = "caseDetails") Case bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		try
+		{
+			caseService.registerCase(bean);
+		}
+		catch (ApplicationException ae)
+		{
 			log.error("error while registering new case", ae);
 			errors.addError(new ObjectError("view.case.registration.error",
 					"case is already registered, please choose another one"));
@@ -60,10 +64,10 @@ public class CaseController  {
 			return new ModelAndView("cases/addcases");
 
 		}
-	
+
 		Integer caseTypeId = bean.getCaseType();
-		ModelAndView result =new ModelAndView("cases/uploaddocs");
-		result.addObject("docTypeList",caseService.getDocumentTypes(caseTypeId));
+		ModelAndView result = new ModelAndView("cases/uploaddocs");
+		result.addObject("docTypeList", caseService.getDocumentTypes(caseTypeId));
 		result.addObject("caseTypeId", caseTypeId);
 		result.addObject("caseId", bean.getId());
 		CaseArtifacts caseArtifacts = new CaseArtifacts();
@@ -72,20 +76,31 @@ public class CaseController  {
 		return result;
 	}
 
-	private void setMasterData(Case bean) {
-		try {
+	private void setMasterData(Case bean)
+	{
+		try
+		{
 			bean.setCaseMasterTypes(masterDataService.getCaseTypes1());
 			bean.setHelpMasterTypes(masterDataService.getHelpTypes());
 			bean.setCountryMasterTypes(masterDataService.getCountries());
 			if (bean.getCountryId() == null)
+			{
 				bean.setStateMasterTypes(masterDataService.getStates(bean.getCountryMasterTypes().get(0).getId()));
+				if (bean.getStateId() == null)
+					bean.setCityMasterTypes(masterDataService.getCities(bean.getStateMasterTypes().get(0).getId()));
 
-		} catch (ApplicationException e) {
+			}
+
+		}
+		catch (ApplicationException e)
+		{
 			log.error("error while retrieving master data", e);
 		}
 	}
 
-	/**this is dummy method to check if we are getting doc types properly or not. remove once the upload functionality is implemented
+	/**
+	 * this is dummy method to check if we are getting doc types properly or not. remove once the upload functionality
+	 * is implemented
 	 * 
 	 * @param request
 	 * @param response
@@ -93,21 +108,20 @@ public class CaseController  {
 	 */
 	@RequestMapping(value = "/cases/docs", method = RequestMethod.GET)
 	public @ResponseBody
-	List<DocumentType> getCaseArtifacts(HttpServletRequest request,
-			HttpServletResponse response) {
+	List<DocumentType> getCaseArtifacts(HttpServletRequest request, HttpServletResponse response)
+	{
 		request.getParameter("caseTypeId");
 		return caseService.getDocumentTypes(2);
 	}
-	
-	
+
 	@RequestMapping(value = "/cases/upload", method = RequestMethod.POST)
-	public String uploadDocuments(@ModelAttribute(value = "caseArtifacts") CaseArtifacts bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public String uploadDocuments(@ModelAttribute(value = "caseArtifacts") CaseArtifacts bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
 		// TODO implement validations here
 		caseService.saveCaseAtrifacts(bean);
 		return "cases/registeredcases";
 
 	}
-	
+
 }

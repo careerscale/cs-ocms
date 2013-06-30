@@ -3,11 +3,10 @@ package in.careerscale.apps.ocms.dao.model;
 // Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +21,6 @@ import javax.persistence.TemporalType;
 @Table(name = "user_profile", catalog = "ocms")
 public class UserProfile implements java.io.Serializable {
 
-	private Integer id;
 	private LoginMaster loginMaster;
 	private String otherEmailId;
 	private String bloodGroup;
@@ -30,6 +28,12 @@ public class UserProfile implements java.io.Serializable {
 	private boolean monthlyUpdates;
 	private boolean specialUpdates;
 	private boolean regularUpdates;
+
+	private String mobileNumber1;
+	private String mobileNumber2;
+	private String landlineNumber;
+
+	private Address address;
 
 	public UserProfile() {
 	}
@@ -47,18 +51,8 @@ public class UserProfile implements java.io.Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "id", nullable = false)
 	public LoginMaster getLoginMaster() {
 		return this.loginMaster;
 	}
@@ -122,4 +116,48 @@ public class UserProfile implements java.io.Serializable {
 		this.regularUpdates = regularUpdates;
 	}
 
+	@Column(name = "mobile_number2", nullable = false, length = 20)
+	public String getMobileNumber1()
+	{
+		return mobileNumber1;
+	}
+
+	public void setMobileNumber1(String mobileNumber1)
+	{
+		this.mobileNumber1 = mobileNumber1;
+	}
+
+	public String getMobileNumber2()
+	{
+		return mobileNumber2;
+	}
+
+	@Column(name = "mobile_number2", nullable = false, length = 20)
+	public void setMobileNumber2(String mobileNumber2)
+	{
+		this.mobileNumber2 = mobileNumber2;
+	}
+
+	@Column(name = "landline_number", nullable = false, length = 20)
+	public String getLandlineNumber()
+	{
+		return landlineNumber;
+	}
+
+	public void setLandlineNumber(String landlineNumber)
+	{
+		this.landlineNumber = landlineNumber;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "address_id")
+	public Address getAddress()
+	{
+		return this.address;
+	}
+
+	public void setAddress(Address address)
+	{
+		this.address = address;
+	}
 }

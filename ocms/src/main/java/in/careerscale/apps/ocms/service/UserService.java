@@ -2,10 +2,12 @@ package in.careerscale.apps.ocms.service;
 
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
+import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.UserNetwork;
+import in.careerscale.apps.ocms.dao.model.UserProfile;
 import in.careerscale.apps.ocms.dao.model.UserRole;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.mail.EmailTemplates;
@@ -27,15 +29,19 @@ import javax.persistence.PersistenceException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("userService")
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService
+{
 
 	Log log = LogFactory.getLog(UserService.class);
 	@Autowired
@@ -46,28 +52,27 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private MasterDataRepository masterDataRepository;
-	
+
 	private static final String DUMMY_PASSWORD = "password";
 
-
-	
-	
-	
-	public void setEmailService(EmailSender emailService) {
+	public void setEmailService(EmailSender emailService)
+	{
 		this.emailService = emailService;
 	}
 
 	@PostConstruct
-	protected void initialize() {
+	protected void initialize()
+	{
 		// userRepository.save(new User("user", "demo", "ROLE_USER"));
 		// userRepository.save(new User("admin", "admin", "ROLE_ADMIN"));
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+	{
 		LoginMaster user = userRepository.findByUsername(username);
-		if (user == null) {
+		if (user == null)
+		{
 			throw new UsernameNotFoundException("user not found");
 		}
 		// proper
@@ -75,10 +80,10 @@ public class UserService implements UserDetailsService {
 		Iterator<UserRole> it = user.getUserRoles().iterator();
 		UserRole userRole = null;
 		Set<GrantedAuthority> roleSet = new HashSet<GrantedAuthority>();
-		while (it.hasNext()) {
+		while (it.hasNext())
+		{
 			userRole = it.next();
-			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(
-					userRole.getRoleMaster().getRoleName());
+			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.getRoleMaster().getRoleName());
 			roleSet.add(grantedAuthority);
 		}
 
@@ -90,138 +95,179 @@ public class UserService implements UserDetailsService {
 		{
 			user.setPassword(DUMMY_PASSWORD);
 		}
-		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmailId(), user.getPassword(), roleSet);
-		//return new org.springframework.security.core.userdetails.User(user.getFirstName(), user.getPassword(), roleSet);
-		return new ExtendedUser(userDetails,user.getFirstName(), roleSet.toString() , user.getId() );
+		UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmailId(),
+				user.getPassword(), roleSet);
+		// return new org.springframework.security.core.userdetails.User(user.getFirstName(), user.getPassword(),
+		// roleSet);
+		return new ExtendedUser(userDetails, user.getFirstName(), roleSet.toString(), user.getId());
 
 	}
 
-	public RegistrationResult registerUser(User user) throws ApplicationException {
+	public RegistrationResult registerUser(User user) throws ApplicationException
+	{
 		// for bravity no validations done at service layer, we need to handle
 		// and also introduce valid exception handling to manage error
 		// situations
 		LoginMaster dbUser;
 		RegistrationResult result = RegistrationResult.Error;
-		try {
+		try
+		{
 
-			if (user.getNetwork() != null) {
+			if (user.getNetwork() != null)
+			{
 				// let us check if this guy is already having an account with
 				// us, since email id unique we can count on it.
 				// if the email id is used for another OCMS account then, we may
 				// need to just link him to that account.
 				dbUser = userRepository.findByUsername(user.getEmailId());
-				if (dbUser != null) {
-					
-					//dbUser loginType shouldn't be null.
-					if(dbUser.getLoginType() == LoginMaster.SOCIAL_REGISTERED){						
-					//Good the user exists already, so let us skip further registration
-					//check if the association exists already. if yes, skip, it might be login action from user.
+				if (dbUser != null)
+				{
+
+					// dbUser loginType shouldn't be null.
+					if (dbUser.getLoginType() == LoginMaster.SOCIAL_REGISTERED)
+					{
+						// Good the user exists already, so let us skip further registration
+						// check if the association exists already. if yes, skip, it might be login action from user.
 						return RegistrationResult.SocialRegisteredAlready;
 					}
 
 				}
-				dbUser = new LoginMaster(user.getEmailId(),
-						user.getPassword(), user.getFirstName(),
-						user.getLastName(), user.getDateOfBirth(), LoginMaster.SOCIAL_REGISTERED);				
-				//TODO set DB flag as well.
+				dbUser = new LoginMaster(user.getEmailId(), user.getPassword(), user.getFirstName(),
+						user.getLastName(), user.getDateOfBirth(), LoginMaster.SOCIAL_REGISTERED);
+				// TODO set DB flag as well.
 				userRepository.registerUser(dbUser);
-				
-				
-				in.careerscale.apps.ocms.dao.model.SocialNetwork network = userRepository
-						.getSocialNetwork(user.getNetwork().getId());
-				UserNetwork userNetwork = new UserNetwork(
-						user.getSocialNetworkId(), dbUser, network,user.getUserAccessToken());
+
+				in.careerscale.apps.ocms.dao.model.SocialNetwork network = userRepository.getSocialNetwork(user
+						.getNetwork().getId());
+				UserNetwork userNetwork = new UserNetwork(user.getSocialNetworkId(), dbUser, network,
+						user.getUserAccessToken());
 				userRepository.save(userNetwork);
 				result = RegistrationResult.SocialRegistered;
-				
 
-			} else {
+			}
+			else
+			{
 				// regular form registration, let us go ahead here
-				dbUser = new LoginMaster(user.getEmailId(), user.getPassword(),
-						user.getFirstName(), user.getLastName(),
-						user.getDateOfBirth(), LoginMaster.LOCAL_REGISTERED);
+				dbUser = new LoginMaster(user.getEmailId(), user.getPassword(), user.getFirstName(),
+						user.getLastName(), user.getDateOfBirth(), LoginMaster.LOCAL_REGISTERED);
 				userRepository.registerUser(dbUser);
-				List<CaseType> userCaseTypes = userRepository.getCaseTypes(user
-						.getCaseTypes());
+				List<CaseType> userCaseTypes = userRepository.getCaseTypes(user.getCaseTypes());
 
 				dbUser.setCaseTypes(new HashSet<CaseType>(userCaseTypes));
 
-				List<HelpCategoryType> userHelpTypes = userRepository
-						.gethelpTypes(user.getHelpTypes());
+				List<HelpCategoryType> userHelpTypes = userRepository.gethelpTypes(user.getHelpTypes());
 
-				dbUser.setHelpCategoryTypes(new HashSet<HelpCategoryType>(
-						userHelpTypes));
+				dbUser.setHelpCategoryTypes(new HashSet<HelpCategoryType>(userHelpTypes));
 				userRepository.update(dbUser);
 				result = RegistrationResult.Registered;
-			
-				try {
+
+				try
+				{
 					// Resolve variables
 					Map<String, String> placeHolderValues = new HashMap<String, String>();
-					placeHolderValues.put(EmailTemplates.firstName,
-							user.getFirstName());
-					placeHolderValues.put(EmailTemplates.userName,
+					placeHolderValues.put(EmailTemplates.firstName, user.getFirstName());
+					placeHolderValues.put(EmailTemplates.userName, user.getEmailId());
+					placeHolderValues.put(EmailTemplates.password, user.getPassword());
+					String emailText = EmailTemplates.getEmailMessage(Template.Registration, placeHolderValues);
+					emailService.sendMailWithSSL("OCMS Registration Successful ::" + dbUser.getFirstName(), emailText,
 							user.getEmailId());
-					placeHolderValues.put(EmailTemplates.password,
-							user.getPassword());
-					String emailText = EmailTemplates.getEmailMessage(
-							Template.Registration, placeHolderValues);
-					emailService.sendMailWithSSL("OCMS Registration Successful ::" +dbUser.getFirstName() , emailText,
-							user.getEmailId());
-				} catch (Exception mailFailure) {
+				}
+				catch (Exception mailFailure)
+				{
 					result = RegistrationResult.Error;
 					log.error("Unable to send mail", mailFailure);
 				}
 
 			}
 
-		} catch (PersistenceException pe) {
+		}
+		catch (PersistenceException pe)
+		{
 			result = RegistrationResult.Error;
 			throw new ApplicationException(pe.getMessage());
-			
+
 		}
 		return result;
 
 	}
 
-	public User findByUsername(String username) {
+	public User findByUsername(String username)
+	{
 
+		User user = null;
 		LoginMaster loginMaster = userRepository.findByUsername(username);
 
-		if (loginMaster != null) {
-			return new User(loginMaster.getEmailId(),
-					loginMaster.getFirstName(), loginMaster.getLastName(),
+		if (loginMaster != null)
+		{
+			user = new User(loginMaster.getEmailId(), loginMaster.getFirstName(), loginMaster.getLastName(),
 					loginMaster.getDateOfBirth());
-		} else {
-			return null;
+
 		}
+
+		return user;
+
 	}
 
-	public void forgotPassword(User user) {
-		
+	public void forgotPassword(User user)
+	{
+
 		LoginMaster dbUser = userRepository.findByUsername(user.getEmailId());
-		if(dbUser == null){
+		if (dbUser == null)
+		{
 			new ApplicationException("No user account found with the given email id. Please try again");
 		}
-		
-		try {
+
+		try
+		{
 			// Resolve variables
 			Map<String, String> placeHolderValues = new HashMap<String, String>();
-			placeHolderValues.put(EmailTemplates.firstName,
- dbUser.getFirstName());
-			placeHolderValues.put(EmailTemplates.userName,
- dbUser.getEmailId());
-			placeHolderValues.put(EmailTemplates.password,
- dbUser.getPassword());
-			String emailText = EmailTemplates.getEmailMessage(
-					Template.ForgotPassword, placeHolderValues);
-			emailService.sendMailWithSSL(dbUser.getFirstName() +" Your OCMS Password " , emailText,
- dbUser.getEmailId());
-		} catch (Exception mailFailure) {
+			placeHolderValues.put(EmailTemplates.firstName, dbUser.getFirstName());
+			placeHolderValues.put(EmailTemplates.userName, dbUser.getEmailId());
+			placeHolderValues.put(EmailTemplates.password, dbUser.getPassword());
+			String emailText = EmailTemplates.getEmailMessage(Template.ForgotPassword, placeHolderValues);
+			emailService
+					.sendMailWithSSL(dbUser.getFirstName() + " Your OCMS Password ", emailText, dbUser.getEmailId());
+		}
+		catch (Exception mailFailure)
+		{
 			log.error("Unable to send mail", mailFailure);
 			new ApplicationException("Unable to send email. Please try again later.");
 		}
-		
-		
-		
+
+	}
+
+	public void getUserProfile(User user)
+	{
+		LoginMaster loginMaster = getLoggedInUser();
+		if (loginMaster == null)
+		{
+			new ApplicationException("No user account found with the given email id. Please try again");
+		}
+
+		user = new User(loginMaster.getEmailId(), loginMaster.getFirstName(), loginMaster.getLastName(),
+				loginMaster.getDateOfBirth());
+		UserProfile profile = userRepository.getUserProfile(loginMaster.getId());
+		if (profile != null)
+		{
+			user.setAdditionalEmailId(profile.getOtherEmailId());
+			user.setBloodGroup(profile.getBloodGroup());
+			user.setLandlineNumber(profile.getLandlineNumber());
+			user.setMobileNumber1(profile.getMobileNumber1());
+			user.setMobileNumber2(profile.getMobileNumber2());
+			Address address = profile.getAddress();
+			user.setAddressLine1(address.getAddressLine1());
+			user.setAddressLine2(address.getAddressLine2());
+
+		}
+
+	}
+
+	private LoginMaster getLoggedInUser()
+	{
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication authentication = context.getAuthentication();
+		ExtendedUser user = (ExtendedUser) authentication.getPrincipal();
+
+		return (LoginMaster) masterDataRepository.getById(LoginMaster.class, user.getId());
 	}
 }
