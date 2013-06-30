@@ -207,15 +207,15 @@ public class UserService implements UserDetailsService {
 			// Resolve variables
 			Map<String, String> placeHolderValues = new HashMap<String, String>();
 			placeHolderValues.put(EmailTemplates.firstName,
-					user.getFirstName());
+ dbUser.getFirstName());
 			placeHolderValues.put(EmailTemplates.userName,
-					user.getEmailId());
+ dbUser.getEmailId());
 			placeHolderValues.put(EmailTemplates.password,
-					user.getPassword());
+ dbUser.getPassword());
 			String emailText = EmailTemplates.getEmailMessage(
 					Template.ForgotPassword, placeHolderValues);
 			emailService.sendMailWithSSL(dbUser.getFirstName() +" Your OCMS Password " , emailText,
-					user.getEmailId());
+ dbUser.getEmailId());
 		} catch (Exception mailFailure) {
 			log.error("Unable to send mail", mailFailure);
 			new ApplicationException("Unable to send email. Please try again later.");
