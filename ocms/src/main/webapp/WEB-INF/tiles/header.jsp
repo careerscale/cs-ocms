@@ -58,6 +58,7 @@
 					<ul class="right">
 						<li class="divider hide-for-small"></li>
 						<li><a href="/profile">Profile</a></li>
+						<li><a href="/password">Change Password</a></li>
 						
 						<sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
 						<li><a href="/backoffice">Backoffice</a>

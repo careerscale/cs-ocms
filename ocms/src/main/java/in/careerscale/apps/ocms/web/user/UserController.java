@@ -84,6 +84,7 @@ public class UserController {
 		return "register/registered"; // we need to return next page.
 	}
 
+
 	private void setMasterData(User bean)
 	{
 		try

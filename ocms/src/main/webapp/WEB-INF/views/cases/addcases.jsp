@@ -64,10 +64,10 @@
 
 
 	<div class="row">
-		<div class="large-4 columns">If needed left side navigation
+		<div class="large-2 columns">If needed left side navigation
 			here..</div>
 
-		<div class="large-8 columns">
+		<div class="large-10 columns">
 			<form:form method="post" action="addcase" id="addCaseForm"
 				modelAttribute="caseDetails">
 
