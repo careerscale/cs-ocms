@@ -4,6 +4,7 @@ package in.careerscale.apps.ocms.dao;
 
 
 
+import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
@@ -85,6 +86,40 @@ public class UserRepository {
 	{
 		UserProfile profile = entityManager.find(UserProfile.class, id);
 		return profile;
+	}
+
+	public void save(UserProfile profile)
+	{
+		entityManager.persist(profile);
+		entityManager.flush();
+
+	}
+
+	public void update(Address address)
+	{
+		entityManager.merge(address);
+		entityManager.flush();
+
+	}
+
+	public void save(Address address)
+	{
+		entityManager.persist(address);
+		entityManager.flush();
+
+	}
+
+	public void saveOrUpdate(UserProfile userProfile)
+	{
+		try
+		{
+		entityManager.merge(userProfile);
+		}
+		catch (Exception e)
+		{
+			entityManager.persist(userProfile);
+		}
+		entityManager.flush();
 	}
 	
 }
