@@ -4,6 +4,7 @@ import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.City;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.UserNetwork;
@@ -142,6 +143,7 @@ public class UserService implements UserDetailsService
 				UserNetwork userNetwork = new UserNetwork(user.getSocialNetworkId(), dbUser, network,
 						user.getUserAccessToken());
 				userRepository.save(userNetwork);
+
 				result = RegistrationResult.SocialRegistered;
 
 			}
@@ -186,6 +188,13 @@ public class UserService implements UserDetailsService
 			result = RegistrationResult.Error;
 			throw new ApplicationException(pe.getMessage());
 
+		}
+
+		if (result == RegistrationResult.SocialRegistered)
+		{
+			UserProfile profile = new UserProfile();
+			profile.setLoginMaster(dbUser);
+			userRepository.save(profile);
 		}
 		return result;
 
@@ -243,9 +252,11 @@ public class UserService implements UserDetailsService
 		{
 			new ApplicationException("No user account found with the given email id. Please try again");
 		}
+		user.setEmailId(loginMaster.getEmailId());
+		user.setFirstName(loginMaster.getFirstName());
+		user.setLastName(loginMaster.getLastName());
+		user.setDateOfBirth(loginMaster.getDateOfBirth());
 
-		user = new User(loginMaster.getEmailId(), loginMaster.getFirstName(), loginMaster.getLastName(),
-				loginMaster.getDateOfBirth());
 		UserProfile profile = userRepository.getUserProfile(loginMaster.getId());
 		if (profile != null)
 		{
@@ -254,10 +265,117 @@ public class UserService implements UserDetailsService
 			user.setLandlineNumber(profile.getLandlineNumber());
 			user.setMobileNumber1(profile.getMobileNumber1());
 			user.setMobileNumber2(profile.getMobileNumber2());
+			user.setAnniversary(profile.getAnniversary());
 			Address address = profile.getAddress();
 			user.setAddressLine1(address.getAddressLine1());
 			user.setAddressLine2(address.getAddressLine2());
+			user.setZipcode(address.getZipCode());
 
+		}
+
+	}
+
+	/**
+	 * Update user profile to database. If profile doesn't exist, it will be created.
+	 * 
+	 * @param user
+	 *            The User object containing user profile.
+	 * @throws ApplicationException
+	 */
+	public void updateUserProfile(User user) throws ApplicationException
+	{
+		try
+		{
+			LoginMaster loggedInUser = getLoggedInUser();
+			// Let us udpate the login information first.
+			if (null != user.getFirstName())
+				loggedInUser.setFirstName(user.getFirstName());
+			if (null != user.getLastName())
+				loggedInUser.setLastName(user.getLastName());
+			if (null != user.getDateOfBirth())
+				loggedInUser.setDateOfBirth(user.getDateOfBirth());
+
+			// Let us update user prefered case types and help types.
+			List<CaseType> userCaseTypes = userRepository.getCaseTypes(user.getCaseTypes());
+			loggedInUser.setCaseTypes(new HashSet<CaseType>(userCaseTypes));
+			List<HelpCategoryType> userHelpTypes = userRepository.gethelpTypes(user.getHelpTypes());
+			loggedInUser.setHelpCategoryTypes(new HashSet<HelpCategoryType>(userHelpTypes));
+
+			userRepository.update(loggedInUser);
+
+
+
+			UserProfile userProfile = userRepository.getUserProfile(loggedInUser.getId());
+			if (null == userProfile)
+			{
+				userProfile = new UserProfile();
+			}
+
+			// we need to udpate the profile
+			if (null != user.getAnniversary())
+				userProfile.setAnniversary(user.getAnniversary());
+			if (null != user.getBloodGroup())
+				userProfile.setBloodGroup(user.getBloodGroup());
+			if (null != user.getLandlineNumber())
+				userProfile.setLandlineNumber(user.getLandlineNumber());
+
+			userProfile.setLoginMaster(loggedInUser);
+
+			if (null != user.getMobileNumber1())
+				userProfile.setMobileNumber1(user.getMobileNumber1());
+
+			if (null != user.getMobileNumber2())
+				userProfile.setMobileNumber2(user.getMobileNumber2());
+
+			userProfile.setMonthlyUpdates(user.isMonthlyUpdates());
+			userProfile.setRegularUpdates(user.isRegularUpdates());
+			userProfile.setSpecialUpdates(user.isSpecialUpdates());
+
+			if (null != user.getAdditionalEmailId())
+				userProfile.setOtherEmailId(user.getAdditionalEmailId());
+
+
+			Address address = userProfile.getAddress();
+
+			if (null != address)
+			{
+				if (null != user.getAddressLine1())
+					address.setAddressLine1(user.getAddressLine1());
+				if (null != user.getAddressLine2())
+				{
+					address.setAddressLine2(user.getAddressLine2());
+				}
+				if (null != user.getZipcode())
+				{
+					address.setZipCode(user.getZipcode());
+
+				}
+				if (null != user.getCityId())
+				{
+					address.setCity((City) masterDataRepository.getById(City.class, user.getCityId()));
+				}
+
+				userRepository.update(address);
+
+			}
+			else
+			{
+				address = new Address(user.getAddressLine1(), user.getAddressLine2(), user.getZipcode());
+				if (null != user.getCityId())
+				{
+					address.setCity((City) masterDataRepository.getById(City.class, user.getCityId()));
+				}
+				userRepository.save(address);
+			}
+
+			userProfile.setAddress(address);
+
+			userRepository.saveOrUpdate(userProfile);
+
+		}
+		catch (Exception e)
+		{
+			throw new ApplicationException("Error while updating user profile");
 		}
 
 	}

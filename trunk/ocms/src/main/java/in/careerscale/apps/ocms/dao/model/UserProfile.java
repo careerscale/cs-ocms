@@ -116,7 +116,7 @@ public class UserProfile implements java.io.Serializable {
 		this.regularUpdates = regularUpdates;
 	}
 
-	@Column(name = "mobile_number2", nullable = false, length = 20)
+	@Column(name = "mobile_number1", nullable = false, length = 20)
 	public String getMobileNumber1()
 	{
 		return mobileNumber1;

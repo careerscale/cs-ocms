@@ -69,7 +69,7 @@ public class UserController {
 		// TODO Validations on server side
 		try
 		{
-			userService.registerUser(bean);
+			userService.updateUserProfile(bean);
 		}
 		catch (ApplicationException ae)
 		{
@@ -90,6 +90,14 @@ public class UserController {
 		{
 			bean.setCaseMasterTypes(masterDataService.getCaseTypes1());
 			bean.setHelpMasterTypes(masterDataService.getHelpTypes());
+			bean.setCountryMasterTypes(masterDataService.getCountries());
+			if (bean.getCountryId() == null)
+			{
+				bean.setStateMasterTypes(masterDataService.getStates(bean.getCountryMasterTypes().get(0).getId()));
+				if (bean.getStateId() == null)
+					bean.setCityMasterTypes(masterDataService.getCities(bean.getStateMasterTypes().get(0).getId()));
+
+			}
 		}
 		catch (ApplicationException e)
 		{

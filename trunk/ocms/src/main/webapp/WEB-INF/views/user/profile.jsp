@@ -16,7 +16,7 @@
 </h3>
 
 <script src="/resources/scripts/application/ajax.js">
-
+	
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -136,12 +136,14 @@
 					</div>
 
 					<br />
-<div class="row">
+					<div class="row">
 						<div class="large-6  columns">
 							<label for="emailId" class="right inline">Email Id:</label>
 						</div>
 						<div class="large-6 columns">
-							<form:label path="emailId"></form:label>
+							<form:input path="emailId" type="text" class="required"
+								tabindex="1" maxlength="40" placeholder="Inline Text Input"
+								disabled="true" />
 
 						</div>
 					</div>
@@ -152,8 +154,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="firstName" type="text" class="required"
-								value="FirstName" tabindex="1" maxlength="40"
-								placeholder="Inline Text Input" />
+								tabindex="1" maxlength="40" placeholder="Inline Text Input" />
 						</div>
 					</div>
 
@@ -164,7 +165,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="lastName" type="text" class="required"
-								value="lastName" tabindex="2" maxlength="40" />
+								tabindex="2" maxlength="40" />
 						</div>
 					</div>
 
@@ -175,7 +176,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="dateOfBirth" type="text" class="required date"
-								tabindex="3" maxlength="15" size="15" value="1980-01-01" />
+								tabindex="3" maxlength="15" size="15" />
 						</div>
 					</div>
 
@@ -209,7 +210,7 @@
 						</div>
 					</div>
 
-<div class="row">
+					<div class="row">
 						<div class="large-6  columns">
 							<label for="bloodGroup" class="right inline">Blood Group:</label>
 						</div>
@@ -230,17 +231,17 @@
 								tabindex="7" maxlength="15" size="15" />
 						</div>
 
-				</div>
-				
-				
-<div class="row">
+					</div>
+
+
+					<div class="row">
 						<div class="large-6  columns">
 							<label for="monthlyUpdates" class="right inline">Subscribe
 								to Monthly updates:</label>
 						</div>
 						<div class="large-6 columns">
 							<div class="formError"></div>
-							<form:checkbox path="monthlyUpdates" class="date"
+							<form:checkbox path="monthlyUpdates" class="required"
 								tabindex="8" maxlength="15" size="15" />
 						</div>
 
@@ -252,7 +253,7 @@
 						</div>
 						<div class="large-6 columns">
 							<div class="formError"></div>
-							<form:checkbox path="regularUpdates" class="date"
+							<form:checkbox path="regularUpdates" class="required"
 								tabindex="9" maxlength="15" size="15" />
 						</div>
 
@@ -264,21 +265,21 @@
 						</div>
 						<div class="large-6 columns">
 							<div class="formError"></div>
-							<form:checkbox path="specialUpdates" class="date"
+							<form:checkbox path="specialUpdates" class="required"
 								tabindex="10" maxlength="15" size="15" />
 						</div>
 
 					</div>
 
-				<div class="row">
+					<div class="row">
 						<div class="large-6  columns">
 							<label for="mobileNumber1" class="right inline">Mobile
 								number:</label>
 						</div>
 						<div class="large-6 columns">
 							<div class="formError"></div>
-							<form:input path="mobileNumber1" type="text" class="date"
-								tabindex="11" maxlength="15" size="15" />
+							<form:input path="mobileNumber1" type="text" tabindex="11"
+								maxlength="15" size="15" />
 						</div>
 
 					</div>
@@ -290,8 +291,8 @@
 						</div>
 						<div class="large-6 columns">
 							<div class="formError"></div>
-						<form:input path="mobileNumber2" type="text" class="date"
-								tabindex="12" maxlength="15" size="15" />
+							<form:input path="mobileNumber2" type="text" tabindex="12"
+								maxlength="15" size="15" />
 						</div>
 
 					</div>
@@ -303,8 +304,8 @@
 						</div>
 						<div class="large-6 columns">
 							<div class="formError"></div>
-							<form:input path="landlineNumber" type="text" class="date"
-								tabindex="13" maxlength="15" size="15" />
+							<form:input path="landlineNumber" type="text" tabindex="13"
+								maxlength="15" size="15" />
 						</div>
 
 					</div>
@@ -316,7 +317,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:select path="countryId" multiple="false">
-								<form:options items="${countryMasterTypes}" itemValue="id"
+								<form:options items="${user.countryMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select>
 						</div>
@@ -329,7 +330,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:select path="stateId" multiple="false">
-								<form:options items="${stateMasterTypes}" itemValue="id"
+								<form:options items="${user.stateMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select>
 						</div>
@@ -342,7 +343,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:select path="cityId" multiple="false">
-								<form:options items="${cityMasterTypes}" itemValue="id"
+								<form:options items="${user.cityMasterTypes}" itemValue="id"
 									itemLabel="name" />
 							</form:select>
 						</div>
@@ -394,7 +395,7 @@
 
 						<div class="large-6 columns"></div>
 						<div class="large-6 columns">
-							<input class="button round" type="submit" value="Signup"
+							<input class="button round" type="submit" value="Update"
 								class="right inline" tabindex="9" /> <input
 								class="button round" type="reset" value="Reset"
 								class="right inline" tabindex="10" />
