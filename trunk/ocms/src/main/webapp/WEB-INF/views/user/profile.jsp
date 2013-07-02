@@ -24,7 +24,7 @@
 			showOn : "button",
 			buttonImage : "resources/images/ico_calendar.gif",
 			buttonImageOnly : true,
-			appendText : ' yyyy-mm-dd ',
+			appendText : 'dd/mm/yyyy',
 			buttonText : 'Date selector 1',
 			align : "middle",
 			changeMonth : true,
@@ -33,7 +33,7 @@
 			showOn : 'both',
 			alt : 'Date Selector 1',
 			cursor : 'pointer',
-			dateFormat : 'yy-mm-dd',
+			dateFormat : 'dd/mm/yy',
 			beforeShow : function(input, inst) {
 				$('ui-widget-header').css({
 					"color" : 'red',
@@ -51,7 +51,7 @@
 			showOn : "button",
 			buttonImage : "resources/images/ico_calendar.gif",
 			buttonImageOnly : true,
-			appendText : ' yyyy-mm-dd ',
+			appendText : 'dd/mm/yyyy',
 			buttonText : 'Date selector 1',
 			align : "middle",
 			changeMonth : true,
@@ -60,7 +60,7 @@
 			showOn : 'both',
 			alt : 'Date Selector 1',
 			cursor : 'pointer',
-			dateFormat : 'yy-mm-dd',
+			dateFormat : 'dd/mm/yy',
 			beforeShow : function(input, inst) {
 				$('ui-widget-header').css({
 					"color" : 'red',
@@ -100,9 +100,9 @@
 
 
 	<div class="row">
-		<div class="large-4 columns">Horizontal nav. menu should go here</div>
+		<div class="large-2 columns">Horizontal nav. menu should go here</div>
 
-		<div class="large-8 columns">
+		<div class="large-10 columns">
 
 
 			<form:form method="post" action="profile" id="profileForm"

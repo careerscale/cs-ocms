@@ -12,7 +12,6 @@ import java.util.List;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -25,6 +24,7 @@ public class User implements Serializable
 	private String password;
 	private String firstName;
 	private String lastName;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateOfBirth;
 
 	// to list the case types of the user's interests
@@ -40,6 +40,7 @@ public class User implements Serializable
 	private String userAccessToken;
 	private String additionalEmailId;
 	private String bloodGroup;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date anniversary;
 	private boolean monthlyUpdates;
 	private boolean specialUpdates;
@@ -145,7 +146,7 @@ public class User implements Serializable
 		return dateOfBirth;
 	}
 
-	@DateTimeFormat(iso = ISO.DATE)
+
 	public void setDateOfBirth(Date dateOfBirth)
 	{
 		this.dateOfBirth = dateOfBirth;
@@ -246,6 +247,7 @@ public class User implements Serializable
 	{
 		return anniversary;
 	}
+
 
 	public void setAnniversary(Date anniversary)
 	{

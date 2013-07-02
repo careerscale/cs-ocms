@@ -17,6 +17,7 @@ import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.service.model.RegistrationResult;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -270,8 +271,27 @@ public class UserService implements UserDetailsService
 			user.setAddressLine1(address.getAddressLine1());
 			user.setAddressLine2(address.getAddressLine2());
 			user.setZipcode(address.getZipCode());
+			user.setSpecialUpdates(profile.isSpecialUpdates());
+			user.setRegularUpdates(profile.isRegularUpdates());
+			user.setMonthlyUpdates(profile.isMonthlyUpdates());
 
 		}
+		
+		Set<CaseType> caseTypes = loginMaster.getCaseTypes();
+		List<Integer> caseTypeIds= new ArrayList<Integer>();
+		for (CaseType caseType : caseTypes)
+		{
+			caseTypeIds.add(caseType.getId());
+		}
+		Set<HelpCategoryType> helpTypes = loginMaster.getHelpCategoryTypes();
+		List<Integer> helpTypeIds = new ArrayList<Integer>();
+		for (HelpCategoryType helpCategoryType : helpTypes)
+		{
+			helpTypeIds.add(helpCategoryType.getId());
+		}
+		
+		user.setCaseTypes(caseTypeIds);
+		user.setHelpTypes(helpTypeIds);
 
 	}
 
@@ -330,6 +350,7 @@ public class UserService implements UserDetailsService
 			userProfile.setMonthlyUpdates(user.isMonthlyUpdates());
 			userProfile.setRegularUpdates(user.isRegularUpdates());
 			userProfile.setSpecialUpdates(user.isSpecialUpdates());
+
 
 			if (null != user.getAdditionalEmailId())
 				userProfile.setOtherEmailId(user.getAdditionalEmailId());
