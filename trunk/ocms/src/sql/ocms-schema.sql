@@ -140,7 +140,7 @@ CREATE  TABLE IF NOT EXISTS `address` (
   `address_line1` VARCHAR(150) NOT NULL ,
   `address_line2` VARCHAR(45) NULL ,
   `city_id` INT NOT NULL ,
-  `zipcode` VARCHAR(20) NULL ,
+  `zip_code` VARCHAR(20) NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_address_cities1_idx` (`city_id` ASC) ,
   CONSTRAINT `fk_address_city_id`
@@ -872,7 +872,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `address` (`id`, `address_line1`, `address_line2`, `city_id`, `zipcode`) VALUES (1, 'sv enclave, upparpally', 'attapur', 1, '500048');
+INSERT INTO `address` (`id`, `address_line1`, `address_line2`, `city_id`, `zip_code`) VALUES (1, 'sv enclave, upparpally', 'attapur', 1, '500048');
 
 COMMIT;
 
