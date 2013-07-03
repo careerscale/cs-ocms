@@ -1,14 +1,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <h1>
-	<s:message code="register.login.title" />
+	<spring:message code="register.login.title" />
 </h1>
 <tiles:putAttribute name="pageTitle" value="${register.login.title}" />
 
+
 <p>login with registered account</p>
 
+<c:if test="${param.error == 'true'}">
+<div id="display-error">
+   <font color="red"><span><spring:message code="login.invalid.error" /></span>
+   </font>
+    </div>
+</c:if>
 
+<div class="row">
+	<spring:hasBindErrors name="user">
+
+								<font color="red"> <c:forEach items="${errors.allErrors}"
+										var="error">
+										<img src="resources/images/warning.gif" alt="Warning!"
+											width="24" height="24"
+											style="float: left; margin: -5px 10px 0px 0px;" />
+										<spring:message code="${error.code}"
+											text="${error.defaultMessage}" />
+										<br />
+
+									</c:forEach>
+								</font>
+
+							</spring:hasBindErrors>
+
+</div>
 
 <form method="POST" id="login" action="j_spring_security_check">
 	<div class="row">

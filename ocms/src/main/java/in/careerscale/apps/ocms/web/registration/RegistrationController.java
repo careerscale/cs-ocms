@@ -38,55 +38,57 @@ public class RegistrationController
 	private MasterDataService masterDataService;
 
 	/**
-	 * not in use for now. Old way of formatting date from input to java bean.
-	 * but didn't find the solution yet.
+	 * not in use for now. Old way of formatting date from input to java bean. but didn't find the solution yet.
 	 * 
 	 * @param binder
 	 */
 	@InitBinder
-	public void initBinder(WebDataBinder binder) {
+	public void initBinder(WebDataBinder binder)
+	{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		dateFormat.setLenient(true);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				dateFormat, true));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(HttpServletRequest request, HttpServletResponse response) {
+	public String login(HttpServletRequest request, HttpServletResponse response)
+	{
 		log.debug("within login GET method call");
 
 		return "register/login";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String index(@ModelAttribute(value = "user") User bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String index(@ModelAttribute(value = "user") User bean, BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response)
+	{
 		setMasterData(bean);
 		return "register/register";
 	}
 
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.GET)
-	public String forgotPassword(@ModelAttribute(value = "user") User bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) {
+	public String forgotPassword(@ModelAttribute(value = "user") User bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response)
+	{
 		setMasterData(bean);
 		return "register/forgotpassword";
 	}
 
 	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
-	public String submitForgotPassword(
-			@ModelAttribute(value = "user") User bean, BindingResult errors,
-			HttpServletRequest request, HttpServletResponse response) {
-		try {
+	public String submitForgotPassword(@ModelAttribute(value = "user") User bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response)
+	{
+		try
+		{
 			userService.forgotPassword(bean);
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 
 			// ae.getCause() == null?
 			// ae.getMessage():ae.getCause().getMessage())
-			errors.addError(new ObjectError(
-					"registration.forgotpassword.error",
-					"Unable to fetch password : " + e.getMessage()));
+			errors.addError(new ObjectError("registration.forgotpassword.error", "Unable to fetch password : "
+					+ e.getMessage()));
 			return "register/forgotpassword";
 		}
 		request.setAttribute("result", "user.forgotpassword.success");
@@ -94,13 +96,16 @@ public class RegistrationController
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(@ModelAttribute(value = "user") User bean,
-			BindingResult errors, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public String register(@ModelAttribute(value = "user") User bean, BindingResult errors, HttpServletRequest request,
+			HttpServletResponse response) throws Exception
+	{
 		// TODO Validations on server side
-		try {
+		try
+		{
 			userService.registerUser(bean);
-		} catch (ApplicationException ae) {
+		}
+		catch (ApplicationException ae)
+		{
 
 			// ae.getCause() == null?
 			// ae.getMessage():ae.getCause().getMessage())
@@ -113,11 +118,15 @@ public class RegistrationController
 		return "user/success"; // we need to return next page.
 	}
 
-	private void setMasterData(User bean) {
-		try {
+	private void setMasterData(User bean)
+	{
+		try
+		{
 			bean.setCaseMasterTypes(masterDataService.getCaseTypes1());
 			bean.setHelpMasterTypes(masterDataService.getHelpTypes());
-		} catch (ApplicationException e) {
+		}
+		catch (ApplicationException e)
+		{
 			log.error("error while retrieving master data", e);
 		}
 	}

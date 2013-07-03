@@ -66,7 +66,15 @@
 
 <link rel="stylesheet" href="/foundation/css/foundation.css" />
 <link rel="stylesheet" href="/foundation/css/normalize.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/custom.css" />
+	
+	
 <script src="/foundation/js/custom.modernizr.js"></script>
+
+
+	
 
 </head>
 
