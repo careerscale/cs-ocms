@@ -127,12 +127,13 @@ public class UserProfile implements java.io.Serializable {
 		this.mobileNumber1 = mobileNumber1;
 	}
 
+	@Column(name = "mobile_number2", nullable = false, length = 20)
 	public String getMobileNumber2()
 	{
 		return mobileNumber2;
 	}
 
-	@Column(name = "mobile_number2", nullable = false, length = 20)
+
 	public void setMobileNumber2(String mobileNumber2)
 	{
 		this.mobileNumber2 = mobileNumber2;
