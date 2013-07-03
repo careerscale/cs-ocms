@@ -21,6 +21,7 @@ public class User implements Serializable
 
 	private Integer id;
 	private String emailId;
+	private String previousPassword;
 	private String password;
 	private String firstName;
 	private String lastName;
@@ -109,6 +110,16 @@ public class User implements Serializable
 	public void setEmailId(String emailId)
 	{
 		this.emailId = trim(emailId);
+	}
+
+	public String getPreviousPassword()
+	{
+		return previousPassword;
+	}
+
+	public void setPreviousPassword(String previousPassword)
+	{
+		this.previousPassword = previousPassword;
 	}
 
 	public String getPassword()

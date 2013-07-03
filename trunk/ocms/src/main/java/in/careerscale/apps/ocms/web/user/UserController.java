@@ -62,27 +62,59 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
-	public String UpdateProfileData(@ModelAttribute(value = "user") User bean, BindingResult errors,
-			HttpServletRequest request,
-			HttpServletResponse response) throws Exception
+	public String updateProfileData(@ModelAttribute(value = "user") User bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		// TODO Validations on server side
 		try
 		{
-			userService.updateUserProfile(bean);
+			userService.updateUserPassword(bean);
 		}
 		catch (ApplicationException ae)
 		{
 
 			// ae.getCause() == null?
 			// ae.getMessage():ae.getCause().getMessage())
-			errors.addError(new ObjectError("view.user.registration.error",
-					"Email is already in use, please choose another one"));
+			errors.addError(new ObjectError("user.profile.error", "Error while updating profile - "
+					+ ae.getLocalizedMessage()));
 			setMasterData(bean);
 			return "user/profile";
 		}
-		return "register/registered"; // we need to return next page.
+		request.setAttribute("result", "register.registered.success");
+		return "user/success"; // we need to return next page.
 	}
+
+	@RequestMapping(value = "/password", method = RequestMethod.GET)
+	public String getPasswordForm(@ModelAttribute(value = "user") User bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		return "user/password";
+	}
+
+	@RequestMapping(value = "/password", method = RequestMethod.POST)
+	public String updatePassword(@ModelAttribute(value = "user") User bean, BindingResult errors,
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception
+	{
+		// TODO Validations on server side
+		try
+		{
+			userService.updateUserPassword(bean);
+		}
+		catch (ApplicationException ae)
+		{
+
+			// ae.getCause() == null?
+			// ae.getMessage():ae.getCause().getMessage())
+			errors.addError(new ObjectError("password.update.error",
+					"Unable to update password, please try again."));
+
+			return "user/password";
+		}
+		request.setAttribute("result", "password.update.success");
+		return "user/success"; // we need to return next page.
+	}
+
 
 
 	private void setMasterData(User bean)

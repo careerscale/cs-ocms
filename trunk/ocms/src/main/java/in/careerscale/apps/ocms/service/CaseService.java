@@ -31,13 +31,10 @@ import javax.persistence.PersistenceException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service("caseService")
-public class CaseService
+public class CaseService extends AbstractService
 {
 
 	Log log = LogFactory.getLog(CaseService.class);
@@ -45,8 +42,6 @@ public class CaseService
 	@Autowired
 	private CaseRepository caseRepository;
 
-	@Autowired
-	private MasterDataRepository masterDataRepository;
 
 	@Autowired
 	private NotificationRepository notificationRepository;
@@ -127,14 +122,6 @@ public class CaseService
 
 	}
 
-	private LoginMaster getLoggedInUser()
-	{
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		ExtendedUser user = (ExtendedUser) authentication.getPrincipal();
-
-		return (LoginMaster) masterDataRepository.getById(LoginMaster.class, user.getId());
-	}
 
 	public List<in.careerscale.apps.ocms.web.cases.model.DocumentType> getDocumentTypes(Integer caseTypeId)
 	{

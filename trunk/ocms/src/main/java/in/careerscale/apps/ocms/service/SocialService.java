@@ -1,28 +1,17 @@
 package in.careerscale.apps.ocms.service;
 
-import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
-import in.careerscale.apps.ocms.dao.model.CaseType;
-import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
-import in.careerscale.apps.ocms.dao.model.UserNetwork;
 import in.careerscale.apps.ocms.dao.model.UserRole;
 import in.careerscale.apps.ocms.mail.EmailSender;
-import in.careerscale.apps.ocms.mail.EmailTemplates;
-import in.careerscale.apps.ocms.mail.Template;
-import in.careerscale.apps.ocms.service.exception.ApplicationException;
-import in.careerscale.apps.ocms.web.registration.model.User;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.PersistenceException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,7 +24,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("socialService")
-public class SocialService implements UserDetailsService {
+public class SocialService extends AbstractService implements UserDetailsService
+{
 
 	Log log = LogFactory.getLog(SocialService.class);
 	@Autowired
@@ -44,8 +34,7 @@ public class SocialService implements UserDetailsService {
 	@Autowired
 	private EmailSender emailService;
 
-	@Autowired
-	private MasterDataRepository masterDataRepository;
+
 
 	@PostConstruct
 	protected void initialize() {

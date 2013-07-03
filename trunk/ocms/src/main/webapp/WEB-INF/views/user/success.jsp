@@ -6,20 +6,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
 <!--[if lte IE 6]>
   <link rel="stylesheet" type="text/css" media="all" href="ie6.css" />
 <![endif]-->
-<!-- start page container 2 div-->
 <h1>
-	<spring:message code="register.forgotpassword.title" />
+	<spring:message code="${result}" />
 </h1>
 <div class="row full-width">
 
-	<h3>We found your password</h3>
-	<p>Your password has been emailed to your registered email address.</p>
+	<div class="row">
+		<p>
+			Click <a href='<spring:url value="/"></spring:url>'>here</a> to navigate to
+			home page. Click <a href='<spring:url value="/logout"></spring:url>'>here</a>
+			to logout.
+		</p>
+
+	</div>
+
 	<br clear="all" />
-	<!-- end main content  -->
-	<br />
+
 
 </div>
+<!-- end main content  -->
+<br />
+
+

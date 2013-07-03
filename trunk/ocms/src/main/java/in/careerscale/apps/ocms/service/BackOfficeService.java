@@ -1,10 +1,6 @@
 package in.careerscale.apps.ocms.service;
 
-import javax.persistence.PersistenceException;
-import javax.persistence.criteria.CriteriaBuilder.Case;
-
 import in.careerscale.apps.ocms.dao.BackOfficeRepository;
-import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.EmailTemplate;
@@ -16,12 +12,14 @@ import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.backoffice.model.BOBean;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service("backOfficeService")
-public class BackOfficeService {
+public class BackOfficeService extends AbstractService
+{
 
 	@Autowired
 	private BackOfficeRepository backofficeRepository;
