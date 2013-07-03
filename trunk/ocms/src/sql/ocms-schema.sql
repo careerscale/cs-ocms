@@ -399,19 +399,27 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user_profile` ;
 
 CREATE  TABLE IF NOT EXISTS `user_profile` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
+  `id` INT NOT NULL ,
   `other_email_id` VARCHAR(100) NOT NULL ,
   `blood_group` VARCHAR(10) NOT NULL ,
-  `anniversary` DATETIME NOT NULL ,
-  `user_id` INT NOT NULL ,
-  `monthly_updates` TINYINT(1) NOT NULL DEFAULT 1 ,
-  `special_updates` TINYINT(1) NOT NULL DEFAULT 1 ,
-  `regular_updates` TINYINT(1) NOT NULL DEFAULT 1 ,
+  `anniversary` DATETIME NULL ,
+  `monthly_updates` TINYINT(1) NULL DEFAULT 1 ,
+  `special_updates` TINYINT(1) NULL DEFAULT 1 ,
+  `regular_updates` TINYINT(1) NULL DEFAULT 1 ,
+  `mobile_number1` VARCHAR(20) NULL ,
+  `mobile_number2` VARCHAR(20) NULL ,
+  `landline_number` VARCHAR(20) NULL ,
+  `address_id` INT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_user_profile_user_id_idx` (`user_id` ASC) ,
+  INDEX `fk_user_profile_address_id_idx` (`address_id` ASC) ,
   CONSTRAINT `fk_user_profile_user_id`
-    FOREIGN KEY (`user_id` )
+    FOREIGN KEY (`id` )
     REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_profile_address_id`
+    FOREIGN KEY (`address_id` )
+    REFERENCES `address` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -860,6 +868,15 @@ INSERT INTO `city` (`id`, `city_name`, `state_id`) VALUES (11, 'Mysore', 4);
 COMMIT;
 
 -- -----------------------------------------------------
+-- Data for table `address`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `address` (`id`, `address_line1`, `address_line2`, `city_id`, `zipcode`) VALUES (1, 'sv enclave, upparpally', 'attapur', 1, '500048');
+
+COMMIT;
+
+-- -----------------------------------------------------
 -- Data for table `case_master`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -890,6 +907,15 @@ INSERT INTO `document_type` (`id`, `case_type_id`, `supported_formats`, `is_mand
 COMMIT;
 
 -- -----------------------------------------------------
+-- Data for table `user_profile`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `user_profile` (`id`, `other_email_id`, `blood_group`, `anniversary`, `monthly_updates`, `special_updates`, `regular_updates`, `mobile_number1`, `mobile_number2`, `landline_number`, `address_id`) VALUES (2, 'harinath@careerscale.in', 'O Positive', '2006-03-10', 1, 1, 1, '2342343', '2423423', '24234234', 1);
+
+COMMIT;
+
+-- -----------------------------------------------------
 -- Data for table `org_type`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -908,7 +934,7 @@ COMMIT;
 START TRANSACTION;
 USE `ocms`;
 INSERT INTO `role_master` (`id`, `role_name`, `description`) VALUES (1, 'REGISTERED', 'registered');
-INSERT INTO `role_master` (`id`, `role_name`, `description`) VALUES (2, 'USER', 'site user');
+INSERT INTO `role_master` (`id`, `role_name`, `description`) VALUES (2, 'MODERATOR', 'site user');
 INSERT INTO `role_master` (`id`, `role_name`, `description`) VALUES (3, 'MANAGER', 'site manager');
 INSERT INTO `role_master` (`id`, `role_name`, `description`) VALUES (4, 'ADMIN', 'admin');
 
