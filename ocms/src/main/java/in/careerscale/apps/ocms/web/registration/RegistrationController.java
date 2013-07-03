@@ -18,9 +18,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,7 +27,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @Secured("ROLE_ANONYMOUS")
-public class RegistrationController implements Validator {
+public class RegistrationController
+{
 
 	Log log = LogFactory.getLog(RegistrationController.class);
 	@Autowired
@@ -90,8 +89,8 @@ public class RegistrationController implements Validator {
 					"Unable to fetch password : " + e.getMessage()));
 			return "register/forgotpassword";
 		}
-
-		return "register/forgotpasswordSuccess";
+		request.setAttribute("result", "user.forgotpassword.success");
+		return "user/success";
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -110,7 +109,8 @@ public class RegistrationController implements Validator {
 			setMasterData(bean);
 			return "register/register";
 		}
-		return "register/registered"; // we need to return next page.
+		request.setAttribute("result", "register.registered.success");
+		return "user/success"; // we need to return next page.
 	}
 
 	private void setMasterData(User bean) {
@@ -120,17 +120,6 @@ public class RegistrationController implements Validator {
 		} catch (ApplicationException e) {
 			log.error("error while retrieving master data", e);
 		}
-	}
-
-	@Override
-	public boolean supports(Class<?> clazz) {
-
-		return false;
-	}
-
-	@Override
-	public void validate(Object target, Errors errors) {
-
 	}
 
 }

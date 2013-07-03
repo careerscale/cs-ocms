@@ -1,6 +1,5 @@
 package in.careerscale.apps.ocms.service;
 
-import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseType;
@@ -31,18 +30,15 @@ import javax.persistence.PersistenceException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service("userService")
-public class UserService implements UserDetailsService
+public class UserService extends AbstractService implements UserDetailsService
 {
 
 	Log log = LogFactory.getLog(UserService.class);
@@ -52,8 +48,6 @@ public class UserService implements UserDetailsService
 	@Autowired
 	private EmailSender emailService;
 
-	@Autowired
-	private MasterDataRepository masterDataRepository;
 
 	private static final String DUMMY_PASSWORD = "password";
 
@@ -401,12 +395,19 @@ public class UserService implements UserDetailsService
 
 	}
 
-	private LoginMaster getLoggedInUser()
+	public void updateUserPassword(User bean) throws ApplicationException
 	{
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication authentication = context.getAuthentication();
-		ExtendedUser user = (ExtendedUser) authentication.getPrincipal();
+		LoginMaster loginMaster = getLoggedInUser();
+		if (loginMaster.getPassword().equals(bean.getPreviousPassword()))
+		{
+			loginMaster.setPassword(bean.getPassword());
+			userRepository.update(loginMaster);
+		}
+		else
+		{
+			throw new ApplicationException("Unable to update password");
+		}
 
-		return (LoginMaster) masterDataRepository.getById(LoginMaster.class, user.getId());
 	}
+
 }
