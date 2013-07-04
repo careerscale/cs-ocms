@@ -286,7 +286,7 @@
 							<div class="right inline">
 								<input class="right inline button round" type="reset"
 									value="Reset form" style="width: 140px" tabindex="14" /> <input
-									class="button round inline right" type="submit"
+									class="button small round inline right" type="submit"
 									value="Register case" style="width: 140px" tabindex="14" />
 							</div>
 						</div>

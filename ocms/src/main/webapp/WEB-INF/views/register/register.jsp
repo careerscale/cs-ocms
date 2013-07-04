@@ -217,9 +217,9 @@
 
 						<div class="large-6 columns"></div>
 						<div class="large-6 columns">
-							<input class="button round" type="submit" value="Signup"
+							<input class="button small round" type="submit" value="Signup"
 								class="right inline" tabindex="9" /> <input
-								class="button round" type="reset" value="Reset"
+								class="button small round" type="reset" value="Reset"
 								class="right inline" tabindex="10" />
 						</div>
 					</div>
