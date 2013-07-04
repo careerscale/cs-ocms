@@ -35,6 +35,72 @@ public class Case implements Serializable
 	private Integer caseType;
 	private Integer helpType;
 	private Integer caseStatus;
+	
+	private String caseTypeString;
+	private String caseStatusString;
+	private String helpCategoryString;
+	private String createdBy;
+	private String updatedBy;
+	
+	
+	public String getCaseTypeString()
+	{
+		return caseTypeString;
+	}
+
+
+	public void setCaseTypeString(String caseTypeString)
+	{
+		this.caseTypeString = caseTypeString;
+	}
+
+
+	public String getCreatedBy()
+	{
+		return createdBy;
+	}
+
+
+	public void setCreatedBy(String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
+
+
+	public String getUpdatedBy()
+	{
+		return updatedBy;
+	}
+
+
+	public void setUpdatedBy(String updatedBy)
+	{
+		this.updatedBy = updatedBy;
+	}
+
+
+	public String getHelpCategoryString()
+	{
+		return helpCategoryString;
+	}
+
+
+	public void setHelpCategoryString(String helpCategoryString)
+	{
+		this.helpCategoryString = helpCategoryString;
+	}
+
+
+	public String getCaseStatusString()
+	{
+		return caseStatusString;
+	}
+
+
+	public void setCaseStatusString(String caseStatusString)
+	{
+		this.caseStatusString = caseStatusString;
+	}
 
 	private List<MasterType> caseMasterTypes = new ArrayList<MasterType>();
 	private List<MasterType> helpMasterTypes = new ArrayList<MasterType>();
@@ -47,6 +113,28 @@ public class Case implements Serializable
 
 	}
 
+	
+	public Case(int id,String personName, String caseDescription, String caseSource, Date dateOfBirth, Date createdDate,
+			Date UpdatedDate, String contact1, String contact2, String caseStatusString, String helpCategoryString, String caseTypeString, String createdBy, String updatedBy)
+	{
+		this.id = id;
+		this.personName = personName;
+		this.caseDescription = caseDescription;
+		this.caseSource = caseSource;
+		this.dateOfBirth = dateOfBirth;
+		this.createdDate = createdDate;
+		this.UpdatedDate = UpdatedDate;
+		this.contact1 = contact1;
+		this.contact2 = contact2;
+		this.caseStatusString = caseStatusString;
+		this.helpCategoryString = helpCategoryString;
+		this.caseTypeString = caseTypeString;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+
+	}
+	
+	
 	public Case(String personName, String caseDescription, String caseSource, Date dateOfBirth, Date createdDate,
 			Date UpdatedDate, String contact1, String contact2)
 	{

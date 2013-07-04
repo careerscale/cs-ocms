@@ -24,6 +24,7 @@ import in.careerscale.apps.ocms.web.cases.model.Document;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -147,7 +148,7 @@ public class CaseService extends AbstractService
 			try
 			{
 				CaseArtifact artifact = new CaseArtifact();
-				artifact.setArtifactType("test");
+				//artifact.setArtifactType("test");
 				artifact.setArtifact(document.getFile().getBytes());
 				artifact.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, bean.getCaseId()));
 				artifact.setLoginMaster(loginMaster);
@@ -162,5 +163,47 @@ public class CaseService extends AbstractService
 		}
 
 	}
+	
+	/**
+	 * @return List of my cases
+	 */
+	public List<in.careerscale.apps.ocms.web.cases.model.Case> getMyCases()
+	{
+		Integer userId= getLoggedInUserId();
+		List<in.careerscale.apps.ocms.web.cases.model.Case> myCasesList = new ArrayList<in.careerscale.apps.ocms.web.cases.model.Case>();
+		List<CaseMaster> lstCases = caseRepository.getMyCases(userId);
+		for (CaseMaster mycase : lstCases)
+		{
+			myCasesList.add(new in.careerscale.apps.ocms.web.cases.model.Case(mycase.getId(), mycase.getPersonName(), mycase.getCaseDescription(), 
+					mycase.getSource(), mycase.getDateOfBirth(), mycase.getCreatedOn(), mycase.getUpdatedOn(), mycase.getContactNumber1(), mycase.getContactNumber2(),
+					mycase.getCaseStatusMaster().getCaseStatusName(), mycase.getHelpCategoryType().getCategoryName(),mycase.getCaseType().getName(),mycase.getLoginMasterByCreatedBy().getFirstName(), mycase.getLoginMasterByUpdatedBy().getFirstName())
+					);
+		}
+
+		return myCasesList;
+
+	}
+	
+	/**
+	 * @return List of my interested cases
+	 */
+	public List<in.careerscale.apps.ocms.web.cases.model.Case> getInterestedCases()
+	{
+		Integer userId= getLoggedInUserId();
+		List<in.careerscale.apps.ocms.web.cases.model.Case> myCasesList = new ArrayList<in.careerscale.apps.ocms.web.cases.model.Case>();
+		List<CaseMaster> lstCases = caseRepository.getInterestedCases(userId);
+		for (CaseMaster mycase : lstCases)
+		{
+			myCasesList.add(new in.careerscale.apps.ocms.web.cases.model.Case(mycase.getId(), mycase.getPersonName(), mycase.getCaseDescription(), 
+					mycase.getSource(), mycase.getDateOfBirth(), mycase.getCreatedOn(), mycase.getUpdatedOn(), mycase.getContactNumber1(), mycase.getContactNumber2(),
+					mycase.getCaseStatusMaster().getCaseStatusName(), mycase.getHelpCategoryType().getCategoryName(),mycase.getCaseType().getName(),
+					mycase.getLoginMasterByCreatedBy().getFirstName(), mycase.getLoginMasterByUpdatedBy().getFirstName())
+					);
+		}
+
+		return myCasesList;
+
+	}
+	
 
 }

@@ -2,8 +2,11 @@ package in.careerscale.apps.ocms.web.user;
 
 
 
+import java.util.List;
+
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.UserService;
+import in.careerscale.apps.ocms.service.CaseService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import in.careerscale.apps.ocms.web.registration.model.MyCases;
 
 @Controller
 @Secured("ROLE_USER")
@@ -36,11 +40,19 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
+	private CaseService caseService;
+	
+	@Autowired
 	private MasterDataService masterDataService;
 
-	@RequestMapping(value = "user", method = RequestMethod.GET)	
-	public String index(UserDetails userDetails, Model model) {
-		log.info(userDetails.toString());
+	@RequestMapping(value = "/user", method = RequestMethod.GET)	
+	public String index(@ModelAttribute(value = "cases") MyCases bean, BindingResult errors,
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception{
+		List<in.careerscale.apps.ocms.web.cases.model.Case> myCasesList = caseService.getMyCases();
+		List<in.careerscale.apps.ocms.web.cases.model.Case> interestedCasesList = caseService.getInterestedCases();
+		bean.setInterestedCases(interestedCasesList);
+		bean.setMyCases(myCasesList);
 		return "user/index";
 	}
 	

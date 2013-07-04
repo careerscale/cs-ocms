@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -116,6 +117,24 @@ public class CaseRepository {
 		entityManager.flush();
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	 @Transactional
+    public List<CaseMaster> getMyCases(Integer userId) {
+		Query query =entityManager.createQuery("SELECT cm FROM CaseMaster cm where cm.loginMasterByCreatedBy.id = :userId or cm.loginMasterByUpdatedBy.id = :userId order by cm.id desc"); 
+		query.setParameter("userId", userId);
+        return query.getResultList();
+    }
+	
+	
+	@SuppressWarnings("unchecked")
+	 @Transactional
+    public List<CaseMaster> getInterestedCases(Integer userId) {
+		//Query query = entityManager.createQuery("SELECT cm FROM CaseMaster cm inner join  cm.caseType ct  where cm.caseType.name = cm. order by cm.id desc");
+		Query query = entityManager.createQuery("SELECT cm FROM CaseMaster cm where  cm.caseType.name in (select distinct(cm1.caseType.name) from CaseMaster cm1 where cm.loginMasterByCreatedBy.id = :userId or cm.loginMasterByUpdatedBy.id = :userId)   and  (cm.loginMasterByCreatedBy.id <> :userId or cm.loginMasterByUpdatedBy.id <> :userId ) order by cm.id desc");
+		query.setParameter("userId", userId);
+        return query.getResultList();
+    }
 
 }
 

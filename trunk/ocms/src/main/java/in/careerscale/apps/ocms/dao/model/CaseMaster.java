@@ -196,7 +196,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.emailId = emailId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "created_by", nullable = false)
 	public LoginMaster getLoginMasterByCreatedBy() {
 		return this.loginMasterByCreatedBy;
@@ -206,7 +206,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "case_status_id", nullable = false)
 	public CaseStatusMaster getCaseStatusMaster() {
 		return this.caseStatusMaster;
@@ -216,7 +216,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.caseStatusMaster = caseStatusMaster;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "updated_by", nullable = false)
 	public LoginMaster getLoginMasterByUpdatedBy() {
 		return this.loginMasterByUpdatedBy;
@@ -226,7 +226,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "help_category_id", nullable = false)
 	public HelpCategoryType getHelpCategoryType() {
 		return this.helpCategoryType;
@@ -236,7 +236,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.helpCategoryType = helpCategoryType;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "case_type_id", nullable = false)
 	public CaseType getCaseType() {
 		return this.caseType;
@@ -321,7 +321,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.source = source;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseMaster")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "caseMaster")
 	public Set<CaseArtifact> getCaseArtifacts() {
 		return this.caseArtifacts;
 	}
@@ -330,7 +330,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.caseArtifacts = caseArtifacts;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseMaster")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "caseMaster")
 	public Set<FundManagement> getFundManagements() {
 		return this.fundManagements;
 	}
@@ -339,7 +339,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.fundManagements = fundManagements;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseMaster")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "caseMaster")
 	public Set<CaseActivity> getCaseActivities() {
 		return this.caseActivities;
 	}
@@ -348,7 +348,7 @@ public class CaseMaster implements java.io.Serializable {
 		this.caseActivities = caseActivities;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseMaster")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "caseMaster")
 	public Set<CaseUser> getCaseUsers() {
 		return this.caseUsers;
 	}
@@ -358,7 +358,7 @@ public class CaseMaster implements java.io.Serializable {
 	}
 	
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "address_id")
 	public Address getAddress() {
 		return this.address;

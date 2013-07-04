@@ -26,7 +26,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "case_status_master", catalog = "ocms", uniqueConstraints = @UniqueConstraint(columnNames = "case_status_name"))
 public class CaseStatusMaster implements java.io.Serializable {
 	
-    private CaseStatusMaster caseStatusMaster;
+   // private CaseStatusMaster caseStatusMaster;
     private Integer id;
 	private String caseStatusName;
 	private String caseStatusDescription;
@@ -91,13 +91,13 @@ public class CaseStatusMaster implements java.io.Serializable {
 	}
 	
 	
-	public CaseStatusMaster getCaseStatusMaster() {
+/*	public CaseStatusMaster getCaseStatusMaster() {
 		return caseStatusMaster;
 	}
 
 	public void setCaseStatusMaster(CaseStatusMaster caseStatusMaster) {
 		this.caseStatusMaster = caseStatusMaster;
-	}
+	}*/
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseStatusMaster")
 	public Set<CaseMaster> getCaseMasters() {
