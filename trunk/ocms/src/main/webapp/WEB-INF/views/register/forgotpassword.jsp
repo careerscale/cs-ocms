@@ -72,7 +72,7 @@
 								<td></td>
 								<td>
 									<div class="row">
-										<span></span> <input class="button round" type="submit"
+										<span></span> <input class="button small round" type="submit"
 											value="Resend my password" />
 									</div>
 

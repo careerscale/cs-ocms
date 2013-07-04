@@ -48,20 +48,20 @@
 	</div>
 
 	<div class="row">
-		<input type="submit" class="button round" value="Login" /> <a
-			href="/forgotpassword" class="button">Forgot password? </a>
+		<input type="submit" class="button small round" value="Login" /> <a
+			href="/forgotpassword" class="button small">Forgot password? </a>
 			No account yet?<a href="/register"
-			class="button round">Register</a>
+			class="button small round">Register</a>
 	</div>
 
 	<div class="row">
 		<label>Login with</label>
 	</div>
 	<div class="row">
-		<a href="/login-facebook" class="button round">Facebook</a> <a
-			href="/login-google" class="button round">Google</a>
-			<a href="/login-linkedin" class="button round">LinkedIn</a> <a
-			href="/login-twitter" class="button round">Twitter</a>
+		<a href="/login-facebook" class="button small round">Facebook</a> <a
+			href="/login-google" class="button small round">Google</a>
+			<a href="/login-linkedin" class="button small round">LinkedIn</a> <a
+			href="/login-twitter" class="button small round">Twitter</a>
 	</div>
 
 </form>

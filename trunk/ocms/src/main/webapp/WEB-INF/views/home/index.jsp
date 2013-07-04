@@ -9,16 +9,16 @@
 	</div>
 	<div class="large-9 columns">
 		<ul class="right button-group">
-			<li><a href="/about" class="button">About Us</a></li>
+			<li><a href="/about" class="button small">About Us</a></li>
 			<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
-			<li><a href="/user" class="button">OCMS User Menu</a></li>
+			<li><a href="/user" class="button small">OCMS User Menu</a></li>
 			</sec:authorize>
 		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
-				<li><a href="/register" class="button">Register</a></li>
-			<li><a href="/login" class="button">Login</a></li>
+				<li><a href="/register" class="button small">Register</a></li>
+			<li><a href="/login" class="button small">Login</a></li>
 			</sec:authorize>
 		
-			<li><a href="https://code.google.com/p/cs-ocms/" class="button">About
+			<li><a href="https://code.google.com/p/cs-ocms/" class="button small">About
 					OCMS</a></li>
 					
 		</ul>
@@ -117,22 +117,22 @@
 				</div>
 
 				<div class="row">
-					<input type="submit" class="button round" value="Login" /> <a
-						href="/forgotpassword" class="button">Forgot password? </a>
+					<input type="submit" class="button small round" value="Login" /> <a
+						href="/forgotpassword" class="button small">Forgot password? </a>
 				</div>
 				<div class="row">
-					<label>No account yet?</label> <a href="/register" class="button round">Register</a>
+					<label>No account yet?</label> <a href="/register" class="button small round">Register</a>
 				</div>
 				
 				<div class="row">
 					<label>Login with</label>
 				</div>
 				<div class="row">
-					<a href="/login-facebook" class="button round">Facebook</a> <a href="/login-google" class="button round">Google</a>
+					<a href="/login-facebook" class="button small round">Facebook</a> <a href="/login-google" class="button small round">Google</a>
 				</div>
 
 				<div class="row">
-					<a href="/login-linkedin" class="button round">LinkedIn</a> <a href="/login-twitter" class="button round">Twitter</a>
+					<a href="/login-linkedin" class="button small round">LinkedIn</a> <a href="/login-twitter" class="button small round">Twitter</a>
 				</div>
 			</form>
 		</sec:authorize>
