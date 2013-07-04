@@ -304,7 +304,7 @@ public List<MasterType> getCaseStatus1() throws ApplicationException{
 		   List<CaseStatusMaster> caseStatusList =repository.getCaseStatusMasters();
 		   
 		   for (CaseStatusMaster caseStatus2 : caseStatusList) {
-			   String caseStatusName = caseStatus2.getCaseStatusMaster()!=null?caseStatus2.getCaseStatusMaster().getCaseStatusName()+ " - " + caseStatus2.getCaseStatusName() : caseStatus2.getCaseStatusName();
+			   String caseStatusName =null;// caseStatus2.getCaseStatusMaster()!=null?caseStatus2.getCaseStatusMaster().getCaseStatusName()+ " - " + caseStatus2.getCaseStatusName() : caseStatus2.getCaseStatusName();
 			   caseStatus.add(new MasterType(caseStatus2.getId(), caseStatusName));
 			
 		}

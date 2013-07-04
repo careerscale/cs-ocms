@@ -22,25 +22,22 @@ public class CaseArtifact implements java.io.Serializable {
 	private Integer id;
 	private LoginMaster loginMaster;
 	private CaseMaster caseMaster;
-	private String artifactType;
 	private DocumentType documentType;
 	private byte[] artifact;
 
 	public CaseArtifact() {
 	}
 
-	public CaseArtifact(CaseMaster caseMaster, String artifactType,
+	public CaseArtifact(CaseMaster caseMaster, 
 			byte[] artifact) {
 		this.caseMaster = caseMaster;
-		this.artifactType = artifactType;
 		this.artifact = artifact;
 	}
 
 	public CaseArtifact(LoginMaster loginMaster, CaseMaster caseMaster,
-			String artifactType, byte[] artifact) {
+			 byte[] artifact) {
 		this.loginMaster = loginMaster;
 		this.caseMaster = caseMaster;
-		this.artifactType = artifactType;
 		this.artifact = artifact;
 	}
 
@@ -74,16 +71,7 @@ public class CaseArtifact implements java.io.Serializable {
 	public void setCaseMaster(CaseMaster caseMaster) {
 		this.caseMaster = caseMaster;
 	}
-
-	@Column(name = "artifact_type", nullable = false, length = 25)
-	public String getArtifactType() {
-		return this.artifactType;
-	}
-
-	public void setArtifactType(String artifactType) {
-		this.artifactType = artifactType;
-	}
-
+	
 	@Column(name = "artifact", nullable = false)
 	public byte[] getArtifact() {
 		return this.artifact;
@@ -93,7 +81,7 @@ public class CaseArtifact implements java.io.Serializable {
 		this.artifact = artifact;
 	}
 	 @ManyToOne(fetch=FetchType.LAZY)
-	    @JoinColumn(name="documet_type", nullable=true)
+	    @JoinColumn(name="document_type", nullable=true)
 	public DocumentType getDocumentType() {
 		return documentType;
 	}
