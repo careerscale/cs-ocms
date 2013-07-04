@@ -39,7 +39,7 @@
 	<div class="row">
 
 		<label for="j_username">Email Id</label> <input type="text"
-			value="hari@harinath.in" name="j_username" />
+			value="harinath@tmad.org" name="j_username" />
 	</div>
 
 	<div class="row">

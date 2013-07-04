@@ -113,7 +113,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="emailId" type="email" class="required email"
-								placeholder="Inline Text Input" value="user@careerscale.in"
+								placeholder="Inline Text Input" 
 								tabindex="1" />
 						</div>
 					</div>
@@ -124,7 +124,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="password" type="password"
-								class="required password" value="test123" tabindex="2"
+								class="required password"  tabindex="2"
 								maxlength="40" />
 						</div>
 					</div>
@@ -139,7 +139,7 @@
 							<div class="formError"></div>
 							<input id="confirmPassword" class="required" equalTo="#password"
 								maxlength="40" name="password2" size="20" type="password"
-								tabindex="3" value="test123" />
+								tabindex="3"  />
 						</div>
 
 					</div>
@@ -151,7 +151,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="firstName" type="text" class="required"
-								value="FirstName" tabindex="4" maxlength="40"
+								 tabindex="4" maxlength="40"
 								placeholder="Inline Text Input" />
 						</div>
 					</div>
@@ -163,7 +163,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="lastName" type="text" class="required"
-								value="lastName" tabindex="5" maxlength="40" />
+								tabindex="5" maxlength="40" />
 						</div>
 					</div>
 
@@ -174,7 +174,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="dateOfBirth" type="text" class="required date"
-								tabindex="6" maxlength="15" size="15" value="1980-01-01" />
+								tabindex="6" maxlength="15" size="15" />
 						</div>
 					</div>
 
