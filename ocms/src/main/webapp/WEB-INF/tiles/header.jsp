@@ -3,15 +3,18 @@
 
 <body>
 	<div class="row right">
-		
-			 <sec:authorize
-					ifAnyGranted="ROLE_ANONYMOUS">
-					<a href="login">Login</a> <label>No account yet?</label> <a href="/register">Register</a>
-				</sec:authorize> <sec:authorize ifNotGranted="ROLE_ANONYMOUS">
+
+		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
+			<a href="login">Login</a>
+			<label>No account yet?</label>
+			<a href="/register">Register</a>
+		</sec:authorize>
+		<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
 				Hello <sec:authentication property="principal.displayName" />
-					<a href="logout">Logout</a>
-				</sec:authorize> </a>
-		
+			<a href="logout">Logout</a>
+		</sec:authorize>
+		</a>
+
 	</div>
 	<div class="row">
 		<div class="large-3 columns">
@@ -57,18 +60,29 @@
 					<!-- Right Nav Section -->
 					<ul class="right">
 						<li class="divider hide-for-small"></li>
-						<li><a href="/profile">Profile</a></li>
-						<li><a href="/password">Change Password</a></li>
-						
-						<sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
-						<li><a href="/backoffice">Backoffice</a>
-						</li>
-						</sec:authorize>
+
+
+
+
+						<li class="divider"></li>
+						<li class="has-dropdown"><a href="/user">Profile</a>
 							<ul class="dropdown">
-								<li><a href="/backoffice/casetype">Case Type Management</a></li>
-								<li><a href="/backoffice/helptype">Help Type Management</a></li>
-								<li><a href="/backoffice/rolemaster">Role Management</a></li>
-							</ul>
+								<li><a href="/profile">Profile</a></li>
+								<li><a href="/password">Change Password</a></li>
+							</ul></li>
+						<li class="divider"></li>
+
+
+
+
+						<sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
+							<li><a href="/backoffice">Backoffice</a></li>
+						</sec:authorize>
+						<ul class="dropdown">
+							<li><a href="/backoffice/casetype">Case Type Management</a></li>
+							<li><a href="/backoffice/helptype">Help Type Management</a></li>
+							<li><a href="/backoffice/rolemaster">Role Management</a></li>
+						</ul>
 						<li class="divider"></li>
 
 						<li class="divider"></li>
@@ -85,11 +99,11 @@
 							</form>
 						</li>
 						<li class="divider show-for-small"></li>
-						<li class="has-form"><a class="button round" href="#">Button!</a></li>
+						
 					</ul>
 				</section>
 			</nav>
 		</div>
-	
+
 	</div>
 	<!-- end header container -->
