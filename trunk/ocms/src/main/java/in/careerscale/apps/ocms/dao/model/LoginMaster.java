@@ -197,7 +197,7 @@ public class LoginMaster implements java.io.Serializable {
 		this.caseArtifacts = caseArtifacts;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMasterByCreatedBy")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "createdBy")
 	public Set<CaseMaster> getCaseMastersForCreatedBy()
 	{
 		return this.caseMastersForCreatedBy;
@@ -276,7 +276,7 @@ public class LoginMaster implements java.io.Serializable {
 		this.caseActivities = caseActivities;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginMasterByUpdatedBy")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "updatedBy")
 	public Set<CaseMaster> getCaseMastersForUpdatedBy()
 	{
 		return this.caseMastersForUpdatedBy;

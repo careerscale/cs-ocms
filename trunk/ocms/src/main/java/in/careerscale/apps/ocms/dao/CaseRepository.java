@@ -16,7 +16,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -121,7 +120,8 @@ public class CaseRepository {
 	@SuppressWarnings("unchecked")
 	 @Transactional
     public List<CaseMaster> getMyCases(Integer userId) {
-		Query query =entityManager.createQuery("SELECT cm FROM CaseMaster cm where cm.loginMasterByCreatedBy.id = :userId or cm.loginMasterByUpdatedBy.id = :userId order by cm.id desc"); 
+		Query query = entityManager
+				.createQuery("SELECT cm FROM CaseMaster cm where cm.createdBy.id = :userId or cm.updatedBy.id = :userId order by cm.id desc");
 		query.setParameter("userId", userId);
         return query.getResultList();
     }
@@ -131,10 +131,24 @@ public class CaseRepository {
 	 @Transactional
     public List<CaseMaster> getInterestedCases(Integer userId) {
 		//Query query = entityManager.createQuery("SELECT cm FROM CaseMaster cm inner join  cm.caseType ct  where cm.caseType.name = cm. order by cm.id desc");
-		Query query = entityManager.createQuery("SELECT cm FROM CaseMaster cm where  cm.caseType.name in (select distinct(cm1.caseType.name) from CaseMaster cm1 where cm.loginMasterByCreatedBy.id = :userId or cm.loginMasterByUpdatedBy.id = :userId)   and  (cm.loginMasterByCreatedBy.id <> :userId or cm.loginMasterByUpdatedBy.id <> :userId ) order by cm.id desc");
+		Query query = entityManager
+				.createQuery("SELECT cm FROM CaseMaster cm where  cm.caseType.name in (select distinct(cm1.caseType.name) from CaseMaster cm1 where cm.createdBy.id = :userId or cm.updatedBy.id = :userId)   and  (cm.createdBy.id <> :userId or cm.updatedBy.id <> :userId ) order by cm.id desc");
 		query.setParameter("userId", userId);
         return query.getResultList();
     }
 
+	public CaseMaster getCase(Integer id)
+	{
+		return entityManager.find(CaseMaster.class, id);
+	}
+
+	public List<CaseArtifact> getCaseArtifacts(Integer caseId)
+	{
+		Query query = entityManager
+.createQuery("SELECT ca FROM CaseArtifact ca where  ca.caseMaster.id=:id");
+		query.setParameter("id", caseId);
+		return query.getResultList();
+
+	}
 }
 

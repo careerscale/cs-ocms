@@ -42,7 +42,6 @@ public class CaseService extends AbstractService
 	@Autowired
 	private CaseRepository caseRepository;
 
-
 	@Autowired
 	private NotificationRepository notificationRepository;
 
@@ -88,11 +87,10 @@ public class CaseService extends AbstractService
 			caseMaster.setCreatedOn(Calendar.getInstance().getTime());
 			caseMaster.setUpdatedOn(Calendar.getInstance().getTime());
 
-
 			LoginMaster loggedInUser = getLoggedInUser();
 
-			caseMaster.setLoginMasterByCreatedBy(loggedInUser);
-			caseMaster.setLoginMasterByUpdatedBy(loggedInUser);
+			caseMaster.setCreatedBy(loggedInUser);
+			caseMaster.setUpdatedBy(loggedInUser);
 
 			City city = (City) caseRepository.getById(City.class, bean.getCityId());
 
@@ -122,7 +120,6 @@ public class CaseService extends AbstractService
 
 	}
 
-
 	public List<in.careerscale.apps.ocms.web.cases.model.DocumentType> getDocumentTypes(Integer caseTypeId)
 	{
 		List<in.careerscale.apps.ocms.web.cases.model.DocumentType> docTypeList = new ArrayList<in.careerscale.apps.ocms.web.cases.model.DocumentType>();
@@ -131,8 +128,7 @@ public class CaseService extends AbstractService
 		{
 			docTypeList.add(new in.careerscale.apps.ocms.web.cases.model.DocumentType(documentType.getId(),
 					documentType.getName(), documentType.getSupportedFormats(), documentType.getIsMandatory(),
-					documentType
-							.getMaxSize()));
+					documentType.getMaxSize()));
 		}
 
 		return docTypeList;
@@ -148,10 +144,12 @@ public class CaseService extends AbstractService
 			try
 			{
 				CaseArtifact artifact = new CaseArtifact();
-				//artifact.setArtifactType("test");
+				// artifact.setArtifactType("test");
 				artifact.setArtifact(document.getFile().getBytes());
 				artifact.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, bean.getCaseId()));
 				artifact.setLoginMaster(loginMaster);
+				String fileName = document.getFile().getName();
+				artifact.setFileExtension(fileName.substring(fileName.lastIndexOf(".")));
 				caseRepository.save(artifact);
 			}
 			catch (IOException e)
@@ -163,47 +161,95 @@ public class CaseService extends AbstractService
 		}
 
 	}
-	
+
 	/**
 	 * @return List of my cases
 	 */
 	public List<in.careerscale.apps.ocms.web.cases.model.Case> getMyCases()
 	{
-		Integer userId= getLoggedInUserId();
+		Integer userId = getLoggedInUserId();
 		List<in.careerscale.apps.ocms.web.cases.model.Case> myCasesList = new ArrayList<in.careerscale.apps.ocms.web.cases.model.Case>();
 		List<CaseMaster> lstCases = caseRepository.getMyCases(userId);
 		for (CaseMaster mycase : lstCases)
 		{
-			myCasesList.add(new in.careerscale.apps.ocms.web.cases.model.Case(mycase.getId(), mycase.getPersonName(), mycase.getCaseDescription(), 
-					mycase.getSource(), mycase.getDateOfBirth(), mycase.getCreatedOn(), mycase.getUpdatedOn(), mycase.getContactNumber1(), mycase.getContactNumber2(),
-					mycase.getCaseStatusMaster().getCaseStatusName(), mycase.getHelpCategoryType().getCategoryName(),mycase.getCaseType().getName(),mycase.getLoginMasterByCreatedBy().getFirstName(), mycase.getLoginMasterByUpdatedBy().getFirstName())
-					);
+			myCasesList.add(new in.careerscale.apps.ocms.web.cases.model.Case(mycase.getId(), mycase.getPersonName(),
+					mycase.getCaseDescription(), mycase.getSource(), mycase.getDateOfBirth(), mycase.getCreatedOn(),
+					mycase.getUpdatedOn(), mycase.getContactNumber1(), mycase.getContactNumber2(), mycase
+							.getCaseStatusMaster().getCaseStatusName(), mycase.getHelpCategoryType().getCategoryName(),
+					mycase.getCaseType().getName(), mycase.getCreatedBy().getFirstName(), mycase.getUpdatedBy()
+							.getFirstName()));
 		}
 
 		return myCasesList;
 
 	}
-	
+
 	/**
 	 * @return List of my interested cases
 	 */
 	public List<in.careerscale.apps.ocms.web.cases.model.Case> getInterestedCases()
 	{
-		Integer userId= getLoggedInUserId();
+		Integer userId = getLoggedInUserId();
 		List<in.careerscale.apps.ocms.web.cases.model.Case> myCasesList = new ArrayList<in.careerscale.apps.ocms.web.cases.model.Case>();
 		List<CaseMaster> lstCases = caseRepository.getInterestedCases(userId);
 		for (CaseMaster mycase : lstCases)
 		{
-			myCasesList.add(new in.careerscale.apps.ocms.web.cases.model.Case(mycase.getId(), mycase.getPersonName(), mycase.getCaseDescription(), 
-					mycase.getSource(), mycase.getDateOfBirth(), mycase.getCreatedOn(), mycase.getUpdatedOn(), mycase.getContactNumber1(), mycase.getContactNumber2(),
-					mycase.getCaseStatusMaster().getCaseStatusName(), mycase.getHelpCategoryType().getCategoryName(),mycase.getCaseType().getName(),
-					mycase.getLoginMasterByCreatedBy().getFirstName(), mycase.getLoginMasterByUpdatedBy().getFirstName())
-					);
+			myCasesList.add(new in.careerscale.apps.ocms.web.cases.model.Case(mycase.getId(), mycase.getPersonName(),
+					mycase.getCaseDescription(), mycase.getSource(), mycase.getDateOfBirth(), mycase.getCreatedOn(),
+					mycase.getUpdatedOn(), mycase.getContactNumber1(), mycase.getContactNumber2(), mycase
+							.getCaseStatusMaster().getCaseStatusName(), mycase.getHelpCategoryType().getCategoryName(),
+					mycase.getCaseType().getName(), mycase.getCreatedBy().getFirstName(), mycase.getUpdatedBy()
+							.getFirstName()));
 		}
 
 		return myCasesList;
 
 	}
-	
+
+	public void getCaseDetails(Integer id, Case bean)
+	{
+
+		CaseMaster caseMaster = caseRepository.getCase(id);
+
+		if (bean == null)
+		{
+			bean = new Case();
+		}
+		bean.setId(caseMaster.getId());
+		bean.setPersonName(caseMaster.getPersonName());
+		bean.setEmailId(caseMaster.getEmailId());
+		bean.setDateOfBirth(caseMaster.getDateOfBirth());
+		bean.setproperties(caseMaster.getId(), caseMaster.getPersonName(), caseMaster.getEmailId(), caseMaster
+				.getSource(), caseMaster
+				.getDateOfBirth(), caseMaster.getCreatedOn(), caseMaster.getUpdatedOn(),
+				caseMaster.getContactNumber1(), caseMaster.getContactNumber2(), caseMaster.getCaseType().getName(),
+				caseMaster.getHelpCategoryType().getCategoryName(), caseMaster.getCaseStatusMaster()
+						.getCaseStatusName(), caseMaster.getCreatedBy().getFirstName(), caseMaster.getUpdatedBy()
+						.getFirstName());
+		if (null != caseMaster.getAddress())
+		{
+			Address address = caseMaster.getAddress();
+			bean.setAddressProperties(address.getAddressLine1(), address.getAddressLine2(), address.getZipCode(),
+					address.getCity().getCityName(), address.getCity().getId());
+		}
+
+	}
+
+	public CaseArtifacts getCaseArtifacts(Integer caseId)
+	{
+		List<CaseArtifact> caseArtifacts = caseRepository.getCaseArtifacts(caseId);
+
+		CaseArtifacts caseArtifactBean = new CaseArtifacts();
+
+		for (CaseArtifact caseArtifact : caseArtifacts)
+		{
+		
+			caseArtifactBean.addCaseArtifact(caseArtifact.getDocumentType().getName(), caseArtifact.getId(),
+					caseArtifact.getFileExtension(), caseArtifact.getDocumentType().getName());
+
+		}
+
+		return caseArtifactBean;
+	}
 
 }
