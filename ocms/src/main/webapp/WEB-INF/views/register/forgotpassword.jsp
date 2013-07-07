@@ -15,17 +15,6 @@
 	<spring:message code="register.forgotpassword.title" />
 </h1>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.get("/master/casetypes", function(data, status) {
-			$.each(data, function(key, val) {
-				//alert('key and values are ' + key + '  ' + val);
-			});
-		});
-
-	});
-</script>
-
 <div id="page-container" class="resize">
 	<div id="page-content-inner" class="resize">
 

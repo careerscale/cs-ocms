@@ -35,6 +35,7 @@ public class CaseType implements java.io.Serializable {
 	private Set<DocumentType> documentTypes = new HashSet(0);
 	private Set<LoginMaster> loginMasters = new HashSet(0);
 	private Set<CaseMaster> caseMasters = new HashSet(0);
+	private Set caseTypeApprovers = new HashSet(0);
 
 	public CaseType() {
 	}
@@ -149,6 +150,17 @@ public class CaseType implements java.io.Serializable {
 	public void setCaseMasters(Set<CaseMaster> caseMasters)
 	{
 		this.caseMasters = caseMasters;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseType")
+	public Set<CaseTypeApprover> getCaseTypeApprovers()
+	{
+		return this.caseTypeApprovers;
+	}
+
+	public void setCaseTypeApprovers(Set<CaseTypeApprover> caseTypeApprovers)
+	{
+		this.caseTypeApprovers = caseTypeApprovers;
 	}
 
 }
