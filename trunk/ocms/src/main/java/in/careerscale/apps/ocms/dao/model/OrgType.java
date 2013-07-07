@@ -1,14 +1,16 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,29 +25,13 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "org_type", catalog = "ocms", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class OrgType implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private OrgType orgType;
 	private String name;
 	private String description;
-	private Set<OrgType> orgTypes = new HashSet<OrgType>(0);
-	private Set<Organization> organizations = new HashSet<Organization>(0);
+	private Set orgTypes = new HashSet(0);
+	private Set organizations = new HashSet(0);
 
-	public OrgType(String name, String description) {
-		super();
-		this.name = name;
-		this.description = description;
-	}
-	public OrgType(Integer id, String name, String description) {
-		this.id = id;
-		this.name= name;
-		this.description= description;
-	}
-
-	
 	public OrgType() {
 	}
 
@@ -54,12 +40,24 @@ public class OrgType implements java.io.Serializable {
 	}
 
 	public OrgType(OrgType orgType, String name, String description,
-			Set<OrgType> orgTypes, Set<Organization> organizations) {
+			Set orgTypes, Set organizations) {
 		this.orgType = orgType;
 		this.name = name;
 		this.description = description;
 		this.orgTypes = orgTypes;
 		this.organizations = organizations;
+	}
+
+	public OrgType(String name, String description)
+	{
+		this.name = name;
+		this.description = description;
+	}
+
+	public OrgType(Integer id, String name, String description)
+	{
+		this.name = name;
+		this.description = description;
 	}
 
 	@Id
@@ -102,20 +100,24 @@ public class OrgType implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orgType")
-	public Set<OrgType> getOrgTypes() {
+	public Set<OrgType> getOrgTypes()
+	{
 		return this.orgTypes;
 	}
 
-	public void setOrgTypes(Set<OrgType> orgTypes) {
+	public void setOrgTypes(Set<OrgType> orgTypes)
+	{
 		this.orgTypes = orgTypes;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orgType")
-	public Set<Organization> getOrganizations() {
+	public Set<Organization> getOrganizations()
+	{
 		return this.organizations;
 	}
 
-	public void setOrganizations(Set<Organization> organizations) {
+	public void setOrganizations(Set<Organization> organizations)
+	{
 		this.organizations = organizations;
 	}
 

@@ -1,14 +1,16 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -28,7 +30,7 @@ public class Organization implements java.io.Serializable {
 	private String name;
 	private String address;
 	private String description;
-	private Set<LoginMaster> loginMasters = new HashSet<LoginMaster>(0);
+	private Set loginMasters = new HashSet(0);
 
 	public Organization() {
 	}
@@ -42,7 +44,7 @@ public class Organization implements java.io.Serializable {
 	}
 
 	public Organization(OrgType orgType, String name, String address,
-			String description, Set<LoginMaster> loginMasters) {
+			String description, Set loginMasters) {
 		this.orgType = orgType;
 		this.name = name;
 		this.address = address;
@@ -100,11 +102,13 @@ public class Organization implements java.io.Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_organization", catalog = "ocms", joinColumns = { @JoinColumn(name = "org_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) })
-	public Set<LoginMaster> getLoginMasters() {
+	public Set<LoginMaster> getLoginMasters()
+	{
 		return this.loginMasters;
 	}
 
-	public void setLoginMasters(Set<LoginMaster> loginMasters) {
+	public void setLoginMasters(Set<LoginMaster> loginMasters)
+	{
 		this.loginMasters = loginMasters;
 	}
 

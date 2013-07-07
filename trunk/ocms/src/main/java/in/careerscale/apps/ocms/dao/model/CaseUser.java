@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

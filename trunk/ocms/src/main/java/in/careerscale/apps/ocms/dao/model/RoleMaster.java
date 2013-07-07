@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -23,15 +23,11 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "role_master", catalog = "ocms", uniqueConstraints = @UniqueConstraint(columnNames = "role_name"))
 public class RoleMaster implements java.io.Serializable {
 
-
 	private Integer id;
 	private String roleName;
 	private String description;
-
-	
-
-	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
-	private Set<RolePermission> rolePermissions = new HashSet<RolePermission>(0);
+	private Set userRoles = new HashSet(0);
+	private Set rolePermissions = new HashSet(0);
 
 	public RoleMaster() {
 	}
@@ -39,26 +35,28 @@ public class RoleMaster implements java.io.Serializable {
 	public RoleMaster(String roleName) {
 		this.roleName = roleName;
 	}
-	
-	public RoleMaster(String roleName, String description) {
-		super();
-		this.roleName = roleName;
-		this.description = description;
-	}
-	public RoleMaster(Integer id,String roleName, String description) {
-		super();
-		this.id=id;
-		this.roleName = roleName;
-		this.description = description;
-	}
 
-	public RoleMaster(String roleName, String description,
-			Set<UserRole> userRoles, Set<RolePermission> rolePermissions) {
+	public RoleMaster(String roleName, String description, Set userRoles,
+			Set rolePermissions) {
 		this.roleName = roleName;
 		this.description = description;
 		this.userRoles = userRoles;
 		this.rolePermissions = rolePermissions;
 	}
+
+	public RoleMaster(String name, String description)
+	{
+		this.roleName = name;
+		this.description = description;
+	}
+
+	public RoleMaster(Integer id, String name, String description)
+	{
+		this.id=id;
+		this.roleName = name;
+		this.description = description;
+	}
+
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -70,7 +68,6 @@ public class RoleMaster implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	@Column(name = "role_name", unique = true, nullable = false, length = 45)
 	public String getRoleName() {
@@ -91,22 +88,24 @@ public class RoleMaster implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roleMaster")
-	public Set<UserRole> getUserRoles() {
+	public Set<UserRole> getUserRoles()
+	{
 		return this.userRoles;
 	}
 
-	public void setUserRoles(Set<UserRole> userRoles) {
+	public void setUserRoles(Set<UserRole> userRoles)
+	{
 		this.userRoles = userRoles;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "roleMaster")
-	public Set<RolePermission> getRolePermissions() {
+	public Set<RolePermission> getRolePermissions()
+	{
 		return this.rolePermissions;
 	}
 
-	public void setRolePermissions(Set<RolePermission> rolePermissions) {
+	public void setRolePermissions(Set rolePermissions) {
 		this.rolePermissions = rolePermissions;
 	}
-
 
 }

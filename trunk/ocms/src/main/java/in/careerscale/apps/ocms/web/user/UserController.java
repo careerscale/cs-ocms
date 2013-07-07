@@ -2,13 +2,14 @@ package in.careerscale.apps.ocms.web.user;
 
 
 
-import java.util.List;
-
+import in.careerscale.apps.ocms.service.CaseService;
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.UserService;
-import in.careerscale.apps.ocms.service.CaseService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.web.registration.model.MyCases;
 import in.careerscale.apps.ocms.web.registration.model.User;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import in.careerscale.apps.ocms.web.registration.model.MyCases;
 
 @Controller
 @Secured("ROLE_USER")
@@ -80,13 +79,14 @@ public class UserController {
 		// TODO Validations on server side
 		try
 		{
-			userService.updateUserPassword(bean);
+			userService.updateUserProfile(bean);
 		}
 		catch (ApplicationException ae)
 		{
 
 			// ae.getCause() == null?
 			// ae.getMessage():ae.getCause().getMessage())
+			log.error(ae.getMessage(), ae.getCause());
 			errors.addError(new ObjectError("user.profile.error", "Error while updating profile - "
 					+ ae.getLocalizedMessage()));
 			setMasterData(bean);
@@ -118,6 +118,7 @@ public class UserController {
 
 			// ae.getCause() == null?
 			// ae.getMessage():ae.getCause().getMessage())
+			log.error(ae.getMessage(), ae.getCause());
 			errors.addError(new ObjectError("password.update.error",
 					"Unable to update password, please try again."));
 

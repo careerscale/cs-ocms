@@ -147,6 +147,17 @@
 
 						</div>
 					</div>
+									<div class="row">
+						<div class="large-6  columns">
+							<label for="additionalEmailId" class="right inline">Additional Email Id:</label>
+						</div>
+						<div class="large-6 columns">
+							<form:input path="additionalEmailId" type="text" class="required"
+								tabindex="1" maxlength="40" placeholder="Inline Text Input"
+								disabled="false" />
+
+						</div>
+					</div>
 
 					<div class="row">
 						<div class="large-6  columns">

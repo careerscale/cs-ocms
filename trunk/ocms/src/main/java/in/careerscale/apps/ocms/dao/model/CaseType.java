@@ -1,14 +1,16 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -29,9 +31,10 @@ public class CaseType implements java.io.Serializable {
 	private CaseType caseType;
 	private String name;
 	private String description;
-	private Set<CaseType> caseTypes = new HashSet<CaseType>(0);
-	private Set<LoginMaster> loginMasters = new HashSet<LoginMaster>(0);
-	private Set<CaseMaster> caseMasters = new HashSet<CaseMaster>(0);
+	private Set<CaseType> caseTypes = new HashSet(0);
+	private Set<DocumentType> documentTypes = new HashSet(0);
+	private Set<LoginMaster> loginMasters = new HashSet(0);
+	private Set<CaseMaster> caseMasters = new HashSet(0);
 
 	public CaseType() {
 	}
@@ -41,25 +44,27 @@ public class CaseType implements java.io.Serializable {
 	}
 
 	public CaseType(CaseType caseType, String name, String description,
-			Set<CaseType> caseTypes, Set<LoginMaster> loginMasters,
-			Set<CaseMaster> caseMasters) {
+			Set caseTypes, Set documentTypes, Set loginMasters, Set caseMasters) {
 		this.caseType = caseType;
 		this.name = name;
 		this.description = description;
 		this.caseTypes = caseTypes;
+		this.documentTypes = documentTypes;
 		this.loginMasters = loginMasters;
 		this.caseMasters = caseMasters;
 	}
 
-	public CaseType(Integer id, String name, String description) {
-		this.id = id;
-		this.name= name;
-		this.description= description;
+	public CaseType(String name, String description)
+	{
+		this.name = name;
+		this.description = description;
 	}
-	
-	public CaseType(String name, String description) {
-		this.name= name;
-		this.description= description;
+
+	public CaseType(Integer id, String name, String description)
+	{
+		this.id = id;
+		this.name = name;
+		this.description = description;
 	}
 
 	@Id
@@ -73,7 +78,7 @@ public class CaseType implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_type_id")
 	public CaseType getCaseType() {
 		return this.caseType;
@@ -102,30 +107,47 @@ public class CaseType implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseType")
-	public Set<CaseType> getCaseTypes() {
+	public Set<CaseType> getCaseTypes()
+	{
 		return this.caseTypes;
 	}
 
-	public void setCaseTypes(Set<CaseType> caseTypes) {
+	public void setCaseTypes(Set<CaseType> caseTypes)
+	{
 		this.caseTypes = caseTypes;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseType")
+	public Set<DocumentType> getDocumentTypes()
+	{
+		return this.documentTypes;
+	}
+
+	public void setDocumentTypes(Set<DocumentType> documentTypes)
+	{
+		this.documentTypes = documentTypes;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "case_type_user", catalog = "ocms", joinColumns = { @JoinColumn(name = "case_type_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) })
-	public Set<LoginMaster> getLoginMasters() {
+	public Set<LoginMaster> getLoginMasters()
+	{
 		return this.loginMasters;
 	}
 
-	public void setLoginMasters(Set<LoginMaster> loginMasters) {
+	public void setLoginMasters(Set<LoginMaster> loginMasters)
+	{
 		this.loginMasters = loginMasters;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseType")
-	public Set<CaseMaster> getCaseMasters() {
+	public Set<CaseMaster> getCaseMasters()
+	{
 		return this.caseMasters;
 	}
 
-	public void setCaseMasters(Set<CaseMaster> caseMasters) {
+	public void setCaseMasters(Set<CaseMaster> caseMasters)
+	{
 		this.caseMasters = caseMasters;
 	}
 

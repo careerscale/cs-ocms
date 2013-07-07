@@ -109,6 +109,11 @@ public class UserRepository {
 
 	}
 
+	/**
+	 * TODO check if this merge logic is working ok.
+	 * 
+	 * @param userProfile
+	 */
 	public void saveOrUpdate(UserProfile userProfile)
 	{
 		try

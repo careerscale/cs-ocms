@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -30,19 +30,28 @@ public class UserNetwork implements java.io.Serializable {
 	}
 
 	public UserNetwork(String userNetworkId, LoginMaster loginMaster,
+			SocialNetwork socialNetwork) {
+		this.userNetworkId = userNetworkId;
+		this.loginMaster = loginMaster;
+		this.socialNetwork = socialNetwork;
+	}
+
+	public UserNetwork(String userNetworkId, LoginMaster loginMaster,
 			SocialNetwork socialNetwork,String accessToken) {
 		this.userNetworkId = userNetworkId;
 		this.loginMaster = loginMaster;
 		this.socialNetwork = socialNetwork;
 		this.userAccessToken=accessToken;
 	}
-
+	
 	public UserNetwork(String userNetworkId, LoginMaster loginMaster,
-			SocialNetwork socialNetwork, Date lastAccessDate) {
+			SocialNetwork socialNetwork, Date lastAccessDate,
+			String userAccessToken) {
 		this.userNetworkId = userNetworkId;
 		this.loginMaster = loginMaster;
 		this.socialNetwork = socialNetwork;
 		this.lastAccessDate = lastAccessDate;
+		this.userAccessToken = userAccessToken;
 	}
 
 	@Id
@@ -76,7 +85,7 @@ public class UserNetwork implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "last_access_date", length = 0)
+	@Column(name = "last_access_date", length = 10)
 	public Date getLastAccessDate() {
 		return this.lastAccessDate;
 	}
@@ -84,8 +93,8 @@ public class UserNetwork implements java.io.Serializable {
 	public void setLastAccessDate(Date lastAccessDate) {
 		this.lastAccessDate = lastAccessDate;
 	}
-	
-	@Column(name = "user_access_token",length = 150)
+
+	@Column(name = "user_access_token", length = 100)
 	public String getUserAccessToken() {
 		return this.userAccessToken;
 	}

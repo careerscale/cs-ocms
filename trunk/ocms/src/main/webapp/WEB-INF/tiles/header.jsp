@@ -45,6 +45,7 @@
 						<li class="divider"></li>
 						<li class="active"><a href="/">Home</a></li>
 						<li class="divider"></li>
+						<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
 						<li><a href="/about">About us</a></li>
 						<li class="divider"></li>
 						<li class="has-dropdown"><a href="/cases">Cases</a>
@@ -54,6 +55,7 @@
 								<li><a href="/viewcases">View Cases</a></li>
 								<li><a href="/searchcases">Search</a></li>
 							</ul></li>
+						</sec:authorize>
 						<li class="divider"></li>
 					</ul>
 
@@ -65,13 +67,14 @@
 
 
 						<li class="divider"></li>
+						<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
 						<li class="has-dropdown"><a href="/user">Profile</a>
 							<ul class="dropdown">
 								<li><a href="/profile">Profile</a></li>
 								<li><a href="/password">Change Password</a></li>
 							</ul></li>
 						<li class="divider"></li>
-
+                       </sec:authorize>
 
 
 
