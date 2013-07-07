@@ -323,23 +323,53 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `fund_management`
+-- Table `fund_status`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `fund_management` ;
+DROP TABLE IF EXISTS `fund_status` ;
 
-CREATE  TABLE IF NOT EXISTS `fund_management` (
+CREATE  TABLE IF NOT EXISTS `fund_status` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `donor` VARCHAR(100) NOT NULL ,
+  `name` VARCHAR(45) NOT NULL ,
+  `description` VARCHAR(255) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fund`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `fund` ;
+
+CREATE  TABLE IF NOT EXISTS `fund` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `donor` VARCHAR(150) NOT NULL DEFAULT 'This will be used to issued receipt.' ,
   `purpose` VARCHAR(255) NOT NULL ,
   `amount` INT NOT NULL ,
-  `credit_debit` INT NOT NULL ,
-  `date` DATETIME NOT NULL ,
+  `credit_amount` INT NULL ,
+  `promised_date` DATETIME NOT NULL ,
   `case_id` INT NOT NULL ,
+  `confirmed_date` DATETIME NULL ,
+  `status_id` INT NULL ,
+  `receipt_issued_on` DATETIME NULL ,
+  `login_id` INT NOT NULL ,
+  `debited_amount` INT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_fund_management_case_id_idx` (`case_id` ASC) ,
-  CONSTRAINT `fk_fund_management_case_id`
+  INDEX `fk_funds_status_id_idx` (`status_id` ASC) ,
+  INDEX `fk_funds_login_id_idx` (`login_id` ASC) ,
+  CONSTRAINT `fk_funds_case_id`
     FOREIGN KEY (`case_id` )
     REFERENCES `case_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_funds_status_id`
+    FOREIGN KEY (`status_id` )
+    REFERENCES `fund_status` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_funds_login_id`
+    FOREIGN KEY (`login_id` )
+    REFERENCES `login_master` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -400,7 +430,7 @@ DROP TABLE IF EXISTS `user_profile` ;
 
 CREATE  TABLE IF NOT EXISTS `user_profile` (
   `id` INT NOT NULL ,
-  `other_email_id` VARCHAR(100) NOT NULL ,
+  `other_email_id` VARCHAR(100) NULL ,
   `blood_group` VARCHAR(10) NOT NULL ,
   `anniversary` DATETIME NULL ,
   `monthly_updates` TINYINT(1) NULL DEFAULT 1 ,
@@ -726,6 +756,8 @@ CREATE  TABLE IF NOT EXISTS `notification` (
   INDEX `fk_notification_case_master_id_idx` (`case_id` ASC) ,
   INDEX `fk_notification_notification_status_id_idx` (`status` ASC) ,
   INDEX `fk_notification_notification_recipient_id_idx` (`reciepient_type` ASC) ,
+  INDEX `fk_notification_created_by_idx` (`created_by` ASC) ,
+  INDEX `fk_notification_updated_by_idx` (`updated_by` ASC) ,
   CONSTRAINT `fk_notification_notification_template_id`
     FOREIGN KEY (`template_id` )
     REFERENCES `notification_template` (`id` )
@@ -744,6 +776,16 @@ CREATE  TABLE IF NOT EXISTS `notification` (
   CONSTRAINT `fk_notification_notification_recipient_id`
     FOREIGN KEY (`reciepient_type` )
     REFERENCES `notification_recipient` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notification_created_by`
+    FOREIGN KEY (`created_by` )
+    REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notification_updated_by`
+    FOREIGN KEY (`updated_by` )
+    REFERENCES `login_master` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -767,6 +809,60 @@ CREATE  TABLE IF NOT EXISTS `document_options` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `case_discussion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `case_discussion` ;
+
+CREATE  TABLE IF NOT EXISTS `case_discussion` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `case_id` INT NULL ,
+  `type_id` INT NULL ,
+  `parent_discussion_id` INT NULL ,
+  `comments` MEDIUMTEXT NULL ,
+  `created_on` DATETIME NULL ,
+  `created_by` INT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_discussion_case_id_idx` (`case_id` ASC) ,
+  INDEX `fk_discusssion_parent_id_idx` (`parent_discussion_id` ASC) ,
+  INDEX `fk_discussion_created_by_idx` (`created_by` ASC) ,
+  INDEX `fk_discussion_type_id_idx` (`type_id` ASC) ,
+  CONSTRAINT `fk_discussion_case_id`
+    FOREIGN KEY (`case_id` )
+    REFERENCES `case_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_discusssion_parent_id`
+    FOREIGN KEY (`parent_discussion_id` )
+    REFERENCES `case_discussion` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_discussion_created_by`
+    FOREIGN KEY (`created_by` )
+    REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_discussion_type_id`
+    FOREIGN KEY (`type_id` )
+    REFERENCES `document_type` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `discussion_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `discussion_type` ;
+
+CREATE  TABLE IF NOT EXISTS `discussion_type` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(45) NOT NULL ,
+  `description` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB;
+
 USE `ocms` ;
 
 
@@ -781,6 +877,7 @@ START TRANSACTION;
 USE `ocms`;
 INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (1, 'harinath@tmad.org', 'test123', 'Harinath', 'Mallepally', '1979-06-06', 1);
 INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (2, 'hari@harinath.in', 'test123', 'Harinath', '', '1979-06-01', 1);
+INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (3, 'mahender@careerscale.in', 'test123', 'Mahender', 'Singh', '1979-01-01', 1);
 
 COMMIT;
 
@@ -907,11 +1004,25 @@ INSERT INTO `document_type` (`id`, `case_type_id`, `supported_formats`, `is_mand
 COMMIT;
 
 -- -----------------------------------------------------
+-- Data for table `fund_status`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `fund_status` (`id`, `name`, `description`) VALUES (1, 'PROMISED', 'promised by donor or volunteer');
+INSERT INTO `fund_status` (`id`, `name`, `description`) VALUES (2, 'CONFIRMED', 'Confirmed by the finance team or board');
+INSERT INTO `fund_status` (`id`, `name`, `description`) VALUES (3, 'RELEASED', 'Funds released for the given purpose');
+INSERT INTO `fund_status` (`id`, `name`, `description`) VALUES (4, 'RECEIPT_ISSUED', 'receipt issued to the donor');
+
+COMMIT;
+
+-- -----------------------------------------------------
 -- Data for table `user_profile`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
 INSERT INTO `user_profile` (`id`, `other_email_id`, `blood_group`, `anniversary`, `monthly_updates`, `special_updates`, `regular_updates`, `mobile_number1`, `mobile_number2`, `landline_number`, `address_id`) VALUES (2, 'harinath@careerscale.in', 'O Positive', '2006-03-10', 1, 1, 1, '2342343', '2423423', '24234234', 1);
+INSERT INTO `user_profile` (`id`, `other_email_id`, `blood_group`, `anniversary`, `monthly_updates`, `special_updates`, `regular_updates`, `mobile_number1`, `mobile_number2`, `landline_number`, `address_id`) VALUES (1, 'harinath@tmad.org', 'O Positive', '2005-06-06', 1, 1, 1, '434', '344', '334', 1);
+INSERT INTO `user_profile` (`id`, `other_email_id`, `blood_group`, `anniversary`, `monthly_updates`, `special_updates`, `regular_updates`, `mobile_number1`, `mobile_number2`, `landline_number`, `address_id`) VALUES (3, 'singh.mahender@gmail.com', 'B Positive', '2001-01-01', 1, 1, 1, '4343434', '2324234234', '2324324', 1);
 
 COMMIT;
 
@@ -990,5 +1101,17 @@ INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (4, 'Ra
 INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (5, 'Passport', 2);
 INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (6, 'Electricity Bill', 2);
 INSERT INTO `document_options` (`id`, `name`, `document_type_id`) VALUES (7, 'Aadhar ID/UID', 2);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `discussion_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `discussion_type` (`id`, `name`, `description`) VALUES (1, 'COMMENT', NULL);
+INSERT INTO `discussion_type` (`id`, `name`, `description`) VALUES (2, 'QUESTION', NULL);
+INSERT INTO `discussion_type` (`id`, `name`, `description`) VALUES (3, 'FEEDBACK', NULL);
+INSERT INTO `discussion_type` (`id`, `name`, `description`) VALUES (4, 'APPRECIATION', NULL);
 
 COMMIT;

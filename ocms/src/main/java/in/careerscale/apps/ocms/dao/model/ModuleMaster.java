@@ -1,14 +1,16 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -23,10 +25,8 @@ public class ModuleMaster implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	
-
 	private String description;
-	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
+	private Set userRoles = new HashSet(0);
 
 	public ModuleMaster() {
 	}
@@ -34,17 +34,17 @@ public class ModuleMaster implements java.io.Serializable {
 	public ModuleMaster(String name) {
 		this.name = name;
 	}
-	
-	public ModuleMaster(String name, String description) {
-		super();
-		this.name = name;
-		this.description = description;
-	}
 
-	public ModuleMaster(String name, String description, Set<UserRole> userRoles) {
+	public ModuleMaster(String name, String description, Set userRoles) {
 		this.name = name;
 		this.description = description;
 		this.userRoles = userRoles;
+	}
+
+	public ModuleMaster(String name, String description)
+	{
+		this.name = name;
+		this.description = description;
 	}
 
 	@Id
@@ -77,11 +77,13 @@ public class ModuleMaster implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "moduleMaster")
-	public Set<UserRole> getUserRoles() {
+	public Set<UserRole> getUserRoles()
+	{
 		return this.userRoles;
 	}
 
-	public void setUserRoles(Set<UserRole> userRoles) {
+	public void setUserRoles(Set<UserRole> userRoles)
+	{
 		this.userRoles = userRoles;
 	}
 

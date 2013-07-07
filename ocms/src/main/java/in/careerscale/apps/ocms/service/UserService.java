@@ -265,9 +265,9 @@ public class UserService extends AbstractService implements UserDetailsService
 			user.setAddressLine1(address.getAddressLine1());
 			user.setAddressLine2(address.getAddressLine2());
 			user.setZipcode(address.getZipCode());
-			user.setSpecialUpdates(profile.isSpecialUpdates());
-			user.setRegularUpdates(profile.isRegularUpdates());
-			user.setMonthlyUpdates(profile.isMonthlyUpdates());
+			user.setSpecialUpdates(profile.getSpecialUpdates());
+			user.setRegularUpdates(profile.getRegularUpdates());
+			user.setMonthlyUpdates(profile.getMonthlyUpdates());
 
 		}
 		
@@ -349,6 +349,7 @@ public class UserService extends AbstractService implements UserDetailsService
 			if (null != user.getAdditionalEmailId())
 				userProfile.setOtherEmailId(user.getAdditionalEmailId());
 
+			userRepository.saveOrUpdate(userProfile);
 
 			Address address = userProfile.getAddress();
 
@@ -390,6 +391,7 @@ public class UserService extends AbstractService implements UserDetailsService
 		}
 		catch (Exception e)
 		{
+			log.error(e.getMessage(), e.getCause());
 			throw new ApplicationException("Error while updating user profile");
 		}
 

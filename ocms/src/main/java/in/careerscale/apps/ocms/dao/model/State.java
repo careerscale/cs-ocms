@@ -1,14 +1,16 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Apr 10, 2013 2:28:21 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ public class State implements java.io.Serializable {
 	private Integer id;
 	private Country country;
 	private String name;
-	private Set<City> cities = new HashSet<City>(0);
+	private Set cities = new HashSet(0);
 
 	public State() {
 	}
@@ -35,7 +37,7 @@ public class State implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public State(Country country, String name, Set<City> cities) {
+	public State(Country country, String name, Set cities) {
 		this.country = country;
 		this.name = name;
 		this.cities = cities;
@@ -62,7 +64,7 @@ public class State implements java.io.Serializable {
 		this.country = country;
 	}
 
-	@Column(name = "name", nullable = false, length = 45)
+	@Column(name = "name", nullable = false, length = 100)
 	public String getName() {
 		return this.name;
 	}
@@ -72,11 +74,13 @@ public class State implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "state")
-	public Set<City> getCities() {
+	public Set<City> getCities()
+	{
 		return this.cities;
 	}
 
-	public void setCities(Set<City> cities) {
+	public void setCities(Set<City> cities)
+	{
 		this.cities = cities;
 	}
 

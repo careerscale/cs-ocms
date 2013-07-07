@@ -1,6 +1,6 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -82,7 +82,7 @@ public class CaseActivity implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "action_date", nullable = false, length = 0)
+	@Column(name = "action_date", nullable = false, length = 19)
 	public Date getActionDate() {
 		return this.actionDate;
 	}

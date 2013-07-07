@@ -1,16 +1,16 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 9, 2013 3:56:11 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
-import in.careerscale.apps.ocms.service.model.MasterType;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -27,22 +27,13 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "help_category_type", catalog = "ocms", uniqueConstraints = @UniqueConstraint(columnNames = "category_name"))
 public class HelpCategoryType implements java.io.Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-
 	private Integer id;
-	
-
 	private HelpCategoryType helpCategoryType;
 	private String categoryName;
 	private String description;
-	private Set<CaseMaster> caseMasters = new HashSet<CaseMaster>(0);
-	private Set<LoginMaster> loginMasters = new HashSet<LoginMaster>(0);
-	private Set<HelpCategoryType> helpCategoryTypes = new HashSet<HelpCategoryType>(
-			0);
+	private Set<CaseMaster> caseMasters = new HashSet(0);
+	private Set<LoginMaster> loginMasters = new HashSet(0);
+	private Set<HelpCategoryType> helpCategoryTypes = new HashSet(0);
 
 	public HelpCategoryType() {
 	}
@@ -50,17 +41,10 @@ public class HelpCategoryType implements java.io.Serializable {
 	public HelpCategoryType(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	public HelpCategoryType(Integer id, String categoryName, String description) {
-		super();
-		this.id = id;
-		this.categoryName = categoryName;
-		this.description = description;
-	}
 
 	public HelpCategoryType(HelpCategoryType helpCategoryType,
-			String categoryName, String description,
-			Set<CaseMaster> caseMasters, Set<LoginMaster> loginMasters,
-			Set<HelpCategoryType> helpCategoryTypes) {
+			String categoryName, String description, Set caseMasters,
+			Set loginMasters, Set helpCategoryTypes) {
 		this.helpCategoryType = helpCategoryType;
 		this.categoryName = categoryName;
 		this.description = description;
@@ -69,9 +53,18 @@ public class HelpCategoryType implements java.io.Serializable {
 		this.helpCategoryTypes = helpCategoryTypes;
 	}
 
-	public HelpCategoryType(String name, String description) {
+	public HelpCategoryType(String name, String description)
+	{
 		this.categoryName = name;
-		this.description=description;
+		this.description = description;
+	}
+
+	public HelpCategoryType(Integer id, String name, String description)
+	{
+
+		this.id = id;
+		this.categoryName = name;
+		this.description = description;
 	}
 
 	@Id
@@ -114,33 +107,37 @@ public class HelpCategoryType implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "helpCategoryType")
-	public Set<CaseMaster> getCaseMasters() {
+	public Set<CaseMaster> getCaseMasters()
+	{
 		return this.caseMasters;
 	}
 
-	public void setCaseMasters(Set<CaseMaster> caseMasters) {
+	public void setCaseMasters(Set<CaseMaster> caseMasters)
+	{
 		this.caseMasters = caseMasters;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "help_category_user", catalog = "ocms", joinColumns = { @JoinColumn(name = "help_category_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "user_id", nullable = false, updatable = false) })
-	public Set<LoginMaster> getLoginMasters() {
+	public Set<LoginMaster> getLoginMasters()
+	{
 		return this.loginMasters;
 	}
 
-	public void setLoginMasters(Set<LoginMaster> loginMasters) {
+	public void setLoginMasters(Set<LoginMaster> loginMasters)
+	{
 		this.loginMasters = loginMasters;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "helpCategoryType")
-	public Set<HelpCategoryType> getHelpCategoryTypes() {
+	public Set<HelpCategoryType> getHelpCategoryTypes()
+	{
 		return this.helpCategoryTypes;
 	}
 
-	public void setHelpCategoryTypes(Set<HelpCategoryType> helpCategoryTypes) {
+	public void setHelpCategoryTypes(Set<HelpCategoryType> helpCategoryTypes)
+	{
 		this.helpCategoryTypes = helpCategoryTypes;
 	}
-
-	
 
 }

@@ -24,7 +24,6 @@ import in.careerscale.apps.ocms.web.cases.model.Document;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -131,7 +130,8 @@ public class CaseService extends AbstractService
 		for (DocumentType documentType : dbDocTypes)
 		{
 			docTypeList.add(new in.careerscale.apps.ocms.web.cases.model.DocumentType(documentType.getId(),
-					documentType.getName(), documentType.getSupportedFormat(), documentType.isMandatory(), documentType
+					documentType.getName(), documentType.getSupportedFormats(), documentType.getIsMandatory(),
+					documentType
 							.getMaxSize()));
 		}
 

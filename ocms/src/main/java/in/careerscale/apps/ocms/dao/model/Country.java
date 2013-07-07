@@ -1,14 +1,16 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Apr 10, 2013 2:28:21 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,7 +24,7 @@ public class Country implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	private Set<State> states = new HashSet<State>(0);
+	private Set states = new HashSet(0);
 
 	public Country() {
 	}
@@ -31,7 +33,7 @@ public class Country implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public Country(String name, Set<State> states) {
+	public Country(String name, Set states) {
 		this.name = name;
 		this.states = states;
 	}
@@ -57,11 +59,13 @@ public class Country implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
-	public Set<State> getStates() {
+	public Set<State> getStates()
+	{
 		return this.states;
 	}
 
-	public void setStates(Set<State> states) {
+	public void setStates(Set<State> states)
+	{
 		this.states = states;
 	}
 

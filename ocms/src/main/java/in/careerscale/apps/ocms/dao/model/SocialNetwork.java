@@ -1,14 +1,16 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Mar 16, 2013 8:20:08 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,18 +29,19 @@ public class SocialNetwork implements java.io.Serializable {
 	private String apiSecret;
 	private String callbackUrl;
 	private String scope;
-	private Set<UserNetwork> userNetworks = new HashSet<UserNetwork>(0);
+	private Set userNetworks = new HashSet(0);
 
 	public SocialNetwork() {
 	}
 
 	public SocialNetwork(String name, String description, String apiKey,
-			String apiSecret, String callbackUrl, Set<UserNetwork> userNetworks) {
+			String apiSecret, String callbackUrl, String scope, Set userNetworks) {
 		this.name = name;
 		this.description = description;
 		this.apiKey = apiKey;
 		this.apiSecret = apiSecret;
 		this.callbackUrl = callbackUrl;
+		this.scope = scope;
 		this.userNetworks = userNetworks;
 	}
 
@@ -98,11 +101,9 @@ public class SocialNetwork implements java.io.Serializable {
 		this.callbackUrl = callbackUrl;
 	}
 
-	
-	
 	@Column(name = "scope", length = 250)
 	public String getScope() {
-		return scope;
+		return this.scope;
 	}
 
 	public void setScope(String scope) {
@@ -110,11 +111,13 @@ public class SocialNetwork implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "socialNetwork")
-	public Set<UserNetwork> getUserNetworks() {
+	public Set<UserNetwork> getUserNetworks()
+	{
 		return this.userNetworks;
 	}
 
-	public void setUserNetworks(Set<UserNetwork> userNetworks) {
+	public void setUserNetworks(Set<UserNetwork> userNetworks)
+	{
 		this.userNetworks = userNetworks;
 	}
 

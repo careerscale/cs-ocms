@@ -1,9 +1,10 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Apr 10, 2013 2:28:21 PM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,10 +22,9 @@ import javax.persistence.Table;
 public class City implements java.io.Serializable {
 
 	private int id;
-	private City city;
 	private State state;
 	private String cityName;
-	private Set<Address> addresses = new HashSet<Address>(0);
+	private Set addresses = new HashSet(0);
 
 	public City() {
 	}
@@ -35,7 +35,7 @@ public class City implements java.io.Serializable {
 		this.cityName = cityName;
 	}
 
-	public City(int id, State state, String cityName, Set<Address> addresses) {
+	public City(int id, State state, String cityName, Set addresses) {
 		this.id = id;
 		this.state = state;
 		this.cityName = cityName;
@@ -62,7 +62,7 @@ public class City implements java.io.Serializable {
 		this.state = state;
 	}
 
-	@Column(name = "city_name", nullable = false, length = 45)
+	@Column(name = "city_name", nullable = false, length = 100)
 	public String getCityName() {
 		return this.cityName;
 	}
@@ -72,11 +72,13 @@ public class City implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
-	public Set<Address> getAddresses() {
+	public Set<Address> getAddresses()
+	{
 		return this.addresses;
 	}
 
-	public void setAddresses(Set<Address> addresses) {
+	public void setAddresses(Set<Address> addresses)
+	{
 		this.addresses = addresses;
 	}
 
