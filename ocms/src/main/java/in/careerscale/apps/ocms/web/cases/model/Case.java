@@ -19,8 +19,11 @@ public class Case implements Serializable
 	private String emailId;
 	private String caseDescription;
 	private String caseSource;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dateOfBirth;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date createdDate;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date UpdatedDate;
 	private String contact1;
 	private String contact2;
@@ -31,6 +34,7 @@ public class Case implements Serializable
 	private Integer countryId;
 	private Integer stateId;
 	private Integer cityId;
+	private String cityName;
 
 	private Integer caseType;
 	private Integer helpType;
@@ -441,6 +445,43 @@ public class Case implements Serializable
 	private String trim(String input)
 	{
 		return input != null ? input.replaceAll("^\"|\"$", "") : input;
+	}
+
+	public void setproperties(Integer id, String personName, String emailId, String source, Date dateOfBirth,
+			Date createdOn,
+			Date updatedOn, String contactNumber1, String contactNumber2, String caseType, String helpType, String status, String createdBy, String updatedBy)
+	{
+		this.id = id;
+		this.personName = personName;
+		this.emailId = emailId;
+		this.caseSource = source;
+		this.dateOfBirth = dateOfBirth;
+		this.createdDate = createdOn;
+		this.UpdatedDate = updatedOn;
+		
+		this.contact1=contactNumber1;
+		this.contact2=contactNumber2;
+		this.caseTypeString = caseType;
+		this.helpCategoryString=helpType;
+		this.caseStatusString = status;
+		this.createdBy=createdBy;
+		this.updatedBy=updatedBy;
+
+	}
+
+	public void setAddressProperties()
+	{
+
+	}
+
+	public void setAddressProperties(String addressLine1, String addressLine2, String zipCode, String cityName, int id)
+	{
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.zipcode = zipCode;
+		this.cityId = id;
+		this.cityName = cityName;
+
 	}
 
 }

@@ -2,11 +2,12 @@ package in.careerscale.apps.ocms.dao.model;
 
 // Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -64,7 +65,7 @@ public class CaseArtifact implements java.io.Serializable {
 		this.loginMaster = loginMaster;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "document_type")
 	public DocumentType getDocumentType() {
 		return this.documentType;

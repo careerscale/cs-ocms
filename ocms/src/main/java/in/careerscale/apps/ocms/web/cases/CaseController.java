@@ -7,6 +7,7 @@ import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
 import in.careerscale.apps.ocms.web.cases.model.DocumentType;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,7 @@ public class CaseController
 	}
 
 	@RequestMapping(value = "/addcase", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute(value = "caseDetails") Case bean, BindingResult errors,
+	public ModelAndView registerCase(@ModelAttribute(value = "caseDetails") Case bean, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		try
@@ -126,12 +127,33 @@ public class CaseController
 	}
 
 	@RequestMapping(value = "/cases/{id}", method = RequestMethod.GET)
-	public String getCaseDetails(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id)
+	public String getCaseDetails(@ModelAttribute(value = "caseDetails") Case bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id)
 	{
-		request.getParameter("caseTypeId");
-		// return caseService.getDocumentTypes(2);
-
+		caseService.getCaseDetails(id, bean);
+		CaseArtifacts caseArtifacts = caseService.getCaseArtifacts(id);
+		request.setAttribute("caseArtifacts", caseArtifacts);
+		setMasterData(bean);
 		return "cases/casedetails";
 	}
+
+	@RequestMapping(value = "/cases/documents/{id}")
+	public void writePicture(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response)
+			throws IOException
+	{
+		// http://stackoverflow.com/questions/15654036/how-to-retrive-image-from-mysql-database-using-spring
+		/**
+		 * try { Picture img = pictureService.findById(id); response.setContent(picture.getImagefile());
+		 * response.setContentLength(picture.getImagefile().length);
+		 * 
+		 * // additionally, you should add the mime-type and the last // change date (to allow the browsers to use the
+		 * cache) if these info are available
+		 * 
+		 * response.getOutputStream().write(picture.getImagefile()); response.setStatus(HttpServletResponse.SC_OK); }
+		 * catch (Exception e) { response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404. Add specific catch for
+		 * specific errors }
+		 */
+	}
+
 
 }

@@ -66,6 +66,20 @@ public class CaseArtifacts {
 		  this.caseDocuments.add(new Document()); }
 		 
 	}
+
+	public void addCaseArtifact(String name, Integer id, String fileExtension, String documentType)
+	{
+		
+		if(caseDocuments == null){
+			caseDocuments = new ArrayList<Document>();
+		}
+		Document document = new Document();
+		document.setId(id);
+		document.setFileExtension(fileExtension);
+		document.setName(name);
+		document.setDocumentType(documentType);
+		caseDocuments.add(document);
+	}
 	
 	
 

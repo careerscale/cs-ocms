@@ -29,9 +29,9 @@ public class CaseMaster implements java.io.Serializable
 {
 
 	private Integer id;
-	private LoginMaster loginMasterByCreatedBy;
+	private LoginMaster createdBy;
 	private CaseStatusMaster caseStatusMaster;
-	private LoginMaster loginMasterByUpdatedBy;
+	private LoginMaster updatedBy;
 	private HelpCategoryType helpCategoryType;
 	private CaseType caseType;
 	private Address address;
@@ -59,9 +59,9 @@ public class CaseMaster implements java.io.Serializable
 			LoginMaster loginMasterByUpdatedBy, HelpCategoryType helpCategoryType, CaseType caseType, Date createdOn,
 			Date updatedOn, String personName, String caseDescription, String contactNumber1, String source)
 	{
-		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.createdBy = loginMasterByCreatedBy;
 		this.caseStatusMaster = caseStatusMaster;
-		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.updatedBy = loginMasterByUpdatedBy;
 		this.helpCategoryType = helpCategoryType;
 		this.caseType = caseType;
 		this.createdOn = createdOn;
@@ -72,15 +72,15 @@ public class CaseMaster implements java.io.Serializable
 		this.source = source;
 	}
 
-	public CaseMaster(LoginMaster loginMasterByCreatedBy, CaseStatusMaster caseStatusMaster,
-			LoginMaster loginMasterByUpdatedBy, HelpCategoryType helpCategoryType, CaseType caseType, Date createdOn,
+	public CaseMaster(LoginMaster createdBy, CaseStatusMaster caseStatusMaster, LoginMaster updatedBy,
+			HelpCategoryType helpCategoryType, CaseType caseType, Date createdOn,
 			Date updatedOn, String personName, Date dateOfBirth, String caseDescription, String contactNumber1,
 			String contactNumber2, String source, Set<CaseArtifact> caseArtifacts, Set<Fund> Funds,
 			Set<CaseActivity> caseActivities, Set<CaseUser> caseUsers)
 	{
-		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.createdBy = createdBy;
 		this.caseStatusMaster = caseStatusMaster;
-		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.updatedBy = updatedBy;
 		this.helpCategoryType = helpCategoryType;
 		this.caseType = caseType;
 		this.createdOn = createdOn;
@@ -104,9 +104,9 @@ public class CaseMaster implements java.io.Serializable
 			Set<CaseActivity> caseActivities, Set<CaseUser> caseUsers)
 	{
 		this.address = address;
-		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.createdBy = loginMasterByCreatedBy;
 		this.caseStatusMaster = caseStatusMaster;
-		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.updatedBy = loginMasterByUpdatedBy;
 		this.helpCategoryType = helpCategoryType;
 		this.caseType = caseType;
 		this.createdOn = createdOn;
@@ -123,15 +123,15 @@ public class CaseMaster implements java.io.Serializable
 		this.caseUsers = caseUsers;
 	}
 
-	public CaseMaster(LoginMaster loginMasterByCreatedBy, CaseStatusMaster caseStatusMaster,
-			LoginMaster loginMasterByUpdatedBy, HelpCategoryType helpCategoryType, CaseType caseType, Address address,
+	public CaseMaster(LoginMaster createdBy, CaseStatusMaster caseStatusMaster, LoginMaster updatedBy,
+			HelpCategoryType helpCategoryType, CaseType caseType, Address address,
 			Date createdOn, Date updatedOn, String personName, Date dateOfBirth, String caseDescription,
 			String contactNumber1, String contactNumber2, String source, String emailId, Set caseDiscussions,
 			Set caseArtifacts, Set funds, Set caseActivities, Set caseUsers, Set notifications)
 	{
-		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.createdBy = createdBy;
 		this.caseStatusMaster = caseStatusMaster;
-		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.updatedBy = updatedBy;
 		this.helpCategoryType = helpCategoryType;
 		this.caseType = caseType;
 		this.address = address;
@@ -182,14 +182,14 @@ public class CaseMaster implements java.io.Serializable
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "created_by", nullable = false)
-	public LoginMaster getLoginMasterByCreatedBy()
+	public LoginMaster getCreatedBy()
 	{
-		return this.loginMasterByCreatedBy;
+		return this.createdBy;
 	}
 
-	public void setLoginMasterByCreatedBy(LoginMaster loginMasterByCreatedBy)
+	public void setCreatedBy(LoginMaster createdBy)
 	{
-		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.createdBy = createdBy;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -206,14 +206,14 @@ public class CaseMaster implements java.io.Serializable
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "updated_by", nullable = false)
-	public LoginMaster getLoginMasterByUpdatedBy()
+	public LoginMaster getUpdatedBy()
 	{
-		return this.loginMasterByUpdatedBy;
+		return this.updatedBy;
 	}
 
-	public void setLoginMasterByUpdatedBy(LoginMaster loginMasterByUpdatedBy)
+	public void setUpdatedBy(LoginMaster updatedBy)
 	{
-		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.updatedBy = updatedBy;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)

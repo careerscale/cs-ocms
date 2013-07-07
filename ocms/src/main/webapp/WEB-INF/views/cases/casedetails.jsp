@@ -12,7 +12,7 @@
 <![endif]-->
 <!-- start page container 2 div-->
 <h1>
-	<spring:message code="cases.addcase.title" />
+	<spring:message code="cases.casedetails.title" />
 </h1>
 <script src="/resources/scripts/application/ajax.js">
 
@@ -250,6 +250,18 @@
 								tabindex="11" maxlength="40" />
 						</div>
 					</div>
+					
+					<c:forEach var="entry" items="${caseArtifacts.caseDocuments}">
+					
+						<div class="row">
+							<div class="large-6 columns">
+								<label class="right inline" > ${entry.name} </label>
+							</div>
+							<div class="large-6 columns">
+						   <a href= "/cases/documents/${entry.id}">Download</a>
+							</div>
+						</div>
+						</c:forEach>
 
 
 					<div class="row" class="right inline">
@@ -257,7 +269,7 @@
 						<div class="large-6 columns"></div>
 						<div class="large-6 columns">
 							<div class="right inline">
-								<input class="right inline button round" type="reset"
+								<input class="right inline button small round" type="reset"
 									value="Reset form" style="width: 140px" tabindex="14" /> <input
 									class="button small round inline right" type="submit"
 									value="Register case" style="width: 140px" tabindex="14" />
