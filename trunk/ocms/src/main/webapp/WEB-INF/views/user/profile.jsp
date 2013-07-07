@@ -18,79 +18,14 @@
 <script src="/resources/scripts/application/ajax.js">
 	
 </script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#dateOfBirth").datepicker({
-			showOn : "button",
-			buttonImage : "resources/images/ico_calendar.gif",
-			buttonImageOnly : true,
-			appendText : 'dd/mm/yyyy',
-			buttonText : 'Date selector 1',
-			align : "middle",
-			changeMonth : true,
-			changeYear : true,
-			defaultDate : null,
-			showOn : 'both',
-			alt : 'Date Selector 1',
-			cursor : 'pointer',
-			dateFormat : 'dd/mm/yy',
-			beforeShow : function(input, inst) {
-				$('ui-widget-header').css({
-					"color" : 'red',
-					"width" : "100%"
-				});
-				$('#ui-datepicker-div').css({
-					"z-index" : "2"
-				});
 
-			}
-
-		});
-
-		$("#anniversary").datepicker({
-			showOn : "button",
-			buttonImage : "resources/images/ico_calendar.gif",
-			buttonImageOnly : true,
-			appendText : 'dd/mm/yyyy',
-			buttonText : 'Date selector 1',
-			align : "middle",
-			changeMonth : true,
-			changeYear : true,
-			defaultDate : null,
-			showOn : 'both',
-			alt : 'Date Selector 1',
-			cursor : 'pointer',
-			dateFormat : 'dd/mm/yy',
-			beforeShow : function(input, inst) {
-				$('ui-widget-header').css({
-					"color" : 'red',
-					"width" : "100%"
-				});
-				$('#ui-datepicker-div').css({
-					"z-index" : "2"
-				});
-
-			}
-
-		});
-
-	});
-</script>
-
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$.get("/master/casetypes", function(data, status) {
-			$.each(data, function(key, val) {
-				//alert('key and values are ' + key + '  ' + val);
-			});
-		});
-
-	});
+<script src="/resources/scripts/application/datepicker.js">
 </script>
 
 <script>
 	$(document).ready(function() {
+		registerDatePicker('#dateOfBirth');
+		registerDatePicker('#anniversary');
 		$("#profileForm").validate();
 	})
 </script>
