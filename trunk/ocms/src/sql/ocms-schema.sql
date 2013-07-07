@@ -152,6 +152,48 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `org_type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `org_type` ;
+
+CREATE  TABLE IF NOT EXISTS `org_type` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(100) NOT NULL ,
+  `description` VARCHAR(255) NULL ,
+  `parent_id` INT NULL ,
+  PRIMARY KEY (`id`) ,
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
+  INDEX `fk_org_type_parent_id_idx` (`parent_id` ASC) ,
+  CONSTRAINT `fk_org_type_parent_id`
+    FOREIGN KEY (`parent_id` )
+    REFERENCES `org_type` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `organization`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `organization` ;
+
+CREATE  TABLE IF NOT EXISTS `organization` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `name` VARCHAR(100) NOT NULL ,
+  `org_type_id` INT NOT NULL ,
+  `address` VARCHAR(255) NOT NULL ,
+  `description` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_organization_info_org_type_id_idx` (`org_type_id` ASC) ,
+  CONSTRAINT `fk_organization_info_org_type_id`
+    FOREIGN KEY (`org_type_id` )
+    REFERENCES `org_type` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `case_master`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `case_master` ;
@@ -173,6 +215,7 @@ CREATE  TABLE IF NOT EXISTS `case_master` (
   `help_category_id` INT NOT NULL ,
   `email_id` VARCHAR(45) NULL ,
   `address_id` INT NULL ,
+  `organization_id` INT NOT NULL DEFAULT 1 ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_case_master_status_id_idx` (`case_status_id` ASC) ,
   INDEX `fk_case_master_help_category_id_idx` (`help_category_id` ASC) ,
@@ -180,6 +223,7 @@ CREATE  TABLE IF NOT EXISTS `case_master` (
   INDEX `fk_case_master_updated_by_idx` (`updated_by` ASC) ,
   INDEX `fk_case_master_case_type_id_idx` (`case_type_id` ASC) ,
   INDEX `fk_case_master_address_id_idx` (`address_id` ASC) ,
+  INDEX `fk_case_master_org_id_idx` (`organization_id` ASC) ,
   CONSTRAINT `fk_case_master_status_id`
     FOREIGN KEY (`case_status_id` )
     REFERENCES `case_status_master` (`id` )
@@ -208,6 +252,11 @@ CREATE  TABLE IF NOT EXISTS `case_master` (
   CONSTRAINT `fk_case_master_address_id`
     FOREIGN KEY (`address_id` )
     REFERENCES `address` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_case_master_org_id`
+    FOREIGN KEY (`organization_id` )
+    REFERENCES `organization` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -456,48 +505,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `org_type`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `org_type` ;
-
-CREATE  TABLE IF NOT EXISTS `org_type` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(100) NOT NULL ,
-  `description` VARCHAR(255) NULL ,
-  `parent_id` INT NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) ,
-  INDEX `fk_org_type_parent_id_idx` (`parent_id` ASC) ,
-  CONSTRAINT `fk_org_type_parent_id`
-    FOREIGN KEY (`parent_id` )
-    REFERENCES `org_type` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `organization`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `organization` ;
-
-CREATE  TABLE IF NOT EXISTS `organization` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(100) NOT NULL ,
-  `org_type_id` INT NOT NULL ,
-  `address` VARCHAR(255) NOT NULL ,
-  `description` VARCHAR(255) NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_organization_info_org_type_id_idx` (`org_type_id` ASC) ,
-  CONSTRAINT `fk_organization_info_org_type_id`
-    FOREIGN KEY (`org_type_id` )
-    REFERENCES `org_type` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `user_organization`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `user_organization` ;
@@ -558,6 +565,7 @@ CREATE  TABLE IF NOT EXISTS `user_role` (
   `user_id` INT NOT NULL AUTO_INCREMENT ,
   `role_id` INT NOT NULL ,
   `module_id` INT NULL ,
+  `organization_id` INT NULL ,
   INDEX `fk_user_role_user_id_idx` (`user_id` ASC) ,
   INDEX `fk_user_role_role_id_idx` (`role_id` ASC) ,
   INDEX `fk_user_role_module_id_idx` (`module_id` ASC) ,
@@ -863,6 +871,64 @@ CREATE  TABLE IF NOT EXISTS `discussion_type` (
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `case_type_approver`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `case_type_approver` ;
+
+CREATE  TABLE IF NOT EXISTS `case_type_approver` (
+  `case_type` INT NOT NULL ,
+  `login_id` INT NOT NULL ,
+  `organization_id` INT NOT NULL DEFAULT 1 ,
+  INDEX `fk_case_type_approver_case_type_id_idx` (`case_type` ASC) ,
+  INDEX `fk_case_type_approver_login_id_idx` (`login_id` ASC) ,
+  INDEX `fk_case_type_approver_org_id_idx` (`organization_id` ASC) ,
+  PRIMARY KEY (`case_type`, `login_id`, `organization_id`) ,
+  CONSTRAINT `fk_case_type_approver_case_type_id`
+    FOREIGN KEY (`case_type` )
+    REFERENCES `case_type` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_case_type_approver_login_id`
+    FOREIGN KEY (`login_id` )
+    REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_case_type_approver_org_id`
+    FOREIGN KEY (`organization_id` )
+    REFERENCES `organization` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `case_approval_history`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `case_approval_history` ;
+
+CREATE  TABLE IF NOT EXISTS `case_approval_history` (
+  `case_id` INT NOT NULL ,
+  `login_id` INT NOT NULL ,
+  `approval_status` TINYINT(1) NULL ,
+  `reason` VARCHAR(500) NULL ,
+  `approval_date` DATETIME NULL ,
+  PRIMARY KEY (`case_id`, `login_id`) ,
+  INDEX `fk_case_history_case_id_idx` (`case_id` ASC) ,
+  INDEX `fk_case_history_login_id_idx` (`login_id` ASC) ,
+  CONSTRAINT `fk_case_history_case_id`
+    FOREIGN KEY (`case_id` )
+    REFERENCES `case_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_case_history_login_id`
+    FOREIGN KEY (`login_id` )
+    REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 USE `ocms` ;
 
 
@@ -970,6 +1036,29 @@ COMMIT;
 START TRANSACTION;
 USE `ocms`;
 INSERT INTO `address` (`id`, `address_line1`, `address_line2`, `city_id`, `zip_code`) VALUES (1, 'sv enclave, upparpally', 'attapur', 1, '500048');
+INSERT INTO `address` (`id`, `address_line1`, `address_line2`, `city_id`, `zip_code`) VALUES (2, 'Vidyanagar, nellore', 'AP', 2, '545555');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `org_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (1, 'NGO', 'NGO Organization', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (2, 'State Government', 'State Govt. Organizations', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (3, 'Union/Central Government', 'Central Govt. organizations', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (4, 'Private Limited/Corporate', 'Private/Corporate company', NULL);
+INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (5, 'International Charity', 'International organization', NULL);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `organization`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `organization` (`id`, `name`, `org_type_id`, `address`, `description`) VALUES (1, 'To Make A Difference', 1, '2-1-7/2/88,Venkateswara Enclave, upparpally', 'TMAD is established in 2006 and has been into various activities');
 
 COMMIT;
 
@@ -978,8 +1067,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`) VALUES (1, 1, '2008-05-27', 1, '2009-02-23', 'Prasanthi', '1980-01-01', 'need urgent blood group O-', '898989898', '898989', 'friend', 1, 1, 1, NULL, NULL);
-INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`) VALUES (2, 1, '2011-01-9', 1, '2009-09-12', 'Kashyap', '1979-05-05', 'Fresher needs Job', '2342343', '4324324', 'news paper', 1, 2, 1, NULL, NULL);
+INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`, `organization_id`) VALUES (1, 1, '2008-05-27', 1, '2009-02-23', 'Prasanthi', '1980-01-01', 'need urgent blood group O-', '898989898', '898989', 'friend', 1, 1, 1, 'abc@tmad.org', 1, 1);
+INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`, `organization_id`) VALUES (2, 1, '2011-01-9', 1, '2009-09-12', 'Kashyap', '1979-05-05', 'Fresher needs Job', '2342343', '4324324', 'news paper', 1, 2, 1, 'abc@tmad.org', 1, 1);
+INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`, `organization_id`) VALUES (3, 3, '2013-06-06', 1, '2013-07-07', 'Pavani', '195-01-01', 'Education case - need support for PG fee', '999999', '888888', 'chennai TMAD', 1, 2, 1, 'abc@tmad.org', 2, 1);
 
 COMMIT;
 
@@ -1027,19 +1117,6 @@ INSERT INTO `user_profile` (`id`, `other_email_id`, `blood_group`, `anniversary`
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `org_type`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `ocms`;
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (1, 'NGO', 'NGO Organization', NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (2, 'State Government', 'State Govt. Organizations', NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (3, 'Union/Central Government', 'Central Govt. organizations', NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (4, 'Private Limited/Corporate', 'Private/Corporate company', NULL);
-INSERT INTO `org_type` (`id`, `name`, `description`, `parent_id`) VALUES (5, 'International Charity', 'International organization', NULL);
-
-COMMIT;
-
--- -----------------------------------------------------
 -- Data for table `role_master`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -1068,12 +1145,12 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 1, 1);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 2, 1);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 3, 1);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (1, 4, 1);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (2, 1, 1);
-INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`) VALUES (2, 2, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`, `organization_id`) VALUES (1, 1, 1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`, `organization_id`) VALUES (1, 2, 1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`, `organization_id`) VALUES (1, 3, 1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`, `organization_id`) VALUES (1, 4, 1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`, `organization_id`) VALUES (2, 1, 1, 1);
+INSERT INTO `user_role` (`user_id`, `role_id`, `module_id`, `organization_id`) VALUES (2, 2, 1, 1);
 
 COMMIT;
 

@@ -44,6 +44,7 @@ public class CaseMaster implements java.io.Serializable
 	private String contactNumber2;
 	private String source;
 	private String emailId;
+	private Organization organization;
 	private Set<CaseDiscussion> caseDiscussions = new HashSet(0);
 	private Set<CaseArtifact> caseArtifacts = new HashSet(0);
 	private Set<Fund> funds = new HashSet(0);
@@ -178,6 +179,18 @@ public class CaseMaster implements java.io.Serializable
 	public void setId(Integer id)
 	{
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "organization_id", nullable = false)
+	public Organization getOrganization()
+	{
+		return this.organization;
+	}
+
+	public void setOrganization(Organization organization)
+	{
+		this.organization = organization;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
