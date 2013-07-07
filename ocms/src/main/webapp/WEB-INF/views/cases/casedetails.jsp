@@ -19,38 +19,11 @@
 </script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#dateOfBirth").datepicker({
-			showOn : "button",
-			buttonImage : "resources/images/ico_calendar.gif",
-			buttonImageOnly : true,
-			appendText : ' yyyy-mm-dd ',
-			buttonText : 'Date selector 1',
-			align : "middle",
-			changeMonth : true,
-			changeYear : true,
-			defaultDate : null,
-			showOn : 'both',
-			alt : 'Date Selector 1',
-			cursor : 'pointer',
-			dateFormat : 'yy-mm-dd',
-			beforeShow : function(input, inst) {
-				$('ui-widget-header').css({
-					"color" : 'red',
-					"width" : "100%"
-				});
-				$('#ui-datepicker-div').css({
-					"z-index" : "2"
-				});
 
-			}
-
-		});
-
-	});
 
 	
 	$(document).ready(function() {
+		registerDatePicker('#dateOfBirth');
 		$("#addCaseForm").validate();
 	})
 </script>
@@ -149,7 +122,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="dateOfBirth" type="text" class="required date"
-								tabindex="6" maxlength="15" size="15" value="1980-01-01" />
+								tabindex="6" maxlength="15" size="15"  />
 						</div>
 					</div>
 					<div class="row full-width"></div>
