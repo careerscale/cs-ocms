@@ -27,7 +27,6 @@ public class SchedulerService {
 		log.info("Start schedule");
 		log.debug("Delegate to worker ");
 		worker.work();
-
 		log.debug("End schedule");
 	}
 }

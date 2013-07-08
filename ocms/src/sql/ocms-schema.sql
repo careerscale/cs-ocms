@@ -911,12 +911,14 @@ DROP TABLE IF EXISTS `case_approval_history` ;
 CREATE  TABLE IF NOT EXISTS `case_approval_history` (
   `case_id` INT NOT NULL ,
   `login_id` INT NOT NULL ,
-  `approval_status` TINYINT(1) NULL ,
+  `approval_status_id` INT NULL ,
   `reason` VARCHAR(500) NULL ,
   `approval_date` DATETIME NULL ,
-  PRIMARY KEY (`case_id`, `login_id`) ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   INDEX `fk_case_history_case_id_idx` (`case_id` ASC) ,
   INDEX `fk_case_history_login_id_idx` (`login_id` ASC) ,
+  INDEX `fk_case_history_status_id_idx` (`approval_status_id` ASC) ,
+  PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_case_history_case_id`
     FOREIGN KEY (`case_id` )
     REFERENCES `case_master` (`id` )
@@ -925,6 +927,11 @@ CREATE  TABLE IF NOT EXISTS `case_approval_history` (
   CONSTRAINT `fk_case_history_login_id`
     FOREIGN KEY (`login_id` )
     REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_case_history_status_id`
+    FOREIGN KEY (`approval_status_id` )
+    REFERENCES `case_status_master` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -954,9 +961,11 @@ START TRANSACTION;
 USE `ocms`;
 INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (1, 'New', 'New case, just entered the system');
 INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (2, 'Pending', 'Case is pending, not yet active');
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (3, 'In Progress', 'Case is active');
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (4, 'On Hold', 'Case is on hold for some dependency or clarification');
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (5, 'Resolved', 'Case is successfully addressed. ');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (3, 'OnHold', 'Case is on hold for some dependency or clarification');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (4, 'Active', 'Case is active');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (5, 'Rejected', 'Case is rejected');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (6, 'Resolved', 'Case is addressed and met the expectations');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (7, 'Closed', 'Closed in every aspect, including generating bills.');
 
 COMMIT;
 
@@ -1190,5 +1199,31 @@ INSERT INTO `discussion_type` (`id`, `name`, `description`) VALUES (1, 'COMMENT'
 INSERT INTO `discussion_type` (`id`, `name`, `description`) VALUES (2, 'QUESTION', NULL);
 INSERT INTO `discussion_type` (`id`, `name`, `description`) VALUES (3, 'FEEDBACK', NULL);
 INSERT INTO `discussion_type` (`id`, `name`, `description`) VALUES (4, 'APPRECIATION', NULL);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `case_type_approver`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (1, 1, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (1, 2, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (1, 3, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (2, 1, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (2, 2, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (2, 3, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (3, 1, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (3, 2, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (3, 3, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (4, 1, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (4, 2, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (4, 3, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (5, 1, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (5, 2, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (6, 1, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (7, 1, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (7, 2, 1);
+INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (8, 1, 1);
 
 COMMIT;
