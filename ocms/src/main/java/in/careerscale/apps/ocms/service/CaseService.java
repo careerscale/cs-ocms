@@ -16,6 +16,7 @@ import in.careerscale.apps.ocms.dao.model.Notification;
 import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
 import in.careerscale.apps.ocms.dao.model.NotificationStatus;
 import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
+import in.careerscale.apps.ocms.dao.model.Organization;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
@@ -97,7 +98,8 @@ public class CaseService extends AbstractService
 			Address address = new Address(city, bean.getAddressLine1(), bean.getAddressLine2(), bean.getZipcode());
 			caseRepository.save(address);
 			caseMaster.setAddress(address);
-
+			// TODO get organization dynamically based on the context.
+			caseMaster.setOrganization((Organization) caseRepository.getById(Organization.class, 1));
 			caseRepository.registerCase(caseMaster);
 			bean.setId(caseMaster.getId());
 
@@ -244,8 +246,9 @@ public class CaseService extends AbstractService
 		for (CaseArtifact caseArtifact : caseArtifacts)
 		{
 		
-			caseArtifactBean.addCaseArtifact(caseArtifact.getDocumentType().getName(), caseArtifact.getId(),
-					caseArtifact.getFileExtension(), caseArtifact.getDocumentType().getName());
+			caseArtifactBean.addCaseArtifact(caseArtifact.getDocumentType() == null ? "unknown" : caseArtifact
+					.getDocumentType().getName(), caseArtifact.getId(), caseArtifact.getFileExtension(), caseArtifact
+					.getDocumentType() == null ? "unknown" : caseArtifact.getDocumentType().getName());
 
 		}
 
