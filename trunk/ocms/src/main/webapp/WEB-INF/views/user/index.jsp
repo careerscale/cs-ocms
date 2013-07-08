@@ -155,7 +155,7 @@
 									<td>${mycase.updatedDate}</td>
 									<td>${mycase.createdBy}</td>
 									<td>${mycase.updatedBy}</td>
-									<td><a href="#">Approve</a></td>
+									<td><a href="/cases/${mycase.id}">Approve</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -215,7 +215,7 @@
 									<td>${mycase.updatedDate}</td>
 									<td>${mycase.createdBy}</td>
 									<td>${mycase.updatedBy}</td>
-									<td><a href="#">+Add</a></td>
+									<td><a href="/cases/${mycase.id}">Contribute</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
