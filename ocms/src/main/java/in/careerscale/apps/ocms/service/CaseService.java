@@ -4,10 +4,13 @@ import in.careerscale.apps.ocms.dao.CaseRepository;
 import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.NotificationRepository;
 import in.careerscale.apps.ocms.dao.model.Address;
+import in.careerscale.apps.ocms.dao.model.CaseApprovalHistory;
 import in.careerscale.apps.ocms.dao.model.CaseArtifact;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
+import in.careerscale.apps.ocms.dao.model.CaseStatus;
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
+import in.careerscale.apps.ocms.dao.model.CaseTypeApprover;
 import in.careerscale.apps.ocms.dao.model.City;
 import in.careerscale.apps.ocms.dao.model.DocumentType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
@@ -20,6 +23,7 @@ import in.careerscale.apps.ocms.dao.model.Organization;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
+import in.careerscale.apps.ocms.web.cases.model.CaseHistory;
 import in.careerscale.apps.ocms.web.cases.model.Document;
 
 import java.io.IOException;
@@ -222,8 +226,7 @@ public class CaseService extends AbstractService
 		bean.setEmailId(caseMaster.getEmailId());
 		bean.setDateOfBirth(caseMaster.getDateOfBirth());
 		bean.setproperties(caseMaster.getId(), caseMaster.getPersonName(), caseMaster.getEmailId(), caseMaster
-				.getSource(), caseMaster
-				.getDateOfBirth(), caseMaster.getCreatedOn(), caseMaster.getUpdatedOn(),
+				.getSource(), caseMaster.getDateOfBirth(), caseMaster.getCreatedOn(), caseMaster.getUpdatedOn(),
 				caseMaster.getContactNumber1(), caseMaster.getContactNumber2(), caseMaster.getCaseType().getName(),
 				caseMaster.getHelpCategoryType().getCategoryName(), caseMaster.getCaseStatusMaster()
 						.getCaseStatusName(), caseMaster.getCreatedBy().getFirstName(), caseMaster.getUpdatedBy()
@@ -245,7 +248,7 @@ public class CaseService extends AbstractService
 
 		for (CaseArtifact caseArtifact : caseArtifacts)
 		{
-		
+
 			caseArtifactBean.addCaseArtifact(caseArtifact.getDocumentType() == null ? "unknown" : caseArtifact
 					.getDocumentType().getName(), caseArtifact.getId(), caseArtifact.getFileExtension(), caseArtifact
 					.getDocumentType() == null ? "unknown" : caseArtifact.getDocumentType().getName());
@@ -253,6 +256,39 @@ public class CaseService extends AbstractService
 		}
 
 		return caseArtifactBean;
+	}
+
+	/**
+	 * Let us update database with the approval action taken by the user. Also we need to validate if this makes any
+	 * status change on the case status itself.
+	 * 
+	 * @param history
+	 */
+	public void updateApprovorAction(CaseHistory history)
+	{
+
+		LoginMaster loginMaster = getLoggedInUser();
+		CaseMaster caseMaster = caseRepository.getCase(history.getCaseId());
+
+		CaseStatus status = CaseStatus.fromString(history.getStatus());
+
+		CaseApprovalHistory caseAprovalHistory = new CaseApprovalHistory(caseMaster, loginMaster);
+		caseAprovalHistory.setCaseStatusMaster((CaseStatusMaster) caseRepository.getById(CaseStatusMaster.class,
+				status.getId()));
+
+		caseAprovalHistory.setReason(history.getReason());
+
+		caseRepository.save(caseAprovalHistory);
+
+		// let us check if all the approvers for this case have approved this case.
+		//Let us 
+		Organization org = (Organization) caseRepository.getById(Organization.class, 1);
+		
+		List<CaseTypeApprover> caseTypeApprovers = caseRepository.getCaseApproverList(caseMaster.getCaseType().getId(),
+				org);
+
+		// let us do the logic of verifying.
+
 	}
 
 }
