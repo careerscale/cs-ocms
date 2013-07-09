@@ -154,7 +154,7 @@ public class CaseService extends AbstractService
 				artifact.setArtifact(document.getFile().getBytes());
 				artifact.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, bean.getCaseId()));
 				artifact.setLoginMaster(loginMaster);
-				String fileName = document.getFile().getName();
+				String fileName = document.getFile().getOriginalFilename();
 				artifact.setFileExtension(fileName.substring(fileName.lastIndexOf(".")));
 				caseRepository.save(artifact);
 			}
@@ -281,9 +281,9 @@ public class CaseService extends AbstractService
 		caseRepository.save(caseAprovalHistory);
 
 		// let us check if all the approvers for this case have approved this case.
-		//Let us 
+		// Let us
 		Organization org = (Organization) caseRepository.getById(Organization.class, 1);
-		
+
 		List<CaseTypeApprover> caseTypeApprovers = caseRepository.getCaseApproverList(caseMaster.getCaseType().getId(),
 				org);
 		if (caseRepository.getApprovedCount() > caseTypeApprovers.size() / 2)
@@ -311,11 +311,17 @@ public class CaseService extends AbstractService
 			histories.add(new CaseHistory(caseApprovalHistory.getCaseMaster().getId(), caseApprovalHistory.getReason(),
 					caseApprovalHistory.getCaseStatusMaster().getCaseStatusName(), caseApprovalHistory.getLoginMaster()
 							.getFirstName()));
-			
+
 		}
-		
+
 		return histories;
-		
+
+	}
+
+	public byte[] getCaseArtifactById(Integer id)
+	{
+		CaseArtifact artifact = (CaseArtifact) caseRepository.getById(CaseArtifact.class, id);
+		return artifact.getArtifact();
 
 	}
 

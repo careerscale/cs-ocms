@@ -7,7 +7,6 @@ import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
 import in.careerscale.apps.ocms.web.cases.model.DocumentType;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -137,23 +137,11 @@ public class CaseController
 		return "cases/casedetails";
 	}
 
-	@RequestMapping(value = "/cases/documents/{id}")
-	public void writePicture(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response)
-			throws IOException
+	@RequestMapping(value = { "/cases/documents/{artifact_id}", "/cases/artifact/{artifact_id}" }, method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	public @ResponseBody
+	byte[] downloadFile(@PathVariable Integer artifact_id, HttpServletRequest request, HttpServletResponse response)
 	{
-		// http://stackoverflow.com/questions/15654036/how-to-retrive-image-from-mysql-database-using-spring
-		/**
-		 * try { Picture img = pictureService.findById(id); response.setContent(picture.getImagefile());
-		 * response.setContentLength(picture.getImagefile().length);
-		 * 
-		 * // additionally, you should add the mime-type and the last // change date (to allow the browsers to use the
-		 * cache) if these info are available
-		 * 
-		 * response.getOutputStream().write(picture.getImagefile()); response.setStatus(HttpServletResponse.SC_OK); }
-		 * catch (Exception e) { response.setStatus(HttpServletResponse.SC_NOT_FOUND); // 404. Add specific catch for
-		 * specific errors }
-		 */
+
+		return caseService.getCaseArtifactById(artifact_id);
 	}
-
-
 }

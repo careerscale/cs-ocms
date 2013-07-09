@@ -259,6 +259,8 @@
 							</div>
 							<div class="large-6 columns">
 						   <a href= "/cases/documents/${entry.id}">Download</a>
+						   
+						   <img src="/cases/document/${entry.id}"  />
 							</div>
 						</div>
 						</c:forEach>
