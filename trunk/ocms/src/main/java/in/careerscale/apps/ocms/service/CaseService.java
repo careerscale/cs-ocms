@@ -264,7 +264,7 @@ public class CaseService extends AbstractService
 	 * 
 	 * @param history
 	 */
-	public void updateApprovorAction(CaseHistory history)
+	public void updateApproverAction(CaseHistory history)
 	{
 
 		LoginMaster loginMaster = getLoggedInUser();
@@ -288,6 +288,29 @@ public class CaseService extends AbstractService
 				org);
 
 		// let us do the logic of verifying.
+
+	}
+
+	/**
+	 * Let us try getting the histories.
+	 * 
+	 * @param caseId
+	 * @return
+	 */
+	public List<CaseHistory> getCaseApprovalHistory(Integer caseId)
+	{
+		List<CaseHistory> histories = new ArrayList<CaseHistory>();
+		List<CaseApprovalHistory> caseApprovalHistories = caseRepository.getCaseApprovalHistory(caseId);
+		for (CaseApprovalHistory caseApprovalHistory : caseApprovalHistories)
+		{
+			histories.add(new CaseHistory(caseApprovalHistory.getCaseMaster().getId(), caseApprovalHistory.getReason(),
+					caseApprovalHistory.getCaseStatusMaster().getCaseStatusName(), caseApprovalHistory.getLoginMaster()
+							.getFirstName()));
+			
+		}
+		
+		return histories;
+		
 
 	}
 
