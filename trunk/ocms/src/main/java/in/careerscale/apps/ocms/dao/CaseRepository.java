@@ -198,4 +198,17 @@ public class CaseRepository
 		return query.getResultList();
 
 	}
+
+	public int getApprovedCount()
+	{
+		// TODO write your logic here.
+		return 0;
+	}
+
+	public void update(CaseMaster caseMaster)
+	{
+		entityManager.merge(caseMaster);
+		entityManager.flush();
+
+	}
 }

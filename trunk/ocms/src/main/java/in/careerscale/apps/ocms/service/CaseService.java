@@ -286,7 +286,12 @@ public class CaseService extends AbstractService
 		
 		List<CaseTypeApprover> caseTypeApprovers = caseRepository.getCaseApproverList(caseMaster.getCaseType().getId(),
 				org);
-
+		if (caseRepository.getApprovedCount() > caseTypeApprovers.size() / 2)
+		{
+			caseMaster.setCaseStatusMaster((CaseStatusMaster) caseRepository.getById(CaseStatusMaster.class,
+					CaseStatus.Active.getId()));
+			caseRepository.update(caseMaster);
+		}
 		// let us do the logic of verifying.
 
 	}
