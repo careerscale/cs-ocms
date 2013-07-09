@@ -2,12 +2,14 @@ package in.careerscale.apps.ocms.dao.model;
 
 // Generated Jul 8, 2013 11:21:48 PM by Hibernate Tools 4.0.0
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -58,7 +60,7 @@ public class CaseApprovalHistory implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "approval_status_id")
 	public CaseStatusMaster getCaseStatusMaster() {
 		return this.caseStatusMaster;
@@ -78,7 +80,7 @@ public class CaseApprovalHistory implements java.io.Serializable {
 		this.caseMaster = caseMaster;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "login_id", nullable = false)
 	public LoginMaster getLoginMaster() {
 		return this.loginMaster;
