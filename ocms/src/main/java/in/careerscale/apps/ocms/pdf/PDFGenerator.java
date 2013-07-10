@@ -76,8 +76,8 @@ public class PDFGenerator
 		Certificate[] chain = ks.getCertificateChain(alias);
 		PDFGenerator app = new PDFGenerator();
 		app.generateSimplePDF();
-		app.sign(SRC, DEST, chain, pk, DigestAlgorithms.SHA256, provider.getName(), CryptoStandard.CMS, "Test",
-				"Ghent", null, null, null, 0);
+		app.sign(SRC, DEST, chain, pk, DigestAlgorithms.SHA256, provider.getName(), CryptoStandard.CMS, "OCMS",
+				"HYDERABAD", null, null, null, 0);
 	}
 
 	public void sign(String src, String dest, Certificate[] chain, PrivateKey pk, String digestAlgorithm,
