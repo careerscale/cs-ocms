@@ -1,5 +1,6 @@
 package in.careerscale.apps.ocms.web.cases;
 
+import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.service.CaseService;
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
@@ -7,6 +8,8 @@ import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
 import in.careerscale.apps.ocms.web.cases.model.DocumentType;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +29,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 @Controller
 @Secured("ROLE_USER")
@@ -143,5 +151,31 @@ public class CaseController
 	{
 
 		return caseService.getCaseArtifactById(artifact_id);
+	}
+
+	@RequestMapping(value = { "/cases/documents/pdf/{artifact_id}", "/cases/artifact/pdf/{artifact_id}" }, method = RequestMethod.GET, produces = "application/pdf")
+	public @ResponseBody
+	void downloadDynamicPDF(@PathVariable Integer artifact_id, HttpServletRequest request,
+ HttpServletResponse response)
+			throws IOException
+	{
+
+		try
+		{
+			Document document = new Document();
+			PdfWriter.getInstance(document, response.getOutputStream());
+			document.open();
+			
+			LoginMaster user = caseService.getLoggedInUser();
+			document.addTitle("Welcome to OCMS");
+			document.addHeader("Hello Welcome to OCMS", "The Online Case Management System");
+			document.add(new Paragraph("Hello " + user.getFirstName()));
+			document.add(new Paragraph("Current time is " + new Date().toString()));
+			document.close();
+		}
+		catch (DocumentException de)
+		{
+			throw new IOException(de.getMessage());
+		}
 	}
 }

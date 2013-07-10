@@ -13,7 +13,7 @@ public abstract class AbstractService
 	@Autowired
 	protected MasterDataRepository masterDataRepository;
 
-	protected LoginMaster getLoggedInUser()
+	public LoginMaster getLoggedInUser()
 	{
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
@@ -22,7 +22,7 @@ public abstract class AbstractService
 		return (LoginMaster) masterDataRepository.getById(LoginMaster.class, user.getId());
 	}
 
-	protected Integer getLoggedInUserId()
+	public Integer getLoggedInUserId()
 	{
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
