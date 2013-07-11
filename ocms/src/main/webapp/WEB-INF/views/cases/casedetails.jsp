@@ -315,7 +315,9 @@ fieldset, img {
      width: 87%;
  }
  
- 
+ #mycases{
+ width:100%;
+ }
  .greenStatus
 {
 color:green;
