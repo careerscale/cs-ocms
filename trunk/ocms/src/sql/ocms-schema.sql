@@ -393,7 +393,6 @@ CREATE  TABLE IF NOT EXISTS `fund` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `donor` VARCHAR(150) NOT NULL DEFAULT 'This will be used to issued receipt.' ,
   `purpose` VARCHAR(255) NOT NULL ,
-  `amount` INT NOT NULL ,
   `credit_amount` INT NULL ,
   `promised_date` DATETIME NOT NULL ,
   `case_id` INT NOT NULL ,
@@ -402,6 +401,7 @@ CREATE  TABLE IF NOT EXISTS `fund` (
   `receipt_issued_on` DATETIME NULL ,
   `login_id` INT NOT NULL ,
   `debited_amount` INT NULL ,
+  `receipt` MEDIUMBLOB NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_fund_management_case_id_idx` (`case_id` ASC) ,
   INDEX `fk_funds_status_id_idx` (`status_id` ASC) ,
@@ -831,6 +831,7 @@ CREATE  TABLE IF NOT EXISTS `case_discussion` (
   `comments` MEDIUMTEXT NULL ,
   `created_on` DATETIME NULL ,
   `created_by` INT NULL ,
+  `subject` VARCHAR(255) NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_discussion_case_id_idx` (`case_id` ASC) ,
   INDEX `fk_discusssion_parent_id_idx` (`parent_discussion_id` ASC) ,
@@ -1225,5 +1226,19 @@ INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VA
 INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (7, 1, 1);
 INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (7, 2, 1);
 INSERT INTO `case_type_approver` (`case_type`, `login_id`, `organization_id`) VALUES (8, 1, 1);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `case_approval_history`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `case_approval_history` (`case_id`, `login_id`, `approval_status_id`, `reason`, `approval_date`, `id`) VALUES (1, 2, 5, 'Couldnt figure out why we need to support', '2013-07-01', 1);
+INSERT INTO `case_approval_history` (`case_id`, `login_id`, `approval_status_id`, `reason`, `approval_date`, `id`) VALUES (1, 1, 4, 'let us help', '2013-07-01', 2);
+INSERT INTO `case_approval_history` (`case_id`, `login_id`, `approval_status_id`, `reason`, `approval_date`, `id`) VALUES (1, 3, 4, 'I am ok', '2013-07-03', 3);
+INSERT INTO `case_approval_history` (`case_id`, `login_id`, `approval_status_id`, `reason`, `approval_date`, `id`) VALUES (2, 2, 4, 'Ok, let us help', '2013-06-01', 4);
+INSERT INTO `case_approval_history` (`case_id`, `login_id`, `approval_status_id`, `reason`, `approval_date`, `id`) VALUES (2, 3, 3, 'provide income proof', '2013-02-01', 5);
+INSERT INTO `case_approval_history` (`case_id`, `login_id`, `approval_status_id`, `reason`, `approval_date`, `id`) VALUES (2, 1, 4, 'Let us go ahead', '2013-05-01', 6);
 
 COMMIT;
