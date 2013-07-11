@@ -16,16 +16,29 @@
 </h1>
 <script src="/resources/media/js/responsive-tables.js"  type="text/javascript"></script>
 <link rel="stylesheet" href="/resources/media/css/themes/smoothness/responsive-tables.css" type="text/css">
+
+
+
 <script src="/resources/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
 
 <!--  script src="http://code.jquery.com/jquery-1.9.1.js"></script-->
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+<script src="/resources/media/js/jquery.mousewheel-3.0.6.pack.js"  type="text/javascript"></script>
+<script src="/resources/media/js/jquery.fancybox.js?v=2.1.5"  type="text/javascript"></script>
+<link rel="stylesheet" href="/resources/media/css/themes/smoothness/jquery.fancybox.css?v=2.1.5" media="screen"  type="text/css">
+
+
 
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"  type="text/css" >
 <link rel="stylesheet" href="/resources/demos/style.css" >
+
+
+<script src="/resources/media/js/jquery.popupoverlay.js" type="text/javascript"></script>
+
+
 
  <style>
   /* IE has layout issues when sorting (see #5413) */
@@ -333,11 +346,51 @@ color:yellow;
 top: -70em !important;
   left: 30em !important;
 }
+
+/* Add these styles once per website */
+  .popup_background {
+    z-index: 2000; /* any number */
+  }
+  .popup_wrapper {
+    z-index: 2001; /* any number + 1 */
+  }
+  /* Add inline-block support for IE7 */
+  .popup_align,
+  .popup_content {
+    *display: inline;
+    *zoom: 1;
+  }
+  
+  .well {
+    background-color: #F5F5F5;
+    border: 1px solid #E3E3E3;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
+}
+
+.ui-accordion-content
+{
+height:auto !important;
+}
 </style>
 
 
 <script type="text/javascript">
 
+$(function() {
+    $('#my_modal').popup();
+    
+    $('#newreply_modal').popup();
+    
+  });
+  
+  
+$(document).ready(function() {
+	$(".fancybox").fancybox();
+});
 
 function openPopup(id)
 {
@@ -380,13 +433,13 @@ $(function() {
 		});
 	});
 	
-		$( ".newreply" ).button().click(function() {
-		  $( "#dialog-form" ).dialog( "open" );
-		});
+		/*$( ".newreply-open" ).button().click(function() {
+		  $( "#newreply" ).dialog( "open" );
+		});*/
 		
-		 $( "#create-comments" ).button().click(function() {
+		/* $( "#create-comments" ).button().click(function() {
 			  $( "#dialog-add" ).dialog( "open" );
-			}); 
+			}); */
 });
 
 $(function() {
@@ -431,7 +484,9 @@ $(document).ready(function() {
 <div>
 
 
-<div id="dialog-form" title="Add Comments">
+  
+
+<div id="newreply_modal" class="well" title="Add Comments">
    <form:form method="post" action="caseDiscussion" id="addCaseForm2"
 				modelAttribute="caseDetails">
   <div id="submitComments">
@@ -448,7 +503,7 @@ $(document).ready(function() {
  </div>
  
  
-  <div id="dialog-add" title="Add Comments">
+  <div id="my_modal" class="well" title="Add Comments">
    <form:form method="post" action="caseDiscussion" id="addCaseForm1"
 				modelAttribute="caseDetails">
   <div id="submitComment1">
@@ -468,7 +523,7 @@ $(document).ready(function() {
 </form:form>
  </div>
  
- 
+   
 <div class="row full-width">
 			</div>
 			<div class="large-1 columns"></div>
@@ -633,10 +688,17 @@ $(document).ready(function() {
 					
 						<div class="row">
 							<div class="large-6 columns">
-								<label class="right inline" > ${entry.name} </label>
+							<a  class="fancybox"  href="../1_b.jpg" data-fancybox-group="gallery" title="">
+							<img src="/cases/documents/${entry.id}">
+								</img></a>
+						
 							</div>
 							<div class="large-6 columns">
-						   <a href= "/cases/documents/${entry.id}">Download</a>
+							<div id="img_modal" class="well">
+								<!--  img src="/cases/documents/${entry.id}">csd
+								</img-->
+							</div>
+						   
 							</div>
 						</div>
 						</c:forEach>
@@ -703,7 +765,7 @@ $(document).ready(function() {
     <div class="large-2 columns">
     </div>
     	 <div class="large-2 columns">
-   		<a id="create-comments">+ Add</a>
+   		<a class="my_modal_open" id="create-comments">+ Add</a>
    		</div>
    		<div class="large-8 columns">
    		</div>
@@ -745,7 +807,7 @@ $(document).ready(function() {
 					<div class="textcontrols floatcontainer">
 						<span class="postcontrols">
 							<img alt="" src="struct%20usage%20and%20setup_files/progress.gif"  style="display:none">
-							<a title="Reply With Quote" rel="nofollow" href="#"  class="newreply" onClick="openPopup('${caseDiscuss.id}')" >Reply With Quote
+							<a title="Reply With Quote" rel="nofollow" href="#"  class="newreply_modal_open" onClick="openPopup('${caseDiscuss.id}')" >Reply With Quote
 							 </a>
 						</span>
 					</div>
