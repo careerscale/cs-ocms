@@ -30,11 +30,7 @@
 			<nav class="top-bar">
 				<ul class="title-area">
 					<!-- Title Area -->
-					<li class="name">
-						<h1>
-							<a href="#"> Menu</a>
-						</h1>
-					</li>
+				
 					<!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
 					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 				</ul>
@@ -48,12 +44,11 @@
 						<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
 						<li><a href="/about">About us</a></li>
 						<li class="divider"></li>
-						<li class="has-dropdown"><a href="/cases">Cases</a>
+						<li class="has-dropdown"><a href="/user">Cases</a>
 							<ul class="dropdown">
-								<li><label>Case Management</label></li>
 								<li><a href="/addcase">Report new case</a></li>
-								<li><a href="/viewcases">View Cases</a></li>
-								<li><a href="/searchcases">Search</a></li>
+								<li><a href="/user">View Cases</a></li>
+								
 							</ul></li>
 						</sec:authorize>
 						<li class="divider"></li>
@@ -68,10 +63,11 @@
 
 						<li class="divider"></li>
 						<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
-						<li class="has-dropdown"><a href="/user">Profile</a>
+						<li class="has-dropdown"><a href="/profile">My Account</a>
 							<ul class="dropdown">
-								<li><a href="/profile">Profile</a></li>
+								<li><a href="/profile">Edit Profile</a></li>
 								<li><a href="/password">Change Password</a></li>
+								<li><a href="">My downloads</a></li>
 							</ul></li>
 						<li class="divider"></li>
                        </sec:authorize>
