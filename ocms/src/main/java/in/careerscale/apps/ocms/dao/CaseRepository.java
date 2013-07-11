@@ -3,6 +3,7 @@ package in.careerscale.apps.ocms.dao;
 import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseApprovalHistory;
 import in.careerscale.apps.ocms.dao.model.CaseArtifact;
+import in.careerscale.apps.ocms.dao.model.CaseDiscussion;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.CaseTypeApprover;
@@ -175,7 +176,7 @@ public class CaseRepository
 	@SuppressWarnings("unchecked")
 	public List<CaseApprovalHistory> getCaseApprovalHistory(Integer caseId)
 	{
-		Query query = entityManager.createQuery("SELECT ca FROM CaseApprovalHistory ca where  ca.caseMaster.id=:id");
+		Query query = entityManager.createQuery("SELECT ca FROM CaseApprovalHistory ca where  ca.caseMaster.id=:id order by ca.id desc");
 		query.setParameter("id", caseId);
 		return query.getResultList();
 
@@ -198,6 +199,24 @@ public class CaseRepository
 		return query.getResultList();
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<CaseDiscussion> getCaseDiscussions(Integer id)
+	{
+		Query query = entityManager
+				.createQuery("SELECT cd FROM CaseDiscussion cd where  cd.caseMaster.id=:id order by cd.id desc");
+		query.setParameter("id", id);
+		return query.getResultList();
+	}
+	
+	public void saveCaseDiscussion(CaseDiscussion caseDiscussion)
+	{
+		entityManager.persist(caseDiscussion);
+		entityManager.flush();
+
+	}
+	
+	
 
 	public int getApprovedCount()
 	{

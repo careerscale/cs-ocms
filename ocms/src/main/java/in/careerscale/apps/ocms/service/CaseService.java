@@ -6,6 +6,7 @@ import in.careerscale.apps.ocms.dao.NotificationRepository;
 import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseApprovalHistory;
 import in.careerscale.apps.ocms.dao.model.CaseArtifact;
+import in.careerscale.apps.ocms.dao.model.CaseDiscussion;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.CaseStatus;
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
@@ -23,12 +24,14 @@ import in.careerscale.apps.ocms.dao.model.Organization;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
+import in.careerscale.apps.ocms.web.cases.model.CaseDiscussionBO;
 import in.careerscale.apps.ocms.web.cases.model.CaseHistory;
 import in.careerscale.apps.ocms.web.cases.model.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -289,7 +292,7 @@ public class CaseService extends AbstractService
 		if (caseRepository.getApprovedCount() > caseTypeApprovers.size() / 2)
 		{
 			caseMaster.setCaseStatusMaster((CaseStatusMaster) caseRepository.getById(CaseStatusMaster.class,
-					CaseStatus.Active.getId()));
+					CaseStatus.ACTIVE.getId()));
 			caseRepository.update(caseMaster);
 		}
 		// let us do the logic of verifying.
@@ -310,12 +313,55 @@ public class CaseService extends AbstractService
 		{
 			histories.add(new CaseHistory(caseApprovalHistory.getCaseMaster().getId(), caseApprovalHistory.getReason(),
 					caseApprovalHistory.getCaseStatusMaster().getCaseStatusName(), caseApprovalHistory.getLoginMaster()
-							.getFirstName()));
+							.getFirstName()
+					, caseApprovalHistory.getApprovalDate(),   caseApprovalHistory.getLoginMaster().getEmailId(),  "NA"		
+					)
+			
+					);
 
 		}
 
 		return histories;
 
+	}
+	
+	public void saveCaseDiscussion(CaseDiscussionBO caseDiscussionBO)
+	{
+		CaseDiscussion caseDiscussion = new CaseDiscussion();
+		LoginMaster loginMaster = getLoggedInUser();
+		caseDiscussion.setLoginMaster(loginMaster);
+		caseDiscussion.setComments(caseDiscussionBO.getComments());
+		caseDiscussion.setSubject(caseDiscussionBO.getSubject());
+		caseDiscussion.setCreatedOn(new Date());
+		caseDiscussion.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, caseDiscussionBO.getCaseId()));
+		if(caseDiscussionBO.getParentDiscussionId() != null)
+			{
+			CaseDiscussion cd  = (CaseDiscussion) caseRepository.getById(CaseDiscussion.class, caseDiscussionBO.getParentDiscussionId());
+			caseDiscussion.setCaseDiscussion(cd);
+			caseDiscussion.setSubject(cd.getSubject());
+			}
+		caseRepository.saveCaseDiscussion(caseDiscussion);
+		
+	}
+	
+	public List<CaseDiscussionBO> getCasesDiscussions(Integer caseId)
+	{
+		List<CaseDiscussionBO> caseDiscussions = new ArrayList<CaseDiscussionBO>();
+		List<CaseDiscussion> lstCaseDiscussions = caseRepository.getCaseDiscussions(caseId);
+		
+		for (CaseDiscussion caseDiscussion : lstCaseDiscussions)
+		{
+			caseDiscussions.add(new CaseDiscussionBO(caseDiscussion.getId(), caseDiscussion.getCaseMaster().getId(), caseDiscussion.getLoginMaster().getFirstName(), 
+					caseDiscussion.getCreatedOn(), caseDiscussion.getComments(), caseDiscussion.getSubject(), 
+					
+					caseDiscussion.getCaseDiscussion()!=null?caseDiscussion.getCaseDiscussion().getSubject():null,
+							caseDiscussion.getCaseDiscussion()!=null?caseDiscussion.getCaseDiscussion().getLoginMaster().getFirstName():null,
+									caseDiscussion.getCaseDiscussion()!=null?caseDiscussion.getCaseDiscussion().getId():null
+					)
+					);
+		}
+		return caseDiscussions;
+		
 	}
 
 	public byte[] getCaseArtifactById(Integer id)

@@ -5,7 +5,7 @@ import in.careerscale.apps.ocms.util.CommonUtil;
 public enum CaseStatus
 {
 
-	New(1), Pending(2), OnHold(3), Active(4), Rejected(5), Resolved(6), Closed(7);
+	NEW(1), PENDING(2), ONHOLD(3), ACTIVE(4), REJECTED(5), RESOLVED(6), CLOSED(7);
 
 	private CaseStatus(int id)
 	{
