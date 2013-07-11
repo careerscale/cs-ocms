@@ -6,6 +6,8 @@ import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
+import in.careerscale.apps.ocms.web.cases.model.CaseDiscussionBO;
+import in.careerscale.apps.ocms.web.cases.model.CaseHistory;
 import in.careerscale.apps.ocms.web.cases.model.DocumentType;
 
 import java.io.IOException;
@@ -128,9 +130,40 @@ public class CaseController
 	public String uploadDocuments(@ModelAttribute(value = "caseArtifacts") CaseArtifacts bean, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
-		// TODO implement validations here
 		caseService.saveCaseAtrifacts(bean);
+		// TODO implement validations here
+		//CaseHistory caseHistory = new CaseHistory(caseId, reason, status);
 		return "cases/registeredcases";
+
+	}
+	
+	@RequestMapping(value = "/cases/caseAction", method = RequestMethod.POST)
+	public String caseAction(@ModelAttribute(value = "caseHistory")  CaseHistory caseHistory, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		// TODO implement validations here
+		if(caseHistory.getStatus().contains("Approve"))
+		{
+			caseHistory.setStatus("Active");
+		}else if(caseHistory.getStatus().contains("Reject"))
+		{
+			caseHistory.setStatus("Rejected");
+		}else{
+			caseHistory.setStatus("OnHold");
+		}
+		caseService.updateApproverAction(caseHistory);
+		String ret= "redirect:/cases/"+caseHistory.getCaseId();;
+		return ret;
+
+	}
+	
+	@RequestMapping(value = "/cases/caseDiscussion", method = RequestMethod.POST)
+	public String addDiscussion(@ModelAttribute(value = "caseDiscussion")  CaseDiscussionBO caseDiscussion, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		caseService.saveCaseDiscussion(caseDiscussion);
+		String ret= "redirect:/cases/"+caseDiscussion.getCaseId();;
+		return ret;
 
 	}
 
@@ -142,6 +175,13 @@ public class CaseController
 		CaseArtifacts caseArtifacts = caseService.getCaseArtifacts(id);
 		request.setAttribute("caseArtifacts", caseArtifacts);
 		setMasterData(bean);
+		
+		List<CaseHistory> caseHistoryList = caseService.getCaseApprovalHistory(id);
+		bean.setCaseHistoryList(caseHistoryList);
+		
+		List<CaseDiscussionBO> caseDiscussions = caseService.getCasesDiscussions(id);
+		bean.setCaseDiscussions(caseDiscussions);
+		
 		return "cases/casedetails";
 	}
 

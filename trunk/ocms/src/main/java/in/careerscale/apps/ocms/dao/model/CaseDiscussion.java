@@ -34,6 +34,20 @@ public class CaseDiscussion implements java.io.Serializable {
 	private CaseMaster caseMaster;
 	private String comments;
 	private Date createdOn;
+	
+	private String subject;
+
+	@Column(name = "subject", length = 16777215)
+	public String getSubject()
+	{
+		return subject;
+	}
+	public void setSubject(String subject)
+	{
+		this.subject = subject;
+	}
+
+	
 	private Set caseDiscussions = new HashSet(0);
 
 	public CaseDiscussion() {
@@ -41,7 +55,7 @@ public class CaseDiscussion implements java.io.Serializable {
 
 	public CaseDiscussion(LoginMaster loginMaster, DocumentType documentType,
 			CaseDiscussion caseDiscussion, CaseMaster caseMaster,
-			String comments, Date createdOn, Set caseDiscussions) {
+			String comments, Date createdOn, Set caseDiscussions, String subject) {
 		this.loginMaster = loginMaster;
 		this.documentType = documentType;
 		this.caseDiscussion = caseDiscussion;
@@ -49,6 +63,7 @@ public class CaseDiscussion implements java.io.Serializable {
 		this.comments = comments;
 		this.createdOn = createdOn;
 		this.caseDiscussions = caseDiscussions;
+		this.subject = subject;
 	}
 
 	@Id
@@ -62,7 +77,7 @@ public class CaseDiscussion implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "created_by")
 	public LoginMaster getLoginMaster() {
 		return this.loginMaster;
@@ -72,7 +87,7 @@ public class CaseDiscussion implements java.io.Serializable {
 		this.loginMaster = loginMaster;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "type_id")
 	public DocumentType getDocumentType() {
 		return this.documentType;
@@ -82,7 +97,7 @@ public class CaseDiscussion implements java.io.Serializable {
 		this.documentType = documentType;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "parent_discussion_id")
 	public CaseDiscussion getCaseDiscussion() {
 		return this.caseDiscussion;
@@ -92,7 +107,7 @@ public class CaseDiscussion implements java.io.Serializable {
 		this.caseDiscussion = caseDiscussion;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "case_id")
 	public CaseMaster getCaseMaster() {
 		return this.caseMaster;
@@ -121,7 +136,7 @@ public class CaseDiscussion implements java.io.Serializable {
 		this.createdOn = createdOn;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caseDiscussion")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "caseDiscussion")
 	public Set<CaseDiscussion> getCaseDiscussions()
 	{
 		return this.caseDiscussions;

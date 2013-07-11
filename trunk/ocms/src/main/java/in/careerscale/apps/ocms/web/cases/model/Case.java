@@ -1,5 +1,6 @@
 package in.careerscale.apps.ocms.web.cases.model;
 
+import in.careerscale.apps.ocms.dao.model.CaseApprovalHistory;
 import in.careerscale.apps.ocms.service.model.MasterType;
 
 import java.io.Serializable;
@@ -46,7 +47,109 @@ public class Case implements Serializable
 	private String createdBy;
 	private String updatedBy;
 	
+	private String comments;
+	private Integer parentDiscussionId;
+	private String subject;
 	
+	
+	
+	
+	public String getSubject()
+	{
+		return subject;
+	}
+
+
+	public void setSubject(String subject)
+	{
+		this.subject = subject;
+	}
+
+
+	public Integer getParentDiscussionId()
+	{
+		return parentDiscussionId;
+	}
+
+
+	public void setParentDiscussionId(Integer parentDiscussionId)
+	{
+		this.parentDiscussionId = parentDiscussionId;
+	}
+
+
+	public String getComments()
+	{
+		return comments;
+	}
+
+
+	public void setComments(String comments)
+	{
+		this.comments = comments;
+	}
+
+	private List<CaseHistory> caseHistoryList;
+	
+	private List<CaseDiscussionBO> caseDiscussions;
+	
+	
+	
+	private String reason;
+	private String action;
+	private String caseId;
+	
+	
+	
+	
+	public String getReason()
+	{
+		return reason;
+	}
+
+
+	public void setReason(String reason)
+	{
+		this.reason = reason;
+	}
+
+
+	public String getAction()
+	{
+		return action;
+	}
+
+
+	public void setAction(String action)
+	{
+		this.action = action;
+	}
+
+
+	public String getCaseId()
+	{
+		return caseId;
+	}
+
+
+	public void setCaseId(String caseId)
+	{
+		this.caseId = caseId;
+	}
+
+
+	public List<CaseHistory> getCaseHistoryList()
+	{
+		return caseHistoryList;
+	}
+
+
+	public void setCaseHistoryList(List<CaseHistory> caseHistoryList)
+	{
+		this.caseHistoryList = caseHistoryList;
+	}
+
+
 	public String getCaseTypeString()
 	{
 		return caseTypeString;
@@ -483,5 +586,21 @@ public class Case implements Serializable
 		this.cityName = cityName;
 
 	}
+
+
+	
+
+
+	public List<CaseDiscussionBO> getCaseDiscussions()
+	{
+		return caseDiscussions;
+	}
+
+
+	public void setCaseDiscussions(List<CaseDiscussionBO> caseDiscussions)
+	{
+		this.caseDiscussions = caseDiscussions;
+	}
+	
 
 }
