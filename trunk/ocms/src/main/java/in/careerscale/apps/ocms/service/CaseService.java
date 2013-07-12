@@ -436,7 +436,7 @@ public class CaseService extends AbstractService
 		{
 				fundsList.add(new FundBO(fund.getId(), fund.getCaseMaster().getId(), fund.getDonor(), 
 						fund.getFundStatus().getName(), fund.getPromisedDate(), fund.getConfirmedDate(), 
-						fund.getPurpose(), fund.getAmount()
+						fund.getPurpose(), fund.getCreditAmount()
 										)
 							);
 		}
@@ -448,7 +448,7 @@ public class CaseService extends AbstractService
 		Fund fund = new Fund();
 		LoginMaster loginMaster = getLoggedInUser();
 		fund.setLoginMaster(loginMaster);
-		fund.setAmount(fundBO.getAmount());
+		fund.setCreditAmount(fundBO.getAmount());
 		fund.setPromisedDate(fundBO.getPromisedDate());
 		fund.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, fundBO.getCaseId()));
 		fund.setDonor(fundBO.getDonor());
