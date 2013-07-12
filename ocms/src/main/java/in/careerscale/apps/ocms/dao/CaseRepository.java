@@ -144,7 +144,7 @@ public class CaseRepository
 	{
 		Query query = entityManager
 				.createNativeQuery(
-						"SELECT cm.* FROM Case_Master cm,Case_Type_Approver ct where cm.case_type_id = ct.case_type  and ct.login_id=:userId order by cm.id desc"	
+						"SELECT cm.* FROM case_master cm,case_type_approver ct where cm.case_type_id = ct.case_type  and ct.login_id=:userId order by cm.id desc"
 						, CaseMaster.class);
 				//Query("SELECT cm FROM CaseMaster cm,CaseTypeApprover ct where cm.caseType.id = ct.caseType.id  and ct.loginMaster.id=:userId order by cm.id desc");
 		query.setParameter("userId", userId);
