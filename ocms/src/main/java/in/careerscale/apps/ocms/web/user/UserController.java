@@ -6,14 +6,17 @@ import in.careerscale.apps.ocms.service.CaseService;
 import in.careerscale.apps.ocms.service.MasterDataService;
 import in.careerscale.apps.ocms.service.UserService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
+import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.registration.model.MyCases;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +51,20 @@ public class UserController {
 	public String index(@ModelAttribute(value = "cases") MyCases bean, BindingResult errors,
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
+		
+		List<in.careerscale.apps.ocms.web.cases.model.Case> myApprovedCases = caseService.getCasesToBeActedUpon();
 		List<in.careerscale.apps.ocms.web.cases.model.Case> myCasesList = caseService.getMyCases();
 		List<in.careerscale.apps.ocms.web.cases.model.Case> interestedCasesList = caseService.getInterestedCases();
+		bean.setMyApprovedCases(myApprovedCases);
+		
+		/*Iterator<in.careerscale.apps.ocms.web.cases.model.Case> itMyCases = myCasesList.iterator();
+		Iterator<in.careerscale.apps.ocms.web.cases.model.Case> itInterestedCases = interestedCasesList.iterator();
+		while(itInterestedCases.hasNext())
+		{
+			
+		}*/
+		
+		interestedCasesList = (List<Case>) CollectionUtils.subtract(interestedCasesList, myCasesList);
 		bean.setInterestedCases(interestedCasesList);
 		bean.setMyCases(myCasesList);
 		return "user/index";

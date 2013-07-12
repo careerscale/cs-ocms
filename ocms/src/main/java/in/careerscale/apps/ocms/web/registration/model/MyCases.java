@@ -11,6 +11,7 @@ public class MyCases implements Serializable
 
 		private List<Case> myCases;
 		private List<Case> interestedCases;
+		private List<in.careerscale.apps.ocms.web.cases.model.Case> myApprovedCases;
 		
 		public List<Case> getMyCases()
 		{
@@ -28,7 +29,15 @@ public class MyCases implements Serializable
 		{
 			this.interestedCases = interestedCases;
 		}
+		public List<in.careerscale.apps.ocms.web.cases.model.Case> getMyApprovedCases()
+		{
+			return myApprovedCases;
+		}
+		public void setMyApprovedCases(List<in.careerscale.apps.ocms.web.cases.model.Case> myApprovedCases)
+		{
+			this.myApprovedCases = myApprovedCases;
+		}
 		
-	
+		
 
 }

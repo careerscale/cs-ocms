@@ -10,6 +10,7 @@ import in.careerscale.apps.ocms.dao.model.CaseTypeApprover;
 import in.careerscale.apps.ocms.dao.model.City;
 import in.careerscale.apps.ocms.dao.model.Country;
 import in.careerscale.apps.ocms.dao.model.DocumentType;
+import in.careerscale.apps.ocms.dao.model.Fund;
 import in.careerscale.apps.ocms.dao.model.Organization;
 import in.careerscale.apps.ocms.dao.model.State;
 
@@ -136,6 +137,20 @@ public class CaseRepository
 		entityManager.flush();
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<CaseMaster> getCasesToBeActedUpon(Integer userId)
+	{
+		Query query = entityManager
+				.createNativeQuery(
+						"SELECT cm.* FROM Case_Master cm,Case_Type_Approver ct where cm.case_type_id = ct.case_type  and ct.login_id=:userId order by cm.id desc"	
+						, CaseMaster.class);
+				//Query("SELECT cm FROM CaseMaster cm,CaseTypeApprover ct where cm.caseType.id = ct.caseType.id  and ct.loginMaster.id=:userId order by cm.id desc");
+		query.setParameter("userId", userId);
+		return query.getResultList();
+	}
+
 
 	@SuppressWarnings("unchecked")
 	@Transactional
@@ -154,10 +169,12 @@ public class CaseRepository
 		// Query query =
 		// entityManager.createQuery("SELECT cm FROM CaseMaster cm inner join  cm.caseType ct  where cm.caseType.name = cm. order by cm.id desc");
 		Query query = entityManager
-				.createQuery("SELECT cm FROM CaseMaster cm where  cm.caseType.name in (select distinct(cm1.caseType.name) from CaseMaster cm1 where cm.createdBy.id = :userId or cm.updatedBy.id = :userId)   and  (cm.createdBy.id <> :userId or cm.updatedBy.id <> :userId ) order by cm.id desc");
+				.createQuery("SELECT cm FROM CaseMaster cm where  cm.caseType.id in (select distinct(cm1.caseType.id) from CaseMaster cm1 where cm1.createdBy.id = :userId or cm1.updatedBy.id = :userId)   and  (cm.createdBy.id <> :userId or cm.updatedBy.id <> :userId ) order by cm.id desc");
 		query.setParameter("userId", userId);
 		return query.getResultList();
 	}
+	
+	
 
 	public CaseMaster getCase(Integer id)
 	{
@@ -181,6 +198,17 @@ public class CaseRepository
 		return query.getResultList();
 
 	}
+	
+//	@SuppressWarnings("unchecked")
+//	public List<CaseApprovalHistory> getCaseHistoryFromCaseApprovalHistory(Integer caseId, Integer userId)
+//	{
+//		Query query = entityManager.createQuery("SELECT ca FROM CaseApprovalHistory ca where  ca.caseMaster.id=:id and ca.loginMaster.id=:userId order by ca.id desc	");
+//		query.setParameter("id", caseId);
+//		query.setParameter("userId", userId);
+//		
+//		return query.getResultList();
+//
+//	}
 
 	public void save(CaseApprovalHistory caseAprovalHistory)
 	{
@@ -216,10 +244,43 @@ public class CaseRepository
 
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Fund> getFundsHistory(Integer id)
+	{
+		Query query = entityManager
+				.createQuery("SELECT cd FROM Fund cd where  cd.caseMaster.id=:id order by cd.id desc");
+		query.setParameter("id", id);
+		return query.getResultList();
+	}
 	
+	public void saveFund(Fund fund)
+	{
+		entityManager.persist(fund);
+		entityManager.flush();
+
+	}
+	
+	public void updateFund(Fund fund)
+	{
+		entityManager.merge(fund);
+		entityManager.flush();
+
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<CaseApprovalHistory> getApprovalCountFromCaseApprovalHistory(Integer caseId)
+	{
+		Query query = entityManager.createQuery("SELECT ca FROM CaseApprovalHistory ca where  ca.caseMaster.id=:id order by ca.id desc");
+		query.setParameter("id", caseId);
+		return query.getResultList();
+
+	}
 
 	public int getApprovedCount()
 	{
+		
+		
 		// TODO write your logic here.
 		return 0;
 	}

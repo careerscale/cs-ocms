@@ -14,6 +14,8 @@ import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.CaseTypeApprover;
 import in.careerscale.apps.ocms.dao.model.City;
 import in.careerscale.apps.ocms.dao.model.DocumentType;
+import in.careerscale.apps.ocms.dao.model.Fund;
+import in.careerscale.apps.ocms.dao.model.FundStatus;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.Notification;
@@ -27,11 +29,13 @@ import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
 import in.careerscale.apps.ocms.web.cases.model.CaseDiscussionBO;
 import in.careerscale.apps.ocms.web.cases.model.CaseHistory;
 import in.careerscale.apps.ocms.web.cases.model.Document;
+import in.careerscale.apps.ocms.web.cases.model.FundBO;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.PersistenceException;
@@ -171,6 +175,30 @@ public class CaseService extends AbstractService
 
 	}
 
+	
+	
+	
+	/**
+	 * @return List of acted upon  cases
+	 */
+	public List<in.careerscale.apps.ocms.web.cases.model.Case> getCasesToBeActedUpon()
+	{
+		Integer userId = getLoggedInUserId();
+		List<in.careerscale.apps.ocms.web.cases.model.Case> myCasesList = new ArrayList<in.careerscale.apps.ocms.web.cases.model.Case>();
+		List<CaseMaster> lstCases = caseRepository.getCasesToBeActedUpon(userId);
+		for (CaseMaster mycase : lstCases)
+		{
+			myCasesList.add(new in.careerscale.apps.ocms.web.cases.model.Case(mycase.getId(), mycase.getPersonName(),
+					mycase.getCaseDescription(), mycase.getSource(), mycase.getDateOfBirth(), mycase.getCreatedOn(),
+					mycase.getUpdatedOn(), mycase.getContactNumber1(), mycase.getContactNumber2(), mycase
+							.getCaseStatusMaster().getCaseStatusName(), mycase.getHelpCategoryType().getCategoryName(),
+					mycase.getCaseType().getName(), mycase.getCreatedBy().getFirstName(), mycase.getUpdatedBy()
+							.getFirstName()));
+		}
+
+		return myCasesList;
+
+	}
 	/**
 	 * @return List of my cases
 	 */
@@ -289,12 +317,47 @@ public class CaseService extends AbstractService
 
 		List<CaseTypeApprover> caseTypeApprovers = caseRepository.getCaseApproverList(caseMaster.getCaseType().getId(),
 				org);
-		if (caseRepository.getApprovedCount() > caseTypeApprovers.size() / 2)
+		
+		//List<CaseHistory> caseHistoryList = getCaseApprovalHistory(history.getCaseId());
+		List<CaseApprovalHistory> caseApprovalHistories = caseRepository.getCaseApprovalHistory(history.getCaseId());
+		
+		Integer actualApprovedCount = 0;
+		
+		
+		Iterator<CaseTypeApprover> itCTA = caseTypeApprovers.iterator();
+		
+		
+		//for(CaseTypeApprover  caseTypeApprover:caseTypeApprovers)
+		while(itCTA.hasNext())
+		{
+			CaseTypeApprover  caseTypeApprover  = itCTA.next();
+			//for(CaseApprovalHistory caseHistory: caseApprovalHistories){
+			Iterator<CaseApprovalHistory> itCAH = caseApprovalHistories.iterator();
+				while(itCAH.hasNext())
+				{
+					CaseApprovalHistory caseHistory = itCAH.next();
+					if(caseHistory.getLoginMaster().getId() == caseTypeApprover.getLoginMaster().getId())
+					{
+									if(caseHistory.getCaseStatusMaster().getCaseStatusName().equalsIgnoreCase("Approved"))
+									{
+										actualApprovedCount++;
+									}
+						break;
+					}
+			}
+		}
+		
+		
+		
+		//if (caseRepository.getApprovedCount() > caseTypeApprovers.size() / 2)
+		if (actualApprovedCount > caseTypeApprovers.size() / 2)
 		{
 			caseMaster.setCaseStatusMaster((CaseStatusMaster) caseRepository.getById(CaseStatusMaster.class,
 					CaseStatus.ACTIVE.getId()));
 			caseRepository.update(caseMaster);
+				
 		}
+		//caseMaster.setUpdatedBy(loginMaster);
 		// let us do the logic of verifying.
 
 	}
@@ -362,6 +425,49 @@ public class CaseService extends AbstractService
 		}
 		return caseDiscussions;
 		
+	}
+	
+	public List<FundBO> getFundsHistory(Integer caseId)
+	{
+		List<FundBO> fundsList = new ArrayList<FundBO>();
+		List<Fund> lstFunds = caseRepository.getFundsHistory(caseId);
+		
+		for (Fund fund : lstFunds)
+		{
+				fundsList.add(new FundBO(fund.getId(), fund.getCaseMaster().getId(), fund.getDonor(), 
+						fund.getFundStatus().getName(), fund.getPromisedDate(), fund.getConfirmedDate(), 
+						fund.getPurpose(), fund.getAmount()
+										)
+							);
+		}
+		return fundsList;
+	}
+	
+	public void saveFund(FundBO fundBO)
+	{
+		Fund fund = new Fund();
+		LoginMaster loginMaster = getLoggedInUser();
+		fund.setLoginMaster(loginMaster);
+		fund.setAmount(fundBO.getAmount());
+		fund.setPromisedDate(fundBO.getPromisedDate());
+		fund.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, fundBO.getCaseId()));
+		fund.setDonor(fundBO.getDonor());
+		fund.setPromisedDate(new Date());
+		fund.setPurpose(fundBO.getPurpose());
+		fund.setFundStatus((FundStatus) caseRepository.getById(FundStatus.class, 1));
+		caseRepository.saveFund(fund);
+	}
+	
+	public void commitFund(FundBO fundBO)
+	{
+		Fund fund = (Fund) caseRepository.getById(Fund.class, fundBO.getId());
+		LoginMaster loginMaster = getLoggedInUser();
+		
+		//Need to change this to confirm user
+		fund.setLoginMaster(loginMaster);
+		fund.setConfirmedDate(new Date());
+		fund.setFundStatus((FundStatus) caseRepository.getById(FundStatus.class, 2));
+		caseRepository.updateFund(fund);
 	}
 
 	public byte[] getCaseArtifactById(Integer id)

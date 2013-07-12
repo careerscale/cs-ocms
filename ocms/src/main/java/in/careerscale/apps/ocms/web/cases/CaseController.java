@@ -9,6 +9,7 @@ import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
 import in.careerscale.apps.ocms.web.cases.model.CaseDiscussionBO;
 import in.careerscale.apps.ocms.web.cases.model.CaseHistory;
 import in.careerscale.apps.ocms.web.cases.model.DocumentType;
+import in.careerscale.apps.ocms.web.cases.model.FundBO;
 
 import java.io.IOException;
 import java.util.Date;
@@ -157,12 +158,36 @@ public class CaseController
 
 	}
 	
+	@RequestMapping(value = "/cases/confirmDonation", method = RequestMethod.POST)
+	public String confirmDonation(@ModelAttribute(value = "fund")  FundBO fund, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		caseService.commitFund(fund);
+		String ret= "redirect:/cases/"+fund.getCaseId();;
+		return ret;
+
+	}
+	
+	
+	
 	@RequestMapping(value = "/cases/caseDiscussion", method = RequestMethod.POST)
 	public String addDiscussion(@ModelAttribute(value = "caseDiscussion")  CaseDiscussionBO caseDiscussion, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		caseService.saveCaseDiscussion(caseDiscussion);
 		String ret= "redirect:/cases/"+caseDiscussion.getCaseId();;
+		return ret;
+
+	}
+
+	
+	
+	@RequestMapping(value = "/cases/addFund", method = RequestMethod.POST)
+	public String addFund(@ModelAttribute(value = "fund")  FundBO fund, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		caseService.saveFund(fund);
+		String ret= "redirect:/cases/"+fund.getCaseId();;
 		return ret;
 
 	}
@@ -181,6 +206,17 @@ public class CaseController
 		
 		List<CaseDiscussionBO> caseDiscussions = caseService.getCasesDiscussions(id);
 		bean.setCaseDiscussions(caseDiscussions);
+		
+		List<FundBO> funds = caseService.getFundsHistory(id);
+		bean.setFunds(funds);
+		
+		String loggedInUserName = caseService.getLoggedInUser().getFirstName();
+		for(CaseHistory caseHistory: caseHistoryList){
+			if(caseHistory.getUserName().equalsIgnoreCase(loggedInUserName)){
+				bean.setCaseStatusFromHistory(caseHistory.getStatus());
+				break;
+			}
+		}
 		
 		return "cases/casedetails";
 	}
