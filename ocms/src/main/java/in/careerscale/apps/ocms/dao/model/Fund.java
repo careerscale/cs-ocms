@@ -37,6 +37,8 @@ public class Fund implements java.io.Serializable
 	private Date receiptIssuedOn;
 	private Integer debitedAmount;
 
+	private LoginMaster confirmedBy;
+
 	public Fund()
 	{
 	}
@@ -193,6 +195,18 @@ public class Fund implements java.io.Serializable
 	public void setDebitedAmount(Integer debitedAmount)
 	{
 		this.debitedAmount = debitedAmount;
+	}
+
+	public void setConfirmedBy(LoginMaster confirmedBy)
+	{
+		this.confirmedBy = confirmedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "confirmed_by", nullable = false)
+	public LoginMaster getConfirmedBy()
+	{
+		return this.confirmedBy;
 	}
 
 }
