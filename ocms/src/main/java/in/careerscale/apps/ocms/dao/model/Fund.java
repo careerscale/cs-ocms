@@ -36,7 +36,8 @@ public class Fund implements java.io.Serializable
 	private Date confirmedDate;
 	private Date receiptIssuedOn;
 	private Integer debitedAmount;
-
+	private String confirmationComments;
+	private String receiptDescription;
 	private LoginMaster confirmedBy;
 
 	public Fund()
@@ -207,6 +208,28 @@ public class Fund implements java.io.Serializable
 	public LoginMaster getConfirmedBy()
 	{
 		return this.confirmedBy;
+	}
+
+	@Column(name = "confirmation_comments", nullable = false)
+	public String getConfirmationComments()
+	{
+		return confirmationComments;
+	}
+
+	public void setConfirmationComments(String confirmationComments)
+	{
+		this.confirmationComments = confirmationComments;
+	}
+
+	@Column(name = "receipt_description", nullable = false)
+	public String getReceiptDescription()
+	{
+		return receiptDescription;
+	}
+
+	public void setReceiptDescription(String receiptDescription)
+	{
+		this.receiptDescription = receiptDescription;
 	}
 
 }
