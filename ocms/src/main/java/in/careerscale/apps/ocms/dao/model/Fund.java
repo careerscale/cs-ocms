@@ -2,14 +2,12 @@ package in.careerscale.apps.ocms.dao.model;
 
 // Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,8 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "fund", catalog = "ocms")
-public class Fund implements java.io.Serializable
-{
+public class Fund implements java.io.Serializable {
 
 	private Integer id;
 	private FundStatus fundStatus;
@@ -40,23 +37,23 @@ public class Fund implements java.io.Serializable
 	private String receiptDescription;
 	private LoginMaster confirmedBy;
 
-	public Fund()
-	{
+	public Fund() {
 	}
 
-	public Fund(CaseMaster caseMaster, LoginMaster loginMaster, String donor, String purpose, Date promisedDate)
-	{
+	public Fund(CaseMaster caseMaster, LoginMaster loginMaster, String donor,
+			String purpose, int creditAmount, Date promisedDate) {
 		this.caseMaster = caseMaster;
 		this.loginMaster = loginMaster;
 		this.donor = donor;
 		this.purpose = purpose;
-
+		this.creditAmount = creditAmount;
 		this.promisedDate = promisedDate;
 	}
 
-	public Fund(FundStatus fundStatus, CaseMaster caseMaster, LoginMaster loginMaster, String donor, String purpose,
-			Integer creditAmount, Date promisedDate, Date confirmedDate, Date receiptIssuedOn, Integer debitedAmount)
-	{
+	public Fund(FundStatus fundStatus, CaseMaster caseMaster,
+			LoginMaster loginMaster, String donor, String purpose, 
+			Integer creditAmount, Date promisedDate, Date confirmedDate,
+			Date receiptIssuedOn, Integer debitedAmount) {
 		this.fundStatus = fundStatus;
 		this.caseMaster = caseMaster;
 		this.loginMaster = loginMaster;
@@ -72,132 +69,111 @@ public class Fund implements java.io.Serializable
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId()
-	{
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id)
-	{
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "status_id")
-	public FundStatus getFundStatus()
-	{
+	public FundStatus getFundStatus() {
 		return this.fundStatus;
 	}
 
-	public void setFundStatus(FundStatus fundStatus)
-	{
+	public void setFundStatus(FundStatus fundStatus) {
 		this.fundStatus = fundStatus;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "case_id", nullable = false)
-	public CaseMaster getCaseMaster()
-	{
+	public CaseMaster getCaseMaster() {
 		return this.caseMaster;
 	}
 
-	public void setCaseMaster(CaseMaster caseMaster)
-	{
+	public void setCaseMaster(CaseMaster caseMaster) {
 		this.caseMaster = caseMaster;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "login_id", nullable = false)
-	public LoginMaster getLoginMaster()
-	{
+	public LoginMaster getLoginMaster() {
 		return this.loginMaster;
 	}
 
-	public void setLoginMaster(LoginMaster loginMaster)
-	{
+	public void setLoginMaster(LoginMaster loginMaster) {
 		this.loginMaster = loginMaster;
 	}
 
 	@Column(name = "donor", nullable = false, length = 150)
-	public String getDonor()
-	{
+	public String getDonor() {
 		return this.donor;
 	}
 
-	public void setDonor(String donor)
-	{
+	public void setDonor(String donor) {
 		this.donor = donor;
 	}
 
 	@Column(name = "purpose", nullable = false)
-	public String getPurpose()
-	{
+	public String getPurpose() {
 		return this.purpose;
 	}
 
-	public void setPurpose(String purpose)
-	{
+	public void setPurpose(String purpose) {
 		this.purpose = purpose;
 	}
 
+	
 	@Column(name = "credit_amount")
-	public Integer getCreditAmount()
-	{
+	public Integer getCreditAmount() {
 		return this.creditAmount;
 	}
 
-	public void setCreditAmount(Integer creditAmount)
-	{
+	public void setCreditAmount(Integer creditAmount) {
 		this.creditAmount = creditAmount;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "promised_date", nullable = false, length = 19)
-	public Date getPromisedDate()
-	{
+	public Date getPromisedDate() {
 		return this.promisedDate;
 	}
 
-	public void setPromisedDate(Date promisedDate)
-	{
+	public void setPromisedDate(Date promisedDate) {
 		this.promisedDate = promisedDate;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "confirmed_date", length = 19)
-	public Date getConfirmedDate()
-	{
+	public Date getConfirmedDate() {
 		return this.confirmedDate;
 	}
 
-	public void setConfirmedDate(Date confirmedDate)
-	{
+	public void setConfirmedDate(Date confirmedDate) {
 		this.confirmedDate = confirmedDate;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "receipt_issued_on", length = 19)
-	public Date getReceiptIssuedOn()
-	{
+	public Date getReceiptIssuedOn() {
 		return this.receiptIssuedOn;
 	}
 
-	public void setReceiptIssuedOn(Date receiptIssuedOn)
-	{
+	public void setReceiptIssuedOn(Date receiptIssuedOn) {
 		this.receiptIssuedOn = receiptIssuedOn;
 	}
 
 	@Column(name = "debited_amount")
-	public Integer getDebitedAmount()
-	{
+	public Integer getDebitedAmount() {
 		return this.debitedAmount;
 	}
 
-	public void setDebitedAmount(Integer debitedAmount)
-	{
+	public void setDebitedAmount(Integer debitedAmount) {
 		this.debitedAmount = debitedAmount;
 	}
-
+	
 	public void setConfirmedBy(LoginMaster confirmedBy)
 	{
 		this.confirmedBy = confirmedBy;
