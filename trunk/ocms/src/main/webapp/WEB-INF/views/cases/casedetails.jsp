@@ -6,6 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!--[if lte IE 6]>
   <link rel="stylesheet" type="text/css" media="all" href="ie6.css" />
@@ -44,7 +46,7 @@
   /* IE has layout issues when sorting (see #5413) */
   .group { zoom: 1 }
  
-  #resizable { width: 400px; height: 200px; background: silver; }
+  #resizable { width: 600px; height: 200px; background: silver; }
   
   .ui-accordion .ui-accordion-header .ui-icon {
     	left: -2px !important;
@@ -270,6 +272,33 @@ fieldset, img {
     text-decoration: none;
 }
 
+a.contribution_modal_open, a.my_modal_open, a.newreply_modal_open, a.confirm_modal_open{
+ background-color: #2BA6CB;
+    border-color: #2284A1;
+    border-style: solid;
+    border-width: 1px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0 0 1.25em;
+    padding: 0.75em 1.5em 0.8125em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+font-size: 0.8125em;
+cursor: pointer;
+ color: green;
+ border: 1px solid #A8A8A8;
+  padding-bottom: 0.5625em;
+    padding-top: 0.625em;
+ box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    transition: background-color 300ms ease-out 0s;
+    
+}
 
 </style>
   
@@ -318,13 +347,21 @@ fieldset, img {
  #mycases{
  width:100%;
  }
+ 
+ #myfunds{
+ width:100%;
+ }
  .greenStatus
 {
 color:green;
 }
-.yellowStatus
+.blueStatus
 {
-color:yellow;
+color:blue;
+}
+.redStatus
+{
+color:red;
 }
 
 #selectable li {
@@ -377,6 +414,13 @@ top: -70em !important;
 {
 height:auto !important;
 }
+
+#ui-datepicker-div
+{
+/*position:relative !important;*/
+height:auto !important;
+top: auto !important;
+}
 </style>
 
 
@@ -386,6 +430,10 @@ $(function() {
     $('#my_modal').popup();
     
     $('#newreply_modal').popup();
+    $('#contribution_modal').popup();
+    $('#confirm_modal').popup();
+    
+    
     
   });
   
@@ -398,6 +446,14 @@ function openPopup(id)
 {
 	$("#parentDiscussionId").val(id);
 }
+
+function openPopupForFund(id)
+{
+	$("#fundId").val(id);
+	
+}
+
+
 $(function() {
     $( "#dialogReply" ).dialog({
     	 height: 140,
@@ -405,6 +461,13 @@ $(function() {
     });
   });
 
+
+$(function() {
+    $( "#datepicker" ).datepicker({ minDate: 0, maxDate: "+1M" });
+        //$( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
+   
+  });
+  
 $(function() {
 	
 	$( "#dialog-form" ).dialog({
@@ -442,6 +505,8 @@ $(function() {
 		/* $( "#create-comments" ).button().click(function() {
 			  $( "#dialog-add" ).dialog( "open" );
 			}); */
+			
+	
 });
 
 $(function() {
@@ -454,6 +519,15 @@ $(function() {
 	$(document).ready(function() {
 		var id = -1;//simulation of id
 		$('#mycases').dataTable({
+			bJQueryUI : true,
+
+			"sPaginationType" : "full_numbers"
+		});
+	});
+	
+	$(document).ready(function() {
+		var id = -1;//simulation of id
+		$('#myfunds').dataTable({
 			bJQueryUI : true,
 
 			"sPaginationType" : "full_numbers"
@@ -482,11 +556,52 @@ $(function() {
 $(document).ready(function() {
     $("#resizable").resizable();
   });
+  
+  
+$(document).ready(function() {$("#reeditcase").click(function() {
+	   $('#approveCase').show();
+	    $('#rejectCase').show();
+ });});
+ 
+
+$(document).ready(function() {$("#reeditcase").click(function() {
+	   $('#approveCase').show();
+	    $('#rejectCase').show();
+});});
+
+/* $(document).ready(function() {$("#cancel").click(function() {
+	 $( "#confirm_modal" ).close();
+});});
+ */	
+	
+	
 </script>
 <div>
-
-
   
+  <div  id="contribution_modal" class="well" title="New Contribution">
+  		 <form:form method="post" action="addFund" id="addCaseForm3"
+				modelAttribute="caseDetails">
+		  <div id="submitComments2">
+		  <fieldset >
+		  <label for="donor">Donor Name(on receipt)</label>
+   		  <form:input path="donor"  class="text ui-widget-content ui-corner-all"/>
+   		  
+   		  <label for="amount">Amount (Rs)</label>
+   		  <form:input path="amount"  class="text ui-widget-content ui-corner-all"/>
+    
+		    <label for="purpose">Purpose</label>
+			<form:textarea path="purpose" rows="10" cols="30"   id="resizable1134" />
+			<%-- </br>
+			 <label for="promisedDate">Promised Date</label>
+			<form:input path="promisedDate" type="text" class="text ui-widget-content ui-corner-all" id="datepicker" />
+			 --%>					
+			<br>
+			<input class="button small round inline right" type="submit" name="status" value="Submit"  />
+			<form:hidden path="caseId" value="${caseDetails.id}" />
+		  </fieldset>
+		  </div>
+		</form:form>
+  </div>
 
 <div id="newreply_modal" class="well" title="Add Comments">
    <form:form method="post" action="caseDiscussion" id="addCaseForm2"
@@ -503,6 +618,30 @@ $(document).ready(function() {
   </div>
 </form:form>
  </div>
+ 
+ 
+ <div id="confirm_modal" class="well" title="Add Comments">
+   <form:form method="post" action="confirmDonation" id="addCaseForm4"
+				modelAttribute="caseDetails">
+  <div id="submitComments456">
+  <fieldset >
+  	<p> Are you sure, donation amount is collected from the donor,and now you want to confirm this donation.</p>
+    <label for="comments">Add Comments</label>
+	<form:textarea path="purpose" rows="10" cols="30"   id="resizable111" />
+	<br>
+	<!-- <input class="button small round inline right" type="button" name="cancel" id="cancel1" value="Cancel"  />
+	 --><input class="button small round inline right" type="submit" name="status" value="Submit"  />
+	   <form:hidden path="caseId" value="${caseDetails.id}" />
+	 <form:hidden path="id" id="fundId" />
+	
+	 
+  </fieldset>
+  </div>
+</form:form>
+ </div>
+ 
+ 
+ 
  
  
   <div id="my_modal" class="well" title="Add Comments">
@@ -530,8 +669,18 @@ $(document).ready(function() {
 			</div>
 			<div class="large-1 columns"></div>
 			<div class="large-5 columns"><h4>Case Status</h4></div>
-			<div class="large-6 columns"><h4 style="color:green;">${caseDetails.caseStatusString}</h4>
+			<div class="large-6 columns"><h4 class="${caseDetails.caseStatusString eq 'Approved'?'greenStatus':(caseDetails.caseStatusString eq 'Rejected' ? 'redStatus': 'blueStatus')}">
+			${caseDetails.caseStatusString}</h4>
 			</div>
+			
+			<div class="large-1 columns"></div>
+			<div class="large-5 columns"><h8>Your Status on this case</h8></div>
+			<div class="large-6 columns"><h9 class="${caseDetails.caseStatusFromHistory eq 'Approved'?'greenStatus':(caseDetails.caseStatusFromHistory eq 'Rejected' ? 'redStatus': 'blueStatus')}">
+			${caseDetails.caseStatusFromHistory}</h9>
+			</div>
+			
+	
+	
 	<br clear="all" />
 	<br clear="all" />
 	<form:form method="post" action="caseAction" id="addCaseForm"
@@ -542,15 +691,39 @@ $(document).ready(function() {
   <div class="group">
    <h3><b>Actions</b></h3>
     <div>
+    	<c:if test="${(caseDetails.caseStatusString eq 'Approved' or caseDetails.caseStatusString eq 'Rejected')}">
+    		 <script>
+	    	$(document).ready(function() {
+	    	    $('#approveCase').hide();
+	    	    $('#rejectCase').hide();
+	    	 });
+	    	</script>
+    	</c:if>
+    	
+    	<c:if test="${!(caseDetails.caseStatusString eq 'Approved' or caseDetails.caseStatusString eq 'Rejected')}">
+        	<c:if test="${caseDetails.caseStatusFromHistory eq 'Approved' or caseDetails.caseStatusFromHistory eq 'Rejected'}">
+	     		 <script>
+	    	$(document).ready(function() {
+	    	    $('#approveCase').hide();
+	    	    $('#rejectCase').hide();
+	    	 });
+	    	</script>
+	    	
+	     		 <p>You have already <b class="${caseDetails.caseStatusFromHistory eq 'Approved'?'greenStatus':(caseDetails.caseStatusFromHistory eq 'Rejected' ? 'redStatus': 'blueStatus')}">
+			${caseDetails.caseStatusFromHistory}"
+	     		 </b> this case, if you still want to edit, please <a id="reeditcase"  style="color:blue;text-decoration:underline;">click here</a></p>
+	    	</c:if>
+	    	</c:if>
+    	
       <p>Approve, Reject or Ask Clarifications for the case</p>
       <div class="row">
-						<div class="large-9 columns">
+						<div class="large-11 columns">
 							
-							<form:textarea path="reason" rows="5" cols="30"   id="resizable" />
+							<form:textarea path="reason" rows="5" cols="80"   id="resizable" />
 							
 							<!-- <textarea name="test" id="resizable"></textarea> -->
 						</div>
-						<div class="large-3 columns">
+						<div class="large-1 columns">
 							<form:hidden path="caseId" value="${caseDetails.id}" />
 						</div>
 					</div>
@@ -559,21 +732,21 @@ $(document).ready(function() {
 			  <div class="row">	
 			  		</div>
 					
-							<div class="left inline">
+							
 								
 								
 								<div class="large-3 columns">
-											<input class="button small round inline right" type="submit" name="status" value="Approve Case" style="width: 120px" tabindex="14" />
+									<input class="button small round inline right" id="approveCase" type="submit" name="status" value="Approve Case" style="width: 130px" tabindex="14" />
 								</div>
 								<div class="large-3 columns">
-									 <input class="button small round inline right" type="submit" value="Reject Case" style="width: 120px" tabindex="14" />
+									 <input class="button small round inline right" id="rejectCase" type="submit" name="status" value="Reject Case" style="width: 120px" tabindex="14" />
 								</div>
 								<div class="large-4 columns">
-									<input class="button small round inline right" type="submit" value="Ask For More Info" style="width: 150px" tabindex="14" />
+									<input class="button small round inline right" type="submit"  name="status" value="Ask For More Info" style="width: 170px" tabindex="14" />
 								</div>
 								<div class="large-2 columns"></div>
 								
-							</div>
+							
 						
       
     </div>
@@ -827,8 +1000,87 @@ $(document).ready(function() {
   </div>
    <div class="group">
     <h3><b>Financials</b></h3>
-    <div>
-      <p>Cras dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia mauris vel est. </p><p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
+  <div>
+    <div id="fw_container">
+
+
+ <div class="large-2 columns">
+    </div>
+    	 <div class="large-2 columns">
+   			<a class="contribution_modal_open" id="new-contribution">Contribute</a>
+   		</div>
+   		 <div class="large-2 columns">
+   		<%--  <sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
+   			<a class="confirm_modal_open" id="new-confirm"  onClick="openPopupForFund('${caseDiscuss.id}')">Confirm</a>
+   			</sec:authorize> --%>
+   		</div>
+   		<div class="large-6 columns">
+   		</div>
+   		
+   		
+		<div id="fw_header">
+<div id="fw_content">
+
+      <div class="twelve columns">
+				<h4>Financials History</h4>
+					<table cellpadding="0" cellspacing="0" border="0" 
+						id="myfunds"  class="responsive">
+						<thead>
+							<tr>
+								<th nowrap>Donor</th>
+								<th nowrap>Purpose</th>
+								<th nowrap>Amount</th>
+								<th nowrap>Promise Date</th>
+								<th nowrap>Donation Status</th>
+								<sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
+									<th nowrap>Confirmed Date/Confirm</th>
+								</sec:authorize>
+						
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th nowrap>Donor</th>
+								<th nowrap>Purpose</th>
+								<th nowrap>Amount</th>
+								<th nowrap>Promised Date</th>
+								<th nowrap>Donation Status</th>
+								<sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
+								<th nowrap>Confirmed Date/Confirm</th>
+								<!-- <th nowrap>Confirm</th> -->
+								</sec:authorize>
+							</tr>
+						</tfoot>
+						<tbody id="tbody1">
+							<c:forEach items="${caseDetails.funds}" var="fund">
+								<tr id='${fund.id}'>
+								<td>${fund.donor}</td>
+									<td>${fund.purpose}</td>
+									<td>${fund.amount}</td>
+									<td>${fund.promisedDate}</td>
+									<!-- <td></td>-->
+									<td>${fund.fundStatus}</td> 
+									<sec:authorize access="hasAnyRole('MANAGER', 'ADMIN')">
+										<td>
+										<c:if test="${(fund.fundStatus eq 'CONFIRMED')}">
+										${fund.confirmedDate}
+										</c:if>
+										<c:if test="${!(fund.fundStatus eq 'CONFIRMED')}">
+										<a class="confirm_modal_open" id="new-confirm"  onClick="openPopupForFund('${fund.id}')">Confirm</a>
+										</c:if>
+										</td> 
+									</sec:authorize>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				</div>
+				<div class="large-12 columns"> </div>
+				<br>
+				<br>
+				 <div class="row"></div>
+				
     </div>
   </div>
   

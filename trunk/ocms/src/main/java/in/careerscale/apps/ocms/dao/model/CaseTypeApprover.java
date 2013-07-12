@@ -58,7 +58,7 @@ public class CaseTypeApprover implements java.io.Serializable {
 		this.organization = organization;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "login_id", nullable = false, insertable = false, updatable = false)
 	public LoginMaster getLoginMaster() {
 		return this.loginMaster;

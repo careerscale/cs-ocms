@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 @SuppressWarnings("serial")
 public class Case implements Serializable
 {
-	private int id; // used only for doc upload.
+	private Integer id; // used only for doc upload.
 	private String personName;
 	private String emailId;
 	private String caseDescription;
@@ -52,8 +52,101 @@ public class Case implements Serializable
 	private String subject;
 	
 	
+	 @Override
+     public boolean equals(Object o) {
+          if (!(o instanceof Case))
+               return false;
+          Case that = (Case) o;
+          return this.id == that.id ;
+     }
+
+     @Override
+     public int hashCode() {
+          return id.hashCode();
+     }
+     
+     
+	
+	private FundBO fund;;
+	
+	public FundBO getFund()
+	{
+		return fund;
+	}
+
+	public void setFund(FundBO fund)
+	{
+		this.fund = fund;
+	}
+
+
+
+	private String donor;
+	private Integer amount;
+	private String purpose;
+	private Date promisedDate;
 	
 	
+	public Date getPromisedDate()
+	{
+		return promisedDate;
+	}
+
+
+	public void setPromisedDate(Date promisedDate)
+	{
+		this.promisedDate = promisedDate;
+	}
+
+
+	public String getCityName()
+	{
+		return cityName;
+	}
+
+
+	public void setCityName(String cityName)
+	{
+		this.cityName = cityName;
+	}
+
+
+	public String getDonor()
+	{
+		return donor;
+	}
+
+
+	public void setDonor(String donor)
+	{
+		this.donor = donor;
+	}
+
+
+	public Integer getAmount()
+	{
+		return amount;
+	}
+
+
+	public void setAmount(Integer amount)
+	{
+		this.amount = amount;
+	}
+
+
+	public String getPurpose()
+	{
+		return purpose;
+	}
+
+
+	public void setPurpose(String purpose)
+	{
+		this.purpose = purpose;
+	}
+
+
 	public String getSubject()
 	{
 		return subject;
@@ -93,8 +186,21 @@ public class Case implements Serializable
 	
 	private List<CaseDiscussionBO> caseDiscussions;
 	
+	private List<FundBO> funds;
 	
 	
+	
+	public List<FundBO> getFunds()
+	{
+		return funds;
+	}
+
+
+	public void setFunds(List<FundBO> funds)
+	{
+		this.funds = funds;
+	}
+
 	private String reason;
 	private String action;
 	private String caseId;
@@ -141,6 +247,20 @@ public class Case implements Serializable
 	public List<CaseHistory> getCaseHistoryList()
 	{
 		return caseHistoryList;
+	}
+
+	private String caseStatusFromHistory;
+	
+
+	public String getCaseStatusFromHistory()
+	{
+		return caseStatusFromHistory;
+	}
+	
+	
+	public void setCaseStatusFromHistory(String caseStatusFromHistory)
+	{
+		this.caseStatusFromHistory = caseStatusFromHistory;
 	}
 
 
@@ -525,12 +645,12 @@ public class Case implements Serializable
 		this.zipcode = zipcode;
 	}
 
-	public int getId()
+	public Integer getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(Integer id)
 	{
 		this.id = id;
 	}
