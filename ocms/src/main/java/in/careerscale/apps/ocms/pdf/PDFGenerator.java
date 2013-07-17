@@ -12,7 +12,11 @@ import java.security.cert.Certificate;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.crypto.Cipher;
+
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.ibm.icu.util.Calendar;
 import com.itextpdf.text.BaseColor;
@@ -42,6 +46,7 @@ import com.itextpdf.text.pdf.security.OcspClient;
 import com.itextpdf.text.pdf.security.PrivateKeySignature;
 import com.itextpdf.text.pdf.security.TSAClient;
 
+@Service("pdfGenerator")
 public class PDFGenerator
 {
 
@@ -50,6 +55,17 @@ public class PDFGenerator
 	private Font subFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
 	private Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 8, Font.BOLD);
 	private Font plainFont = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD);
+
+	@Value("${certificateFile}")
+	private String certFileName;
+
+	@Value("${certificatePassword}")
+	private String certificatePassword;
+
+	static
+	{
+		Security.insertProviderAt(new BouncyCastleProvider(), 1);
+	}
 
 	public static void sign(String src, String name, String dest, Certificate[] chain, PrivateKey pk,
 			String digestAlgorithm, String provider, CryptoStandard subfilter, String reason, String location)
@@ -161,13 +177,12 @@ public class PDFGenerator
 				redFont));
 	}
 
-	public void generateReceipt(String name, String amount, String reason, String format, String date,
-			String receiptNumber)
-			throws IOException, GeneralSecurityException
+	public String generateReceipt(String name, String amount, String reason, String format, String date,
+			String receiptNumber) throws IOException, GeneralSecurityException
 	{
 		try
 		{
-			String fileName = name;
+			String fileName = name.replaceAll(" ", "_");
 			Document document = new Document();
 
 			FileOutputStream out = new FileOutputStream(fileName + ".pdf");
@@ -177,7 +192,11 @@ public class PDFGenerator
 			addDonationInformation(document, name, amount, reason, format, date, receiptNumber);
 			addFooter(document);
 			document.close();
-			sign(fileName + ".pdf", fileName + "_signed.pdf");
+			String finalFileName = fileName + "_signed.pdf";
+			sign(fileName + ".pdf", finalFileName);
+			out.close();
+
+			return finalFileName;
 		}
 		catch (DocumentException de)
 		{
@@ -188,15 +207,15 @@ public class PDFGenerator
 	private void sign(String source, String destination) throws IOException, GeneralSecurityException,
 			DocumentException
 	{
-		String path = "/Users/hmallepally/dsc/HARINATH MALLEPALLY.pfx";
-		char[] pass = "1234".toCharArray();
+		// String path = "careerscale.pfx";
+		// char[] pass = "careerscale".toCharArray();
 
 		BouncyCastleProvider provider = new BouncyCastleProvider();
 		Security.addProvider(provider);
 		KeyStore ks = KeyStore.getInstance("pkcs12", provider.getName());
-		ks.load(new FileInputStream(path), pass);
+		ks.load(new FileInputStream(certFileName), certificatePassword.toCharArray());
 		String alias = (String) ks.aliases().nextElement();
-		PrivateKey pk = (PrivateKey) ks.getKey(alias, pass);
+		PrivateKey pk = (PrivateKey) ks.getKey(alias, certificatePassword.toCharArray());
 		Certificate[] chain = ks.getCertificateChain(alias);
 		PDFGenerator app = new PDFGenerator();
 		app.generateSimplePDF();
@@ -216,7 +235,10 @@ public class PDFGenerator
 		 */
 
 		PDFGenerator generator = new PDFGenerator();
-		generator.generateReceipt("Harinath", "Two thousand", " Demo purpose ", " Online", "09/07/2013", "202");
+		// generator.generateReceipt("Harinath Mallepally", "Two thousand rupees only",
+		// " Demo purpose only, do not use officially ", " Online", "09/07/2013",
+		// "202");
+		System.out.println(Cipher.getMaxAllowedKeyLength("AES"));
 
 	}
 

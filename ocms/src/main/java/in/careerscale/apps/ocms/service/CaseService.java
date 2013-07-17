@@ -23,6 +23,7 @@ import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
 import in.careerscale.apps.ocms.dao.model.NotificationStatus;
 import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
 import in.careerscale.apps.ocms.dao.model.Organization;
+import in.careerscale.apps.ocms.pdf.PDFGenerator;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.cases.model.CaseArtifacts;
@@ -31,7 +32,11 @@ import in.careerscale.apps.ocms.web.cases.model.CaseHistory;
 import in.careerscale.apps.ocms.web.cases.model.Document;
 import in.careerscale.apps.ocms.web.cases.model.FundBO;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,6 +54,8 @@ import org.springframework.stereotype.Service;
 public class CaseService extends AbstractService
 {
 
+	private static final String ONLINE_TRANSFER = "Online Transfer";
+
 	Log log = LogFactory.getLog(CaseService.class);
 
 	@Autowired
@@ -56,6 +63,9 @@ public class CaseService extends AbstractService
 
 	@Autowired
 	private NotificationRepository notificationRepository;
+
+	@Autowired
+	private PDFGenerator pdfGenerator;
 
 	public void setCaseRepository(CaseRepository caseRepository)
 	{
@@ -175,11 +185,8 @@ public class CaseService extends AbstractService
 
 	}
 
-	
-	
-	
 	/**
-	 * @return List of acted upon  cases
+	 * @return List of acted upon cases
 	 */
 	public List<in.careerscale.apps.ocms.web.cases.model.Case> getCasesToBeActedUpon()
 	{
@@ -199,6 +206,7 @@ public class CaseService extends AbstractService
 		return myCasesList;
 
 	}
+
 	/**
 	 * @return List of my cases
 	 */
@@ -317,47 +325,43 @@ public class CaseService extends AbstractService
 
 		List<CaseTypeApprover> caseTypeApprovers = caseRepository.getCaseApproverList(caseMaster.getCaseType().getId(),
 				org);
-		
-		//List<CaseHistory> caseHistoryList = getCaseApprovalHistory(history.getCaseId());
+
+		// List<CaseHistory> caseHistoryList = getCaseApprovalHistory(history.getCaseId());
 		List<CaseApprovalHistory> caseApprovalHistories = caseRepository.getCaseApprovalHistory(history.getCaseId());
-		
+
 		Integer actualApprovedCount = 0;
-		
-		
+
 		Iterator<CaseTypeApprover> itCTA = caseTypeApprovers.iterator();
-		
-		
-		//for(CaseTypeApprover  caseTypeApprover:caseTypeApprovers)
-		while(itCTA.hasNext())
+
+		// for(CaseTypeApprover caseTypeApprover:caseTypeApprovers)
+		while (itCTA.hasNext())
 		{
-			CaseTypeApprover  caseTypeApprover  = itCTA.next();
-			//for(CaseApprovalHistory caseHistory: caseApprovalHistories){
+			CaseTypeApprover caseTypeApprover = itCTA.next();
+			// for(CaseApprovalHistory caseHistory: caseApprovalHistories){
 			Iterator<CaseApprovalHistory> itCAH = caseApprovalHistories.iterator();
-				while(itCAH.hasNext())
+			while (itCAH.hasNext())
+			{
+				CaseApprovalHistory caseHistory = itCAH.next();
+				if (caseHistory.getLoginMaster().getId() == caseTypeApprover.getLoginMaster().getId())
 				{
-					CaseApprovalHistory caseHistory = itCAH.next();
-					if(caseHistory.getLoginMaster().getId() == caseTypeApprover.getLoginMaster().getId())
+					if (caseHistory.getCaseStatusMaster().getCaseStatusName().equalsIgnoreCase("Approved"))
 					{
-									if(caseHistory.getCaseStatusMaster().getCaseStatusName().equalsIgnoreCase("Approved"))
-									{
-										actualApprovedCount++;
-									}
-						break;
+						actualApprovedCount++;
 					}
+					break;
+				}
 			}
 		}
-		
-		
-		
-		//if (caseRepository.getApprovedCount() > caseTypeApprovers.size() / 2)
+
+		// if (caseRepository.getApprovedCount() > caseTypeApprovers.size() / 2)
 		if (actualApprovedCount > caseTypeApprovers.size() / 2)
 		{
 			caseMaster.setCaseStatusMaster((CaseStatusMaster) caseRepository.getById(CaseStatusMaster.class,
 					CaseStatus.ACTIVE.getId()));
 			caseRepository.update(caseMaster);
-				
+
 		}
-		//caseMaster.setUpdatedBy(loginMaster);
+		// caseMaster.setUpdatedBy(loginMaster);
 		// let us do the logic of verifying.
 
 	}
@@ -376,18 +380,17 @@ public class CaseService extends AbstractService
 		{
 			histories.add(new CaseHistory(caseApprovalHistory.getCaseMaster().getId(), caseApprovalHistory.getReason(),
 					caseApprovalHistory.getCaseStatusMaster().getCaseStatusName(), caseApprovalHistory.getLoginMaster()
-							.getFirstName()
-					, caseApprovalHistory.getApprovalDate(),   caseApprovalHistory.getLoginMaster().getEmailId(),  "NA"		
-					)
-			
-					);
+							.getFirstName(), caseApprovalHistory.getApprovalDate(), caseApprovalHistory
+							.getLoginMaster().getEmailId(), "NA")
+
+			);
 
 		}
 
 		return histories;
 
 	}
-	
+
 	public void saveCaseDiscussion(CaseDiscussionBO caseDiscussionBO)
 	{
 		CaseDiscussion caseDiscussion = new CaseDiscussion();
@@ -396,53 +399,54 @@ public class CaseService extends AbstractService
 		caseDiscussion.setComments(caseDiscussionBO.getComments());
 		caseDiscussion.setSubject(caseDiscussionBO.getSubject());
 		caseDiscussion.setCreatedOn(new Date());
-		caseDiscussion.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, caseDiscussionBO.getCaseId()));
-		if(caseDiscussionBO.getParentDiscussionId() != null)
-			{
-			CaseDiscussion cd  = (CaseDiscussion) caseRepository.getById(CaseDiscussion.class, caseDiscussionBO.getParentDiscussionId());
+		caseDiscussion
+				.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, caseDiscussionBO.getCaseId()));
+		if (caseDiscussionBO.getParentDiscussionId() != null)
+		{
+			CaseDiscussion cd = (CaseDiscussion) caseRepository.getById(CaseDiscussion.class,
+					caseDiscussionBO.getParentDiscussionId());
 			caseDiscussion.setCaseDiscussion(cd);
 			caseDiscussion.setSubject(cd.getSubject());
-			}
+		}
 		caseRepository.saveCaseDiscussion(caseDiscussion);
-		
+
 	}
-	
+
 	public List<CaseDiscussionBO> getCasesDiscussions(Integer caseId)
 	{
 		List<CaseDiscussionBO> caseDiscussions = new ArrayList<CaseDiscussionBO>();
 		List<CaseDiscussion> lstCaseDiscussions = caseRepository.getCaseDiscussions(caseId);
-		
+
 		for (CaseDiscussion caseDiscussion : lstCaseDiscussions)
 		{
-			caseDiscussions.add(new CaseDiscussionBO(caseDiscussion.getId(), caseDiscussion.getCaseMaster().getId(), caseDiscussion.getLoginMaster().getFirstName(), 
-					caseDiscussion.getCreatedOn(), caseDiscussion.getComments(), caseDiscussion.getSubject(), 
-					
-					caseDiscussion.getCaseDiscussion()!=null?caseDiscussion.getCaseDiscussion().getSubject():null,
-							caseDiscussion.getCaseDiscussion()!=null?caseDiscussion.getCaseDiscussion().getLoginMaster().getFirstName():null,
-									caseDiscussion.getCaseDiscussion()!=null?caseDiscussion.getCaseDiscussion().getId():null
-					)
-					);
+			caseDiscussions
+					.add(new CaseDiscussionBO(caseDiscussion.getId(), caseDiscussion.getCaseMaster().getId(),
+							caseDiscussion.getLoginMaster().getFirstName(), caseDiscussion.getCreatedOn(),
+							caseDiscussion.getComments(), caseDiscussion.getSubject(),
+
+							caseDiscussion.getCaseDiscussion() != null ? caseDiscussion.getCaseDiscussion()
+									.getSubject() : null, caseDiscussion.getCaseDiscussion() != null ? caseDiscussion
+									.getCaseDiscussion().getLoginMaster().getFirstName() : null, caseDiscussion
+									.getCaseDiscussion() != null ? caseDiscussion.getCaseDiscussion().getId() : null));
 		}
 		return caseDiscussions;
-		
+
 	}
-	
+
 	public List<FundBO> getFundsHistory(Integer caseId)
 	{
 		List<FundBO> fundsList = new ArrayList<FundBO>();
 		List<Fund> lstFunds = caseRepository.getFundsHistory(caseId);
-		
+
 		for (Fund fund : lstFunds)
 		{
-				fundsList.add(new FundBO(fund.getId(), fund.getCaseMaster().getId(), fund.getDonor(), 
-						fund.getFundStatus().getName(), fund.getPromisedDate(), fund.getConfirmedDate(), 
-						fund.getPurpose(), fund.getCreditAmount()
-										)
-							);
+			fundsList.add(new FundBO(fund.getId(), fund.getCaseMaster().getId(), fund.getDonor(), fund.getFundStatus()
+					.getName(), fund.getPromisedDate(), fund.getConfirmedDate(), fund.getPurpose(), fund
+					.getCreditAmount()));
 		}
 		return fundsList;
 	}
-	
+
 	public void saveFund(FundBO fundBO)
 	{
 		Fund fund = new Fund();
@@ -457,16 +461,56 @@ public class CaseService extends AbstractService
 		fund.setFundStatus((FundStatus) caseRepository.getById(FundStatus.class, 1));
 		caseRepository.saveFund(fund);
 	}
-	
+
 	public void commitFund(FundBO fundBO)
 	{
 		Fund fund = (Fund) caseRepository.getById(Fund.class, fundBO.getId());
 		LoginMaster loginMaster = getLoggedInUser();
-		
-		//Need to change this to confirm user
+
+		// Need to change this to confirm user
+		fund.setConfirmationComments(fundBO.getPurpose());
+		fund.setReceiptDescription(fundBO.getPurpose());
 		fund.setLoginMaster(loginMaster);
 		fund.setConfirmedDate(new Date());
 		fund.setFundStatus((FundStatus) caseRepository.getById(FundStatus.class, 2));
+		String receiptFileName = null;
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String confirmedDateValue = sdf.format(fund.getConfirmedDate());
+
+		try
+		{
+			receiptFileName = pdfGenerator.generateReceipt(fund.getDonor(), fund.getCreditAmount().toString(),
+					fund.getReceiptDescription() + "", ONLINE_TRANSFER, confirmedDateValue, fund.getId().toString());
+		}
+		catch (IOException e)
+		{
+			log.error("error while generating signed receipt", e);
+		}
+		catch (GeneralSecurityException e)
+		{
+			log.error("error while generating signed receipt", e);
+		}
+		try
+		{
+			if (receiptFileName != null)
+			{
+				FileInputStream receiptFile = new FileInputStream(receiptFileName);
+
+				File receiptFileObj = new File(receiptFileName);
+				byte[] fileContent = new byte[(int) receiptFileObj.length()];
+
+				receiptFile.read(fileContent);
+				fund.setReceipt(fileContent);
+				receiptFile.read(fund.getReceipt());
+				receiptFile.close();
+
+			}
+		}
+		catch (IOException e)
+		{
+			log.error("error while saving signed receipt into database", e);
+		}
 		caseRepository.updateFund(fund);
 	}
 
@@ -476,5 +520,7 @@ public class CaseService extends AbstractService
 		return artifact.getArtifact();
 
 	}
+
+
 
 }

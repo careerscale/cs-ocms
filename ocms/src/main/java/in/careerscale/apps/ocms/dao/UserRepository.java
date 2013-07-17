@@ -14,8 +14,6 @@ import in.careerscale.apps.ocms.dao.model.UserProfile;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -24,10 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(readOnly = true)
-public class UserRepository {
-	
-	@PersistenceContext
-	private EntityManager entityManager;
+public class UserRepository extends BaseRepository
+{
+
 	
 	@Transactional
 	public void save(LoginMaster user) {
