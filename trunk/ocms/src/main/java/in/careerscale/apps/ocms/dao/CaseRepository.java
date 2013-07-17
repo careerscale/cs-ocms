@@ -17,8 +17,6 @@ import in.careerscale.apps.ocms.dao.model.State;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -26,11 +24,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional(readOnly = true)
-public class CaseRepository
+public class CaseRepository extends BaseRepository
 {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+
 
 	@Transactional
 	public void registerCase(CaseMaster casemaster)

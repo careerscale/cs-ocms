@@ -402,10 +402,14 @@ CREATE  TABLE IF NOT EXISTS `fund` (
   `login_id` INT NOT NULL ,
   `debited_amount` INT NULL ,
   `receipt` MEDIUMBLOB NULL ,
+  `confirmed_by` INT NULL ,
+  `receipt_description` VARCHAR(255) NULL ,
+  `confirmation_comments` VARCHAR(255) NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_fund_management_case_id_idx` (`case_id` ASC) ,
   INDEX `fk_funds_status_id_idx` (`status_id` ASC) ,
   INDEX `fk_funds_login_id_idx` (`login_id` ASC) ,
+  INDEX `fk_funds_confirmed_by_idx` (`confirmed_by` ASC) ,
   CONSTRAINT `fk_funds_case_id`
     FOREIGN KEY (`case_id` )
     REFERENCES `case_master` (`id` )
@@ -418,6 +422,11 @@ CREATE  TABLE IF NOT EXISTS `fund` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_funds_login_id`
     FOREIGN KEY (`login_id` )
+    REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_funds_confirmed_by`
+    FOREIGN KEY (`confirmed_by` )
     REFERENCES `login_master` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

@@ -10,7 +10,6 @@ import in.careerscale.apps.ocms.web.cases.model.Case;
 import in.careerscale.apps.ocms.web.registration.model.MyCases;
 import in.careerscale.apps.ocms.web.registration.model.User;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -164,6 +164,13 @@ public class UserController {
 		{
 			log.error("error while retrieving master data", e);
 		}
+	}
+
+	@RequestMapping(value = "/user/downloads/receipt/{id}", method = RequestMethod.GET, produces = "application/pdf")
+	public @ResponseBody
+	byte[] getReceiptById(@PathVariable Integer id)
+	{
+		return userService.getReceiptById(id);
 	}
 
 }

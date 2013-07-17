@@ -1,11 +1,5 @@
 package in.careerscale.apps.ocms.web.backoffice;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
@@ -13,10 +7,12 @@ import in.careerscale.apps.ocms.dao.model.OrgType;
 import in.careerscale.apps.ocms.dao.model.RoleMaster;
 import in.careerscale.apps.ocms.service.BackOfficeService;
 import in.careerscale.apps.ocms.service.MasterDataService;
-import in.careerscale.apps.ocms.service.UserService;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.backoffice.model.BOBean;
-import in.careerscale.apps.ocms.web.registration.model.User;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

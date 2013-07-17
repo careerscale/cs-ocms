@@ -2,12 +2,14 @@ package in.careerscale.apps.ocms.dao.model;
 
 // Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -36,6 +38,7 @@ public class Fund implements java.io.Serializable {
 	private String confirmationComments;
 	private String receiptDescription;
 	private LoginMaster confirmedBy;
+	private byte[] receipt;
 
 	public Fund() {
 	}
@@ -180,13 +183,13 @@ public class Fund implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "confirmed_by", nullable = false)
+	@JoinColumn(name = "confirmed_by", nullable = true)
 	public LoginMaster getConfirmedBy()
 	{
 		return this.confirmedBy;
 	}
 
-	@Column(name = "confirmation_comments", nullable = false)
+	@Column(name = "confirmation_comments", nullable = true)
 	public String getConfirmationComments()
 	{
 		return confirmationComments;
@@ -197,7 +200,7 @@ public class Fund implements java.io.Serializable {
 		this.confirmationComments = confirmationComments;
 	}
 
-	@Column(name = "receipt_description", nullable = false)
+	@Column(name = "receipt_description", nullable = true)
 	public String getReceiptDescription()
 	{
 		return receiptDescription;
@@ -206,6 +209,17 @@ public class Fund implements java.io.Serializable {
 	public void setReceiptDescription(String receiptDescription)
 	{
 		this.receiptDescription = receiptDescription;
+	}
+
+	@Column(name = "receipt", nullable = false)
+	public byte[] getReceipt()
+	{
+		return receipt;
+	}
+
+	public void setReceipt(byte[] receipt)
+	{
+		this.receipt = receipt;
 	}
 
 }

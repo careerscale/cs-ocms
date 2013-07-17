@@ -4,6 +4,7 @@ import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.City;
+import in.careerscale.apps.ocms.dao.model.Fund;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.UserNetwork;
@@ -36,6 +37,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service("userService")
 public class UserService extends AbstractService implements UserDetailsService
@@ -411,5 +413,14 @@ public class UserService extends AbstractService implements UserDetailsService
 		}
 
 	}
+
+
+	public byte[] getReceiptById(@PathVariable Integer id)
+	{
+		Fund fund = (Fund) userRepository.getById(Fund.class, id);
+		return fund.getReceipt();
+
+	}
+
 
 }
