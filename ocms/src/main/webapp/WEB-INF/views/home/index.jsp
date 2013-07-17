@@ -99,7 +99,7 @@
 	</div>
 
 	<div class="large-4 columns">
-		<img src="/resources/images/home/single_place_for_ngo.jpg">
+	
 		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
 			<h3>Login to OCMS</h3>
 			<div class="row">Login</div>
