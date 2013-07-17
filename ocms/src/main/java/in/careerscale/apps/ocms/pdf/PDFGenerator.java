@@ -207,8 +207,6 @@ public class PDFGenerator
 	private void sign(String source, String destination) throws IOException, GeneralSecurityException,
 			DocumentException
 	{
-		// String path = "careerscale.pfx";
-		// char[] pass = "careerscale".toCharArray();
 
 		BouncyCastleProvider provider = new BouncyCastleProvider();
 		Security.addProvider(provider);
@@ -228,11 +226,7 @@ public class PDFGenerator
 
 	public static void main(String[] args) throws IOException, GeneralSecurityException, DocumentException
 	{
-		/**
-		 * Properties properties = new Properties(); properties.load(new
-		 * FileInputStream("c:/home/blowagie/key.properties")); String path = properties.getProperty("PRIVATE"); char[]
-		 * pass = properties.getProperty("PASSWORD").toCharArray();
-		 */
+
 
 		PDFGenerator generator = new PDFGenerator();
 		// generator.generateReceipt("Harinath Mallepally", "Two thousand rupees only",
