@@ -73,7 +73,7 @@
 					<br />
 					<div class="row">
 						<div class="large-6  columns">
-							<label for="emailId" class="right inline">User Name:</label>
+							<label for="emailId" class="right inline">Beneficiary Name:</label>
 						</div>
 						<div class="large-6 columns">
 							<form:input path="personName" type="text" class="required"
@@ -120,7 +120,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="dateOfBirth" type="text" class="required date"
-								tabindex="6" maxlength="15" size="15" value="1980-01-01" />
+								tabindex="5" maxlength="15" size="15" value="1980-01-01" />
 						</div>
 					</div>
 					<div class="row full-width"></div>
@@ -131,7 +131,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="contact1" type="text" class="required"
-								tabindex="7" maxlength="40" />
+								tabindex="6" maxlength="40" />
 						</div>
 					</div>
 					<div class="row">
@@ -141,7 +141,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="contact2" type="text" class="required"
-								tabindex="8" maxlength="40" />
+								tabindex="7" maxlength="40" />
 						</div>
 					</div>
 
@@ -153,7 +153,7 @@
 
 						</div>
 						<div class="large-6 columns">
-							<form:select path="caseType" multiple="false">
+							<form:select path="caseType" multiple="false" tabindex="8">
 								<form:options items="${caseDetails.caseMasterTypes}"
 									itemValue="id" itemLabel="name" />
 							</form:select>
@@ -168,7 +168,7 @@
 								class="right inline">Help Category Types </label>
 						</div>
 						<div class="large-6 columns">
-							<form:select path="helpType" multiple="false">
+							<form:select path="helpType" multiple="false" tabindex="9">
 								<form:options items="${caseDetails.helpMasterTypes}"
 									itemValue="id" itemLabel="name" />
 							</form:select>
@@ -181,7 +181,7 @@
 								class="right inline">Country</label>
 						</div>
 						<div class="large-6 columns">
-							<form:select path="countryId" multiple="false">
+							<form:select path="countryId" multiple="false" tabindex="10">
 								<form:options items="${caseDetails.countryMasterTypes}"
 									itemValue="id" itemLabel="name" />
 							</form:select>
@@ -194,7 +194,7 @@
 							<label for="stateId" title='State Selection' class="right inline">State</label>
 						</div>
 						<div class="large-6 columns">
-							<form:select path="stateId" multiple="false">
+							<form:select path="stateId" multiple="false" tabindex="11">
 								<form:options items="${caseDetails.stateMasterTypes}"
 									itemValue="id" itemLabel="name" />
 							</form:select>
@@ -207,7 +207,7 @@
 							<label for="cityId" title='City Selection' class="right inline">City</label>
 						</div>
 						<div class="large-6 columns">
-							<form:select path="cityId" multiple="false">
+							<form:select path="cityId" multiple="false" tabindex="12">
 								<form:options items="${caseDetails.cityMasterTypes}"
 									itemValue="id" itemLabel="name" />
 							</form:select>
@@ -222,7 +222,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="addressLine1" type="text" class="required"
-								tabindex="9" maxlength="40" />
+								tabindex="13" maxlength="40" />
 						</div>
 					</div>
 
@@ -234,7 +234,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="addressLine2" type="text" class="required"
-								tabindex="10" maxlength="40" />
+								tabindex="14" maxlength="40" />
 						</div>
 					</div>
 
@@ -245,7 +245,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="zipcode" type="text" class="required"
-								tabindex="11" maxlength="40" />
+								tabindex="15" maxlength="40" />
 						</div>
 					</div>
 
@@ -256,9 +256,9 @@
 						<div class="large-6 columns">
 							<div class="right inline">
 								<input class="right inline button round" type="reset"
-									value="Reset form" style="width: 140px" tabindex="14" /> <input
+									value="Reset form" style="width: 140px" tabindex="15" /> <input
 									class="button small round inline right" type="submit"
-									value="Register case" style="width: 140px" tabindex="14" />
+									value="Register case" style="width: 140px" tabindex="16" />
 							</div>
 						</div>
 					</div>

@@ -163,7 +163,7 @@
 					<p>We'd love to hear from you</p>
 				</div>
 				<div class="large-3 columns">
-					<a href="/aboutus" class="radius button right">Contact Us</a>
+					<a href="/about" class="radius button right">Contact Us</a>
 				</div>
 			</div>
 		</div>
