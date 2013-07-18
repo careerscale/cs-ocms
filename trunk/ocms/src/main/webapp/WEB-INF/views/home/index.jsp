@@ -12,14 +12,13 @@
 			<li><a href="/about" class="button small">About Us</a></li>
 			<sec:authorize ifNotGranted="ROLE_ANONYMOUS">
 			<li><a href="/user" class="button small">OCMS User Menu</a></li>
+			<li><a href="/logout" class="button small">Logout</a></li>
 			</sec:authorize>
 		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
 				<li><a href="/register" class="button small">Register</a></li>
 			<li><a href="/login" class="button small">Login</a></li>
 			</sec:authorize>
 		
-			<li><a href="https://code.google.com/p/cs-ocms/" class="button small">About
-					OCMS</a></li>
 					
 		</ul>
 	</div>

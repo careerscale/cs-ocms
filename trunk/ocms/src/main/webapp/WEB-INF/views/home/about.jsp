@@ -17,6 +17,7 @@
 		
 		<p>Please click <a href="/resources/docs/OCMS.pptx"> Here </a> to view the deck on OCMS plans</p>
 
+		<img src="/resources/images/OCMShighlevelflow.jpg" />
         <h3>Team</h3>
         The team at <a href="http://careerscale.in">CareerScale</a> that is responsible for OCMS is
         <ul>
