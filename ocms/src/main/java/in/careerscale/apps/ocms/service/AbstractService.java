@@ -4,8 +4,8 @@ import in.careerscale.apps.ocms.dao.MasterDataRepository;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.mail.EmailTemplates;
+import in.careerscale.apps.ocms.mail.Template;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,13 +53,40 @@ public abstract class AbstractService
 		return user.getId();
 	}
 
-	protected Map<String, String> getBasicEmailSettings()
+	private void updateBasicEmailSettings(Map<String, String> settings)
 	{
-		Map<String, String> settings = new HashMap<String, String>();
+
 		settings.put(EmailTemplates.adminUser, adminUser);
 		settings.put(EmailTemplates.productName, productName);
 		settings.put(EmailTemplates.hostName, hostName);
-		return settings;
 
+	}
+
+	public void sendEmail(String emailId, Template template, Map<String, String> parameters)
+	{
+		String subject = null;
+		String emailText = null;
+		String firstName = parameters.get(EmailTemplates.firstName);
+
+		updateBasicEmailSettings(parameters);
+		switch (template) {
+		case FundReceiptGenerated:
+			emailText = EmailTemplates.getEmailMessage(Template.FundReceiptGenerated, parameters);
+			subject = "Thank you for your contribution ::" + firstName;
+			break;
+		case NewCaseForApproval:
+			emailText = EmailTemplates.getEmailMessage(Template.NewCaseForApproval, parameters);
+			subject = "Dear " + firstName + ", New Case for Approval ";
+			break;
+
+		case CaseRegistered:
+			emailText = EmailTemplates.getEmailMessage(Template.CaseRegistered, parameters);
+			subject = "Dear " + firstName + ", A new case is registered at OCMS";
+			break;
+		default:
+
+		}
+
+		emailService.sendMailWithSSL(subject, emailText, emailId);
 	}
 }

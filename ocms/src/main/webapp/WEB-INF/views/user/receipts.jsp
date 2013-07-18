@@ -105,7 +105,6 @@
 	</c:set>
 
 
-	<s:message code="user.index.title" arguments="${displayName}" />
 </h1>
 <security:authorize access="hasAnyRole('MODERATOR','MANAGER', 'ADMIN')">
 	<div class="row">
@@ -119,7 +118,7 @@
 		<div id="fw_header">
 <div id="fw_content">
 				<div class="twelve columns">
-				<h4>Cases to be acted Upon ( where I am an Approver )</h4>
+				<h4><s:message code="user.downloads.title" arguments="${displayName}" /></h4>
 					<table cellpadding="0" cellspacing="0" border="0" 
 						id="mycases"  class="responsive">
 						<thead>

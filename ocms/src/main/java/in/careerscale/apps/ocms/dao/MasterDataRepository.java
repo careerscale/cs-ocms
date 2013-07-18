@@ -1,7 +1,5 @@
 package in.careerscale.apps.ocms.dao;
 
-import java.util.List;
-
 import in.careerscale.apps.ocms.dao.model.CaseStatusMaster;
 import in.careerscale.apps.ocms.dao.model.CaseType;
 import in.careerscale.apps.ocms.dao.model.City;
@@ -11,7 +9,11 @@ import in.careerscale.apps.ocms.dao.model.OrgType;
 import in.careerscale.apps.ocms.dao.model.RoleMaster;
 import in.careerscale.apps.ocms.dao.model.State;
 
-import javax.persistence.*;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,14 +91,16 @@ public class MasterDataRepository {
 	}
 	@SuppressWarnings("unchecked")
 	public List<RoleMaster> getRoleTypes() {
-		Query query =entityManager.createQuery("SELECT r FROM RoleMaster r order by r.roleMaster.id asc, r.id asc"); // AS c WHERE c.caseType is NULL
+		Query query = entityManager.createQuery("SELECT r FROM RoleMaster r order by  r.id asc"); // AS c WHERE
+																									// c.caseType is
+																									// NULL
 		return query.getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<CaseStatusMaster> getCaseStatusMasters()
 	{
-		Query query=entityManager.createQuery("select cs from CaseStatusMaster cs order by cs.caseStatusMaster.id asc,cs.id asc");
+		Query query = entityManager.createQuery("select cs from CaseStatusMaster cs order by cs.id asc");
 		return query.getResultList();
 		
 	}

@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -161,10 +162,11 @@ public class CaseService extends AbstractService
 
 	}
 
-	public void saveCaseAtrifacts(CaseArtifacts bean)
+	public void saveCaseAtrifacts(CaseArtifacts bean) throws ApplicationException
 	{
 		List<Document> documents = bean.getCaseDocuments();
 		LoginMaster loginMaster = getLoggedInUser();
+		CaseMaster caseMaster = (CaseMaster) caseRepository.getById(CaseMaster.class, bean.getCaseId());
 		for (Document document : documents)
 		{
 			try
@@ -172,19 +174,40 @@ public class CaseService extends AbstractService
 				CaseArtifact artifact = new CaseArtifact();
 				// artifact.setArtifactType("test");
 				artifact.setArtifact(document.getFile().getBytes());
-				artifact.setCaseMaster((CaseMaster) caseRepository.getById(CaseMaster.class, bean.getCaseId()));
+
+				artifact.setCaseMaster(caseMaster);
 				artifact.setLoginMaster(loginMaster);
 				String fileName = document.getFile().getOriginalFilename();
 				artifact.setFileExtension(fileName.substring(fileName.lastIndexOf(".")));
 				caseRepository.save(artifact);
+
+				caseMaster.getCaseType().getCaseTypeApprovers();
+
 			}
 			catch (IOException e)
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new ApplicationException(e.getMessage());
 			}
 
 		}
+		// send mail to the case creator and then to approvers to review the case details.
+		// To the creator
+		Map<String, String> mailParameters = new HashMap<String, String>();
+		mailParameters.put(EmailTemplates.caseId, caseMaster.getId().toString());
+		mailParameters.put(EmailTemplates.firstName, loginMaster.getFirstName());
+		sendEmail(loginMaster.getEmailId(), Template.CaseRegistered, mailParameters);
+		// To the approvers
+		
+		List<CaseTypeApprover> caseTypeApprovers = caseRepository.getCaseApproverList(caseMaster.getCaseType().getId(),
+				(Organization) caseRepository.getById(Organization.class, 1));
+
+		for (CaseTypeApprover caseTypeApprover : caseTypeApprovers)
+		{
+			mailParameters.put(EmailTemplates.firstName, caseTypeApprover.getLoginMaster().getFirstName());
+			sendEmail(caseTypeApprover.getLoginMaster().getEmailId(), Template.NewCaseForApproval, mailParameters);
+
+		}
+
 
 	}
 
@@ -439,7 +462,7 @@ public class CaseService extends AbstractService
 	public List<FundBO> getFundsHistory(Integer caseId)
 	{
 		List<FundBO> fundsList = new ArrayList<FundBO>();
-		List<Fund> lstFunds = caseRepository.getFundsHistory(caseId);
+		List<Fund> lstFunds = caseRepository.getFundsHistoryByCaseId(caseId);
 
 		for (Fund fund : lstFunds)
 		{
@@ -508,14 +531,13 @@ public class CaseService extends AbstractService
 				receiptFile.read(fund.getReceipt());
 				receiptFile.close();
 
-				// Let us send email here, so that only succesful ones get the receipt mail.
-				Map<String, String> mailParameters = getBasicEmailSettings();
+				// Let us send email here, so that only successful ones get the receipt mail.
+				Map<String, String> mailParameters = new HashMap<String, String>();
+				mailParameters.put(EmailTemplates.firstName, fund.getLoginMaster().getFirstName());
 				mailParameters.put(EmailTemplates.caseDescription, fund.getReceiptDescription());
 				mailParameters.put(EmailTemplates.fundReceiptId, fund.getId().toString());
 				mailParameters.put(EmailTemplates.amount, fund.getCreditAmount().toString());
-				String emailText = EmailTemplates.getEmailMessage(Template.Registration, mailParameters);
-				emailService.sendMailWithSSL("Thank you for your contribution ::" + loginMaster.getFirstName(),
-						emailText, loginMaster.getEmailId());
+				sendEmail(loginMaster.getEmailId(), Template.FundReceiptGenerated, mailParameters);
 
 			}
 		}
