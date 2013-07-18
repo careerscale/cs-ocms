@@ -288,4 +288,16 @@ public class CaseRepository extends BaseRepository
 		entityManager.flush();
 
 	}
+	
+	
+
+	@SuppressWarnings("unchecked")
+	public List<Fund> getFundsHistoryForUser(Integer id)
+	{
+		Query query = entityManager
+				.createQuery("SELECT cd FROM Fund cd where  cd.loginMaster.id=:id order by cd.id desc");
+		query.setParameter("id", id);
+		return query.getResultList();
+	}
+	
 }

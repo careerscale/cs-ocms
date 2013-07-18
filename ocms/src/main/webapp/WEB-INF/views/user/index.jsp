@@ -6,6 +6,7 @@
 <script src="/resources/media/js/responsive-tables.js"  type="text/javascript"></script>
 <link rel="stylesheet" href="/resources/media/css/themes/smoothness/responsive-tables.css">
 <script src="/resources/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="/resources/media/js/stickyheader.jquery.js"  type="text/javascript"></script>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		var id = -1;//simulation of id
