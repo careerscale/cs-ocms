@@ -17,14 +17,8 @@
 
 	<div class="row">
 
-		<h3>
-			We need certain documents to be added as per the OCMS policy. This
-			helps for faster and easier processing. id: ${entry.id} <br /> name:
-			${entry.name} <br /> mandatory: ${entry.mandatory} <br />
-			supportedFormat: ${entry.supportedFormat} <br /> maxSize:
-			${entry.maxSize} <br />
-
-		</h3>
+		<h3>We need certain documents to be added as per the OCMS policy.
+			This helps for faster and easier processing.</h3>
 
 
 	</div>
@@ -38,24 +32,23 @@
 			<%
 				int i = 0;
 			%>
-			<table width="90%">
-				<c:forEach var="entry" items="${docTypeList}">
-					<form:input path="caseId" type="hidden"
-						value="${caseDocuments[i].documentTypeId}" />
 
-					<tr>
-						<%
-							String pathId = "caseDocuments[" + i + "].file";
-						%>
-						<td class="label"><label for=<%=pathId%>>${entry.name}</label></td>
-						<td class="field"><form:input path="<%=pathId%>" type="file" /></td>
-					</tr>
+			<c:forEach var="entry" items="${docTypeList}">
+				<form:input path="caseId" type="hidden"
+					value="${caseDocuments[i].documentTypeId}" />
+				<%
+					String pathId = "caseDocuments[" + i + "].file";
+				%>
+				<div class="row">
 
-					<%
-						i++;
-					%>
-				</c:forEach>
-			</table>
+					<label for=<%=pathId%>>${entry.name}</label>
+					<form:input path="<%=pathId%>" type="file" />
+				</div>
+				<%
+					i++;
+				%>
+			</c:forEach>
+
 			<input type="submit" value="Upload" />
 		</form:form>
 		<br clear="all" />

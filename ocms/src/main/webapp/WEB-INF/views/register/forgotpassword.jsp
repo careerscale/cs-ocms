@@ -20,66 +20,57 @@
 
 		<!-- start col-main -->
 
-		
-			<!-- start main content  -->
-			<div class="main-content resize">
 
-				<div class="action-container" style="display: none;"></div>
-    
-				<p>Please provide your registered email address and submit form. your password will be emailed to your registered email address.</p>
-				<br clear="all" />
-		
-					<div id="error">
-						<spring:hasBindErrors name="user">
-							<font color="red"> <c:forEach items="${errors.allErrors}"
-									var="error">
-									<spring:message code="${error.code}"
-										text="${error.defaultMessage}" />
-									<br />
-								</c:forEach>
-							</font>
-						</spring:hasBindErrors>
-					</div>
-					<form:form method="post" action="forgotpassword" id="signUpForm"
-						modelAttribute="user">
-					
-						<div class="error" style="display: none;">
-							<img src="resources/images/warning.gif" alt="Warning!" width="24"
-								height="24" style="float: left; margin: -5px 10px 0px 0px;" />
-							<span></span>.<br clear="all" />
-						</div>
+		<!-- start main content  -->
+		<div class="main-content resize">
 
+			<div class="action-container" style="display: none;"></div>
 
-						<table width="90%">
-							<tr>
-								<td class="label"><label for="emailId">Email Id:</label></td>
-								<td class="field"><form:input path="emailId" type="email"
-										class="required email" 
-										tabindex="1" /></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>
-									<div class="row">
-										<span></span> <input class="button small round" type="submit"
-											value="Resend my password" />
-									</div>
+			<p>Please provide your registered email address and submit form.
+				your password will be emailed to your registered email address.</p>
+			<br clear="all" />
 
-								</td>
-
-							</tr>
-						</table>
-						<br />
-						<br />
-					</form:form>
-					<!-- </form> -->
-					<br clear="all" />
-
-
+			<div id="error">
+				<spring:hasBindErrors name="user">
+					<font color="red"> <c:forEach items="${errors.allErrors}"
+							var="error">
+							<spring:message code="${error.code}"
+								text="${error.defaultMessage}" />
+							<br />
+						</c:forEach>
+					</font>
+				</spring:hasBindErrors>
 			</div>
-			<!-- end main content  -->
-			<br />
-		
+			<form:form method="post" action="forgotpassword" id="signUpForm"
+				modelAttribute="user">
+
+				<div class="error" style="display: none;">
+					<img src="resources/images/warning.gif" alt="Warning!" width="24"
+						height="24" style="float: left; margin: -5px 10px 0px 0px;" /> <span></span>.<br
+						clear="all" />
+				</div>
+
+
+				<div class="row">
+
+					<label for="emailId">Email Id</label> <input type="text"
+						name="emailId" type="email" class="required email" />
+				</div>
+
+				<div class="row">
+					<input class="button small round" type="submit"
+						value="Resend my password" />
+				</div>
+				<br />
+			</form:form>
+			<!-- </form> -->
+			<br clear="all" />
+
+
+		</div>
+		<!-- end main content  -->
+		<br />
+
 		<!-- end col-main -->
 
 	</div>
