@@ -23,6 +23,8 @@ import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
 import in.careerscale.apps.ocms.dao.model.NotificationStatus;
 import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
 import in.careerscale.apps.ocms.dao.model.Organization;
+import in.careerscale.apps.ocms.mail.EmailTemplates;
+import in.careerscale.apps.ocms.mail.Template;
 import in.careerscale.apps.ocms.pdf.PDFGenerator;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
 import in.careerscale.apps.ocms.web.cases.model.Case;
@@ -42,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.PersistenceException;
 
@@ -505,6 +508,15 @@ public class CaseService extends AbstractService
 				receiptFile.read(fund.getReceipt());
 				receiptFile.close();
 
+				// Let us send email here, so that only succesful ones get the receipt mail.
+				Map<String, String> mailParameters = getBasicEmailSettings();
+				mailParameters.put(EmailTemplates.caseDescription, fund.getReceiptDescription());
+				mailParameters.put(EmailTemplates.fundReceiptId, fund.getId().toString());
+				mailParameters.put(EmailTemplates.amount, fund.getCreditAmount().toString());
+				String emailText = EmailTemplates.getEmailMessage(Template.Registration, mailParameters);
+				emailService.sendMailWithSSL("Thank you for your contribution ::" + loginMaster.getFirstName(),
+						emailText, loginMaster.getEmailId());
+
 			}
 		}
 		catch (IOException e)
@@ -534,8 +546,5 @@ public class CaseService extends AbstractService
 		}
 		return fundsList;
 	}
-
-
-
 
 }

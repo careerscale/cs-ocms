@@ -155,7 +155,7 @@
 									<td><a href="/cases/"+${fund.caseId}>${fund.caseId}</a></td>
 									<td>
 										<c:if test="${(fund.fundStatus eq 'CONFIRMED')}">
-											<a href="user/downloads/receipt/"${fund.id}>Receipt</a>
+											<a href='/user/downloads/receipt/${fund.id}' target="_blank">Receipt</a>
 										</c:if>
 									</td>
 								</tr>

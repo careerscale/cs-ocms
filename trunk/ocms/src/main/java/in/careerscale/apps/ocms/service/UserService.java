@@ -10,7 +10,6 @@ import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.UserNetwork;
 import in.careerscale.apps.ocms.dao.model.UserProfile;
 import in.careerscale.apps.ocms.dao.model.UserRole;
-import in.careerscale.apps.ocms.mail.EmailSender;
 import in.careerscale.apps.ocms.mail.EmailTemplates;
 import in.careerscale.apps.ocms.mail.Template;
 import in.careerscale.apps.ocms.service.exception.ApplicationException;
@@ -47,16 +46,12 @@ public class UserService extends AbstractService implements UserDetailsService
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private EmailSender emailService;
+
 
 
 	private static final String DUMMY_PASSWORD = "password";
 
-	public void setEmailService(EmailSender emailService)
-	{
-		this.emailService = emailService;
-	}
+
 
 	@PostConstruct
 	protected void initialize()
