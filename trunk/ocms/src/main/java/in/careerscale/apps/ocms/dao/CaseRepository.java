@@ -242,6 +242,15 @@ public class CaseRepository extends BaseRepository
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Fund> getFundsHistoryByCaseId(Integer id)
+	{
+		Query query = entityManager
+				.createQuery("SELECT cd FROM Fund cd where  cd.caseMaster.id=:id order by cd.id desc");
+		query.setParameter("id", id);
+		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<Fund> getFundsHistory(Integer id)
 	{
 		Query query = entityManager

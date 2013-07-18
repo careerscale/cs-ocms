@@ -972,7 +972,7 @@ USE `ocms`;
 INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (1, 'New', 'New case, just entered the system');
 INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (2, 'Pending', 'Case is pending, not yet active');
 INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (3, 'OnHold', 'Case is on hold for some dependency or clarification');
-INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (4, 'Active', 'Case is active');
+INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (4, 'Approved', 'Case is active');
 INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (5, 'Rejected', 'Case is rejected');
 INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (6, 'Resolved', 'Case is addressed and met the expectations');
 INSERT INTO `case_status_master` (`id`, `case_status_name`, `case_status_description`) VALUES (7, 'Closed', 'Closed in every aspect, including generating bills.');

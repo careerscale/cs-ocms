@@ -570,7 +570,7 @@ public class BackOfficeController {
 		log.debug("Within GET method for /backoffice/casestatus");
 		List<CaseStatusMaster> caseStatusMasterList=null;
 		try{
-			caseStatusMasterList=masterDataService.getCaseStatusList();
+			caseStatusMasterList = masterDataService.getCaseStatusList();
 		}catch (ApplicationException ae) {
 			log.error(ae);
 		}
