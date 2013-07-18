@@ -67,7 +67,7 @@
 							<ul class="dropdown">
 								<li><a href="/profile">Edit Profile</a></li>
 								<li><a href="/password">Change Password</a></li>
-								<li><a href="/downloads">My downloads</a></li>
+								<li><a href="/cases/receipts">My downloads</a></li>
 							</ul></li>
 						<li class="divider"></li>
                        </sec:authorize>

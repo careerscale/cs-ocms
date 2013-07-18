@@ -520,6 +520,21 @@ public class CaseService extends AbstractService
 		return artifact.getArtifact();
 
 	}
+	
+	public List<FundBO> getFundsHistoryForUser()
+	{
+		List<FundBO> fundsList = new ArrayList<FundBO>();
+		LoginMaster loginMaster = getLoggedInUser();
+		List<Fund> lstFunds = caseRepository.getFundsHistory(loginMaster.getId());
+
+		for (Fund fund : lstFunds)
+		{
+			fundsList.add(new FundBO(fund.getId(), fund.getCaseMaster().getId(), fund.getDonor(), fund.getFundStatus()
+					.getName(), fund.getPromisedDate(), fund.getConfirmedDate(), fund.getPurpose(), fund.getCreditAmount()));
+		}
+		return fundsList;
+	}
+
 
 
 

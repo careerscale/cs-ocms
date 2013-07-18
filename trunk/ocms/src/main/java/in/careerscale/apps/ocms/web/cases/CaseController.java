@@ -192,6 +192,18 @@ public class CaseController
 
 	}
 
+	
+	@RequestMapping(value = "/cases/receipts", method = RequestMethod.GET)
+	public 
+	String getFundHistoryForUser(@ModelAttribute(value = "caseDetails") Case bean, BindingResult errors,
+			HttpServletRequest request, HttpServletResponse response)
+	{
+		List<FundBO> funds = caseService.getFundsHistoryForUser();
+		bean.setFunds(funds);
+		return "user/receipts";
+	}
+	
+	
 	@RequestMapping(value = "/cases/{id}", method = RequestMethod.GET)
 	public String getCaseDetails(@ModelAttribute(value = "caseDetails") Case bean, BindingResult errors,
 			HttpServletRequest request, HttpServletResponse response, @PathVariable Integer id)
