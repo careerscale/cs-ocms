@@ -946,6 +946,38 @@ CREATE  TABLE IF NOT EXISTS `case_approval_history` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `recurring_contribution`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `recurring_contribution` ;
+
+CREATE  TABLE IF NOT EXISTS `recurring_contribution` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `login_id` INT NULL ,
+  `case_id` INT NULL ,
+  `credit_amount` INT NULL ,
+  `frequency` VARCHAR(100) NULL ,
+  `day_of_month` INT NULL ,
+  `is_active` TINYINT(1) NULL ,
+  `last_contribution_date` DATE NULL ,
+  `debit_amount` INT NULL ,
+  `donor_name` VARCHAR(100) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `recurring_contribution_login_id_idx` (`login_id` ASC) ,
+  INDEX `fk_recurring_contribution_case_id_idx` (`case_id` ASC) ,
+  CONSTRAINT `fk_recurring_contribution_login_id`
+    FOREIGN KEY (`login_id` )
+    REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recurring_contribution_case_id`
+    FOREIGN KEY (`case_id` )
+    REFERENCES `case_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 USE `ocms` ;
 
 
@@ -1086,8 +1118,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`, `organization_id`) VALUES (1, 1, '2008-05-27', 1, '2009-02-23', 'Prasanthi', '1980-01-01', 'need urgent blood group O-', '898989898', '898989', 'friend', 1, 1, 1, 'abc@tmad.org', 1, 1);
-INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`, `organization_id`) VALUES (2, 1, '2011-01-9', 1, '2009-09-12', 'Kashyap', '1979-05-05', 'Fresher needs Job', '2342343', '4324324', 'news paper', 1, 2, 1, 'abc@tmad.org', 1, 1);
+INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`, `organization_id`) VALUES (1, 1, '2008-05-27', 1, '2009-02-23', 'Careerscale IT Consulitng LLP', '1980-01-01', 'Support to build and maintain OCMS', '91 9391920444', '+91 40 42100276', 'OCMS', 4, 1, 1, 'info@careerscale.in', 1, 1);
+INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`, `organization_id`) VALUES (2, 1, '2011-01-9', 1, '2009-09-12', 'To Make A Diffrence', '1979-05-05', 'Monthly contribution to pool up and attend to urgent cases', '', '', 'TMAD', 4, 1, 1, 'finance@tmad.org', 1, 1);
 INSERT INTO `case_master` (`id`, `created_by`, `created_on`, `updated_by`, `updated_on`, `person_name`, `date_of_birth`, `case_description`, `contact_number1`, `contact_number2`, `source`, `case_status_id`, `case_type_id`, `help_category_id`, `email_id`, `address_id`, `organization_id`) VALUES (3, 3, '2013-06-06', 1, '2013-07-07', 'Pavani', '195-01-01', 'Education case - need support for PG fee', '999999', '888888', 'chennai TMAD', 1, 2, 1, 'abc@tmad.org', 2, 1);
 
 COMMIT;
