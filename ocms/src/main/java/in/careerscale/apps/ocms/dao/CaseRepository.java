@@ -12,6 +12,7 @@ import in.careerscale.apps.ocms.dao.model.Country;
 import in.careerscale.apps.ocms.dao.model.DocumentType;
 import in.careerscale.apps.ocms.dao.model.Fund;
 import in.careerscale.apps.ocms.dao.model.Organization;
+import in.careerscale.apps.ocms.dao.model.RecurringContribution;
 import in.careerscale.apps.ocms.dao.model.State;
 
 import java.util.ArrayList;
@@ -307,6 +308,14 @@ public class CaseRepository extends BaseRepository
 				.createQuery("SELECT cd FROM Fund cd where  cd.loginMaster.id=:id order by cd.id desc");
 		query.setParameter("id", id);
 		return query.getResultList();
+	}
+
+	public List<RecurringContribution> getRecurringContributions()
+	{
+		// Query query = entityManager.createQuery("SELECT rc FROM RecurringContribution rc where order by rc.id desc");
+
+		// return query.getResultList();
+		return new ArrayList<RecurringContribution>();
 	}
 	
 }
