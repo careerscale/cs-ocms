@@ -540,9 +540,13 @@ $(function() {
         header: "> div > h3"
       })
       .accordion({
-    	  collapsible: true
+    	  active:false,
+    	  collapsible: true,
+    	  navigation: true, 
+    	  header: '.group' 
+
       })
-      .sortable({
+       .sortable({
         axis: "y",
         handle: "h3",
         stop: function( event, ui ) {
@@ -550,7 +554,19 @@ $(function() {
           // so trigger focusout handlers to remove .ui-state-focus
           ui.item.children( "h3" ).triggerHandler( "focusout" );
         }
-      });
+      }); 
+      
+   /*  $(".group").click(function(event){ 
+    	window.location.hash=this.hash; 
+    	}); 
+    */   
+    var toOpen = window.location.hash;
+    if(toOpen.length>0)
+    	{
+    	toOpen =toOpen.substring(1);
+    	   $( "#accordion" ).accordion({ active: parseInt(toOpen) });
+    	}
+  
   });
   
 $(document).ready(function() {
@@ -688,7 +704,7 @@ $(document).ready(function() {$("#reeditcase").click(function() {
 <div class="large-1 columns"></div>
 
 <div id="accordion" class="large-11 columns" >
-  <div class="group">
+  <div class="group" id="Actions">
    <h3><b>Actions</b></h3>
     <div>
     	<c:if test="${(caseDetails.caseStatusString eq 'Approved' or caseDetails.caseStatusString eq 'Rejected')}">
@@ -751,7 +767,7 @@ $(document).ready(function() {$("#reeditcase").click(function() {
       
     </div>
   </div>
-  <div class="group">
+  <div class="group" id="CaseDetails">
     <h3><b>Case Details</b></h3>
      <div>
       
@@ -883,7 +899,7 @@ $(document).ready(function() {$("#reeditcase").click(function() {
 	
   </div>
   </div>
-  <div class="group">
+  <div class="group" id="ApprovalHistory">
     <h3><b>Approval History</b></h3>
     <div>
     <div id="fw_container">
@@ -934,7 +950,7 @@ $(document).ready(function() {$("#reeditcase").click(function() {
 				</div></div>
     </div>
   </div>
-  <div class="group">
+  <div class="group" id="Discussion">
     <h3><b>Discussion</b></h3>
     <div>
     <div class="large-2 columns">
@@ -998,7 +1014,7 @@ $(document).ready(function() {$("#reeditcase").click(function() {
   </div>
      </div>
   </div>
-   <div class="group">
+   <div class="group" id="Financials">
     <h3><b>Financials</b></h3>
   <div>
     <div id="fw_container">
