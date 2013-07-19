@@ -179,18 +179,23 @@
 						<tbody id="tbody1">
 							<c:forEach items="${cases.myApprovedCases}" var="mycase">
 								<tr id='${mycase.id}'>
-									<td>${mycase.personName}</td>
+									<td><a href="/cases/${mycase.id}#1">${mycase.personName}</td>
 									<td>${mycase.caseDescription}</td>
 									<td>${mycase.contact1}</td>
 									<td>${mycase.caseSource}</td>
-									<td>${mycase.caseStatusString}</td>
+									<td><a href="/cases/${mycase.id}#2">${mycase.caseStatusString}</a></td>
 									<td>${mycase.caseTypeString}</td>
 									<td>${mycase.helpCategoryString}</td>
 									<td>${mycase.createdDate}</td>
 									<td>${mycase.updatedDate}</td>
 									<td>${mycase.createdBy}</td>
 									<td>${mycase.updatedBy}</td>
-									<td><a href="/cases/${mycase.id}">Approve</a></td>
+									<c:if test="${(mycase.caseStatusString eq 'Approved')}">
+										<td><a href="/cases/${mycase.id}#4">Contribute</a></td>
+									</c:if>
+									<c:if test="${!(mycase.caseStatusString eq 'Approved')}">
+										<td><a href="/cases/${mycase.id}">Approve</a></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -237,18 +242,23 @@
 						<tbody id="tbody1">
 							<c:forEach items="${cases.myCases}" var="mycase">
 								<tr id='${mycase.id}'>
-									<td>${mycase.personName}</td>
+									<td><a href="/cases/${mycase.id}#1">${mycase.personName}</a></td>
 									<td>${mycase.caseDescription}</td>
 									<td>${mycase.contact1}</td>
 									<td>${mycase.caseSource}</td>
-									<td>${mycase.caseStatusString}</td>
+									<td><a href="/cases/${mycase.id}#2">${mycase.caseStatusString}</a></td>
 									<td>${mycase.caseTypeString}</td>
 									<td>${mycase.helpCategoryString}</td>
 									<td>${mycase.createdDate}</td>
 									<td>${mycase.updatedDate}</td>
 									<td>${mycase.createdBy}</td>
 									<td>${mycase.updatedBy}</td>
-									<td><a href="/cases/${mycase.id}">Approve</a></td>
+									<c:if test="${(mycase.caseStatusString eq 'Approved')}">
+										<td><a href="/cases/${mycase.id}#4">Contribute</a></td>
+									</c:if>
+									<c:if test="${!(mycase.caseStatusString eq 'Approved')}">
+										<td><a href="/cases/${mycase.id}">Approve</a></td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -297,7 +307,7 @@
 						<tbody id="tbody1">
 							<c:forEach items="${cases.interestedCases}" var="mycase">
 								<tr id='${mycase.id}'>
-									<td>${mycase.personName}</td>
+									<td><a href="/cases/${mycase.id}#1">${mycase.personName}</a></td>
 									<td>${mycase.caseDescription}</td>
 									<td>${mycase.contact1}</td>
 									<td>${mycase.caseSource}</td>

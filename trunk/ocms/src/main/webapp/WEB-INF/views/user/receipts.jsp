@@ -151,7 +151,7 @@
 									<td>${fund.fundStatus}</td>
 									<td>${fund.promisedDate}</td>
 									<td>${fund.confirmedDate}</td>
-									<td><a href="/cases/"+${fund.caseId}>${fund.caseId}</a></td>
+									<td><a href="/cases/${fund.caseId}#1">${fund.caseId}</a></td>
 									<td>
 										<c:if test="${(fund.fundStatus eq 'CONFIRMED')}">
 											<a href='/user/downloads/receipt/${fund.id}' target="_blank">Receipt</a>
