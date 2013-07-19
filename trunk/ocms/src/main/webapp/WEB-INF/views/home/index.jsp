@@ -93,7 +93,7 @@
 		<img src="/resources/images/home/saas.png">
 		<h4>SAAS model for NGOs</h4>
 		<p>A single application that helps manage all your NGO activities
-			in a single place with super duper multi tenancy built in. OCMS is
+			in a single place with multi tenancy built in. OCMS is
 			conceived and developed by key members of a leading NGO from India.</p>
 	</div>
 
@@ -101,7 +101,6 @@
 	
 		<sec:authorize ifAnyGranted="ROLE_ANONYMOUS">
 			<h3>Login to OCMS</h3>
-			<div class="row">Login</div>
 			<form method="POST" id="signup" class="searchboxbg"
 				action="j_spring_security_check">
 				<div class="row">
@@ -111,13 +110,13 @@
 				</div>
 
 				<div class="row">
-					<label for="j_password">Enter password</label> <input
+					<label for="j_password">Enter Password</label> <input
 						type="password" value="test123" name="j_password" />
 				</div>
 
 				<div class="row">
 					<input type="submit" class="button small round" value="Login" /> <a
-						href="/forgotpassword" class="button small">Forgot password? </a>
+						href="/forgotpassword" class="button small">Forgot Password? </a>
 				</div>
 				<div class="row">
 					<label>No account yet?</label> <a href="/register" class="button small round">Register</a>
