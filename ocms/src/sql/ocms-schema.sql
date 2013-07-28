@@ -19,7 +19,8 @@ CREATE  TABLE IF NOT EXISTS `login_master` (
   `last_name` VARCHAR(75) NULL ,
   `date_of_birth` DATETIME NULL ,
   `login_type` INT NULL ,
-  PRIMARY KEY (`id`) ,
+  `login_status` INT NOT NULL DEFAULT 0 ,
+  PRIMARY KEY (`id`, `login_status`) ,
   UNIQUE INDEX `email_id_UNIQUE` (`email_id` ASC) )
 ENGINE = InnoDB;
 
@@ -952,9 +953,9 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `ocms`;
-INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (1, 'harinath@tmad.org', 'test123', 'Harinath', 'Mallepally', '1979-06-06', 1);
-INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (2, 'hari@harinath.in', 'test123', 'Harinath', '', '1979-06-01', 1);
-INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`) VALUES (3, 'mahender@careerscale.in', 'test123', 'Mahender', 'Singh', '1979-01-01', 1);
+INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`, `login_status`) VALUES (1, 'harinath@tmad.org', 'test123', 'Harinath', 'Mallepally', '1979-06-06', 1, 1);
+INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`, `login_status`) VALUES (2, 'hari@harinath.in', 'test123', 'Harinath', '', '1979-06-01', 1, 1);
+INSERT INTO `login_master` (`id`, `email_id`, `password`, `first_name`, `last_name`, `date_of_birth`, `login_type`, `login_status`) VALUES (3, 'mahender@careerscale.in', 'test123', 'Mahender', 'Singh', '1979-01-01', 1, 1);
 
 COMMIT;
 
