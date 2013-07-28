@@ -1,3 +1,4 @@
+#labels Phase-Requirements
 Phase 1 use cases for OCMS
 
 = Introduction =
@@ -74,7 +75,7 @@ It is proposed to simplify the user authentication mechanism by allowing user to
     * Menu bar (Horizontal with application modules based on the user role)
     * A panel with status details of the cases he has created and is participating(donations/guidance/volunteer).
     * A panel with all recent cases (belonging to the user interest) 
-    * If the user is a module/application administrator he will see administration/reference data management options as well.
+    * If the user is an administrator he will admin related options as well.
 
 
 == Security/User authentication and authorization ==
@@ -123,6 +124,7 @@ the case type)
    * address (line1, line 2, line 3, area/town/village, city/district,State,Postal code)
    * Case description
    * Cost estmiated (rough estimates, if required only)
+   * Relavant documents scanned copeis to be uploaded
 
 == Case life cycle ==
 === Actors === 
@@ -134,10 +136,14 @@ the case type)
     * A moderator/Volunteer will visit/Call the needy and verify the details and authenticity of the case
     * Specific time lines should be enforced for verification, there must be an escalation matrix defined, so as each case is attended to.
     * When a case is verified by moderator, the status will be updated to 'New'
-    * When the status becomes 'New', a mailer will be sent out to the members/organzations  with the case details.
+    * List of approvers based on the case type will be intimated about the new case created.
+     * All the approvers have mark the case as approve or reject.  He/She can seek more information by asking for more information.
+    * Once the Majority of the users approve the case the case is Marked as  Approved.
+    * When the status becomes 'Approved', a mailer will be sent out to the members/organizations  with the case details.
     * Also case details will be published on the home page once the users log in to the system
     * Interested Users/organizations will attend to specific cases and provide their contribution, they can pledge their help by added new artifacts, comments to the case.
     * Any updations to the case,will be published to all the users who have shown interest in this case. It will be via email. We can think of SMS in the future versions of OCMS.
+    * Regular users will be shown the case details base on his/her interest. They can contirbute (provide their contribution information, Admin will verify the transaction, once verified an email and digital receipt will be sent to him).
     * Success scenario
       * Needy/(User who registered the case) will confirm that help is received and the ase is closed
       * Status of the case will become 'CONFIRM_CLOSURE'
