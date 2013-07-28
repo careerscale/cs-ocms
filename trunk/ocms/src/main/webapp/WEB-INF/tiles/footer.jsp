@@ -6,10 +6,9 @@
 		</div>
 		<div class="large-6 columns">
 			<ul class="inline-list right">
-				<li><a href="http://careerscale.in">Home</a></li>
-				<li><a href="http://careerscale.in/training">Training</a></li>
-				<li><a href="http://careerscale.in/product-development/">Product
-						development</a></li>
+				<li><a href="/">Home</a></li>
+				<li><a href="http://tmad.org">To Make A Difference</a></li>
+				<li><a href="http://careerscale.in">Careerscale</a></li>
 
 			</ul>
 		</div>

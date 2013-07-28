@@ -17,6 +17,7 @@
 
 
 <script src="/resources/scripts/application/datepicker.js">
+	
 </script>
 
 <script type="text/javascript">
@@ -86,8 +87,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="emailId" type="email" class="required email"
-								placeholder="Inline Text Input" 
-								tabindex="1" />
+								placeholder="Inline Text Input" tabindex="1" />
 						</div>
 					</div>
 
@@ -97,8 +97,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="password" type="password"
-								class="required password"  tabindex="2"
-								maxlength="40" />
+								class="required password" tabindex="2" maxlength="40" />
 						</div>
 					</div>
 
@@ -112,7 +111,7 @@
 							<div class="formError"></div>
 							<input id="confirmPassword" class="required" equalTo="#password"
 								maxlength="40" name="password2" size="20" type="password"
-								tabindex="3"  />
+								tabindex="3" />
 						</div>
 
 					</div>
@@ -124,8 +123,7 @@
 						</div>
 						<div class="large-6 columns">
 							<form:input path="firstName" type="text" class="required"
-								 tabindex="4" maxlength="40"
-								placeholder="Inline Text Input" />
+								tabindex="4" maxlength="40" placeholder="Inline Text Input" />
 						</div>
 					</div>
 
@@ -182,8 +180,26 @@
 					</div>
 
 					<div class="row">
-						<div class="large-6  columns"></div>
-						<div class="large-6 columns"></div>
+						<div class="large-6  columns">Please enter the text seen in
+							the image, Prove that you are human and not a robot</div>
+						<div class="large-6  columns">
+
+							<div id="recaptcha"></div>
+							<script
+								src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+
+							<script>
+								Recaptcha
+										.create(
+												"6Ld0M-USAAAAADsDM6UGAzJexEhYacFFshJ41ARk",
+												"recaptcha", {
+													theme : "white",
+													lang : 'en'
+												});
+							</script>
+
+						</div>
+
 					</div>
 
 					<div class="row">

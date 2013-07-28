@@ -678,37 +678,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `notification_template_status`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `notification_template_status` ;
-
-CREATE  TABLE IF NOT EXISTS `notification_template_status` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(45) NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `notification_template`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `notification_template` ;
-
-CREATE  TABLE IF NOT EXISTS `notification_template` (
-  `id` INT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(45) NULL ,
-  `status_id` INT NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_notification_template_notification_temp_status1_idx` (`status_id` ASC) ,
-  CONSTRAINT `fk_notification_template_notification_temp_status1`
-    FOREIGN KEY (`status_id` )
-    REFERENCES `notification_template_status` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `notification_status`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `notification_status` ;
@@ -721,33 +690,25 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `notification_details`
+-- Table `notification_recipient_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `notification_details` ;
+DROP TABLE IF EXISTS `notification_recipient_type` ;
 
-CREATE  TABLE IF NOT EXISTS `notification_details` (
-  `id` INT NOT NULL ,
-  `template_id` INT NULL ,
-  `notification_type` VARCHAR(45) NULL ,
-  `template_text` TEXT NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  INDEX `fk_notification_details_notification_template1_idx` (`template_id` ASC) ,
-  CONSTRAINT `fk_notification_details_notification_template1`
-    FOREIGN KEY (`template_id` )
-    REFERENCES `notification_template` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE  TABLE IF NOT EXISTS `notification_recipient_type` (
+  `id` INT NOT NULL AUTO_INCREMENT ,
+  `type` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `notification_recipient`
+-- Table `notification_channel`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `notification_recipient` ;
+DROP TABLE IF EXISTS `notification_channel` ;
 
-CREATE  TABLE IF NOT EXISTS `notification_recipient` (
+CREATE  TABLE IF NOT EXISTS `notification_channel` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `type` VARCHAR(45) NULL ,
+  `name` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -759,27 +720,23 @@ DROP TABLE IF EXISTS `notification` ;
 
 CREATE  TABLE IF NOT EXISTS `notification` (
   `id` INT NOT NULL AUTO_INCREMENT ,
-  `template_id` INT NULL ,
+  `template_name` VARCHAR(100) NULL ,
   `case_id` INT NULL ,
-  `reciepient_type` INT NULL ,
-  `recepient_additional_info` VARCHAR(95) NULL ,
+  `reciepient_type_id` INT NULL ,
+  `recepient_additional_info` VARCHAR(255) NULL ,
   `status` INT NULL ,
   `created_on` DATETIME NOT NULL ,
   `created_by` INT NOT NULL ,
   `updated_on` DATETIME NOT NULL ,
   `updated_by` INT NOT NULL ,
+  `channel_id` INT NULL ,
   PRIMARY KEY (`id`) ,
-  INDEX `fk_notification_notification_template_id_idx` (`template_id` ASC) ,
   INDEX `fk_notification_case_master_id_idx` (`case_id` ASC) ,
   INDEX `fk_notification_notification_status_id_idx` (`status` ASC) ,
-  INDEX `fk_notification_notification_recipient_id_idx` (`reciepient_type` ASC) ,
+  INDEX `fk_notification_notification_recipient_id_idx` (`reciepient_type_id` ASC) ,
   INDEX `fk_notification_created_by_idx` (`created_by` ASC) ,
   INDEX `fk_notification_updated_by_idx` (`updated_by` ASC) ,
-  CONSTRAINT `fk_notification_notification_template_id`
-    FOREIGN KEY (`template_id` )
-    REFERENCES `notification_template` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+  INDEX `fk_notification_channel_id_idx` (`channel_id` ASC) ,
   CONSTRAINT `fk_notification_case_master_id`
     FOREIGN KEY (`case_id` )
     REFERENCES `case_master` (`id` )
@@ -791,8 +748,8 @@ CREATE  TABLE IF NOT EXISTS `notification` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_notification_notification_recipient_id`
-    FOREIGN KEY (`reciepient_type` )
-    REFERENCES `notification_recipient` (`id` )
+    FOREIGN KEY (`reciepient_type_id` )
+    REFERENCES `notification_recipient_type` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_notification_created_by`
@@ -803,6 +760,11 @@ CREATE  TABLE IF NOT EXISTS `notification` (
   CONSTRAINT `fk_notification_updated_by`
     FOREIGN KEY (`updated_by` )
     REFERENCES `login_master` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_notification_channel_id`
+    FOREIGN KEY (`channel_id` )
+    REFERENCES `notification_channel` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -1214,6 +1176,41 @@ INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secre
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (2, 'Facebook', 'Facebook', '547688988597448', '9a07fdf996236b9c4e7a010549d638d3', 'http://careerscale.in:9090/facebook-callback', NULL);
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (3, 'Google', 'Google', '179271485873.apps.googleusercontent.com', 'ghGOdAEKfCWlz_ClgbYLTLEp', 'http://localhost:9090/google-callback', 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile');
 INSERT INTO `social_network` (`id`, `name`, `description`, `api_key`, `api_secret`, `callback_url`, `scope`) VALUES (4, 'Twitter', 'Twitter', 'FDyGFjNABJKZlPo80TmcA', '0JS0T1PcgFVDQlKhaM6LNwhInzhjmrimgq0k88QgUE', 'http://localhost:9090/twitter-callback', NULL);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `notification_status`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `notification_status` (`id`, `name`) VALUES (1, 'Pending');
+INSERT INTO `notification_status` (`id`, `name`) VALUES (2, 'Sent');
+INSERT INTO `notification_status` (`id`, `name`) VALUES (3, 'Failed');
+INSERT INTO `notification_status` (`id`, `name`) VALUES (4, NULL);
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `notification_recipient_type`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `notification_recipient_type` (`id`, `type`) VALUES (1, 'Indiviual');
+INSERT INTO `notification_recipient_type` (`id`, `type`) VALUES (2, 'CaseUsers');
+INSERT INTO `notification_recipient_type` (`id`, `type`) VALUES (3, 'Admin');
+INSERT INTO `notification_recipient_type` (`id`, `type`) VALUES (4, 'All');
+
+COMMIT;
+
+-- -----------------------------------------------------
+-- Data for table `notification_channel`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `ocms`;
+INSERT INTO `notification_channel` (`id`, `name`) VALUES (1, 'Email');
+INSERT INTO `notification_channel` (`id`, `name`) VALUES (2, 'SMS');
+INSERT INTO `notification_channel` (`id`, `name`) VALUES (3, 'EmailAndSMS');
 
 COMMIT;
 

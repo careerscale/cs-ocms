@@ -1,13 +1,14 @@
 package in.careerscale.apps.ocms.dao;
 
-import java.util.List;
-
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.Notification;
-import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
 import in.careerscale.apps.ocms.dao.model.NotificationStatus;
-import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
-import javax.persistence.*;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,13 +35,7 @@ public class NotificationRepository {
 	}
 	
 
-	public NotificationRecipient getNotificationRecipient(Integer id) {
-		return entityManager.find(NotificationRecipient.class, id);
 
-	}
-	public void save(NotificationRecipient notificationRecipient) {
-		entityManager.persist(notificationRecipient);
-	}
 	
 	public NotificationStatus getNotificationStatus(Integer id) {
 		return entityManager.find(NotificationStatus.class, id);
@@ -52,14 +47,6 @@ public class NotificationRepository {
 	
 	
 	
-	public NotificationTemplate getNotificationTemplate(Integer id)
-	{
-		return entityManager.find(NotificationTemplate.class,id);
-	}
-	public void save(NotificationTemplate notificationTemplate)
-	{
-		entityManager.persist(notificationTemplate);
-	}
 
 	
 	@SuppressWarnings("unchecked")
@@ -70,20 +57,11 @@ public class NotificationRepository {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<NotificationRecipient> getNotificationRecipients() {
-		Query query =entityManager.createQuery("SELECT h FROM NotificationRecipient h order by h.notificationRecipient.id asc, h.id asc"); // AS c WHERE c.caseType is NULL
-		return query.getResultList();
-	}
-	@SuppressWarnings("unchecked")
 	public List<NotificationStatus> getNotificationStatuss() {
 		Query query =entityManager.createQuery("SELECT o FROM NotificationStatus o order by o.notificationStatus.id asc, o.id asc"); // AS c WHERE c.caseType is NULL
 		return query.getResultList();
 	}
-	@SuppressWarnings("unchecked")
-	public List<NotificationTemplate> getNotificationTemplates() {
-		Query query =entityManager.createQuery("SELECT r FROM NotificationTemplate r order by r.notificationTemplate.id asc, r.id asc"); // AS c WHERE c.caseType is NULL
-		return query.getResultList();
-	}
+
 	
 	public Object getById(Class classObject, Object id){
 		return entityManager.find(classObject, id);

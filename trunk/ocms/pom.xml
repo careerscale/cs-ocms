@@ -433,9 +433,11 @@
 			<version>1.49</version>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.bouncycastle</groupId> <artifactId>bcpg-jdk15</artifactId> 
-			<version>1.47</version> </dependency> <dependency> <groupId>org.bouncycastle</groupId> 
-			<artifactId>bcprov-jdk15</artifactId> <version>1.47</version> </dependency> -->
+		<dependency>
+			<groupId>net.tanesha.recaptcha4j</groupId>
+			<artifactId>recaptcha4j</artifactId>
+			<version>0.0.7</version>
+		</dependency>
 
 	</dependencies>
 

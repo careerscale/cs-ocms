@@ -1,5 +1,6 @@
 package in.careerscale.apps.ocms.service;
 
+import in.careerscale.apps.ocms.common.encrypt.EncryptionService;
 import in.careerscale.apps.ocms.dao.UserRepository;
 import in.careerscale.apps.ocms.dao.model.Address;
 import in.careerscale.apps.ocms.dao.model.CaseType;
@@ -7,6 +8,7 @@ import in.careerscale.apps.ocms.dao.model.City;
 import in.careerscale.apps.ocms.dao.model.Fund;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
+import in.careerscale.apps.ocms.dao.model.LoginStatus;
 import in.careerscale.apps.ocms.dao.model.UserNetwork;
 import in.careerscale.apps.ocms.dao.model.UserProfile;
 import in.careerscale.apps.ocms.dao.model.UserRole;
@@ -46,8 +48,8 @@ public class UserService extends AbstractService implements UserDetailsService
 	@Autowired
 	private UserRepository userRepository;
 
-
-
+	@Autowired
+	private EncryptionService encryptionService;
 
 	private static final String DUMMY_PASSWORD = "password";
 
@@ -127,6 +129,7 @@ public class UserService extends AbstractService implements UserDetailsService
 				}
 				dbUser = new LoginMaster(user.getEmailId(), user.getPassword(), user.getFirstName(),
 						user.getLastName(), user.getDateOfBirth(), LoginMaster.SOCIAL_REGISTERED);
+				dbUser.setLoginStatus(LoginStatus.SocialUser.getId());
 				// TODO set DB flag as well.
 				userRepository.registerUser(dbUser);
 
@@ -144,6 +147,7 @@ public class UserService extends AbstractService implements UserDetailsService
 				// regular form registration, let us go ahead here
 				dbUser = new LoginMaster(user.getEmailId(), user.getPassword(), user.getFirstName(),
 						user.getLastName(), user.getDateOfBirth(), LoginMaster.LOCAL_REGISTERED);
+				dbUser.setLoginStatus(LoginStatus.EmailNotVerfiied.getId());
 				userRepository.registerUser(dbUser);
 				List<CaseType> userCaseTypes = userRepository.getCaseTypes(user.getCaseTypes());
 
@@ -152,6 +156,7 @@ public class UserService extends AbstractService implements UserDetailsService
 				List<HelpCategoryType> userHelpTypes = userRepository.gethelpTypes(user.getHelpTypes());
 
 				dbUser.setHelpCategoryTypes(new HashSet<HelpCategoryType>(userHelpTypes));
+
 				userRepository.update(dbUser);
 				result = RegistrationResult.Registered;
 
@@ -162,9 +167,10 @@ public class UserService extends AbstractService implements UserDetailsService
 					placeHolderValues.put(EmailTemplates.firstName, user.getFirstName());
 					placeHolderValues.put(EmailTemplates.userName, user.getEmailId());
 					placeHolderValues.put(EmailTemplates.password, user.getPassword());
-					String emailText = EmailTemplates.getEmailMessage(Template.Registration, placeHolderValues);
-					emailService.sendMailWithSSL("OCMS Registration Successful ::" + dbUser.getFirstName(), emailText,
-							user.getEmailId());
+					placeHolderValues.put("idKey", encryptionService.encryptedKey(dbUser.getId().toString()));
+					placeHolderValues.put("emailKey", encryptionService.encryptedKey(user.getEmailId()));
+					sendEmail(dbUser.getEmailId(), Template.Registration, placeHolderValues);
+
 				}
 				catch (Exception mailFailure)
 				{
@@ -225,9 +231,8 @@ public class UserService extends AbstractService implements UserDetailsService
 			placeHolderValues.put(EmailTemplates.firstName, dbUser.getFirstName());
 			placeHolderValues.put(EmailTemplates.userName, dbUser.getEmailId());
 			placeHolderValues.put(EmailTemplates.password, dbUser.getPassword());
-			String emailText = EmailTemplates.getEmailMessage(Template.ForgotPassword, placeHolderValues);
-			emailService
-					.sendMailWithSSL(dbUser.getFirstName() + " Your OCMS Password ", emailText, dbUser.getEmailId());
+			sendEmail(dbUser.getEmailId(), Template.ForgotPassword, placeHolderValues);
+		
 		}
 		catch (Exception mailFailure)
 		{
@@ -415,6 +420,32 @@ public class UserService extends AbstractService implements UserDetailsService
 		Fund fund = (Fund) userRepository.getById(Fund.class, id);
 		return fund.getReceipt();
 
+	}
+
+	/**
+	 * Let us verify user email id. Id and email are sent in email in encrypted format to avoid abuse.
+	 * 
+	 * @param id
+	 *            the user id.
+	 * @param email
+	 *            The user email id.
+	 * @return verification status. if valid true otherwise false.
+	 */
+	public boolean verifyEmail(String id, String email)
+	{
+		boolean result = false;
+		if (id != null && email != null){
+			id= encryptionService.decryptKey(id);
+			email=encryptionService.decryptKey(email);
+			LoginMaster user = (LoginMaster) userRepository.getById(LoginMaster.class, Integer.parseInt(id));
+			if(user!=null && user.getEmailId().equalsIgnoreCase(email)){
+				result=true;
+				user.setLoginStatus(LoginStatus.EmailVerified.getId());
+				userRepository.update(user);
+			}
+		}
+		return result;
+		
 	}
 
 
