@@ -1,15 +1,13 @@
 package in.careerscale.apps.ocms.dao.model;
 
-// Generated Jul 7, 2013 10:49:55 AM by Hibernate Tools 4.0.0
-
-import static javax.persistence.GenerationType.IDENTITY;
+// Generated Jul 21, 2013 10:22:12 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,181 +20,158 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "notification", catalog = "ocms")
-public class Notification implements java.io.Serializable
-{
+public class Notification implements java.io.Serializable {
 
 	private Integer id;
-	private NotificationTemplate notificationTemplate;
+	private LoginMaster loginMasterByCreatedBy;
 	private NotificationStatus notificationStatus;
-	private NotificationRecipient notificationRecipient;
+	private LoginMaster loginMasterByUpdatedBy;
+	private NotificationRecipientType notificationRecipientType;
+	private NotificationChannel notificationChannel;
 	private CaseMaster caseMaster;
+	private String templateName;
 	private String recepientAdditionalInfo;
 	private Date createdOn;
-	private LoginMaster createdBy;
 	private Date updatedOn;
-	private LoginMaster updatedBy;
 
-	public Notification()
-	{
+	public Notification() {
 	}
 
-	public Notification(Date createdOn, LoginMaster createdBy, Date updatedOn, LoginMaster updatedBy)
-	{
-		this.createdOn = createdOn;
-		this.createdBy = createdBy;
-		this.updatedOn = updatedOn;
-		this.updatedBy = updatedBy;
-	}
-
-	public Notification(String recipientInfo, Date createdOn, Date updatedOn, LoginMaster loginMasterByCreatedBy,
-			LoginMaster loginMasterByUpdatedBy, CaseMaster caseMaster, NotificationRecipient recipient,
-			NotificationStatus status, NotificationTemplate template)
-	{
-		this.caseMaster = caseMaster;
+	public Notification(LoginMaster loginMasterByCreatedBy,
+			LoginMaster loginMasterByUpdatedBy, Date createdOn, Date updatedOn) {
+		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
+		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
 		this.createdOn = createdOn;
 		this.updatedOn = updatedOn;
-		this.createdBy = loginMasterByCreatedBy;
-		this.updatedBy = loginMasterByUpdatedBy;
-		this.notificationRecipient = recipient;
-		this.recepientAdditionalInfo = recipientInfo;
-		this.notificationStatus = status;
-		this.notificationTemplate = template;
-
 	}
 
-	public Notification(NotificationTemplate notificationTemplate, NotificationStatus notificationStatus,
-			NotificationRecipient notificationRecipient, CaseMaster caseMaster, String recepientAdditionalInfo,
-			Date createdOn, LoginMaster createdBy, Date updatedOn, LoginMaster updatedBy)
-	{
-		this.notificationTemplate = notificationTemplate;
+	public Notification(LoginMaster loginMasterByCreatedBy,
+			NotificationStatus notificationStatus,
+			LoginMaster loginMasterByUpdatedBy,
+			NotificationRecipientType notificationRecipientType,
+			NotificationChannel notificationChannel, CaseMaster caseMaster,
+			String templateName, String recepientAdditionalInfo,
+			Date createdOn, Date updatedOn) {
+		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
 		this.notificationStatus = notificationStatus;
-		this.notificationRecipient = notificationRecipient;
+		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+		this.notificationRecipientType = notificationRecipientType;
+		this.notificationChannel = notificationChannel;
 		this.caseMaster = caseMaster;
+		this.templateName = templateName;
 		this.recepientAdditionalInfo = recepientAdditionalInfo;
 		this.createdOn = createdOn;
-		this.createdBy = createdBy;
 		this.updatedOn = updatedOn;
-		this.updatedBy = updatedBy;
 	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId()
-	{
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id)
-	{
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "template_id")
-	public NotificationTemplate getNotificationTemplate()
-	{
-		return this.notificationTemplate;
+	@JoinColumn(name = "created_by", nullable = false)
+	public LoginMaster getLoginMasterByCreatedBy() {
+		return this.loginMasterByCreatedBy;
 	}
 
-	public void setNotificationTemplate(NotificationTemplate notificationTemplate)
-	{
-		this.notificationTemplate = notificationTemplate;
+	public void setLoginMasterByCreatedBy(LoginMaster loginMasterByCreatedBy) {
+		this.loginMasterByCreatedBy = loginMasterByCreatedBy;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "status")
-	public NotificationStatus getNotificationStatus()
-	{
+	public NotificationStatus getNotificationStatus() {
 		return this.notificationStatus;
 	}
 
-	public void setNotificationStatus(NotificationStatus notificationStatus)
-	{
+	public void setNotificationStatus(NotificationStatus notificationStatus) {
 		this.notificationStatus = notificationStatus;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "reciepient_type")
-	public NotificationRecipient getNotificationRecipient()
-	{
-		return this.notificationRecipient;
+	@JoinColumn(name = "updated_by", nullable = false)
+	public LoginMaster getLoginMasterByUpdatedBy() {
+		return this.loginMasterByUpdatedBy;
 	}
 
-	public void setNotificationRecipient(NotificationRecipient notificationRecipient)
-	{
-		this.notificationRecipient = notificationRecipient;
+	public void setLoginMasterByUpdatedBy(LoginMaster loginMasterByUpdatedBy) {
+		this.loginMasterByUpdatedBy = loginMasterByUpdatedBy;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "reciepient_type_id")
+	public NotificationRecipientType getNotificationRecipientType() {
+		return this.notificationRecipientType;
+	}
+
+	public void setNotificationRecipientType(
+			NotificationRecipientType notificationRecipientType) {
+		this.notificationRecipientType = notificationRecipientType;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "channel_id")
+	public NotificationChannel getNotificationChannel() {
+		return this.notificationChannel;
+	}
+
+	public void setNotificationChannel(NotificationChannel notificationChannel) {
+		this.notificationChannel = notificationChannel;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "case_id")
-	public CaseMaster getCaseMaster()
-	{
+	public CaseMaster getCaseMaster() {
 		return this.caseMaster;
 	}
 
-	public void setCaseMaster(CaseMaster caseMaster)
-	{
+	public void setCaseMaster(CaseMaster caseMaster) {
 		this.caseMaster = caseMaster;
 	}
 
-	@Column(name = "recepient_additional_info", length = 95)
-	public String getRecepientAdditionalInfo()
-	{
+	@Column(name = "template_name", length = 100)
+	public String getTemplateName() {
+		return this.templateName;
+	}
+
+	public void setTemplateName(String templateName) {
+		this.templateName = templateName;
+	}
+
+	@Column(name = "recepient_additional_info")
+	public String getRecepientAdditionalInfo() {
 		return this.recepientAdditionalInfo;
 	}
 
-	public void setRecepientAdditionalInfo(String recepientAdditionalInfo)
-	{
+	public void setRecepientAdditionalInfo(String recepientAdditionalInfo) {
 		this.recepientAdditionalInfo = recepientAdditionalInfo;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_on", nullable = false, length = 19)
-	public Date getCreatedOn()
-	{
+	public Date getCreatedOn() {
 		return this.createdOn;
 	}
 
-	public void setCreatedOn(Date createdOn)
-	{
+	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "created_by", nullable = false)
-	public LoginMaster getCreatedBy()
-	{
-		return this.createdBy;
-	}
-
-	public void setCreatedBy(LoginMaster createdBy)
-	{
-		this.createdBy = createdBy;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_on", nullable = false, length = 19)
-	public Date getUpdatedOn()
-	{
+	public Date getUpdatedOn() {
 		return this.updatedOn;
 	}
 
-	public void setUpdatedOn(Date updatedOn)
-	{
+	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "updated_by", nullable = false)
-	public LoginMaster getUpdatedBy()
-	{
-		return this.updatedBy;
-	}
-
-	public void setUpdatedBy(LoginMaster updatedBy)
-	{
-		this.updatedBy = updatedBy;
 	}
 
 }

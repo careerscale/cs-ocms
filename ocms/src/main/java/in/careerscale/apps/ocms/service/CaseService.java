@@ -18,10 +18,6 @@ import in.careerscale.apps.ocms.dao.model.Fund;
 import in.careerscale.apps.ocms.dao.model.FundStatus;
 import in.careerscale.apps.ocms.dao.model.HelpCategoryType;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
-import in.careerscale.apps.ocms.dao.model.Notification;
-import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
-import in.careerscale.apps.ocms.dao.model.NotificationStatus;
-import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
 import in.careerscale.apps.ocms.dao.model.Organization;
 import in.careerscale.apps.ocms.mail.EmailTemplates;
 import in.careerscale.apps.ocms.mail.Template;
@@ -128,15 +124,14 @@ public class CaseService extends AbstractService
 			caseRepository.registerCase(caseMaster);
 			bean.setId(caseMaster.getId());
 
-			NotificationRecipient recipient = null;
-			NotificationStatus status = (NotificationStatus) notificationRepository
-					.getById(NotificationStatus.class, 1);
-			NotificationTemplate template = (NotificationTemplate) notificationRepository.getById(
-					NotificationTemplate.class, 1);
-			Notification notification = new Notification("this is recipient", Calendar.getInstance().getTime(),
-					Calendar.getInstance().getTime(), loggedInUser, loggedInUser, caseMaster, recipient, status,
-					template);
-			notificationRepository.save(notification);
+			/*
+			 * NotificationRecipient recipient = null; NotificationStatus status = (NotificationStatus)
+			 * notificationRepository .getById(NotificationStatus.class, 1); NotificationTemplate template =
+			 * (NotificationTemplate) notificationRepository.getById( NotificationTemplate.class, 1); Notification
+			 * notification = new Notification("this is recipient", Calendar.getInstance().getTime(),
+			 * Calendar.getInstance().getTime(), loggedInUser, loggedInUser, caseMaster, recipient, status, template);
+			 * notificationRepository.save(notification);
+			 */
 
 		}
 		catch (PersistenceException pe)

@@ -57,6 +57,8 @@ public class LoginMaster implements java.io.Serializable {
 	private Set<UserNetwork> userNetworks = new HashSet(0);
 	private Set<UserRole> userRoles = new HashSet(0);
 
+	private Integer loginStatus;
+
 	public LoginMaster() {
 	}
 
@@ -175,6 +177,17 @@ public class LoginMaster implements java.io.Serializable {
 
 	public void setLoginType(Integer loginType) {
 		this.loginType = loginType;
+	}
+
+	@Column(name = "login_status")
+	public Integer getLoginStatus()
+	{
+		return loginStatus;
+	}
+
+	public void setLoginStatus(Integer loginStatus)
+	{
+		this.loginStatus = loginStatus;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "loginMaster")

@@ -11,7 +11,7 @@
 			donors and avoid misuse of funds/donations while bringing utmost
 			transparency.
 			This initiative is from <a href="http://careerscale.in">CareerScale</a>
-			and primarily intend to be used within India while it is not just
+			and primarily intended to be used within India while it is not just
 			restricted to India.
 		</p>
 		
@@ -19,7 +19,7 @@
 
 		<img src="/resources/images/OCMShighlevelflow.jpg" />
         <h3>Team</h3>
-        The team at <a href="http://careerscale.in">CareerScale</a> that is responsible for OCMS is
+        The team at <a href="http://careerscale.in">Careerscale</a> that is responsible for OCMS is
         <ul>
         <li>Harinath Mallepally </li>
         <li>Mahender Singh </li>      

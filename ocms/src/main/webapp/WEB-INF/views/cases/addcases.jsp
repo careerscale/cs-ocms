@@ -41,11 +41,8 @@
 		<div class="large-10 columns">
 			<form:form method="post" action="addcase" id="addCaseForm"
 				modelAttribute="caseDetails">
-
-
 				<fieldset>
-
-					<div class="row">
+									<div class="row">
 
 						<div class="small-1  columns"></div>
 						<div class="large-11  columns">

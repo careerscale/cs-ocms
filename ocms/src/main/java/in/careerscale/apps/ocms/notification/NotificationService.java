@@ -1,15 +1,9 @@
 package in.careerscale.apps.ocms.notification;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import in.careerscale.apps.ocms.dao.NotificationRepository;
 import in.careerscale.apps.ocms.dao.model.CaseMaster;
 import in.careerscale.apps.ocms.dao.model.LoginMaster;
 import in.careerscale.apps.ocms.dao.model.Notification;
-import in.careerscale.apps.ocms.dao.model.NotificationRecipient;
-import in.careerscale.apps.ocms.dao.model.NotificationStatus;
-import in.careerscale.apps.ocms.dao.model.NotificationTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,12 +27,14 @@ public class NotificationService {
 			LoginMaster loggedInUser = (LoginMaster) notificationRepository.getById(LoginMaster.class, 1);
 			
 			CaseMaster currentCase = (CaseMaster) notificationRepository.getById(CaseMaster.class, 1);
-			NotificationRecipient recipient = null;
-			NotificationStatus status = (NotificationStatus) notificationRepository.getById(NotificationStatus.class, 1);
-			NotificationTemplate template = (NotificationTemplate) notificationRepository.getById(NotificationTemplate.class, 1);
-			notification = new Notification("this is recipient", Calendar.getInstance().getTime(), Calendar.getInstance().getTime(), loggedInUser, loggedInUser, currentCase, recipient, status, template);
+		// NotificationRecipient recipient = null;
+		// NotificationStatus status = (NotificationStatus) notificationRepository.getById(NotificationStatus.class, 1);
+		// NotificationTemplate template = (NotificationTemplate)
+		// notificationRepository.getById(NotificationTemplate.class, 1);
+		// notification = new Notification("this is recipient", Calendar.getInstance().getTime(),
+		// Calendar.getInstance().getTime(), loggedInUser, loggedInUser, currentCase, recipient, status, template);
 		//	 notification.setCreatedOn();
-			notificationRepository.save(notification);
+		// notificationRepository.save(notification);
 		}
 		
 		

@@ -67,12 +67,24 @@ public abstract class AbstractService
 		String subject = null;
 		String emailText = null;
 		String firstName = parameters.get(EmailTemplates.firstName);
+		
+		if (firstName != null)
+			firstName = Character.toUpperCase(firstName.charAt(0)) + firstName.substring(1);
 
 		updateBasicEmailSettings(parameters);
 		switch (template) {
+
+		case Registration:
+			emailText = EmailTemplates.getEmailMessage(Template.Registration, parameters);
+			subject = "Thank you for registration " + firstName;
+			break;
+		case ForgotPassword:
+			emailText = EmailTemplates.getEmailMessage(Template.ForgotPassword, parameters);
+			subject = "Dear " + firstName + " Your password details inside";
+			break;
 		case FundReceiptGenerated:
 			emailText = EmailTemplates.getEmailMessage(Template.FundReceiptGenerated, parameters);
-			subject = "Thank you for your contribution ::" + firstName;
+			subject = "Thank you for your contribution " + firstName;
 			break;
 		case NewCaseForApproval:
 			emailText = EmailTemplates.getEmailMessage(Template.NewCaseForApproval, parameters);
@@ -83,10 +95,13 @@ public abstract class AbstractService
 			emailText = EmailTemplates.getEmailMessage(Template.CaseRegistered, parameters);
 			subject = "Dear " + firstName + ", A new case is registered at OCMS";
 			break;
+
 		default:
 
 		}
 
+		
+		
 		emailService.sendMailWithSSL(subject, emailText, emailId);
 	}
 }

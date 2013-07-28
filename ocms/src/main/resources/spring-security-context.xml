@@ -37,6 +37,8 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 			access="permitAll" />
 		<security:intercept-url pattern="/oauth"
 			access="permitAll" />
+		<security:intercept-url pattern="/verify"
+			access="permitAll" />
 		<security:intercept-url pattern="/login"
 			access="permitAll" />
 		<security:intercept-url pattern="/resources/**"
