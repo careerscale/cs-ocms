@@ -13,6 +13,7 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+	
 	<servlet>
 		<servlet-name>SpringDispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -30,7 +31,20 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SpringDispatcher</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/rest</url-pattern>
+	</servlet-mapping>
+
+	<listener>
+		<listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>SimpleWebService</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SimpleWebService</servlet-name>
+		<url-pattern>/SimpleWebService</url-pattern>
 	</servlet-mapping>
 
 	<session-config>
