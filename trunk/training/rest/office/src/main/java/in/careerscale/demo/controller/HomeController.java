@@ -45,7 +45,21 @@ public class HomeController {
 	public ModelAndView test(HttpServletResponse response) throws IOException {
 		return new ModelAndView("home");
 	}
+/**
+ * user like this in the browser
 
+http://localhost:9090/department/1/employee/
+and the http body (in JSON) will be:
+
+{"id":2,"first_name":"Harsha","last_name":"B"}
+
+
+ * 
+ * @param departmentId
+ * @param response
+ * @param employeeData
+ * @return
+ */
 	@RequestMapping(value = "/department/{department_id}/employee", method = RequestMethod.POST)
 	public @ResponseBody
 	String postEmployee(@PathVariable("department_id") Integer departmentId,
@@ -69,13 +83,23 @@ public class HomeController {
 
 	}
 
+	/**
+	 * 
+http://localhost:9090/department/1/employee/1
+
+
+	 * @param departmentId
+	 * @param employeeId
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/department/{department_id}/employee/{employee_id}", method = RequestMethod.GET)
 	public @ResponseBody
 	String getEmployee(@PathVariable("department_id") Integer departmentId,
 			@PathVariable("employee_id") Integer employeeId,
 			HttpServletResponse response) {
 		String employeeResponse = null;
-		Employee employee = null;
+		Employee employee = null;   
 		Set<ErrorCode> errors = new HashSet<ErrorCode>();
 		
 		employeeResponse = validateRequest(employee, departmentId, response);
