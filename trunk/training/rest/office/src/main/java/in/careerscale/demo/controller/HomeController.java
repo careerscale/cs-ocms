@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -62,7 +63,7 @@ and the http body (in JSON) will be:
  */
 	@RequestMapping(value = "/department/{department_id}/employee", method = RequestMethod.POST)
 	public @ResponseBody
-	String postEmployee(@PathVariable("department_id") Integer departmentId,
+	String postEmployee(@PathVariable("department_id") Integer departmentId,HttpServletRequest request, 
 			HttpServletResponse response, @RequestBody String employeeData) {
 
 		String employeeResponse = null;
