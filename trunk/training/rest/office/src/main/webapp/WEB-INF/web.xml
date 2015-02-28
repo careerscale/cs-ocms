@@ -34,9 +34,11 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+<!-- 
 	<listener>
 		<listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
 	</listener>
+ -->
 	<!-- <servlet> <servlet-name>SimpleWebService</servlet-name> <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class> 
 		<load-on-startup>1</load-on-startup> </servlet> <servlet-mapping> <servlet-name>SimpleWebService</servlet-name> 
 		<url-pattern>/SimpleWebService</url-pattern> </servlet-mapping> -->
